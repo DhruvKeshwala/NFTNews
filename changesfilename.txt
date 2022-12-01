@@ -1,0 +1,6 @@
+web.php
+login.blade.php
+category.blade.php
+add_category.blade.php
+news.blade.php
+categorycontroller.php
