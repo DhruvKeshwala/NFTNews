@@ -43,13 +43,60 @@
                     <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100"></div>
                     @endif
                     <div id="imageError"></div>
-            </td>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Upload Article 1</label></td>
+                <td>
+                    <input type="file" name="article_1" id="article_1">
+                    @if(@$news->article_1 != '')
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100"></div>
+                    @endif
+                    <div id="article1Error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Upload Article 2</label></td>
+                <td>
+                    <input type="file" name="article_2" id="article_2">
+                    @if(@$news->article_2 != '')
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100"></div>
+                    @endif
+                    <div id="article2Error"></div>
+                </td>
             </tr>
             <tr>
                 <td><label>Video URL</label></td>
                 <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL"><div id="videoURLError"></div></td>
             </tr>
-            @php
+            <tr>
+                <td><label>Select Section to Publish In</label></td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Section Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                        @php
+                        $dateArray = json_decode(@$news->newsType,true);
+                        @endphp
+                        @foreach(config('constant.news_type') as $key=>$newstype)
+                        <tr>
+                            <td>{{ $newstype }}</td>
+                            <td>
+                                <input type="text" class="datepicker" value="{{ @$dateArray[$key]['start_date'] }}" name="start_date[]" placeholder="Start Date">
+                                <input type="hidden" name="newstype[]" value="{{$key}}" >
+                            </td>
+                            <td>
+                                <input type="text" class="datepicker" value="{{ @$dateArray[$key]['end_date'] }}" name="end_date[]" placeholder="End Date">
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </td>
+            </tr>
+            {{-- @php
             $dateArray = json_decode(@$news->newsType,true);
             @endphp
             @foreach(config('constant.news_type') as $key=>$newstype)
@@ -60,10 +107,13 @@
                     <input type="hidden" name="newstype[]" value="{{$key}}" >
                 </td>
             </tr>
-            @endforeach
+            @endforeach --}}
             <tr>
                 <td></td>
-                <td><a onclick="saveCategory()" class="btn btn-success">SAVE</a></td>
+                <td>
+                    <a href="javascript:;" onclick="saveNews()" class="btn btn-success light-font">SAVE</a>
+                    <a href="{{ route('news') }}" class="btn btn-danger">Cancel</a>
+                </td>
             </tr>
         </table>
         <div class="clearfix"></div>
@@ -76,7 +126,8 @@
 <script>
     $( ".datepicker" ).datepicker({
         dateFormat: "dd-mm-yy",
-        duration: "fast"
+        duration: "fast",
+        minDate: 0
     });
     $("select[name=\"categoryId[]\"]").select2({
         multiple:true,
@@ -92,18 +143,19 @@
                 filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                 filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
             } );
-    function saveCategory() 
+    function saveNews() 
     {
         var flag = 1;
-        var categoryId = $("select[name=\"categoryId[]\"]").val();
-        var title = $("input[name=\"title\"]").val();
-        var videoURL = $("input[name=\"videoURL\"]").val();
+        var categoryId = $("select[name='categoryId[]']").val();
+        var title = $("input[name='title']").val();
+        var videoURL = $("input[name='videoURL']").val();
         var shortDescription = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
         var fullDescription = CKEDITOR.instances['fullDescription'].getData();
-        var newsId = $("input[name=\"newsId\"]").val();
-        var date = $("input[name='date[]']").map(function(){return $(this).val();}).get();
-        var newstype = $("input[name=\"newstype[]\"]").map(function(){return $(this).val();}).get();
+        var newsId = $("input[name='newsId']").val();
+        var start_date = $("input[name='start_date[]']").map(function(){return $(this).val();}).get();
+        var end_date = $("input[name='end_date[]']").map(function(){return $(this).val();}).get();
+        var newstype = $("input[name='newstype[]']").map(function(){return $(this).val();}).get();
 
         var fd = new FormData();
         if(newsId == ''){
@@ -115,13 +167,26 @@
         {
             fd.append('image',files[0]);
         }
+        // Append article 1 
+        var files = $('#article_1')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('article_1',files[0]);
+        }
+        // Append article 1
+        var files = $('#article_2')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('article_2',files[0]);
+        }
         fd.append('categoryId', categoryId);
         fd.append('title', title);
         fd.append('videoURL', videoURL);
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
         fd.append('newsId', newsId);
-        fd.append('date', date);
+        fd.append('start_date', start_date);
+        fd.append('end_date', end_date);
         fd.append('newstype', newstype);
 
         if (categoryId == '' || categoryId == null) 

@@ -34,7 +34,10 @@
             </tr>
             <tr>
                 <td></td>
-                <td><a onclick="saveCategory()" class="btn btn-success">SAVE</a></td>
+                <td>
+                    <a href="javascript:;" onclick="saveCategory()" class="btn btn-success light-font">SAVE</a>
+                    <a href="{{ route('category') }}" class="btn btn-danger">Cancel</a>
+                </td>
             </tr>
         </table>
 

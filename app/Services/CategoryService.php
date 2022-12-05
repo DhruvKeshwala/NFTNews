@@ -6,7 +6,7 @@ class CategoryService
     // find all Category
     public static function getCategory()
     {
-        return Category::orderby('id','desc')->paginate(5);
+        return Category::orderby('id','desc')->paginate(10);
     }
     // delete Category
     public static function deleteCategory($categoryId) 

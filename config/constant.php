@@ -2,10 +2,10 @@
 return [
     'pagination_records' => 10,
     'news_type' => [
-        "featured" => "Featured",
-        "latest" => "Latest News",
-        "video" => "Video",
-        "press" => "Press Releases",
+        "homeheader" => "Homepage Header",
+        "featurednew" => "Featured News",
+        "featureddrop" => "Featured Drops",
+        "homenews" => "Home News",
     ]
 ]
 ?>

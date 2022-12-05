@@ -1,4 +1,9 @@
 @include('layouts.header')
+<style>
+a:hover {
+    text-decoration: none;
+}
+</style>
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
@@ -14,23 +19,63 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Category</th>
-                    <th>Title</th>
                     <th>Image</th>
+                    <th>News Title</th>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Listed In</th>
+                    <th>Posted On</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                @if (count($news)<=0)
+                <tr>
+                    <td colspan="9" class="text-center"> No records found </td>
+                </tr> 
+                @endif
                 @foreach($news as $newsDetails)
-                @php 
-                $imgsrc = $newsDetails -> image;
-                @endphp
+                    @php 
+                        $selection_types = '';
+                        $imgsrc = $newsDetails -> image;
+                        $dateArray = json_decode(@$newsDetails->newsType,true);
+                    @endphp
+                    @foreach(config('constant.news_type') as $key=>$newstype)
+                        @if (!empty($dateArray[$key]['start_date']) && !empty($dateArray[$key]['end_date']))
+                            @php
+                                $selection_types .= $newstype.', ';
+                            @endphp                            
+                        @endif                        
+                    @endforeach
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>{{$newsDetails->category}}</td>
-                    <td>{{$newsDetails->title}}</td>
                     <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
-                    <td><a title="Edit" href="{{ route('add_news',$newsDetails->id)}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a> <a onclick="deleteNews('{{$newsDetails->id}}')" title="Delete" class="btn btn-sm btn-danger"><i class="fa fa-trash" style="color:white;"></i></a> <a href="{{ route('news_detail',$newsDetails->id)}}" title="View Detail" class="btn btn-sm btn-primary fancybox fancybox.iframe" class=" text-success"  id="fancybox-manual-b" ><i class="fa fa-eye"></i></a></td>
+                    <td>{{$newsDetails->title}}</td>
+                    <td>{{$newsDetails->category}}</td>
+                    <td></td>
+                    <td>
+                        {{ rtrim( $selection_types, ', ') }}
+                    </td>
+                    <td>{{ $newsDetails->created_at }}</td>
+                    <td align="center">
+                        @if ($newsDetails->fld_status=='Active')
+                            <a href="#" class="text-success"><span class="fa fa-check"></span></a>
+                        @else
+                            <a href="#" class="text-danger"><span class="fa fa-times"></span></a>
+                        @endif
+                    </td>
+                    <td>
+                        <a title="Edit" href="{{ route('add_news',$newsDetails->id)}}" class="text-success mr-2">
+                            <span class="fa fa-edit fa-lg"></span>
+                        </a> 
+                        <a href="javascript:;" onclick="deleteNews('{{$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
+                            <span class="fa fa-trash-o fa-lg"></span>
+                        </a> 
+                        <a href="{{ route('news_detail',$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                            <span class="fa fa-eye fa-lg"></span>
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

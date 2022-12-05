@@ -42,7 +42,7 @@
         <div class="main my-0">
             <div class="row mt-3 mx-0">
                 <div class="col-md-6 ml-3">
-                    <h3>News Detail.</h3>
+                    <h3>News Detail</h3>
                 </div>
                 <div class="col-md-5 text-right">
                     &nbsp;
@@ -51,26 +51,29 @@
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
                     <tr>
-                        <td>Short Description</td>
+                        <td><b>Short Description</b></td>
                         <td>{{ $news->shortDescription }}</td>
                     </tr>
                     <tr>
-                        <td>Full Description</td>
+                        <td><b>Full Description</b></td>
                         <td>{!! $news->fullDescription !!}</td>
                     </tr>
                     <tr>
-                        <td>Video URL</td>
+                        <td><b>Video URL</b></td>
                         <td>{{ $news->videoURL }}</td>
                     </tr>
                     @php
                     $dateArray = json_decode(@$news->newsType,true);
                     @endphp
-                    @if(@$dateArray['featured'] != '')
-                    <tr>
-                        <td>Featured</td>
-                        <td>{{ $dateArray['featured'] }}</td>
-                    </tr>
-                    @endif
+                    @foreach(config('constant.news_type') as $key=>$newstype)
+											@if (!empty(@$dateArray[$key]['start_date']) && !empty(@$dateArray[$key]['end_date']))
+												<tr>
+													<td><b>{{ $newstype }}</b></td>
+													<td><b>From : </b>{{ @$dateArray[$key]['start_date'] ? @$dateArray[$key]['start_date'] : '' }} <b>To :</b>{{ @$dateArray[$key]['end_date'] ? @$dateArray[$key]['end_date'] : '' }}</td>
+												</tr>
+											@endif
+                    @endforeach
+                    {{-- @endif
                     @if(@$dateArray['latest'] != '')
                     <tr>
                         <td>Latest News</td>
@@ -88,7 +91,7 @@
                         <td>Press Releases</td>
                         <td>{{ $dateArray['featured'] }}</td>
                     </tr>
-                    @endif
+                    @endif --}}
                 </table>
                 <div class="clearfix"></div>
             </div>

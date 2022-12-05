@@ -6,7 +6,7 @@ class NewsService
     // find all News
     public static function getNews()
     {
-        return News::orderby('id','desc')->paginate(5);
+        return News::orderby('id','desc')->paginate(10);
     }
     // delete country
     public static function deleteNews($newsId) 

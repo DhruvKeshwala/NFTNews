@@ -1,4 +1,9 @@
 @include('layouts.header')
+<style>
+a:hover {
+    text-decoration: none;
+}
+</style>
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
@@ -24,6 +29,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if (count($category)<=0)
+                <tr>
+                    <td colspan="7" class="text-center"> No records found </td>
+                </tr> 
+                @endif
                 @foreach($category as $categoryDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
@@ -32,7 +42,14 @@
                     <td>{{$categoryDetails->title}}</td>
                     <td>{{$categoryDetails->description}}</td>
                     <td>{{$categoryDetails->keywords}}</td>
-                    <td><a href="{{ route('add_category',$categoryDetails->id)}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a> <a onclick="deleteCategory('{{$categoryDetails->id}}')" class="btn btn-sm btn-danger"><i class="fa fa-trash" style="color:white;"></i></a></td>
+                    <td>
+                        <a title="Edit" href="{{ route('add_category',$categoryDetails->id)}}" class="text-success mr-2">
+                            <span class="fa fa-edit fa-lg"></span>
+                        </a> 
+                        <a title="Delete" href="javascript:;" onclick="deleteCategory('{{$categoryDetails->id}}')" class="text-danger mr-2">
+                            <span class="fa fa-trash-o fa-lg"></span>
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

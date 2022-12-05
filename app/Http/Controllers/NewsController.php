@@ -20,7 +20,7 @@ class NewsController extends Controller
     }
     public function addNews($id=null)
     {
-        $categories = CategoryService::getCategory();
+        $categories = Category::all();
         $news = NewsService::getNewsById($id);
         return view('add_news',compact('news','id','categories'));
     }
@@ -55,14 +55,30 @@ class NewsController extends Controller
             $name = $file->move(public_path('uploads'), $fileName);
             $newsdetails['image'] = $fileName;
         }
+        if($request->file('article_1') != null)
+        {
+            $file      = $request->file('article_1');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(public_path('uploads'), $fileName);
+            $newsdetails['article_1'] = $fileName;
+        }
+        if($request->file('article_2') != null)
+        {
+            $file      = $request->file('article_2');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(public_path('uploads'), $fileName);
+            $newsdetails['article_2'] = $fileName;
+        }
         $newsTypeDate = array();
-        $dateArray = explode(',',$request->date);
+        $start_date = explode(',',$request->start_date);
+        $end_date = explode(',',$request->end_date);
         $newsArray = explode(',',$request->newstype);
         if(is_array($newsArray))
         {
             foreach($newsArray as $key=>$newstype)
             {
-                $newsTypeDate[$newstype] = $dateArray[$key];
+                $newsTypeDate[$newstype]['start_date'] = $start_date[$key];
+                $newsTypeDate[$newstype]['end_date'] = $end_date[$key];
             }
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
