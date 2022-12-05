@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->integer('categoryId');
+            $table->string('categoryId');
             $table->string('title');
-            $table->string('shortDescription');
-            $table->string('fullDescription');
+            $table->longText('shortDescription');
+            $table->longText('fullDescription');
             $table->string('image');
-            $table->string('videoType');
+            $table->string('article_1');
+            $table->string('article_2');
             $table->string('videoURL');
+            $table->longText('newsType');
+            $table->enum('fld_status',['Active','Inactive'])->default('Active');
             $table->timestamps();
             $table->softDeletes();
         });

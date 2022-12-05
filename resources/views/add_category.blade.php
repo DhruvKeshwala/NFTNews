@@ -98,7 +98,7 @@
                 }
             });
             $.ajax({
-                url: "<?php echo e(url('save_category')); ?>",
+                url: "{{ url('save_category') }}",
                 type: "POST",
                 data: {
                     name: name,

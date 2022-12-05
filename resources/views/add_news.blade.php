@@ -222,7 +222,7 @@
                 }
             });
             $.ajax({
-                url: "<?php echo e(url('save_news')); ?>",
+                url: "{{ url('save_news') }}",
                 type: "POST",
                 data:fd,
                 cache: false,

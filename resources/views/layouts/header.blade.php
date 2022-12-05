@@ -68,9 +68,10 @@
               <div id="sidebarMenu">
                 <ul class="sidebarMenuInner">
                   <li class="logo d-sm-none border-bottom bg-light border-dark"><a href="#"><h4 class="mb-0 mt-1">The NFT Markets</h4></a></li>
-                  <li><span class="material-icons">list</span><a href="<?php echo e(route('category')); ?>">Category</a></li>
-                  <li><span class="material-icons">newspaper</span><a href="<?php echo e(route('news')); ?>">News</a></li>
-                  <li><span class="material-icons">logout</span><a href="<?php echo e(route('logout')); ?>">Logout</a></li>
+                  <li><span class="material-icons">list</span><a href="{{ route('category') }}">Category</a></li>
+                  <li><span class="material-icons">newspaper</span><a href="{{ route('news') }}">News</a></li>
+                  <li><span class="material-icons">newspaper</span><a href="{{ route('author') }}">Author</a></li>
+                  <li><span class="material-icons">logout</span><a href="{{ route('logout') }}">Logout</a></li>
                 </ul>
               </div>
         </div>

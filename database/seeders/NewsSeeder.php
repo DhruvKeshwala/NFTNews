@@ -25,7 +25,6 @@ class NewsSeeder extends Seeder
                 'image' => '',
                 'article_1' => '',
                 'article_2' => '',
-                'videoType' => NULL,
                 'videoURL' => 'http://localhost/NFTNews/public/add_news',
                 'newsType' => '{"homeheader":{"start_date":"06-12-2022","end_date":"07-12-2022"},"featurednew":{"start_date":"08-12-2022","end_date":"16-12-2022"},"featureddrop":{"start_date":"","end_date":""},"homenews":{"start_date":"","end_date":""}}',
                 'fld_status' => 'Active',
