@@ -6,7 +6,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AuthorController;
-
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\DropManagementController;
   
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('add_author/{id?}', [AuthorController::class, 'create'])->name('add_author');
     Route::post('save_author', [AuthorController::class, 'store'])->name('save_author');
     Route::post('delete_author', [AuthorController::class, 'destroy'])->name('delete_author');
+    // Banner
+    Route::get('banner', [BannerController::class, 'index'])->name('banner');
+    Route::get('add_banner/{id?}', [BannerController::class, 'create'])->name('add_banner');
+    Route::post('save_banner', [BannerController::class, 'store'])->name('save_banner');
+    Route::post('delete_banner', [BannerController::class, 'destroy'])->name('delete_banner');
+    // Drop Management
+    Route::get('dropManagement', [DropManagementController::class, 'index'])->name('dropManagement');
+    Route::get('add_dropManagement/{id?}', [DropManagementController::class, 'addDropManagement'])->name('add_dropManagement');
+    Route::post('save_dropManagement', [DropManagementController::class, 'saveDropManagement'])->name('save_dropManagement');
+    Route::post('delete_dropManagement', [DropManagementController::class, 'deleteDropManagement'])->name('delete_dropManagement');
     
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
