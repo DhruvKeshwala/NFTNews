@@ -17,6 +17,8 @@ class News extends Model
         'fullDescription',
         'videoURL',
         'image',
+        'article_1',
+        'article_2',
         'newsType',
     ];
     public function category()

@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('title');
             $table->longText('shortDescription');
             $table->longText('fullDescription');
-            $table->string('image');
-            $table->string('article_1');
-            $table->string('article_2');
+            $table->string('image')->nullable();
+            $table->string('article_1')->nullable();
+            $table->string('article_2')->nullable();
             $table->string('videoURL');
             $table->longText('newsType');
             $table->enum('fld_status',['Active','Inactive'])->default('Active');
