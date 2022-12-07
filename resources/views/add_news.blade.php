@@ -23,6 +23,20 @@
                     <div id="categoryIdError"></div>
                 </td>
             </tr>
+            
+            <tr>
+                <td><label>Author</label></td>
+                <td>
+                    <select name="authorId" data-placeholder="Select Author">
+                        <option value="">Select Author</option>
+                        @foreach($authors as $author)
+                            <option value="{{$author->id}}" @if($author->id == @$news->authorId) selected @endif>{{$author->name}}</option>
+                        @endforeach
+                    </select>
+                    <div id="authorIdError"></div>
+                </td>
+            </tr>
+
             <tr>
                 <td><label>Title</label></td>
                 <td><input type="text" value="{{ @$news->title }}" name="title" placeholder="Title"><div id="titleError"></div></td>
@@ -67,7 +81,7 @@
             </tr>
             <tr>
                 <td><label>Video URL</label></td>
-                <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL"><div id="videoURLError"></div></td>
+                <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL"><div id="videoURLError"></div><div id="videoURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Select Section to Publish In</label></td>
@@ -146,10 +160,11 @@
     function saveNews() 
     {
         var flag = 1;
-        var categoryId = $("select[name='categoryId[]']").val();
-        var title = $("input[name='title']").val();
-        var videoURL = $("input[name='videoURL']").val();
-        var shortDescription = $("#shortDescription").val();
+        var categoryId              = $("select[name='categoryId[]']").val();
+        var authorId                = $("select[name='authorId']").val();
+        var title                   = $("input[name='title']").val();
+        var videoURL                = $("input[name='videoURL']").val();
+        var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
         var fullDescription = CKEDITOR.instances['fullDescription'].getData();
         var newsId = $("input[name='newsId']").val();
@@ -180,6 +195,7 @@
             fd.append('article_2',files[0]);
         }
         fd.append('categoryId', categoryId);
+        fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('videoURL', videoURL);
         fd.append('shortDescription', shortDescription);
@@ -193,6 +209,11 @@
         {
             flag = 0;
             $("#categoryIdError").html('<span style="color:red;">Category Required</span>');
+        }
+        if (authorId == '' || authorId == null) 
+        {
+            flag = 0;
+            $("#authorIdError").html('<span style="color:red;">Author Required</span>');
         } 
         if (title == '') 
         {
@@ -213,6 +234,23 @@
         {
             flag = 0;
             $("#videoURLError").html('<span style="color:red;">Video URL Required</span>');
+        }
+        
+        //function for URL validation
+        function isValidHttpUrl(string) {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
+        // URL validation
+        if(videoURL != '' && isValidHttpUrl(videoURL) == false)
+        {
+            flag = 0;
+            $("#videoURLPatternError").html('<span style="color:red;">Given Invalid URL..</span>');
         }
         if(flag == 1) 
         {

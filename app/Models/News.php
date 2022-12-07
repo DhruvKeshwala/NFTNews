@@ -13,6 +13,7 @@ class News extends Model
     protected $fillable = [
         'title',
         'categoryId',
+        'authorId',
         'shortDescription',
         'fullDescription',
         'videoURL',
@@ -24,5 +25,9 @@ class News extends Model
     public function category()
     {
         return $this->hasOne(Category::class,'id','categoryId');
+    }
+    public function author()
+    {
+        return $this->hasOne(Author::class,'id','authorId');
     }
 }

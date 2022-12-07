@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Author;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Services\NewsService;
 
 class NewsController extends Controller
@@ -21,8 +23,9 @@ class NewsController extends Controller
     public function addNews($id=null)
     {
         $categories = Category::all();
+        $authors    = Author::all();
         $news = NewsService::getNewsById($id);
-        return view('add_news',compact('news','id','categories'));
+        return view('add_news',compact('news','id','categories','authors'));
     }
     public function newsDetail($id)
     {
@@ -33,12 +36,13 @@ class NewsController extends Controller
     {
         //validation
         $request->validate([
-            'title' => 'required',
-            'categoryId' => 'required',
-            'shortDescription' => 'required',
-            'fullDescription' => 'required',
-            'videoURL' => 'required',
-            'newsId' => 'required',
+            'title'             => 'required',
+            'categoryId'        => 'required',
+            'authorId'          => 'required',
+            'shortDescription'  => 'required',
+            'fullDescription'   => 'required',
+            'videoURL'          => 'required',
+            'newsId'            => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -47,6 +51,7 @@ class NewsController extends Controller
             'fullDescription',
             'videoURL',
             'categoryId',
+            'authorId',
         ]);
         if($request->file('image') != null)
         {

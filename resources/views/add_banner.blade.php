@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td><label>Banner URL</label></td>
-                <td><input type="text" value="{{ @$data->url }}" name="url" placeholder="Banner URL"><div id="urlError"></div></td>
+                <td><input type="text" value="{{ @$data->url }}" name="url" placeholder="Banner URL"><div id="urlError"></div><div id="urlURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Banner Image</label></td>
@@ -84,7 +84,25 @@
         {
             flag = 0;
             $("#urlError").html('<span style="color:red;">Banner URL Required</span>');
-        }  
+        }
+        
+        //function for URL validation
+        function isValidHttpUrl(string) {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
+        // URL validation
+        if(url != '' && isValidHttpUrl(url) == false)
+        {
+            flag = 0;
+            $("#urlURLPatternError").html('<span style="color:red;">Given Invalid URL..</span>');
+        }
+
         if(flag == 1) 
         {
             $.ajaxSetup({

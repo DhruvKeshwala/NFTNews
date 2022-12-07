@@ -41,19 +41,19 @@
             </tr>
             <tr>
                 <td><label>Sale Date</label></td>
-                <td><input type="date" value="{{ @$dropManagement->saleDate }}" name="saleDate" placeholder="Sale Date"><div id="saleDateError"></div></td>
+                <td><input type="text" class="datepicker" value="{{ @$dropManagement->saleDate }}" name="saleDate" placeholder="Sale Date"><div id="saleDateError"></div></td>
             </tr>
             <tr>
                 <td><label>Discord Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->discordLink }}" name="discordLink" placeholder="Discord Link"><div id="discordLinkError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->discordLink }}" name="discordLink" placeholder="Discord Link"><div id="discordLinkError"></div><div id="discordLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Twitter Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->twitterLink }}" name="twitterLink" placeholder="Twitter Link"><div id="twitterLinkError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->twitterLink }}" name="twitterLink" placeholder="Twitter Link"><div id="twitterLinkError"></div><div id="twitterLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Website Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link"><div id="websiteLinkError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link"><div id="websiteLinkError"></div><div id="websiteLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td></td>
@@ -72,7 +72,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $( ".datepicker" ).datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "yy-mm-dd",
         duration: "fast",
         minDate: 0
     });
@@ -88,7 +88,8 @@
         var token            = $("input[name='token']").val();
         var blockChain       = $("input[name='blockChain']").val();
         var priceOfSale      = $("input[name='priceOfSale']").val();
-        var saleDate         = $("input[name='saleDate']").val();
+        // var saleDate         = $("input[name='saleDate']").val();
+        var saleDate         = $("input[name='saleDate']").map(function(){return $(this).val();}).get();
         var discordLink      = $("input[name='discordLink']").val();
         var twitterLink      = $("input[name='twitterLink']").val();
         var websiteLink      = $("input[name='websiteLink']").val();
@@ -138,21 +139,54 @@
             flag = 0;
             $("#saleDateError").html('<span style="color:red;">Sale Date Required</span>');
         }
+
+        //function for URL validation
+        function isValidHttpUrl(string) {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
+
         if (discordLink == '') 
         {
             flag = 0;
             $("#discordLinkError").html('<span style="color:red;">Discord Link Required</span>');
         }
+        // URL validation
+        if(discordLink != '' && isValidHttpUrl(discordLink) == false)
+        {
+            flag = 0;
+            $("#discordLinkURLPatternError").html('<span style="color:red;">Discord Link is Invalid</span>');
+        }
+
         if (twitterLink == '') 
         {
             flag = 0;
             $("#twitterLinkError").html('<span style="color:red;">Twitter Link Required</span>');
         }
+        // URL validation
+        if(twitterLink != '' && isValidHttpUrl(twitterLink) == false)
+        {
+            flag = 0;
+            $("#twitterLinkURLPatternError").html('<span style="color:red;">Twitter Link is Invalid</span>');
+        }
+
         if (websiteLink == '') 
         {
             flag = 0;
             $("#websiteLinkError").html('<span style="color:red;">Website Link Required</span>');
         }
+        // URL validation
+        if(websiteLink != '' && isValidHttpUrl(websiteLink) == false)
+        {
+            flag = 0;
+            $("#websiteLinkURLPatternError").html('<span style="color:red;">Website Link is Invalid</span>');
+        }
+
         if(flag == 1) 
         {
             $.ajaxSetup({

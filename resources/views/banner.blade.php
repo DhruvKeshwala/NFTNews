@@ -19,11 +19,11 @@ a:hover {
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Image</th>
-                    <th>Size</th>
-                    <th>Url</th>
-                    <th>Action</th>
+                    <th width="2%">#</th>
+                    <th width="10%">Image</th>
+                    <th width="41%">Size</th>
+                    <th width="41%">Url</th>
+                    <th width="6%">Action</th>
                 </tr>
             </thead>
             <tbody>

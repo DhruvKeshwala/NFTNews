@@ -22,7 +22,7 @@
                 <td><label>Email</label></td>
                 <td>
                     <input type="text" value="{{ @$data->email }}" name="email" placeholder="Email">
-                    <div id="emailError"></div>
+                    <div id="emailError"></div><div id="invalidEmailError"></div>
                 </td>
             </tr>
             <tr>
@@ -90,18 +90,30 @@
         fd.append('mobile', mobile);
         fd.append('shortBio', shortBio);
         fd.append('authorId', authorId);
-        alert(shortBio);
 
         if (name == '' || name == null) 
         {
             flag = 0;
             $("#nameError").html('<span style="color:red;">Name Required</span>');
-        } 
+        }
+
         if (email == '') 
         {
             flag = 0;
             $("#emailError").html('<span style="color:red;">Email Required</span>');
-        } 
+        }
+        //Email validation
+        function validateEmail(email) 
+        {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+        if (email != '' && validateEmail(email) == false) 
+        {
+            flag = 0;
+            $("#invalidEmailError").html('<span style="color:red;">Invalid Email</span>');
+        }
+
         if (shortBio == '') 
         {
             flag = 0;

@@ -19,13 +19,13 @@ a:hover {
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Slug</th>
-                    <th>Meta Title</th>
-                    <th>Meta Description</th>
-                    <th>Meta Keywords</th>
-                    <th>Action</th>
+                    <th width="2%">#</th>
+                    <th width="24%">Name</th>
+                    <th width="10%">Slug</th>
+                    <th width="20%">Meta Title</th>
+                    <th width="23%">Meta Description</th>
+                    <th width="15%">Meta Keywords</th>
+                    <th width="6%">Action</th>
                 </tr>
             </thead>
             <tbody>
