@@ -34,6 +34,16 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2.min.css') }}" />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/alert2@7.12.15/dist/sweetalert2.min.css'>
 
+  <style>
+    .fill-a
+    {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.fancybox').fancybox();
@@ -68,12 +78,12 @@
               <div id="sidebarMenu">
                 <ul class="sidebarMenuInner">
                   <li class="logo d-sm-none border-bottom bg-light border-dark"><a href="#"><h4 class="mb-0 mt-1">The NFT Markets</h4></a></li>
-                  <li><span class="material-icons">list</span><a href="{{ route('category') }}">Category</a></li>
-                  <li><span class="material-icons">newspaper</span><a href="{{ route('news') }}">News</a></li>
-                  <li><span class="material-icons">account_circle</span><a href="{{ route('author') }}">Author</a></li>
-                  <li><span class="material-icons">image</span><a href="{{ route('banner') }}">Banner</a></li>
-                  <li><span class="material-icons">euro</span><a href="{{ route('dropManagement') }}">NFT Drops</a></li>
-                  <li><span class="material-icons">logout</span><a href="{{ route('logout') }}">Logout</a></li>
+                  <li><span class="material-icons">list</span><a class="fill-a" href="@if(Request::segment(1) == 'category') {{'#'}} @else {{route('category')}} @endif">Category</a></li>
+                  <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'news') {{'#'}} @else {{route('news')}} @endif">News</a></li>
+                  <li><span class="material-icons">account_circle</span><a class="fill-a" href="@if(Request::segment(1) == 'author') {{'#'}} @else {{route('author')}} @endif">Author</a></li>
+                  <li><span class="material-icons">image</span><a class="fill-a" href="@if(Request::segment(1) == 'banner') {{'#'}} @else {{route('banner')}} @endif">Banner</a></li>
+                  <li><span class="material-icons">euro</span><a class="fill-a" href="@if(Request::segment(1) == 'dropManagement') {{'#'}} @else {{route('dropManagement')}} @endif">Drop Management</a></li>
+                  <li><span class="material-icons">logout</span><a class="fill-a" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
               </div>
         </div>

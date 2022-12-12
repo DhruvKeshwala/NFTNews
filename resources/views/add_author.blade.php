@@ -52,7 +52,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveAuthor()" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveAuthor()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('author') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -67,6 +67,7 @@
 <script>
     function saveAuthor() 
     {
+        $('.errorMessage').hide();
         var flag = 1;
         var name = $("input[name='name']").val();
         var email = $("input[name='email']").val();
@@ -94,13 +95,13 @@
         if (name == '' || name == null) 
         {
             flag = 0;
-            $("#nameError").html('<span style="color:red;">Name Required</span>');
+            $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
         }
 
         if (email == '') 
         {
             flag = 0;
-            $("#emailError").html('<span style="color:red;">Email Required</span>');
+            $("#emailError").html('<span class="errorMessage" style="color:red;">Email Required</span>');
         }
         //Email validation
         function validateEmail(email) 
@@ -111,21 +112,24 @@
         if (email != '' && validateEmail(email) == false) 
         {
             flag = 0;
-            $("#invalidEmailError").html('<span style="color:red;">Invalid Email</span>');
+            $("#invalidEmailError").html('<span class="errorMessage" style="color:red;">Invalid Email</span>');
         }
 
         if (shortBio == '') 
         {
             flag = 0;
-            $("#shortDescriptionError").html('<span style="color:red;">Short Bio Required</span>');
+            $("#shortDescriptionError").html('<span class="errorMessage" style="color:red;">Short Bio Required</span>');
         } 
         if (mobile == '') 
         {
             flag = 0;
-            $("#mobileError").html('<span style="color:red;">Mobile No Required</span>');
+            $("#mobileError").html('<span class="errorMessage" style="color:red;">Mobile No Required</span>');
         } 
         if(flag == 1) 
         {
+            var saveBtn                 = document.getElementById("saveBtn");
+            saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -141,6 +145,9 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
+                        //enable the button
+                        saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
                             text: data.message + " :)",
