@@ -15,7 +15,7 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-
+    {{ $category->links('vendor.pagination.custom') }}
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
@@ -23,9 +23,9 @@ a:hover {
                     <th width="24%">Name</th>
                     <th width="10%">Slug</th>
                     <th width="20%">Meta Title</th>
-                    <th width="23%">Meta Description</th>
-                    <th width="15%">Meta Keywords</th>
-                    <th width="6%">Action</th>
+                    <th width="20%">Meta Description</th>
+                    <th width="14%">Meta Keywords</th>
+                    <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +34,10 @@ a:hover {
                     <td colspan="7" class="text-center"> No records found </td>
                 </tr> 
                 @endif
+                @php
+                    $page = app('request')->input('page');
+                    $sr_no = $page==1 ? $page : $page * 10;
+                @endphp
                 @foreach($category as $categoryDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>

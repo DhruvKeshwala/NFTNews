@@ -20,13 +20,13 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="18%">News Title</th>
+                    <th width="15%">News Title</th>
                     <th width="15%">Category</th>
-                    <th width="20%">Author</th>
+                    <th width="13%">Author</th>
                     <th width="15%">Listed In</th>
-                    <th width="10%">Posted On</th>
-                    <th width="2%">Status</th>
-                    <th width="8%">Action</th>
+                    <th width="15%">Posted On</th>
+                    <th width="5%">Status</th>
+                    <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>

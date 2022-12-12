@@ -19,6 +19,7 @@ class NewsSeeder extends Seeder
         for ($i=0; $i < 50; $i++) { 
 	    	News::create([
                 'categoryId' => 1,
+                'authorId' => 1,
                 'title' => Str::random(10),
                 'shortDescription' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae expedita nisi omnis laboriosam temporibus! Asperiores, hic possimus natus nesciunt veniam tenetur.',
                 'fullDescription' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae expedita nisi omnis laboriosam temporibus! Asperiores, hic possimus natus nesciunt veniam tenetur.',

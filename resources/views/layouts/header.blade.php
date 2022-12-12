@@ -72,7 +72,7 @@
                   <li><span class="material-icons">newspaper</span><a href="{{ route('news') }}">News</a></li>
                   <li><span class="material-icons">account_circle</span><a href="{{ route('author') }}">Author</a></li>
                   <li><span class="material-icons">image</span><a href="{{ route('banner') }}">Banner</a></li>
-                  <li><span class="material-icons">euro</span><a href="{{ route('dropManagement') }}">Drop Management</a></li>
+                  <li><span class="material-icons">euro</span><a href="{{ route('dropManagement') }}">NFT Drops</a></li>
                   <li><span class="material-icons">logout</span><a href="{{ route('logout') }}">Logout</a></li>
                 </ul>
               </div>

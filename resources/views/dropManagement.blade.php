@@ -7,10 +7,10 @@ a:hover {
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
-            <h3>Drop Management</h3>
+            <h3>NFT Drops</h3>
         </div>
         <div class="col-md-6 text-right">
-            <a href="{{route('add_dropManagement')}}" class="btn btn-info">Add Drop Management</a>
+            <a href="{{route('add_dropManagement')}}" class="btn btn-info">Add NFT Drops</a>
         </div>
     </div>
 
