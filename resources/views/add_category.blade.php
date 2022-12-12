@@ -35,7 +35,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveCategory()" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveCategory()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('category') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -54,22 +54,24 @@
 <script>
     function saveCategory() 
     {
+        //Remove validation errors
+        $('.errorMessage').hide();
         var flag = 1;
         var name = $("input[name=\"name\"]").val();
         //var slug = $("input[name=\"slug\"]").val();
         var title = $("input[name=\"title\"]").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
-        var categoryId = $("input[name=\"categoryId\"]").val();
+        var categoryId = $("input[name=\"categoryId\"]").val();        
         if(categoryId == '')
         {
             categoryId = 0;
-        }
+        }        
         if (name == '') 
         {
             flag = 0;
-            $("#nameError").html('<span style="color:red;">Name Required</span>');
-        } 
+            $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
+        }        
         // if (slug == '') 
         // {
         //     flag = 0;
@@ -78,20 +80,23 @@
         if (title == '') 
         {
             flag = 0;
-            $("#titleError").html('<span style="color:red;">Title Required</span>');
-        } 
+            $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
+        }
         if (description == '') 
         {
             flag = 0;
-            $("#descriptionError").html('<span style="color:red;">Description Required</span>');
-        } 
+            $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
+        }
         if (keywords == '') 
         {
             flag = 0;
-            $("#keywordsError").html('<span style="color:red;">Keywords Required</span>');
+            $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
         } 
         if(flag == 1) 
         {
+            var saveBtn                 = document.getElementById("saveBtn");
+            saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -111,6 +116,9 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
+                        //enable the button
+                        saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
                             text: data.message + " :)",

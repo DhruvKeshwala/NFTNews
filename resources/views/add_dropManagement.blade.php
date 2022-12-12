@@ -58,7 +58,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveDropManagement()" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveDropManagement()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('dropManagement') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -82,6 +82,7 @@
 
     function saveDropManagement() 
     {
+        $('.errorMessage').hide();
         var flag             = 1;
         var categoryId       = $("select[name='categoryId[]']").val();
         var name             = $("input[name='name']").val();
@@ -112,32 +113,32 @@
         if (categoryId == '' || categoryId == null) 
         {
             flag = 0;
-            $("#categoryIdError").html('<span style="color:red;">Category Required</span>');
+            $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         } 
         if (name == '') 
         {
             flag = 0;
-            $("#nameError").html('<span style="color:red;">Name Required</span>');
+            $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
         }
         if (token == '') 
         {
             flag = 0;
-            $("#tokenError").html('<span style="color:red;">Token Required</span>');
+            $("#tokenError").html('<span class="errorMessage" style="color:red;">Token Required</span>');
         }
         if (blockChain == '') 
         {
             flag = 0;
-            $("#blockChainError").html('<span style="color:red;">Block-Chain Required</span>');
+            $("#blockChainError").html('<span class="errorMessage" style="color:red;">Block-Chain Required</span>');
         } 
         if (priceOfSale == 0) 
         {
             flag = 0;
-            $("#priceOfSaleError").html('<span style="color:red;">Price Of Sale Required</span>');
+            $("#priceOfSaleError").html('<span class="errorMessage" style="color:red;">Price Of Sale Required</span>');
         }
         if (saleDate == '') 
         {
             flag = 0;
-            $("#saleDateError").html('<span style="color:red;">Sale Date Required</span>');
+            $("#saleDateError").html('<span class="errorMessage" style="color:red;">Sale Date Required</span>');
         }
 
         //function for URL validation
@@ -154,41 +155,44 @@
         if (discordLink == '') 
         {
             flag = 0;
-            $("#discordLinkError").html('<span style="color:red;">Discord Link Required</span>');
+            $("#discordLinkError").html('<span class="errorMessage" style="color:red;">Discord Link Required</span>');
         }
         // URL validation
         if(discordLink != '' && isValidHttpUrl(discordLink) == false)
         {
             flag = 0;
-            $("#discordLinkURLPatternError").html('<span style="color:red;">Discord Link is Invalid</span>');
+            $("#discordLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Discord Link is Invalid</span>');
         }
 
         if (twitterLink == '') 
         {
             flag = 0;
-            $("#twitterLinkError").html('<span style="color:red;">Twitter Link Required</span>');
+            $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
         }
         // URL validation
         if(twitterLink != '' && isValidHttpUrl(twitterLink) == false)
         {
             flag = 0;
-            $("#twitterLinkURLPatternError").html('<span style="color:red;">Twitter Link is Invalid</span>');
+            $("#twitterLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Twitter Link is Invalid</span>');
         }
 
         if (websiteLink == '') 
         {
             flag = 0;
-            $("#websiteLinkError").html('<span style="color:red;">Website Link Required</span>');
+            $("#websiteLinkError").html('<span class="errorMessage" style="color:red;">Website Link Required</span>');
         }
         // URL validation
         if(websiteLink != '' && isValidHttpUrl(websiteLink) == false)
         {
             flag = 0;
-            $("#websiteLinkURLPatternError").html('<span style="color:red;">Website Link is Invalid</span>');
+            $("#websiteLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Website Link is Invalid</span>');
         }
 
         if(flag == 1) 
         {
+            var saveBtn                 = document.getElementById("saveBtn");
+            saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -205,6 +209,9 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
+                        //enable the button
+                        saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
                             text: data.message + " :)",

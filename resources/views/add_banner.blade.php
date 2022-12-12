@@ -40,7 +40,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveBanner()" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveBanner()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('banner') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -55,6 +55,7 @@
 <script>
     function saveBanner() 
     {
+        $('.errorMessage').hide();
         var flag     = 1;
         var size     = $("select[name='size']").val();
         var url      = $("input[name='url']").val();
@@ -78,12 +79,12 @@
         if (size == '' || size == null) 
         {
             flag = 0;
-            $("#sizeError").html('<span style="color:red;">Banner Size Required</span>');
+            $("#sizeError").html('<span class="errorMessage" style="color:red;">Banner Size Required</span>');
         } 
         if (url == '') 
         {
             flag = 0;
-            $("#urlError").html('<span style="color:red;">Banner URL Required</span>');
+            $("#urlError").html('<span class="errorMessage" style="color:red;">Banner URL Required</span>');
         }
         
         //function for URL validation
@@ -100,11 +101,14 @@
         if(url != '' && isValidHttpUrl(url) == false)
         {
             flag = 0;
-            $("#urlURLPatternError").html('<span style="color:red;">Given Invalid URL..</span>');
+            $("#urlURLPatternError").html('<span class="errorMessage" style="color:red;">Given Invalid URL..</span>');
         }
 
         if(flag == 1) 
         {
+            var saveBtn                 = document.getElementById("saveBtn");
+            saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -120,6 +124,9 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
+                        //enable the button
+                        saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
                             text: data.message + " :)",

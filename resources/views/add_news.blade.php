@@ -125,7 +125,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveNews()" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveNews()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('news') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -159,6 +159,7 @@
             } );
     function saveNews() 
     {
+        $('.errorMessage').hide();
         var flag = 1;
         var categoryId              = $("select[name='categoryId[]']").val();
         var authorId                = $("select[name='authorId']").val();
@@ -208,32 +209,32 @@
         if (categoryId == '' || categoryId == null) 
         {
             flag = 0;
-            $("#categoryIdError").html('<span style="color:red;">Category Required</span>');
+            $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
         if (authorId == '' || authorId == null) 
         {
             flag = 0;
-            $("#authorIdError").html('<span style="color:red;">Author Required</span>');
+            $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
         } 
         if (title == '') 
         {
             flag = 0;
-            $("#titleError").html('<span style="color:red;">Title Required</span>');
+            $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
         } 
         if (shortDescription == '') 
         {
             flag = 0;
-            $("#shortDescriptionError").html('<span style="color:red;">Short Description Required</span>');
+            $("#shortDescriptionError").html('<span class="errorMessage" style="color:red;">Short Description Required</span>');
         } 
         if (fullDescription == '') 
         {
             flag = 0;
-            $("#fullDescriptionError").html('<span style="color:red;">Full Description Required</span>');
+            $("#fullDescriptionError").html('<span class="errorMessage" style="color:red;">Full Description Required</span>');
         } 
         if (videoURL == '') 
         {
             flag = 0;
-            $("#videoURLError").html('<span style="color:red;">Video URL Required</span>');
+            $("#videoURLError").html('<span class="errorMessage" style="color:red;">Video URL Required</span>');
         }
         
         //function for URL validation
@@ -250,10 +251,13 @@
         if(videoURL != '' && isValidHttpUrl(videoURL) == false)
         {
             flag = 0;
-            $("#videoURLPatternError").html('<span style="color:red;">Given Invalid URL..</span>');
+            $("#videoURLPatternError").html('<span class="errorMessage" style="color:red;">Given Invalid URL..</span>');
         }
         if(flag == 1) 
         {
+            var saveBtn                 = document.getElementById("saveBtn");
+            saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -270,6 +274,9 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
+                        //enable the button
+                        saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
                             text: data.message + " :)",
