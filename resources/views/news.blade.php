@@ -15,6 +15,7 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
+        {{ $news->links('vendor.pagination.custom') }}
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
@@ -57,7 +58,7 @@ a:hover {
                     <td>
                         {{ rtrim( $selection_types, ', ') }}
                     </td>
-                    <td>{{ $newsDetails->created_at }}</td>
+                    <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a href="#" class="text-success"><span class="fa fa-check"></span></a>

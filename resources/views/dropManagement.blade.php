@@ -15,11 +15,12 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
+        {{ $dropManagement->links('vendor.pagination.custom') }}
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
                     <th width="2%">#</th>
-                    <th width="22%">Name</th>
+                    <th width="18%">Name</th>
                     <th width="10%">Category</th>
                     <th width="20%">Token</th>
                     <th width="20%">Block-Chain</th>
@@ -28,7 +29,7 @@ a:hover {
                     <!-- <th>Discord Link</th>
                     <th>Twitter Link</th>
                     <th>Website Link</th> -->
-                    <th width="6%">Action</th>
+                    <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>

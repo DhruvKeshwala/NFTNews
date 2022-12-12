@@ -15,7 +15,7 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-
+        {{ $data->links('vendor.pagination.custom') }}
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>

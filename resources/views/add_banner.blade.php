@@ -15,10 +15,10 @@
                 <td>
                     <select name="size" data-placeholder="Select Banner Size">
                         <option value="">Select Banner Size</option>
-                        <option value="280  width x 400 height pixels" {{ @$data->size == '280  width x 400 height pixels' ? 'selected' : '' }}>280  width x 400 height pixels</option>
-                        <option value="900  width x 200 height pixels" {{ @$data->size == '900  width x 200 height pixels' ? 'selected' : '' }}>900  width x 200 height pixels</option>
-                        <option value="375  width x 400 height pixels" {{ @$data->size == '375  width x 400 height pixels' ? 'selected' : '' }}>375  width x 400 height pixels</option>
-                        <option value="1210 width x 210 height pixels" {{ @$data->size == '1210 width x 210 height pixels' ? 'selected' : '' }}>1210 width x 210 height pixels</option>
+                        <option value="280 x 400 pixels" {{ @$data->size == '280 x 400 pixels' ? 'selected' : '' }}>280 x 400 pixels</option>
+                        <option value="900 x 200 pixels" {{ @$data->size == '900 x 200 pixels' ? 'selected' : '' }}>900 x 200 pixels</option>
+                        <option value="375 x 400 pixels" {{ @$data->size == '375 x 400 pixels' ? 'selected' : '' }}>375 x 400 pixels</option>
+                        <option value="1210 x 210 pixels" {{ @$data->size == '1210 x 210 pixels' ? 'selected' : '' }}>1210 x 210 pixels</option>
                     </select>
                     <input type="hidden" name="bannerId" value="{{@$id}}">
                     <div id="sizeError"></div>

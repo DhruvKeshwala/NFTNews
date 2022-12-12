@@ -15,15 +15,15 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-
+        {{ $data->links('vendor.pagination.custom') }}
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="41%">Size</th>
-                    <th width="41%">Url</th>
-                    <th width="6%">Action</th>
+                    <th width="74%">Size</th>
+                    <th width="4%">URL</th>
+                    <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@ a:hover {
                     <td>{{$loop->index + 1}}</td>
                     <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'.$imgsrc}}" width="100">@endif</td>
                     <td>{{$row->size}}</td>
-                    <td>{{$row->url}}</td>
+                    <td><a href="{{$row->url}}" class="btn btn-primary" target="_blank">VIEW URL</a></td>
                     <td>
                         <a title="Edit" href="{{ route('add_banner',$row->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
