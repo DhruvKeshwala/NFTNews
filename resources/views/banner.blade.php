@@ -41,7 +41,9 @@ a:hover {
                     <td>{{$loop->index + 1}}</td>
                     <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'.$imgsrc}}" width="100">@endif</td>
                     <td>{{$row->size}}</td>
-                    <td><a href="{{$row->url}}" class="btn btn-primary" target="_blank">VIEW URL</a></td>
+                    <td class="text-center"><a href="{{$row->url}}" target="_blank">
+                        <span class="fa fa-play fa-lg"></span>
+                    </a></td>
                     <td>
                         <a title="Edit" href="{{ route('add_banner',$row->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

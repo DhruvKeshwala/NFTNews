@@ -16,8 +16,8 @@
                     <select name="size" data-placeholder="Select Banner Size">
                         <option value="">Select Banner Size</option>
                         <option value="280 x 400 pixels" {{ @$data->size == '280 x 400 pixels' ? 'selected' : '' }}>280 x 400 pixels</option>
-                        <option value="900 x 200 pixels" {{ @$data->size == '900 x 200 pixels' ? 'selected' : '' }}>900 x 200 pixels</option>
                         <option value="375 x 400 pixels" {{ @$data->size == '375 x 400 pixels' ? 'selected' : '' }}>375 x 400 pixels</option>
+                        <option value="900 x 200 pixels" {{ @$data->size == '900 x 200 pixels' ? 'selected' : '' }}>900 x 200 pixels</option>
                         <option value="1210 x 210 pixels" {{ @$data->size == '1210 x 210 pixels' ? 'selected' : '' }}>1210 x 210 pixels</option>
                     </select>
                     <input type="hidden" name="bannerId" value="{{@$id}}">
