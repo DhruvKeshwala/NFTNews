@@ -6,6 +6,9 @@ return [
         "featurednew" => "Featured News",
         "featureddrop" => "Featured Drops",
         "homenews" => "Home News",
+    ],
+    'press_type' => [
+        "featurednew" => "Featured News",
     ]
 ]
 ?>

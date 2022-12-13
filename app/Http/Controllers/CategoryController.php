@@ -3,12 +3,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         $category = CategoryService::getCategory();
+        return view('category', compact('category'));
+    }
+    public function filterCategory(Request $request)
+    {
+        $name       = $request->filterCategoryName;
+        $metaTitle  = $request->filterCategoryMetaTitle;
+        $category   = Category::where('name', 'LIKE', '%'.$name.'%')->where('title', 'LIKE', '%'.$metaTitle.'%')->orderby('id','desc')->paginate(10);
         return view('category', compact('category'));
     }
     public function addCategory($id=null)

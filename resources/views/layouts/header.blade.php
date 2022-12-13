@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
-  <title>Admin Module</title>
+  <title>@yield('title')</title>
   <!-- <link rel="manifest" href="manifest.json"> //-->
     
   <!-- Stylesheets -->
@@ -83,6 +83,7 @@
                   <li><span class="material-icons">account_circle</span><a class="fill-a" href="@if(Request::segment(1) == 'author') {{'#'}} @else {{route('author')}} @endif">Author</a></li>
                   <li><span class="material-icons">image</span><a class="fill-a" href="@if(Request::segment(1) == 'banner') {{'#'}} @else {{route('banner')}} @endif">Banner</a></li>
                   <li><span class="material-icons">euro</span><a class="fill-a" href="@if(Request::segment(1) == 'dropManagement') {{'#'}} @else {{route('dropManagement')}} @endif">NFT Drops</a></li>
+                  <li><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
                   <li><span class="material-icons">logout</span><a class="fill-a" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
               </div>

@@ -28,7 +28,7 @@
                 <td><label>Author</label></td>
                 <td>
                     <select name="authorId" data-placeholder="Select Author">
-                        <option value="">Select Author</option>
+                        <option value=""></option>
                         @foreach($authors as $author)
                             <option value="{{$author->id}}" @if($author->id == @$news->authorId) selected @endif>{{$author->name}}</option>
                         @endforeach
@@ -145,6 +145,8 @@
     });
     $("select[name=\"categoryId[]\"]").select2({
         multiple:true,
+    });
+    $("select[name=\"authorId\"]").select2({
     });
      CKEDITOR.replace( 'fullDescription', {
                 fullPage: false,						

@@ -15,7 +15,21 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-        {{ $dropManagement->links('vendor.pagination.custom') }}
+        {{ $dropManagement->appends(Request::except('page'))->links('vendor.pagination.custom') }}
+        <table class="webforms sttbl bg-light my-0 table-responsive-sm">
+          <tbody><tr>
+            <form action="{{ route('filter_dropManagement') }}" method="get">
+                @csrf
+                <td class="pr-0"><input type="text" name="filterDropName" size="40" placeholder="Name"></td>
+
+                <td class="pr-0"><input type="text" name="filterBlockChain" size="40" placeholder="Block Chain"></td>
+                
+                <td class="pr-0"><input type="number" name="filterPriceOfSale" size="20" placeholder="Price Of Sale"></td>
+
+                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+            </form>
+          </tr>
+         </tbody></table>
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
@@ -67,7 +81,7 @@ a:hover {
         </table>
         <div class="clearfix"></div>
     </div>
-    {{ $dropManagement->links('vendor.pagination.custom') }}
+    {{ $dropManagement->appends(Request::except('page'))->links('vendor.pagination.custom') }}
 </div>
 @include('layouts.footer')
 <script>

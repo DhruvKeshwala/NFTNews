@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use App\Services\DropManagementService;
+use App\Models\DropManagement;
 
 class DropManagementController extends Controller
 {
@@ -22,6 +23,15 @@ class DropManagementController extends Controller
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
             $value['category'] = implode(',',$categories);
         }
+        return view('dropManagement', compact('dropManagement'));
+    }
+
+    public function filterDropManagement(Request $request)
+    {
+        $name      = $request->filterDropName;
+        $price     = $request->filterPriceOfSale;
+        $blockChain = $request->filterBlockChain;
+        $dropManagement         = DropManagement::where('name', 'LIKE', '%'.$name.'%')->where('blockChain', 'LIKE', '%'.$blockChain.'%')->where('priceOfSale', 'LIKE', '%'.$price.'%')->orderby('id','desc')->paginate(1);
         return view('dropManagement', compact('dropManagement'));
     }
 
@@ -59,6 +69,21 @@ class DropManagementController extends Controller
             'websiteLink',
             'categoryId',
         ]);
+
+        if($request->file('image') != null)
+        {
+            $file      = $request->file('image');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $dropManagementdetails['image'] = $fileName;
+        }
+        if($request->file('logo') != null)
+        {
+            $file      = $request->file('logo');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $dropManagementdetails['logo'] = $fileName;
+        }
         // if($request->file('image') != null)
         // {
         //     $file      = $request->file('image');

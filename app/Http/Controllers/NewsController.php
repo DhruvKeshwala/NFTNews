@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Author;
+use App\Models\News;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -18,8 +19,30 @@ class NewsController extends Controller
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
             $value['category'] = implode(',',$categories);
         }
-        return view('news', compact('news'));
+        $categories = Category::all();
+        $authors     = Author::all();
+        return view('news', compact('news','categories','authors'));
     }
+
+    public function filterNews(Request $request)
+    {
+        $title      = $request->filterNewsTitle;
+        $categoryId = $request->filterCategoryId;
+        $authorId   = $request->filterAuthorId;
+        
+        $news = NewsService::getNews();
+
+        foreach($news as $key=>$value)
+        {
+            $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
+            $value['category'] = implode(',',$categories);
+        }
+        $categories = Category::all();
+        $authors    = Author::all();
+        $news       = News::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(1);
+        return view('news', compact('news','categories','authors'));
+    }
+
     public function addNews($id=null)
     {
         $categories = Category::all();
@@ -57,21 +80,21 @@ class NewsController extends Controller
         {
             $file      = $request->file('image');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(public_path('uploads'), $fileName);
+            $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['image'] = $fileName;
         }
         if($request->file('article_1') != null)
         {
             $file      = $request->file('article_1');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(public_path('uploads'), $fileName);
+            $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['article_1'] = $fileName;
         }
         if($request->file('article_2') != null)
         {
             $file      = $request->file('article_2');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(public_path('uploads'), $fileName);
+            $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['article_2'] = $fileName;
         }
         $newsTypeDate = array();

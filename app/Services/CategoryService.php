@@ -8,6 +8,12 @@ class CategoryService
     {
         return Category::orderby('id','desc')->paginate(10);
     }
+    public static function filterCategory($request)
+    {
+        $name = $request->filterCategoryName;
+        $metaTitle = $request->filterCategoryMetaTitle;
+        return Category::where('name', 'LIKE', '%'.$name.'%')->where('title', 'LIKE', '%'.$metaTitle.'%')->orderby('id','desc')->paginate(10);
+    }
     // delete Category
     public static function deleteCategory($categoryId) 
     {

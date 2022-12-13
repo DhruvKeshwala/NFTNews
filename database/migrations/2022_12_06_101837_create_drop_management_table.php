@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('discordLink')->nullable();
             $table->string('twitterLink')->nullable();
             $table->string('websiteLink')->nullable();
+            $table->string('image')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

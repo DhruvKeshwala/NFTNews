@@ -19,6 +19,13 @@ class BannerController extends Controller
         return view('banner', compact('data'));
     }
 
+    public function filterBanner(Request $request)
+    {
+        $size       = $request->filterSize;
+        $data       = Banner::where('size', 'LIKE', '%'.$size.'%')->orderby('id','desc')->paginate(10);
+        return view('banner', compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -55,7 +62,7 @@ class BannerController extends Controller
         {
             $file      = $request->file('image');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(public_path('uploads/banner/'), $fileName);
+            $name = $file->move(base_path('uploads/banner/'), $fileName);
             $data['image'] = $fileName;
         }
 

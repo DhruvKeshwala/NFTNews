@@ -56,6 +56,24 @@
                 <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link"><div id="websiteLinkError"></div><div id="websiteLinkURLPatternError"></div></td>
             </tr>
             <tr>
+                <td><label>Image</label></td>
+                <td>
+                    <input type="file" name="image" id="image">
+                    @if(@$dropManagement->image != '')
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image}}" width = "100"></div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label>Logo</label></td>
+                <td>
+                    <input type="file" name="logo" id="logo">
+                    @if(@$dropManagement->logo != '')
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->logo}}" width = "100"></div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveDropManagement()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -99,6 +117,20 @@
         if(dropManagementId == ''){
             dropManagementId = 0;
         }
+        // Append image 
+        var files = $('#image')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('image',files[0]);
+        }
+
+        // Append logo 
+        var files = $('#logo')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('logo',files[0]);
+        }
+
         fd.append('categoryId', categoryId);
         fd.append('name', name);
         fd.append('token', token);

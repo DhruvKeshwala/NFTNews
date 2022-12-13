@@ -15,34 +15,57 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-    {{ $category->links('vendor.pagination.custom') }}
+    {{ $category->appends(Request::except('page'))->links('vendor.pagination.custom') }}
+    <br>
+        <table class="webforms sttbl bg-light my-0 table-responsive-sm">
+          <tbody><tr>
+            <form action="{{ route('filter_category') }}" method="get">
+            @csrf
+            <td class="pr-0"><input type="text" name="filterCategoryName" size="50" placeholder="Name" value="<?php 
+                if (!empty($_GET['filterCategoryName'])) {
+                    $q = $_GET['filterCategoryName'];
+                    echo $q;
+                } ?>"></td>
+            <td class="pr-0"><input type="text" name="filterCategoryMetaTitle" size="50" placeholder="Meta Title" value="<?php 
+                if (!empty($_GET['filterCategoryMetaTitle'])) {
+                    $q = $_GET['filterCategoryMetaTitle'];
+                    echo $q;
+                } ?>"></td>
+           {{-- <td class="pr-0"><input type="number" size="" placeholder="Meta Description"></td>
+           <td class="pr-0"><select>
+           	<option>Select</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+           </select></td> --}}
+            <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+          </tr>
+         </tbody></table>
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
                     <th width="2%">#</th>
-                    <th width="24%">Name</th>
-                    <th width="10%">Slug</th>
+                    <th width="34%">Name</th>
                     <th width="20%">Meta Title</th>
                     <th width="20%">Meta Description</th>
                     <th width="14%">Meta Keywords</th>
                     <th width="10%">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="showresults">
                 @if (count($category)<=0)
                 <tr>
-                    <td colspan="7" class="text-center"> No records found </td>
+                    <td colspan="6" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @php
-                    $page = app('request')->input('page');
+                    $page  = app('request')->input('page');
                     $sr_no = $page==1 ? $page : $page * 10;
                 @endphp
                 @foreach($category as $categoryDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
                     <td>{{$categoryDetails->name}}</td>
-                    <td>{{$categoryDetails->slug}}</td>
                     <td>{{$categoryDetails->title}}</td>
                     <td>{{$categoryDetails->description}}</td>
                     <td>{{$categoryDetails->keywords}}</td>
@@ -61,7 +84,7 @@ a:hover {
         <div class="clearfix"></div>
 
     </div>
-    {{ $category->links('vendor.pagination.custom') }}
+    {{ $category->appends(Request::except('page'))->links('vendor.pagination.custom') }}
 </div>
 @include('layouts.footer')
 <script>
@@ -102,6 +125,39 @@ a:hover {
                     error: function(xhr, status, error) {}
                 });
             }
+        });
+    }
+    function filterCategory(){
+        var filterCategoryName = $("input[name=\"filterCategoryName\"]").val();
+        var filterCategoryMetaTitle = $("input[name=\"filterCategoryMetaTitle\"]").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ url('filter_category') }}",
+            type: "GET",
+            data: {
+                filterCategoryName: filterCategoryName,
+                filterCategoryMetaTitle:filterCategoryMetaTitle
+            },
+            dataType: "html",
+            success: function(response) {
+                console.log('success');
+                // var data = JSON.parse(data);
+                $('#showresults').html($('#showresults',response).html());
+                //$('#showresults').html(response); //for perfect result but view changes of table!!!!!!
+
+                // $.each(response, function (key, value) {
+                //     $('#showresults').append("<tr>\
+                //                 <td>"+value.column1+"</td>\
+                //                 <td>"+value.column2y+"</td>\
+                //                 <td>"+value.column3+"</td>\
+                //                 </tr>");
+                // })
+            },
+            error: function(xhr, status, error) {}
         });
     }
 </script>

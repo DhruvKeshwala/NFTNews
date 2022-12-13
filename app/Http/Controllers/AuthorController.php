@@ -19,6 +19,15 @@ class AuthorController extends Controller
         return view('author', compact('data'));
     }
 
+    public function filterAuthor(Request $request)
+    {
+        $name       = $request->filterAuthorName;
+        $email      = $request->filterEmail;
+        $mobile     = $request->filterMobile;
+        $data       = Author::where('name', 'LIKE', '%'.$name.'%')->where('email', 'LIKE', '%'.$email.'%')->where('mobile', 'LIKE', '%'.$mobile.'%')->orderby('id','desc')->paginate(1);
+        return view('author', compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,7 +66,7 @@ class AuthorController extends Controller
         {
             $file      = $request->file('image');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(public_path('uploads'), $fileName);
+            $name = $file->move(base_path('uploads'), $fileName);
             $data['image'] = $fileName;
         }
 

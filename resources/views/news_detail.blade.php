@@ -78,11 +78,11 @@
 											@endif
                     @endforeach
                     <tr>
-                        <td><b>Article Image 1:</b></td>
+                        <td><b>Article Image 1</b></td>
                         <td>@if($news->article_1 != null)<img src="{{asset('uploads/').'/'.$news->article_1}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
-                        <td><b>Article Image 2:</b></td>
+                        <td><b>Article Image 2</b></td>
                         <td>@if($news->article_2 != null)<img src="{{asset('uploads/').'/'.$news->article_2}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     {{-- @endif

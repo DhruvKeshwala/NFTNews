@@ -20,6 +20,8 @@ class DropManagement extends Model
         'discordLink',
         'twitterLink',
         'websiteLink',
+        'image',
+        'logo',
     ];
     public function category()
     {

@@ -15,7 +15,41 @@ a:hover {
     </div>
 
     <div class="container_fluid mt-2 px-3">
-        {{ $data->links('vendor.pagination.custom') }}
+        {{ $data->appends(Request::except('page'))->links('vendor.pagination.custom') }}
+        <br>
+        <table class="webforms sttbl bg-light my-0 table-responsive-sm">
+          <tbody><tr>
+            <form action="{{ route('filter_author') }}" method="get">
+                @csrf
+                <td class="pr-0"><input type="text" name="filterAuthorName" size="45" value="<?php 
+                if (!empty($_GET['filterAuthorName'])) {
+                    $q = $_GET['filterAuthorName'];
+                    echo $q;
+                } ?>" placeholder="Name"></td>
+                <td class="pr-0"><input type="text" name="filterEmail" size="45" placeholder="Email" value="<?php 
+                if (!empty($_GET['filterEmail'])) {
+                    $q = $_GET['filterEmail'];
+                    echo $q;
+                } ?>"></td>
+                <td class="pr-0"><input type="text" name="filterMobile" size="10" placeholder="Mobile" value="<?php 
+                if (!empty($_GET['filterMobile'])) {
+                    $q = $_GET['filterMobile'];
+                    echo $q;
+                } ?>"></td>
+                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+            </form>
+                {{-- <td class="pr-0"><input type="number" size="" placeholder="Meta Description"></td>
+           <td class="pr-0"><select>
+           	<option>Select</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+           </select></td> --}}
+           {{-- <td>
+           	<a onclick="filterCategory()" class="btn btn-dark py-1 px-2 text-white"><span class="fa fa-search fa-lg"></span></a>
+           </td> --}}
+          </tr>
+         </tbody></table>
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>
@@ -60,7 +94,7 @@ a:hover {
         </table>
         <div class="clearfix"></div>
     </div>
-    {{ $data->links('vendor.pagination.custom') }}
+    {{ $data->appends(Request::except('page'))->links('vendor.pagination.custom') }}
 </div>
 @include('layouts.footer')
 <script>
