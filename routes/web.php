@@ -10,7 +10,12 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DropManagementController;
 use App\Http\Controllers\PressReleaseController;
 
-  
+//User controllers
+use App\Http\Controllers\user\HomeController;
+use App\Http\Controllers\user\UserNewsController;
+use App\Http\Controllers\user\UserPressController;
+use App\Http\Controllers\user\UserNFTDropsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,3 +80,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+//User side
+Route::get('user/home', [HomeController::class, 'index'])->name('user.home');
+
+Route::get('user/news', [UserNewsController::class, 'index'])->name('user.news');
+Route::get('user/filterNews', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
+Route::get('user/newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
+
+Route::get('user/pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
+
+Route::get('user/listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
+
+//Tag wise filter categories
+Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
+
+//Load NFT Drop lazy loading data
+Route::post('/loadmore/load_data', [HomeController::class, 'load_data'])->name('loadmore.load_data');

@@ -8,6 +8,13 @@ class DropManagementService
     {
         return DropManagement::orderby('id','desc')->paginate(10);
     }
+
+    //user-side home page display only 10 latest records
+    public static function getLatestDropManagement()
+    {
+        return DropManagement::orderby('id','desc')->take(10)->get();
+    }
+
     // delete country
     public static function deleteDropManagement($dropManagementId) 
     {
