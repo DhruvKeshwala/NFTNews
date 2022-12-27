@@ -21,7 +21,7 @@ class UserNFTDropsController extends Controller
 
     public function listNFTDrop()
     {
-        $allDropManagement  = DropManagement::all();
+        $allDropManagement  = DropManagement::orderby('id','desc')->paginate(10);
         return view('user.listNFTDrops', compact('allDropManagement'));
     }
     

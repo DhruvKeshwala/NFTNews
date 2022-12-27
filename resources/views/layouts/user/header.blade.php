@@ -70,7 +70,7 @@
             <ul class="navbar-nav ml-auto">
              <li class="nav-item active"><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
              <li class="nav-item"><a href="market-news.html" class="nav-link">Markets</a></li>
-             <li class="nav-item"><a href="nftdrops-lists.html" class="nav-link">NFT Drops</a></li>
+             <li class="nav-item"><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
              <li class="nav-item"><a href="video-lists.html" class="nav-link">Videos</a></li>
              <li class="nav-item"><a href="crypto-journal.html" class="nav-link">Crypto Journal</a></li>
              <li class="nav-item"><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">MarketPlace</a></li>  
@@ -128,7 +128,7 @@
       <div class="container">
       	<div class="row border-top pt-3 pb-2 border-bottom px-3">
           <div class="col-md-4 align-items-center text-md-left text-center mb-4 mb-md-2">
-            <img src="images/logo.png" width="210" height="35" alt="" />
+            <img src="{{ URL::asset('images/logo.png')}}" width="210" height="35" alt="" />
           </div>
           <div class="col-md-4 text-center pt-md-1 text-light">ADVERTISE WITH US? <a href="contact.html" class="btn-outline-light-gradient text-light btn border py-1 align-middle ml-md-5 btn-sm px-3">ENQUIRE</a></div>
           <div class="col-md-4 text-md-right text-center">
@@ -191,9 +191,7 @@
         	<a href="#" class="mr-2 ftlinks">Privacy Policy</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">Terms &amp; Conditions</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">GDPR</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">Terms of Service</a>
         </div>
         
-        <div class="d-block text-center py-4">
-        	<a href="about.html" class="mr-2 ftlinks">Link 1</a> <span class="text-secondary">|</span> <a href="advertise.html" class="mx-2 ftlinks">Link 2</a> <span class="text-secondary">|</span> <a href="get-listed.html" class="mx-2 ftlinks">Link 3</a> <span class="text-secondary">|</span> <a href="guide.html" class="mx-2 ftlinks">Link 4</a> <span class="text-secondary">|</span> <a href="news-lists.html" class="mx-2 ftlinks">Link 5</a> <span class="text-secondary">|</span> <a href="nftdrops-lists.html" class="mx-2 ftlinks">Link 6</a> <span class="text-secondary">|</span> <a href="nft-details.html" class="mx-2 ftlinks">Link 7</a> <span class="text-secondary">|</span> <a href="details.html" class="mx-2 ftlinks">Link 8</a> <span class="text-secondary">|</span> <a href="press-release.html" class="mx-2 ftlinks">Link 9</a> <span class="text-secondary">|</span> <a href="topics.html" class="mx-2 ftlinks">Link 10</a> <span class="text-secondary">|</span> <a href="crypto-journal.html" class="mx-2 ftlinks">Link 11</a> <span class="text-secondary">|</span> <a href="subscribe.html" class="mx-2 ftlinks">Link 12</a> <span class="text-secondary">|</span> <a href="featured-news.html" class="mx-2 ftlinks">Link 13</a> <span class="text-secondary">|</span> <a href="contact.html" class="mx-2 ftlinks">Link 14</a> <span class="text-secondary">|</span> <a href="market-news.html" class="mx-2 ftlinks">Link 15</a> <span class="text-secondary">|</span> <a href="video-lists.html" class="mx-2 ftlinks">Link 16</a>
-        </div>
+        
         
         <div class="clearfix">&nbsp;</div>
         <small>© 2022 <strong>NFT Markets</strong>. All rights reserved.</small><br>

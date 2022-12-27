@@ -50,33 +50,37 @@
                 <td><textarea rows="5" cols="30" name="fullDescription" id="fullDescription" placeholder="Full Description">{{ @$news->fullDescription }}</textarea><div id="fullDescriptionError"></div></td>
             </tr>
             <tr>
-                <td><label>Image</label></td>
+                <td><label>Image 1</label></td>
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$news->image != '')
                     <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100"></div>
                     @endif
+                    
                     <div id="imageError"></div>
+                    <small class="text-muted">Choose Image 1 size of 1140x760 pixels</small>
                 </td>
             </tr>
             <tr>
-                <td><label>Upload Article 1</label></td>
+                <td><label>Image 2</label></td>
                 <td>
                     <input type="file" name="article_1" id="article_1">
                     @if(@$news->article_1 != '')
                     <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100"></div>
                     @endif
                     <div id="article1Error"></div>
+                    <small class="text-muted">Choose Image 2 size of 800x460 pixels</small>
                 </td>
             </tr>
             <tr>
-                <td><label>Upload Article 2</label></td>
+                <td><label>Image 3</label></td>
                 <td>
                     <input type="file" name="article_2" id="article_2">
                     @if(@$news->article_2 != '')
                     <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100"></div>
                     @endif
                     <div id="article2Error"></div>
+                    <small class="text-muted">Choose Image 3 size of 300x400 pixels</small>
                 </td>
             </tr>
             <tr>

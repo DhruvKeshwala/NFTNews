@@ -10,49 +10,51 @@
        <section class="slider grid-overlay">
         <div class="flexslider">
           <ul class="slides">
-            <li><img src="{{ URL::asset('user/images/hp-headerimg-big01.png')}}" />
-	          <p class="flex-caption">
-    	         <span class="nwscpt">NEWS</span>
-        	     <a href="details.html">Over $1 billion is liquidated overnight in Bitcoin and Ethereum trades</a><br><span class="thrs">2 hours ago</span></p>
-          	</li>
-            <li><img src="{{ URL::asset('user/images/hp-headerimg-big01.png')}}" />
-	          <p class="flex-caption">
-    	         <span class="nwscpt">NEWS</span>
-        	     <a href="details.html">Over $1 billion is liquidated overnight in Bitcoin and Ethereum trades</a><br><span class="thrs">2 hours ago</span></p>
-          	</li>
-            
+            @foreach($result as $data)
+              @if($data->is_homeheader == 1)
+                <li><img src="{{ URL::asset('uploads/' . $data->image)}}" />
+                <p class="flex-caption">
+                  <span class="nwscpt">NEWS</span>
+                  <a href="{{ route('user.news_detail', ['id' => base64_encode(@$data->id)]) }}">{{$data->title}}</a><br><span class="thrs">{{$data->created_at->diffForHumans()}}</span></p>
+                </li>
+              @endif
+            @endforeach
           </ul>
         </div>
       </section>
      </div> <!-- col-md-8 end -->
-      
-     <div class="col-md-4 col-12 px-0">
-       <div class="row mx-0">
-       	 <div class="col-md-12 col-6 grid-overlay border-bottom border-white d-xl-block d-lg-block px-0">
-           <p class="flex-caption-small w-auto">
-            <span class="nwscpt">NEWS</span>
-              <a href="details.html">The Rocket Factory Nets by Tom Sachs is Taking Off in Real Life</a><br><span class="thrs"><i class="fa fa-calendar"></i> 3 hours ago</span></p>
-           <div class="media">
-            <a href="#" class="image-link"><img src="images/hp-headerimg-small01.png" width="100%" height="auto" alt=""></a>
-           </div>
-           
-         </div>
-         
-         <div class="col-md-12 col-6 grid-overlay d-xl-block d-lg-block px-0">
-          <p class="flex-caption-small w-auto">
-          <span class="nwscpt">NEWS</span>
-           <a href="details.html">With Trade Burst, Reddit NFTs face off against bored apes on OpenSea</a><br><span class="thrs"><i class="fa fa-calendar"></i> 5 hours ago</span></p>
-          
-          <div class="media">
-            <a href="#" class="image-link">
-	         <img src="images/hp-headerimg-small02.png" width="100%" height="auto" alt="">
-            </a>
+    
+    @if($resultHomeNews)
+        <div class="col-md-4 col-12 px-0">
+          <div class="row mx-0">
+            @if($resultHomeNews[0]->is_homenews == 1)
+              <div class="col-md-12 col-6 grid-overlay border-bottom border-white d-xl-block d-lg-block px-0">
+                <p class="flex-caption-small w-auto">
+                  <span class="nwscpt">NEWS</span>
+                    <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[0]->id)]) }}">{{$resultHomeNews[0]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[0]->created_at->diffForHumans()}}</span></p>
+                <div class="media">
+                  <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[0]->id)]) }}" class="image-link"><img src="{{ URL::asset('uploads/' . $resultHomeNews[0]->article_1)}}" width="100%" height="auto" alt=""></a>
+                </div>
+              </div>
+            @endif
+
+            @if($resultHomeNews[1]->is_homenews == 1)
+              <div class="col-md-12 col-6 grid-overlay d-xl-block d-lg-block px-0">
+                <p class="flex-caption-small w-auto">
+                <span class="nwscpt">NEWS</span>
+                <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[1]->id)]) }}">{{$resultHomeNews[1]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[1]->created_at->diffForHumans()}}</span></p>
+                
+                <div class="media">
+                  <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[1]->id)]) }}" class="image-link">
+                <img src="{{ URL::asset('uploads/' . $resultHomeNews[1]->article_1)}}" width="100%" height="auto" alt="">
+                  </a>
+                </div>
+                
+              </div>
+            @endif
+            </div>
           </div>
-          
-         </div>
-        
-        </div>
-       </div>
+    @endif
       </div>
      </section>
 
@@ -247,20 +249,22 @@
         </div>
 
         <div class="featured-drops owl-carousel ftco-owl">
-          @if(@$allDropManagement)
-            @foreach($allDropManagement as $dropManagement)
-              <div class="item grid">
-                <figure class="effect-lily">
-                      <img src="{{URL::asset('uploads/' . @$dropManagement->image)}}" alt="img12"/>
-                      <figcaption>
-                          <div>
-                            <h2><small class="mb-2 d-block">{{@$dropManagement->created_at->diffForHumans()}}</small>NFTSTAR is bringing its squad to The Sandbox</h2>
-                              <p>NFTSTAR is in front of the most recent developments on The Sandbox. According to reports, Forj would also support NFTSTAR…</p>
-                          </div>
-                          <a href="#">View more</a>
-                      </figcaption>			
-                  </figure>
-              </div>
+          @if(@$resultFeaturedDrop)
+            @foreach($resultFeaturedDrop as $data)
+              @if($data->is_featuredDrop == 1)
+                <div class="item grid">
+                  <figure class="effect-lily">
+                        <img src="{{URL::asset('uploads/' . @$data->article_2)}}" alt="img12"/>
+                        <figcaption>
+                            <div>
+                              <h2><small class="mb-2 d-block">{{@$data->created_at->diffForHumans()}}</small>{{@$data->title}}</h2>
+                                <p>{{@$data->shortDescription}}</p>
+                            </div>
+                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$data->id)]) }}">View more</a>
+                        </figcaption>			
+                    </figure>
+                </div>
+              @endif
             @endforeach
           @else
               <p>No Data Found..</p>
@@ -280,12 +284,20 @@
           </div>
           <div class="px-0 ml-auto text-right py-2">
            <div class="tag-widget post-tag-container">
-            <div class="tagcloud"><a href="#" class="active">ALL</a><a href="#">NFTs</a><a href="#">COLLECTABLES</a><a href="#">ART</a><a href="#">BLOCKCHAIN</a><a href="#">GAMING</a><a href="#">METAVERSE</a><a href="#">COINS</a><a href="#">DAO</a><a href="#">WEB 3.0</a><a href="#">REVIEWS</a></div>
+            <div class="tagcloud"><a class="tagLink" onclick="filterNFTDrops(0)">ALL</a>
+                @if(@$categories)
+                  @foreach($categories as $category)
+                    <a class='tagLink' onclick="filterNFTDrops({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
+                  @endforeach
+                @endif
+              </div>
           
             </div>
            </div>
         </div>
-         @csrf
+        
+        <div class="allNFTDrops"></div>
+        <div class="NFTDrops">
         <table class="table border text-dark table-responsive-sm table-striped table-borderless">
           <thead>
             <tr>
@@ -298,10 +310,22 @@
                 <th>&nbsp;</th>
             </tr>
            </thead>
-           <tbody id="post_data">
+           <tbody>
+             @foreach($allDropManagement as $dropManagement)
+              <tr>
+                  <td><img src="{{URL::asset('uploads/' . @$dropManagement->logo) }}" class="rounded-pill" width="34" height="34" alt="" /></td>
+                  <td>{{@$dropManagement->name}}</td>
+                  <td>{{@$dropManagement->token}}</td>
+                  <td><strong>{{@$dropManagement->blockChain}}</strong></td>
+                  <td>{{@$dropManagement->priceOfSale}}</td>
+                  <td>{{@$dropManagement->saleDate}}</td>
+                  <td><a href="{{@$dropManagement->twitterLink}}" target="_blank"><i class="fa fa-twitter mr-3"></i> <a href="{{@$dropManagement->discordLink}}" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></td>
+              </tr>
+            @endforeach
            </tbody>
         </table>
-        <a name="load_more_button" class="btn d-block btn-outline-light py-2 mt-4" id="load_more_button" data-id=>View More NFT Drops</a>
+        </div> {{-- end div of Drops --}}
+        <a href="" class="btn d-block btn-outline-light py-2 mt-4" >View More NFT Drops</a>
       </div>
     </section>
     
@@ -332,18 +356,20 @@ No annual fees. Top-up with fiat or crypto.</p>
         </div>
         <div class="ftco-animate">
             <div class="mktnws-slider owl-carousel ftco-owl">
-              @if(@$allNews)
-                @foreach($allNews as $news)
-                  <div class="item text-center">
-                    <div class="align-items-center justify-content-center"><a href="#"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
-                      <div class="text">
-                        <h4><a href="#" class="text-dark">{{ @$news->title }}</a></h4>
-                        <div class="meta d-md-flex mb-2">
-                          <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                          <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+              @if(@$resultFeaturedNews)
+                @foreach($resultFeaturedNews as $news)
+                  @if($news->is_featurednew == 1)
+                    <div class="item text-center">
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
+                        <div class="text">
+                          <h4><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                          <div class="meta d-md-flex mb-2">
+                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
+                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                          </div>
                         </div>
-                      </div>
-                  </div>
+                    </div>
+                  @endif  
                 @endforeach
               @endif
               
@@ -356,39 +382,33 @@ No annual fees. Top-up with fiat or crypto.</p>
     <section class="ftco-section py-5">
       <div class="container">
         <div class="row d-flex">
+          @if(count(@$getAllNewses))
+          @foreach($getAllNewses as $news)
           <div class="col-md-4 d-flex ftco-animate">
             <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img01.png');">
+              <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
               </a>
               <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+              	<h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
                 <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                  <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div class="col-md-4 d-flex ftco-animate rounded">
+          {{-- Ad Banner small --}}
+          {{-- <div class="col-md-4 d-flex ftco-animate rounded">
             <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
               <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
             </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img02.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> --}}
           
+          @endforeach
+          @endif
+          
+          {{-- horizontal Ad --}}
           <div class="col-md-12 d-flex mb-4 ftco-animate">
             <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
           </div>
@@ -593,34 +613,6 @@ $(document).ready(function() {
     });
 });
 
-// For NFT Drop lazy load data
-$(document).ready(function(){
- var _token = $('input[name="_token"]').val();
- load_data('', _token);
-
- function load_data(id="", _token)
- {
-  $.ajax({
-   url:"{{ route('loadmore.load_data') }}",
-   method:"POST",
-   data:{id:id, _token:_token},
-   success:function(data)
-   {
-    $('#load_more_button').html('View More NFT Drops');
-    // var lastId = $('#post_data tr:last').attr('id');
-    $('#post_data').append(data);
-   }
-  })
- }
-
- $(document).on('click', '#load_more_button', function(){
-  var id = $(this).data('id');
-  $('#load_more_button').html('<b>Loading...</b>');
-  load_data(id, _token);
- });
-
-});
-
 function filterCategory(value){
     var categoryId = parseInt(value);
 
@@ -645,5 +637,29 @@ function filterCategory(value){
     });
   }
 
+function filterNFTDrops(value)
+{
+  var categoryId = parseInt(value);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "{{ url('userFilterNFTDrops') }}",
+        type: "GET",
+        data: {
+            categoryId: categoryId,
+        },
+        dataType : 'html',
+        success: function(allDropManagement) {
+          console.log('success'); // code here paste
+          $('.NFTDrops').html(allDropManagement);
+          $('.allNFTDrops').hide();
+        },
+        error: function(xhr, status, error) {}
+    });
+}
 </script>
 @endsection

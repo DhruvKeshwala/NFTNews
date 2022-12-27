@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\NewsService;
 use App\Models\Category;
 use App\Models\News;
+use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
 use Illuminate\Support\Facades\Response;
@@ -21,11 +22,67 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $allNews            = News::take(10)->get();
-        $categories         = Category::all();
-        $pressReleases      = PressReleaseService::getPressRelease();
-        $allDropManagement  = DropManagementService::getLatestDropManagement();
-        return view('user.index', compact('allNews', 'categories', 'pressReleases', 'allDropManagement'));
+        $newses          = News::orderBy('id', 'DESC')->get();
+        // dd($newses[0]->newsType['homeheader']['start_date']);
+        
+        // foreach($newses as $newsData)
+        // {
+        //     $homeHeaderStartDate[] = json_decode($newsData->newsType);
+        //     dd($homeHeaderStartDate[0]->homeheader->start_date);
+        //     $homeHeaderEndDate[] = $newsData->newsType['homeheader']['end_date'];
+        // }
+        
+        // $getDateDate = News::whereJsonContains("newsType->homeheader->start_date", $homeHeaderStartDate)->get();
+        // dd($getDateDate);
+        $currentDate = date('d-m-Y');
+        $result = array();
+        $resultHomeNews = array();
+        $resultFeaturedDrop = array();
+        $resultFeaturedNews = array();
+
+        foreach($newses as $key => $news)
+        {
+            $result[$key] = $news;
+            $result[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->homeheader && $newsType->homeheader->start_date <= $currentDate && $newsType->homeheader->end_date >= $currentDate) {
+                $result[$key]->is_homeheader = 1;
+                $result[$key]->homeheader_start_date = $newsType->homeheader->start_date;
+                $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
+            }
+
+            $resultHomeNews[$key] = $news;
+            $resultHomeNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) {
+                $resultHomeNews[$key]->is_homenews = 1;
+                $resultHomeNews[$key]->homenews_start_date = $newsType->homenews->start_date;
+                $resultHomeNews[$key]->homenews_end_date = $newsType->homenews->end_date;                
+            }
+
+            $resultFeaturedDrop[$key] = $news;
+            $resultFeaturedDrop[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featureddrop && $newsType->featureddrop->start_date <= $currentDate && $newsType->featureddrop->end_date >= $currentDate) {
+                $resultFeaturedDrop[$key]->is_featuredDrop = 1;
+                $resultFeaturedDrop[$key]->featureddrop_start_date = $newsType->featureddrop->start_date;
+                $resultFeaturedDrop[$key]->featureddrop_end_date = $newsType->featureddrop->end_date;  
+            }
+
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }
+            
+        }
+        
+        
+        $allNews             = News::take(10)->get();
+        $categories          = Category::all();
+        $pressReleases       = PressReleaseService::getPressRelease();
+        $allDropManagement   = DropManagementService::getLatestDropManagement();
+        $getAllNewses        = News::all();
+        return view('user.index', compact('getAllNewses', 'result', 'resultHomeNews', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
     }
 
     public function userFilterCategory(Request $request)
@@ -45,63 +102,22 @@ class HomeController extends Controller
         $response->header('Content-Type', 'text/plain');
         return $response;
     }
-
-    function load_data(Request $request)
+    
+    public function userFilterNFTDrops(Request $request)
     {
-     if($request->ajax())
-     {
-      if($request->id > 0)
-      {
-       $data = DB::table('drop_management')
-          ->where('id', '<', $request->id)
-          ->orderBy('id', 'DESC')
-          ->limit(5)
-          ->get();
-      }
-      else
-      {
-       $data = DB::table('drop_management')
-          ->orderBy('id', 'DESC')
-          ->limit(5)
-          ->get();
-      }
-        $contents = View::make('user.NFTDropDisplay')->with('data', $data);
+        $categoryId = $request->categoryId;
+        if($categoryId == 0)
+        {
+            $allDropManagement    =  DropManagement::get();
+        }
+        else
+        {
+            $allDropManagement    =  DropManagement::where('categoryId', $categoryId)->get();
+        }
+        
+        $contents = View::make('user.NFTDropDisplay')->with('allDropManagement', $allDropManagement);
         $response = Response::make($contents, 200);
         $response->header('Content-Type', 'text/plain');
         return $response;
-    //   $output = '';
-    //   $last_id = '';
-      
-    //   if(!$data->isEmpty())
-    //   {
-    //    foreach($data as $dropManagement)
-    //    {
-    //     $output .= '
-    //     <tr>
-    //         <td><img src="/NFTNews/uploads/' . @$dropManagement->logo . '" class="rounded-pill" width="34" height="34" alt="" /></td>
-    //         <td>' . @$dropManagement->name . '</td>
-    //             <td>' . @$dropManagement->token . '</td>
-    //             <td><strong>' . @$dropManagement->blockChain . '</strong></td>
-    //             <td>' . @$dropManagement->priceOfSale . '</td>
-    //             <td>' . @$dropManagement->saleDate . '</td>
-    //             <td><a href="' . @$dropManagement->twitterLink . '" target="_blank"><i class="fa fa-twitter mr-3"></i> <a href="' . @$dropManagement->discordLink . '" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></td>
-    //     </tr>
-    //     ';
-    //     $last_id = $dropManagement->id;
-    //    }
-    //    $output .= '
-    //    <div id="load_more">
-    //    <button name="load_more_button" class="btn d-block btn-outline-light py-2 mt-4 form-control" data-id="'.$last_id.'" id="load_more_button">View More NFT Drops</button>
-    //    </div>';
-    //   }
-    //   else
-    //   {
-    //    $output .= '
-    //    <div id="load_more">
-    //     <button type="button" name="load_more_button" class="btn btn-info form-control">No Data Found</button>
-    //    </div>';
-    //   }
-    //   echo $output;
-     }
     }
 }

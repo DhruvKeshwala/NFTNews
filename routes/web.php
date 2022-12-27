@@ -95,5 +95,5 @@ Route::get('user/listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->
 //Tag wise filter categories
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
 
-//Load NFT Drop lazy loading data
-Route::post('/loadmore/load_data', [HomeController::class, 'load_data'])->name('loadmore.load_data');
+//Tag wise filter NFT Drops
+Route::get('userFilterNFTDrops', [HomeController::class, 'userFilterNFTDrops'])->name('userFilterNFTDrops');
