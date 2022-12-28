@@ -10,12 +10,14 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DropManagementController;
 use App\Http\Controllers\PressReleaseController;
 use App\Http\Controllers\VideoManagementController;
+use App\Http\Controllers\CryptoJournalController;
 
 //User controllers
 use App\Http\Controllers\user\HomeController;
 use App\Http\Controllers\user\UserNewsController;
 use App\Http\Controllers\user\UserPressController;
 use App\Http\Controllers\user\UserNFTDropsController;
+use App\Http\Controllers\user\UserMarketsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,10 +84,18 @@ Route::group(['prefix'=>'siteadmin'], function(){
         // video management
         Route::get('videos', [VideoManagementController::class, 'index'])->name('videos');
         Route::get('add_video/{id?}', [VideoManagementController::class, 'addVideo'])->name('add_video');
-        Route::get('news_detail/{id}', [NewsController::class, 'newsDetail'])->name('news_detail');
-        Route::post('save_news', [NewsController::class, 'saveNews'])->name('save_news');
-        Route::post('delete_news', [NewsController::class, 'deleteNews'])->name('delete_news');
-        Route::get('/filter_news', [NewsController::class, 'filterNews'])->name('filter_news');
+        Route::get('video_detail/{id}', [VideoManagementController::class, 'videoDetail'])->name('video_detail');
+        Route::post('save_video', [VideoManagementController::class, 'saveVideo'])->name('save_video');
+        Route::post('delete_video', [VideoManagementController::class, 'deleteVideo'])->name('delete_video');
+        Route::get('/filter_video', [VideoManagementController::class, 'filterVideo'])->name('filter_video');
+
+        //Crypto Journal Management
+        Route::get('cryptoJournal', [CryptoJournalController::class, 'index'])->name('cryptoJournal');
+        Route::get('add_crypto/{id?}', [CryptoJournalController::class, 'addCrypto'])->name('add_crypto');
+        Route::post('save_crypto', [CryptoJournalController::class, 'saveCrypto'])->name('save_crypto');
+        Route::post('delete_crypto', [CryptoJournalController::class, 'deleteCrypto'])->name('delete_crypto');
+        Route::get('/filter_crypto', [CryptoJournalController::class, 'filterCrypto'])->name('filter_crypto');
+
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
@@ -107,3 +117,5 @@ Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])-
 
 //Tag wise filter NFT Drops
 Route::get('userFilterNFTDrops', [HomeController::class, 'userFilterNFTDrops'])->name('userFilterNFTDrops');
+
+Route::get('markets', [UserMarketsController::class, 'index'])->name('user.markets');

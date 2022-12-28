@@ -30,8 +30,7 @@ class NewsController extends Controller
         $categoryId = $request->filterCategoryId;
         $authorId   = $request->filterAuthorId;
         
-        $news = NewsService::getNews();
-
+        $news       = News::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(10);
         foreach($news as $key=>$value)
         {
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
@@ -39,7 +38,6 @@ class NewsController extends Controller
         }
         $categories = Category::all();
         $authors    = Author::all();
-        $news       = News::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(1);
         return view('news', compact('news','categories','authors'));
     }
 

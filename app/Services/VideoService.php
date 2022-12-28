@@ -4,7 +4,7 @@ use App\Models\Video_management;
 class VideoService
 {
     // find all News
-    public static function getNews()
+    public static function getVideos()
     {
         return Video_management::orderby('id','desc')->paginate(10);
     }
@@ -20,7 +20,7 @@ class VideoService
         return Video_management::find($categoryId);
     }
     //insert or update country
-    public static function createNews($newsDetails,$newsId)
+    public static function createVideo($newsDetails,$newsId)
     {
         if($newsId== 0)
         {

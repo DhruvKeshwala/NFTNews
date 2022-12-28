@@ -133,7 +133,7 @@
                 </div>
                 
                 <div class="sidebar-box ftco-animate fadeInUp ftco-animated border bg-info-gradient p-3">
-                <h5 style="background-image:url(images/envelope-icon.png); padding-left: 35px; background-repeat:no-repeat;">SUBSCRIBE NOW</h5>
+                <h5 style="background-image:url({{ URL::asset('user/images/envelope-icon.png')}}); padding-left: 35px; background-repeat:no-repeat;">SUBSCRIBE NOW</h5>
                 <p>Sign up for free newsletters and get more NFT Markets delivered to your inbox</p>
                 <form action="subscribe.html" class="form-consultation">
                   <div class="form-group">
@@ -176,34 +176,34 @@
       
       <div class="col-md-6">
        <div class="play">
-        <img src="images/video-feature-img.png" height="300" width="100%" class="img-video" /></div>
+        <img src="{{ URL::asset('assets/user/images/video-feature-img.png')}}" height="300" width="100%" class="img-video" /></div>
       </div> <!-- col-md-6 end -->
      </div>
      <div class="row">
       <div class="col-md-12 px-0">
        <div class="featured-drops owl-carousel ftco-owl">
           <div class="item play">          
-          <a href="#"><img src="images/newsimg-small01.png" width="100%" height="auto" alt=""></a>
+          <a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small01.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
-          <div class="item play"><a href="#"><img src="images/newsimg-small02.png" width="100%" height="auto" alt=""></a>
+          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small02.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
-          <div class="item play"><a href="#"><img src="images/newsimg-small03.png" width="100%" height="auto" alt=""></a>
+          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small03.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
-          <div class="item play"><a href="#"><img src="images/newsimg-small04.png" width="100%" height="auto" alt=""></a>
+          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small04.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
-          <div class="item play"><a href="#"><img src="images/newsimg-small01.png" width="100%" height="auto" alt=""></a>
+          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small01.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
-          <div class="item play"><a href="#"><img src="images/newsimg-small02.png" width="100%" height="auto" alt=""></a>
+          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small02.png')}}" width="100%" height="auto" alt=""></a>
            <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
 	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
           </div>
@@ -232,7 +232,7 @@
             <a href="weekly-magazine.html" class="btn btn-outline-light-gradient bg-white py-1">Cryptonaire Weekly</a> <a href="weekly-magazine.html" class="btn btn-outline-light-gradient bg-white py-1">Read More</a>
           </div>
           <div class="col-md-6 p-4">
-            <img src="images/cryptonaire-weekly-img.png" class="img" width="100%" height="337" alt="">
+            <img src="{{ URL::asset('assets/user/images/cryptonaire-weekly-img.png')}}" class="img" width="100%" height="337" alt="">
           </div>
         </div>
       </div>
@@ -333,7 +333,7 @@
     {{-- visa card ad --}}
     <section class="drops-section pt-5 ftco-animate">
       <div class="bg-video-wrap">
-	     <video src="images/video.mp4" loop muted autoplay></video>
+	     <video src="{{ URL::asset('assets/user/images/video.mp4')}}" loop muted autoplay></video>
          <div class="overlay"></div>
          <div class="contbox">
          	<h3 class="text-light">NFT MARKETS VISA CARD</h3>
@@ -378,118 +378,82 @@ No annual fees. Top-up with fiat or crypto.</p>
       </div>
     </section>
 
-
+@php 
+    $i=1;
+    $ln=0;
+    $ln2=0;
+@endphp
     <section class="ftco-section py-5">
       <div class="container">
         <div class="row d-flex">
           @if(count(@$getAllNewses))
           @foreach($getAllNewses as $news)
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+          @if($i==5 || ($i-$ln)==5)
+            {{-- Ad Banner small --}}
+            <div class="col-md-4 d-flex ftco-animate rounded">
+              <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
+                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          {{-- Ad Banner small --}}
-          {{-- <div class="col-md-4 d-flex ftco-animate rounded">
-            <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-              <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+            
+@php
+            $ln = $i;
+@endphp
+          @elseif($i==6 || ($i-$ln2)==5)
+            {{-- horizontal Ad --}}
+            <div class="col-md-12 d-flex mb-4 ftco-animate">
+              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
             </div>
-          </div> --}}
-          
-          @endforeach
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @php
+            $ln2 = $i;
+@endphp
+          @else
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endif
-          
-          {{-- horizontal Ad --}}
-          <div class="col-md-12 d-flex mb-4 ftco-animate">
-            <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
-          </div>
-          
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img01.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img02.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img03.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img04.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate rounded">
-            <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-              <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads01.jpg') }}" width="100%" alt="" class="img-fluid"></a>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img02.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
+@php      $i++;   @endphp
+          @endforeach
+          @endif        
         </div>
         
-        <a href="#" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
+        <a href="{{route('user.news')}}" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
         
       </div>
     </section>
@@ -565,28 +529,28 @@ No annual fees. Top-up with fiat or crypto.</p>
           <div class="col-md-12 ml-auto pt-3">
             <div class="logos-carousel owl-carousel ftco-owl">
               <div class="item">
-                <img src="images/logo01.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo01.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo02.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo02.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo03.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo03.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo04.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo04.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo05.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo05.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo06.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo06.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo07.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo07.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               <div class="item">
-                <img src="images/logo08.jpg" width="auto" height="72" class="w-auto m-auto" alt="">
+                <img src="{{ URL::asset('assets/user/images/logo08.jpg')}}" width="auto" height="72" class="w-auto m-auto" alt="">
               </div>
               
             </div>

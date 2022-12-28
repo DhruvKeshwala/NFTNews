@@ -14,23 +14,37 @@ a:hover {
         </div>
     </div>
     <div class="container_fluid mt-2 px-3">
-        {{-- {{ $news->appends(Request::except('page'))->links('vendor.pagination.custom') }} --}}
+        {{ $videos->appends(Request::except('page'))->links('vendor.pagination.custom') }}
         <br>
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
-            <form action="{{ route('filter_news') }}" method="get">
+            <form action="{{ route('filter_video') }}" method="get">
                 @csrf
-                <td class="pr-0"><input type="text" name="filterNewsTitle" size="45" placeholder="Title"></td>
+                <td class="pr-0"><input type="text" name="filterNewsTitle" size="45" placeholder="Title" value="<?php 
+                if (!empty($_GET['filterNewsTitle'])) {
+                    $q = $_GET['filterNewsTitle'];
+                    echo $q;
+                } ?>"></td>
                 <td><select name="filterCategoryId" data-placeholder="Select Category">
                         <option value=""></option>
                         @foreach($categories as $category)
-                        <option value="{{ $category->id }}" >{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" <?php 
+                if (!empty($_GET['filterCategoryId']) && $_GET['filterCategoryId'] == $category->id ) 
+                {
+                ?>
+                selected
+                <?php } ?>>{{ $category->name }}</option>
                         @endforeach
                     </select></td>
                 <td><select name="filterAuthorId" data-placeholder="Select Author">
                         <option value=""></option>
                         @foreach($authors as $author)
-                            <option value="{{$author->id}}">{{$author->name}}</option>
+                            <option value="{{$author->id}}" <?php 
+                if (!empty($_GET['filterAuthorId']) && $_GET['filterAuthorId'] == $author->id ) 
+                {
+                ?>
+                selected
+                <?php } ?>>{{$author->name}}</option>
                         @endforeach
                     </select></td>
                 <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
@@ -42,22 +56,57 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="15%">News Title</th>
+                    <th width="30%">Video Title</th>
                     <th width="15%">Category</th>
                     <th width="13%">Author</th>
-                    <th width="15%">Listed In</th>
+                    {{-- <th width="15%">Listed In</th> --}}
                     <th width="15%">Posted On</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>
-                
+                @if (count($videos)<=0)
+                <tr>
+                    <td colspan="9" class="text-center"> No records found </td>
+                </tr> 
+                @endif
+                @foreach($videos as $newsDetails)
+                <tr>
+                    <td>{{$loop->index + 1}}</td>
+                    <td>@if($newsDetails->image1 != null)<img src="{{asset('uploads/').'/'.$newsDetails->image1}}" width="100">@endif</td>
+                    <td>{{$newsDetails->title}}</td>
+                    <td>{{$newsDetails->category}}</td>
+                    <td>{{$newsDetails->author->name}}</td>
+                    {{-- <td>
+                        {{ $newsDetails->start_date }}
+                    </td> --}}
+                    <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
+                    <td align="center">
+                        @if ($newsDetails->fld_status=='Active')
+                            <a href="#" class="text-success"><span class="fa fa-check"></span></a>
+                        @else
+                            <a href="#" class="text-danger"><span class="fa fa-times"></span></a>
+                        @endif
+                    </td>
+                    <td>
+                        <a title="Edit" href="{{ route('add_video',$newsDetails->id)}}" class="text-success mr-2">
+                            <span class="fa fa-edit fa-lg"></span>
+                        </a> 
+                        <a href="javascript:;" onclick="deleteVideo('{{$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
+                            <span class="fa fa-trash-o fa-lg"></span>
+                        </a> 
+                        <a href="{{ route('video_detail',$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                            <span class="fa fa-eye fa-lg"></span>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
         <div class="clearfix"></div>
     </div>
-    {{-- {{ $news->appends(Request::except('page'))->links('vendor.pagination.custom') }} --}}
+    {{ $videos->appends(Request::except('page'))->links('vendor.pagination.custom') }}
 </div>
 @include('layouts.footer')
 <script>
@@ -65,7 +114,7 @@ a:hover {
     });
     $("select[name=\"filterAuthorId\"]").select2({
     });
-    function deleteNews(id) {
+    function deleteVideo(id) {
         swal({
             title: "Warning!",
             text: "Are you sure? You want to delete it",
@@ -79,7 +128,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('siteadmin/delete_news') }}",
+                    url: "{{ url('siteadmin/delete_video') }}",
                     type: "POST",
                     data: {
                         id: id

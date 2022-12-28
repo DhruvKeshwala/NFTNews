@@ -69,7 +69,7 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
              <li class="nav-item active"><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
-             <li class="nav-item"><a href="market-news.html" class="nav-link">Markets</a></li>
+             <li class="nav-item"><a href="{{route('user.markets')}}" class="nav-link">Markets</a></li>
              <li class="nav-item"><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
              <li class="nav-item"><a href="video-lists.html" class="nav-link">Videos</a></li>
              <li class="nav-item"><a href="crypto-journal.html" class="nav-link">Crypto Journal</a></li>
@@ -94,7 +94,7 @@
             <div class="modal-body">
              <button type="button" class="close" data-dismiss="modal">&times;</button>
              <div class="row py-4">
-                <div class="col-md-6"><img src="images/newsletter-popup-image-1.jpg" width="100%" height="auto" alt=""></div>
+                <div class="col-md-6"><img src="{{ URL::asset('user/images/newsletter-popup-image-1.jpg') }}" width="100%" height="auto" alt=""></div>
                 <div class="col-md-6">
                     <h5 class="modal-title">THE MOST POPULAR</h5>
                     <h3 class="modal-title mb-3">NFTs IN THE MARKET</h3>
@@ -235,7 +235,7 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
 
   <!-- FlexSlider -->
-  <script defer src="js/jquery.flexslider.js"></script>
+  <script defer src="{{ URL::asset('assets/user/js/jquery.flexslider.js') }}"></script>
 
   <script type="text/javascript">
     $(function(){

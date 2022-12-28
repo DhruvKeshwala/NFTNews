@@ -105,6 +105,7 @@ class HomeController extends Controller
     
     public function userFilterNFTDrops(Request $request)
     {
+        $getAllNewses        = News::all();
         $categoryId = $request->categoryId;
         if($categoryId == 0)
         {

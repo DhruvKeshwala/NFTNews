@@ -92,8 +92,9 @@
     </div>
 </section>
     
+{{-- market news| featured --}}
 <section class="ftco-section bg-light mb-5 py-5">
-    <div class="container mb-5">
+    <div class="container">
     <div class="row ftco-animate">
         <div class="col-md-12 mx-auto mb-3 heading-section heading-section-white text-left ftco-animate">
         <h2 class="mb-0 py-1">MARKET NEWS <span class="text-light">|</span> FEATURED</h2>
@@ -101,148 +102,105 @@
     </div>
     <div class="ftco-animate">
         <div class="mktnws-slider owl-carousel ftco-owl">
-            <div class="item text-center">
-            <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img01.png')}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
-                <div class="text">
-                <h4><a href="#" class="text-dark">FTX Bitcoin stash worth same as Mt. Gox 840K BTC before hack</a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
+            @if(@$resultFeaturedNews)
+            @foreach($resultFeaturedNews as $news)
+                @if($news->is_featurednew == 1)
+                <div class="item text-center">
+                    <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
+                    <div class="text">
+                        <h4><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                        <div class="meta d-md-flex mb-2">
+                        <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
+                        <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-            <div class="item text-center">
-            <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img02.png')}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
-                <div class="text">
-                <h4><a href="#" class="text-dark">Bitcoin miners send less BTC to exchanges since 2020 halving despite FTX</a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
-                </div>
-                </div>
-            </div>
-            <div class="item text-center">
-            <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img03.png')}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
-                <div class="text">
-                <h4><a href="#" class="text-dark">Solana entities sold 50M tokens to FTX — How long will SOL price suffer?</a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img04.png')}}" width="100%" class="img-thumbnail" alt=""/></a></div>
-                <div class="text">
-                <h4><a href="#" class="text-dark">Bitcoin price hits $17K on US PPI as trader warns of ‘final capitulation’ </a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
-                </div>
-                </div>
-            </div>
-            
-            <div class="item">
-            <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img01.png')}}" width="100%" class="img-thumbnail" alt=""/></a></div>
-            <div class="text">
-                <h4><a href="#" class="text-dark">FTX Bitcoin stash worth same as Mt. Gox 840K BTC before hack</a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
-                </div>
-            </div>
-            </div>
-            
-            <div class="item">
-            <div class="align-items-center justify-content-center"><a href="#"><img src="{{ URL::asset('user/images/markt-img02.png')}}" width="100%" class="img-thumbnail" alt=""/></a></div>
-                <div class="text">
-                <h4><a href="#" class="text-dark">Bitcoin miners send less BTC to exchanges since 2020 halving despite FTX</a></h4>
-                <div class="meta d-md-flex mb-2">
-                    <a href="#" class="meta-chat text-dark">INDUSTRY TALK</a>
-                    <a href="#" class="text-light ml-2"><span class="fa fa-calendar"></span> 3 hours ago</a>
-                </div>
-                </div>
-            </div>
+                @endif  
+            @endforeach
+            @endif
             
         </div>
     </div>
-    </div>
-    <div class="container">
-    <div class="row d-flex">
-        <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry rounded shadow align-self-stretch">
-            <a href="#" class="block-30 rounded" style="background-image: url({{ URL::asset('user/images/markt-img01.png')}});">
-            </a>
-            <div class="text px-4 mt-3">
-            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-            <div class="mb-5">
-                <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry rounded shadow align-self-stretch">
-            <a href="#" class="block-30 rounded" style="background-image: url({{ URL::asset('user/images/markt-img02.png')}});">
-            </a>
-            <div class="text px-4 mt-3">
-            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-            <div class="mb-5">
-                <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry rounded shadow align-self-stretch">
-            <a href="#" class="block-30 rounded" style="background-image: url({{ URL::asset('user/images/markt-img03.png')}});">
-            </a>
-            <div class="text px-4 mt-3">
-            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-            <div class="mb-5">
-                <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-            </div>
-            </div>
-        </div>
-        </div>
-        
-        <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry rounded shadow align-self-stretch">
-            <a href="#" class="block-30 rounded" style="background-image: url({{ URL::asset('user/images/markt-img04.png')}});">
-            </a>
-            <div class="text px-4 mt-3">
-            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-            <div class="mb-5">
-                <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4 d-flex ftco-animate rounded">
-        <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-            <a href="#" target="_blank"><img src="{{ URL::asset('user/images/middle-list-ads.jpg')}}" width="100%" alt="" class="img-fluid"></a>
-        </div>
-        </div>
-        <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry rounded shadow align-self-stretch">
-            <a href="#" class="block-30 rounded" style="background-image: url({{ URL::asset('user/images/markt-img02.png')}});">
-            </a>
-            <div class="text px-4 mt-3">
-            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-            <div class="mb-5">
-                <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-            </div>
-            </div>
-        </div>
-        </div>
-        
-    </div>
-    
     </div>
 </section>
+
+@php 
+    $i=1;
+    $ln=0;
+    $ln2=0;
+@endphp
+    <section class="ftco-section py-5">
+      <div class="container">
+        <div class="row d-flex">
+          @if(count(@$getAllNewses))
+          @foreach($getAllNewses as $news)
+          @if($i==5 || ($i-$ln)==5)
+            {{-- Ad Banner small --}}
+            <div class="col-md-4 d-flex ftco-animate rounded">
+              <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
+                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+@php
+            $ln = $i;
+@endphp
+          @elseif($i==6 || ($i-$ln2)==5)
+            {{-- horizontal Ad --}}
+            <div class="col-md-12 d-flex mb-4 ftco-animate">
+              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @php
+            $ln2 = $i;
+@endphp
+          @else
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+@php      $i++;   @endphp
+          @endforeach
+          @endif        
+        </div>
+        
+        <a href="{{route('user.news')}}" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
+        
+      </div>
+    </section>
 @endsection

@@ -17,9 +17,32 @@ class VideoManagementController extends Controller
      */
     public function index()
     {
+        $videos = VideoService::getVideos();
+        foreach($videos as $key=>$value)
+        {
+            $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
+            $value['category'] = implode(',',$categories);
+        }
         $categories = Category::all();
         $authors     = Author::all();
-        return view('videos', compact('categories','authors'));
+        return view('videos', compact('videos', 'categories','authors'));
+    }
+
+    public function filterVideo(Request $request)
+    {
+        $title      = $request->filterNewsTitle;
+        $categoryId = $request->filterCategoryId;
+        $authorId   = $request->filterAuthorId;
+        
+        $videos     = Video_management::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(10);
+        foreach($videos as $key=>$value)
+        {
+            $categories         = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
+            $value['category']  = implode(',',$categories);
+        }
+        $categories = Category::all();
+        $authors    = Author::all();
+        return view('videos', compact('videos','categories','authors'));
     }
 
     /**
@@ -28,79 +51,79 @@ class VideoManagementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function addVideo($id=null)
-    {
-        $counter = 1;
-        $items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        foreach($items as $item) {
-            echo $item;
-            if($counter % 4 == 0 && $counter < count($items)) {
-                echo "-break-";
-            }
-            if($counter % 5 == 0 && $counter < count($items)) {
-                echo "--break--";
-            }
-            $counter++;
-        }
-        die;
+    {   
         $categories = Category::all();
         $authors    = Author::all();
         $news = VideoService::getNewsById($id);
-        return view('add_video',compact('news','id','categories','authors'));
+        return view('add_video',compact('news','id','categories','authors')); 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+     public function videoDetail($id)
     {
-        //
+        $news = VideoService::getNewsById($id);
+        return view('video_detail',compact('news'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Video_management  $video_management
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Video_management $video_management)
+    public function saveVideo(Request $request)
     {
-        //
+        //validation
+        $request->validate([
+            'title'             => 'required',
+            'categoryId'        => 'required',
+            'authorId'          => 'required',
+            'shortDescription'  => 'required',
+            'fullDescription'   => 'required',
+            'code'              => 'required',
+
+        ]);
+        
+        $newsdetails = $request->only([
+            'title',
+            'shortDescription',
+            'fullDescription',
+            'code',
+            'categoryId',
+            'authorId',
+        ]);
+        if($request->file('image1') != null)
+        {
+            $file      = $request->file('image1');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['image1'] = $fileName;
+        }
+        if($request->file('image2') != null)
+        {
+            $file      = $request->file('image2');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['image2'] = $fileName;
+        }
+
+        // $newsTypeDate = array();
+        // $start_date = explode(',',$request->start_date);
+        // $end_date = explode(',',$request->end_date);
+        // $newsArray = explode(',',$request->newstype);
+        // if(is_array($newsArray))
+        // {
+        //     foreach($newsArray as $key=>$newstype)
+        //     {
+        //         $newsTypeDate[$newstype]['start_date'] = $start_date[$key];
+        //         $newsTypeDate[$newstype]['end_date'] = $end_date[$key];
+        //     }
+        // }
+        // $newsdetails['newsType'] = json_encode($newsTypeDate);
+        $newsdetails['videoType']  = $request->videoType;
+        $newsdetails['start_date'] = $request->start_date;
+        $newsdetails['end_date']   = $request->end_date;
+        
+        $news = VideoService::createVideo($newsdetails,$request->newsId);
+        return json_encode(['success'=>1,'message'=>'Video Saved Successfully']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Video_management  $video_management
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Video_management $video_management)
+    public function deleteVideo(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Video_management  $video_management
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Video_management $video_management)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Video_management  $video_management
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Video_management $video_management)
-    {
-        //
+        $video = VideoService::deleteNews($request->id);
+        return json_encode(['success'=>1,'message'=>'Video has been deleted successfully']);
     }
 }

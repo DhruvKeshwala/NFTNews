@@ -149,84 +149,82 @@
         </div>
       </div>
       
+
+@php 
+    $i=1;
+    $ln=0;
+    $ln2=0;
+@endphp
+
       <div class="container">
         <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img01.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+          @if(count(@$getAllNewses))
+          @foreach($getAllNewses as $news)
+          @if($i==5 || ($i-$ln)==5)
+            {{-- Ad Banner small --}}
+            <div class="col-md-4 d-flex ftco-animate rounded">
+              <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
+                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img02.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+            
+@php
+            $ln = $i;
+@endphp
+          @elseif($i==6 || ($i-$ln2)==5)
+            {{-- horizontal Ad --}}
+            <div class="col-md-12 d-flex mb-4 ftco-animate">
+              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img03.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+            @php
+            $ln2 = $i;
+@endphp
+          @else
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="blog-entry rounded shadow align-self-stretch">
+                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                </a>
+                <div class="text px-4 mt-3">
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <div class="mb-5">
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img04.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate rounded">
-            <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-              <a href="#"><img src="images/middle-list-ads.jpg" width="100%" alt="" class="img-fluid"></a>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry rounded shadow align-self-stretch">
-              <a href="#" class="block-30 rounded" style="background-image: url('images/markt-img02.png');">
-              </a>
-              <div class="text px-4 mt-3">
-              	<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="mb-5">
-                  <div class="float-left"><a href="#" class="meta-chat">Admin</a></div>
-                  <div class="float-right"><a href="#" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+          @endif
+@php      $i++;   @endphp
+          @endforeach
+          @endif        
+        </div>    
         </div>
-        
-      </div>
-      
     </section>
 @endsection
 
