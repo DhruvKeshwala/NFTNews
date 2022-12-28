@@ -29,6 +29,19 @@ class VideoManagementController extends Controller
      */
     public function addVideo($id=null)
     {
+        $counter = 1;
+        $items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        foreach($items as $item) {
+            echo $item;
+            if($counter % 4 == 0 && $counter < count($items)) {
+                echo "-break-";
+            }
+            if($counter % 5 == 0 && $counter < count($items)) {
+                echo "--break--";
+            }
+            $counter++;
+        }
+        die;
         $categories = Category::all();
         $authors    = Author::all();
         $news = VideoService::getNewsById($id);
