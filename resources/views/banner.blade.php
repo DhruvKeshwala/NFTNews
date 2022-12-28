@@ -121,7 +121,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_banner') }}",
+                    url: "{{ url('siteadmin/delete_banner') }}",
                     type: "POST",
                     data: {
                         id: id

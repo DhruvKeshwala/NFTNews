@@ -99,7 +99,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_dropManagement') }}",
+                    url: "{{ url('siteadmin/delete_dropManagement') }}",
                     type: "POST",
                     data: {
                         id: id

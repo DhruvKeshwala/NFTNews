@@ -155,7 +155,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('author') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/author') }}"
                             }
                         })
                     }

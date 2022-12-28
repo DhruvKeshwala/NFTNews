@@ -102,7 +102,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_category') }}",
+                    url: "{{ url('siteadmin/delete_category') }}",
                     type: "POST",
                     data: {
                         id: id
@@ -136,7 +136,7 @@ a:hover {
             }
         });
         $.ajax({
-            url: "{{ url('filter_category') }}",
+            url: "{{ url('siteadmin/filter_category') }}",
             type: "GET",
             data: {
                 filterCategoryName: filterCategoryName,

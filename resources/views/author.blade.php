@@ -112,7 +112,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_author') }}",
+                    url: "{{ url('siteadmin/delete_author') }}",
                     type: "POST",
                     data: {
                         id: id

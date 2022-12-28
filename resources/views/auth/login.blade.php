@@ -7,17 +7,17 @@
     <title>Admin Module</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/nice-select.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" />
-    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/owl.carousel.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/nice-select.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/magnific-popup.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/slicknav.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/animate.css') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="assets/images/logo.png">
+    <link rel="icon" href="{{ URL::asset('assets/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ URL::asset('assets/images/logo.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="bA46ADbkKbltRj9QAos8kSJXjcOZl98GpPXVc7M5" />
     <meta name="theme-color" content="white">
@@ -45,7 +45,7 @@
                         @endif
                         @csrf
                         <!-- <h4 class="mb-4 text-center"><strong>Administrator Login</strong></h4> -->
-                        <h4 class="mb-4 text-center"><strong><img src="{{ URL(asset('images/logo.png')) }}"></strong></h4>
+                        <h4 class="mb-4 text-center"><strong><img src="{{ URL(asset('assets/images/logo.png')) }}"></strong></h4>
                         
                         <div class="row form-group">
                             <div class="col-md-12 mb-3">

@@ -101,7 +101,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_pressRelease') }}",
+                    url: "{{ url('siteadmin/delete_pressRelease') }}",
                     type: "POST",
                     data: {
                         id: id

@@ -237,7 +237,7 @@
                 }
             });
             $.ajax({
-                url: "{{ url('save_pressRelease') }}",
+                url: "{{ url('siteadmin/save_pressRelease') }}",
                 type: "POST",
                 data:fd,
                 cache: false,
@@ -257,7 +257,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('pressRelease') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/pressRelease') }}"
                             }
                         })
                     }

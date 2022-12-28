@@ -134,7 +134,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('banner') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/banner') }}"
                             }
                         })
                     }

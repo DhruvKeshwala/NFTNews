@@ -2,7 +2,7 @@
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
-            <h3>@if(@$id == null) Add @else Edit @endif News</h3>
+            <h3>@if(@$id == null) Add @else Edit @endif Video</h3>
         </div>
         <div class="col-md-5 text-right">
             &nbsp;

@@ -231,7 +231,7 @@
                 }
             });
             $.ajax({
-                url: "{{ url('save_dropManagement') }}",
+                url: "{{ url('siteadmin/save_dropManagement') }}",
                 type: "POST",
                 data:fd,
                 cache: false,
@@ -251,7 +251,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('dropManagement') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/dropManagement') }}"
                             }
                         })
                     }

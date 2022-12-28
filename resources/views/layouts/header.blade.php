@@ -5,18 +5,18 @@
   <!-- <link rel="manifest" href="manifest.json"> //-->
     
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
-  <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/nice-select.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/magnific-popup.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/slicknav.min.css') }}"/>
-  <link rel="stylesheet" href="{{ URL::asset('css/animate.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/owl.carousel.min.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/nice-select.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/magnific-popup.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/slicknav.min.css') }}"/>
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/animate.css') }}"/>
     
-  <link rel="icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ URL::asset('assets/favicon.ico') }}" type="image/x-icon">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <link rel="apple-touch-icon" href="{{ URL::asset('images/logo.png') }}">
+  <link rel="apple-touch-icon" href="{{ URL::asset('assets/images/logo.png') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="white">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,12 +26,12 @@
   <meta name="msapplication-TileColor" content="#FFFFFF">
   
   <!-- Add jQuery library -->
-  <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.min.js') }}"></script>
+  <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.10.2.min.js') }}"></script>
 
 	<!-- Add fancyBox main JS and CSS files -->
-	<script type="text/javascript" src="{{ URL::asset('js/jquery.fancybox.pack.js?v=2.1.5') }}"></script>
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/jquery.fancybox.css?v=2.1.5') }}" media="screen" />
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2.min.css') }}" />
+	<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.fancybox.pack.js?v=2.1.5') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/jquery.fancybox.css?v=2.1.5') }}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/select2.min.css') }}" />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/alert2@7.12.15/dist/sweetalert2.min.css'>
 
   <style>
@@ -80,6 +80,7 @@
                   <li class="logo d-sm-none border-bottom bg-light border-dark"><a href="#"><h4 class="mb-0 mt-1">The NFT Markets</h4></a></li>
                   <li><span class="material-icons">list</span><a class="fill-a" href="@if(Request::segment(1) == 'category') {{'#'}} @else {{route('category')}} @endif">Category</a></li>
                   <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'news') {{'#'}} @else {{route('news')}} @endif">News</a></li>
+                  <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'videos') {{'#'}} @else {{route('videos')}} @endif">Videos</a></li>
                   <li><span class="material-icons">account_circle</span><a class="fill-a" href="@if(Request::segment(1) == 'author') {{'#'}} @else {{route('author')}} @endif">Author</a></li>
                   <li><span class="material-icons">image</span><a class="fill-a" href="@if(Request::segment(1) == 'banner') {{'#'}} @else {{route('banner')}} @endif">Banner</a></li>
                   <li><span class="material-icons">euro</span><a class="fill-a" href="@if(Request::segment(1) == 'dropManagement') {{'#'}} @else {{route('dropManagement')}} @endif">NFT Drops</a></li>

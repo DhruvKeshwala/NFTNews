@@ -103,7 +103,7 @@
                 }
             });
             $.ajax({
-                url: "{{ url('save_category') }}",
+                url: "{{ url('siteadmin/save_category') }}",
                 type: "POST",
                 data: {
                     name: name,
@@ -126,7 +126,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('category') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/category') }}"
                             }
                         })
 

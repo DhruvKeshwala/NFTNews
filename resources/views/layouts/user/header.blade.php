@@ -7,16 +7,16 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
-    <link rel="stylesheet" href="{{ URL::asset('user/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/animate.css') }}">
     
-    <link rel="stylesheet" href="{{ URL::asset('user/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{ URL::asset('user/css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{ URL::asset('user/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/magnific-popup.css')}}">
 
-    <link rel="stylesheet" href="{{ URL::asset('user/css/flaticon.css')}}">
-    <link rel="stylesheet" href="{{ URL::asset('user/css/style.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/flaticon.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/style.css')}}">
     
-    <link rel="stylesheet" href="{{ URL::asset('user/css/flexslider.css')}}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/user/css/flexslider.css')}}" type="text/css" media="screen" />
     
   </head>
   <body>
@@ -58,7 +58,7 @@
    	<nav class="navbar navbar-expand-lg navbar-dark pb-2 ftco_navbar ftco-navbar-light" id="ftco-navbar">
          
      <div class="container">
-       <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('user/images/nft-logo.svg')}}" width="210" height="35" alt=""></a>
+       <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('assets/user/images/nft-logo.svg')}}" width="210" height="35" alt=""></a>
         <div class="searchform order-sm-start order-lg-last">
           <a href="#" class="btn text-uppercase btn-outline-light-gradient border pt-2 px-3 pb-1" data-toggle="modal" data-target="#myModal">Subscribe</a>
           <a href="#" class="btn-lg pt-3 pb-1"><i class="fa fa-twitter text-light"></i></a>
@@ -208,18 +208,18 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="{{ URL::asset('user/js/jquery.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery-migrate-3.0.1.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/popper.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/bootstrap.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery.easing.1.3.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery.waypoints.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery.stellar.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery.animateNumber.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/owl.carousel.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/jquery.magnific-popup.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/scrollax.min.js')}}"></script>
-  <script src="{{ URL::asset('user/js/main.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery-migrate-3.0.1.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/popper.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/bootstrap.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.easing.1.3.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.waypoints.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.stellar.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.animateNumber.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/owl.carousel.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/jquery.magnific-popup.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/scrollax.min.js')}}"></script>
+  <script src="{{ URL::asset('assets/user/js/main.js')}}"></script>
   
 
   <script>
