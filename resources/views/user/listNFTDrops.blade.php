@@ -1,6 +1,6 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | NFT Drop')
+@section('title', 'NFT Markets | NFT Drops')
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">

@@ -24,25 +24,25 @@ class VideoManagementController extends Controller
             $value['category'] = implode(',',$categories);
         }
         $categories = Category::all();
-        $authors     = Author::all();
-        return view('videos', compact('videos', 'categories','authors'));
+        // $authors     = Author::all();
+        return view('videos', compact('videos', 'categories'));
     }
 
     public function filterVideo(Request $request)
     {
         $title      = $request->filterNewsTitle;
         $categoryId = $request->filterCategoryId;
-        $authorId   = $request->filterAuthorId;
+        // $authorId   = $request->filterAuthorId;
         
-        $videos     = Video_management::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(10);
+        $videos     = Video_management::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->orderby('id','desc')->paginate(10);
         foreach($videos as $key=>$value)
         {
             $categories         = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
             $value['category']  = implode(',',$categories);
         }
         $categories = Category::all();
-        $authors    = Author::all();
-        return view('videos', compact('videos','categories','authors'));
+        // $authors    = Author::all();
+        return view('videos', compact('videos','categories'));
     }
 
     /**
@@ -53,9 +53,9 @@ class VideoManagementController extends Controller
     public function addVideo($id=null)
     {   
         $categories = Category::all();
-        $authors    = Author::all();
+        // $authors    = Author::all();
         $news = VideoService::getNewsById($id);
-        return view('add_video',compact('news','id','categories','authors')); 
+        return view('add_video',compact('news','id','categories')); 
     }
 
      public function videoDetail($id)
@@ -70,7 +70,7 @@ class VideoManagementController extends Controller
         $request->validate([
             'title'             => 'required',
             'categoryId'        => 'required',
-            'authorId'          => 'required',
+            // 'authorId'          => 'required',
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             'code'              => 'required',
@@ -83,7 +83,7 @@ class VideoManagementController extends Controller
             'fullDescription',
             'code',
             'categoryId',
-            'authorId',
+            // 'authorId',
         ]);
         if($request->file('image1') != null)
         {
@@ -125,5 +125,22 @@ class VideoManagementController extends Controller
     {
         $video = VideoService::deleteNews($request->id);
         return json_encode(['success'=>1,'message'=>'Video has been deleted successfully']);
+    }
+
+    //active inactive
+    public function videoUpdateStatus($id)
+    {
+        $data = Video_management::where('id', $id)->first();
+        if($data->fld_status == 'Active')
+        {
+            $data->fld_status = 'Inactive';
+            $data->save();
+        }
+        else
+        {
+            $data->fld_status = 'Active';
+            $data->save();
+        }
+        return redirect()->back();
     }
 }

@@ -24,7 +24,7 @@
                 </td>
             </tr>
             
-            <tr>
+            {{-- <tr>
                 <td><label>Author</label></td>
                 <td>
                     <select name="authorId" data-placeholder="Select Author">
@@ -35,7 +35,7 @@
                     </select>
                     <div id="authorIdError"></div>
                 </td>
-            </tr>
+            </tr> --}}
 
             <tr>
                 <td><label>Title</label></td>
@@ -138,7 +138,7 @@
         $('.errorMessage').hide();
         var flag = 1;
         var categoryId              = $("select[name='categoryId[]']").val();
-        var authorId                = $("select[name='authorId']").val();
+        // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
         var code                    = $("textarea[name='code']").val();
         var shortDescription        = $("#shortDescription").val();
@@ -172,7 +172,7 @@
         //     fd.append('article_2',files[0]);
         // }
         fd.append('categoryId', categoryId);
-        fd.append('authorId', authorId);
+        // fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('code', code);
         fd.append('shortDescription', shortDescription);
@@ -187,11 +187,11 @@
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
-        if (authorId == '' || authorId == null) 
-        {
-            flag = 0;
-            $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
-        } 
+        // if (authorId == '' || authorId == null) 
+        // {
+        //     flag = 0;
+        //     $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
+        // } 
         if (title == '') 
         {
             flag = 0;

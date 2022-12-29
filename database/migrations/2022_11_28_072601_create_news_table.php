@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('videoURL');
             $table->longText('newsType');
             $table->enum('fld_status',['Active','Inactive'])->default('Active');
+            $table->longText('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

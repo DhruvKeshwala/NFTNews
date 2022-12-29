@@ -56,7 +56,7 @@
                 <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link"><div id="websiteLinkError"></div><div id="websiteLinkURLPatternError"></div></td>
             </tr>
             <tr>
-                <td><label>Image</label></td>
+                <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 370x300 pixels</small></td>
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$dropManagement->image != '')
@@ -65,7 +65,16 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Logo</label></td>
+                <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 1170x610 pixels</small></td>
+                <td>
+                    <input type="file" name="image" id="image2">
+                    @if(@$dropManagement->image != '')
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image2}}" width = "100"></div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image 3 (Logo)</label><small class="text-muted">Choose Image 3 size of 200x200 pixels</small></td>
                 <td>
                     <input type="file" name="logo" id="logo">
                     @if(@$dropManagement->logo != '')
@@ -123,7 +132,12 @@
         {
             fd.append('image',files[0]);
         }
-
+        // Append image2 
+        var files = $('#image2')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('image2',files[0]);
+        }
         // Append logo 
         var files = $('#logo')[0].files;
         if(files.length > 0)

@@ -52,7 +52,7 @@ class UserNewsController extends Controller
     {
         $newses          = News::orderBy('id', 'DESC')->get();
 
-        $newsDetail = NewsService::getNewsById(base64_decode($id));
+        $newsDetail = NewsService::getNewsBySlug($id);
         
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();

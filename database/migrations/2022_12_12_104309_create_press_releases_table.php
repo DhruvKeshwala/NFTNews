@@ -17,7 +17,7 @@ return new class extends Migration
             Schema::create('press_releases', function (Blueprint $table) {
                 $table->id();
                 $table->string('categoryId');
-                $table->string('authorId');
+                $table->string('authorId')->nullable();
                 $table->string('title');
                 $table->longText('shortDescription');
                 $table->longText('fullDescription');

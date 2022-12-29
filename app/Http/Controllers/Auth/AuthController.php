@@ -75,6 +75,36 @@ class AuthController extends Controller
         return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
     }
     
+    public function changePassword()
+    {
+        return view('changePassword');
+    }
+
+    public function save_changePassword(Request $request)
+    {
+
+        //validation
+        $request->validate([
+            'newPassword' => 'required',
+            'confirmPassword' => 'required',
+        ]);
+        
+        $request->only([
+            'newPassword',
+            'confirmPassword',
+        ]);
+
+        $data['newPassword'] =  $request->newPassword;
+        $data['confirmPassword'] =  $request->confrimPassword;
+        
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->newPassword)
+        ]);
+
+        // $result = Auth::create($data);
+        return json_encode(['success'=>1,'message'=>'Password Changed Successfully']);
+    }
     /**
      * Write code on Method
      *

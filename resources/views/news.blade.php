@@ -83,9 +83,9 @@ a:hover {
                     <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
-                            <a href="#" class="text-success"><span class="fa fa-check"></span></a>
+                            <a href="{{ route('news_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
                         @else
-                            <a href="#" class="text-danger"><span class="fa fa-times"></span></a>
+                            <a href="{{ route('news_updateStatus',$newsDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
                         @endif
                     </td>
                     <td>

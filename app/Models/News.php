@@ -21,6 +21,7 @@ class News extends Model
         'article_1',
         'article_2',
         'newsType',
+        'slug',
     ];
     public function category()
     {

@@ -24,7 +24,7 @@
                 </td>
             </tr>
             
-            <tr>
+            {{-- <tr>
                 <td><label>Author</label></td>
                 <td>
                     <select name="authorId" data-placeholder="Select Author">
@@ -35,7 +35,7 @@
                     </select>
                     <div id="authorIdError"></div>
                 </td>
-            </tr>
+            </tr> --}}
 
             <tr>
                 <td><label>Title</label></td>
@@ -50,7 +50,7 @@
                 <td><textarea rows="5" cols="30" name="fullDescription" id="fullDescription" placeholder="Full Description">{{ @$pressRelease->fullDescription }}</textarea><div id="fullDescriptionError"></div></td>
             </tr>
             <tr>
-                <td><label>Image</label></td>
+                <td><label>Image 1</label></td>
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$pressRelease->image != '')
@@ -60,7 +60,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Upload Article 1</label></td>
+                <td><label>Image 2</label></td>
                 <td>
                     <input type="file" name="article_1" id="article_1">
                     @if(@$pressRelease->article_1 != '')
@@ -69,7 +69,7 @@
                     <div id="article1Error"></div>
                 </td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td><label>Upload Article 2</label></td>
                 <td>
                     <input type="file" name="article_2" id="article_2">
@@ -78,7 +78,7 @@
                     @endif
                     <div id="article2Error"></div>
                 </td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td><label>Select Section to Publish In</label></td>
                 <td>
@@ -158,7 +158,7 @@
         $('.errorMessage').hide();
         var flag = 1;
         var categoryId              = $("select[name='categoryId[]']").val();
-        var authorId                = $("select[name='authorId']").val();
+        // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
@@ -185,13 +185,13 @@
             fd.append('article_1',files[0]);
         }
         // Append article 1
-        var files = $('#article_2')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('article_2',files[0]);
-        }
+        // var files = $('#article_2')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('article_2',files[0]);
+        // }
         fd.append('categoryId', categoryId);
-        fd.append('authorId', authorId);
+        // fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
@@ -205,11 +205,11 @@
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
-        if (authorId == '' || authorId == null) 
-        {
-            flag = 0;
-            $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
-        } 
+        // if (authorId == '' || authorId == null) 
+        // {
+        //     flag = 0;
+        //     $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
+        // } 
         if (title == '') 
         {
             flag = 0;

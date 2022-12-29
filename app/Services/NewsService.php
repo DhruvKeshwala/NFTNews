@@ -19,6 +19,11 @@ class NewsService
     {
         return News::find($categoryId);
     }
+
+    public static function getNewsBySlug($categoryId)
+    {
+        return News::where('slug', $categoryId)->first();
+    } 
     //insert or update country
     public static function createNews($newsDetails,$newsId)
     {

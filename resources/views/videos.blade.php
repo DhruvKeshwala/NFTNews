@@ -36,17 +36,7 @@ a:hover {
                 <?php } ?>>{{ $category->name }}</option>
                         @endforeach
                     </select></td>
-                <td><select name="filterAuthorId" data-placeholder="Select Author">
-                        <option value=""></option>
-                        @foreach($authors as $author)
-                            <option value="{{$author->id}}" <?php 
-                if (!empty($_GET['filterAuthorId']) && $_GET['filterAuthorId'] == $author->id ) 
-                {
-                ?>
-                selected
-                <?php } ?>>{{$author->name}}</option>
-                        @endforeach
-                    </select></td>
+                
                 <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
             </form>
           </tr>
@@ -56,9 +46,9 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="30%">Video Title</th>
+                    <th width="43%">Video Title</th>
                     <th width="15%">Category</th>
-                    <th width="13%">Author</th>
+                    {{-- <th width="13%">Author</th> --}}
                     {{-- <th width="15%">Listed In</th> --}}
                     <th width="15%">Posted On</th>
                     <th width="5%">Status</th>
@@ -68,7 +58,7 @@ a:hover {
             <tbody>
                 @if (count($videos)<=0)
                 <tr>
-                    <td colspan="9" class="text-center"> No records found </td>
+                    <td colspan="8" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($videos as $newsDetails)
@@ -77,16 +67,16 @@ a:hover {
                     <td>@if($newsDetails->image1 != null)<img src="{{asset('uploads/').'/'.$newsDetails->image1}}" width="100">@endif</td>
                     <td>{{$newsDetails->title}}</td>
                     <td>{{$newsDetails->category}}</td>
-                    <td>{{$newsDetails->author->name}}</td>
+                    {{-- <td>{{$newsDetails->author->name}}</td> --}}
                     {{-- <td>
                         {{ $newsDetails->start_date }}
                     </td> --}}
                     <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
-                            <a href="#" class="text-success"><span class="fa fa-check"></span></a>
+                            <a href="{{ route('video_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
                         @else
-                            <a href="#" class="text-danger"><span class="fa fa-times"></span></a>
+                            <a href="{{ route('video_updateStatus',$newsDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
                         @endif
                     </td>
                     <td>

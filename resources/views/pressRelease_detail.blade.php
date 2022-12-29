@@ -51,8 +51,12 @@
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
                     <tr>
-                        <td><b>Image</b></td>
+                        <td><b>Image 1</b></td>
                         <td>@if($pressRelease->image != null)<img src="{{asset('uploads/').'/'.$pressRelease->image}}" width="100">@endif</td>
+                    </tr>
+                    <tr>
+                        <td><b>Image 2</b></td>
+                        <td>@if($pressRelease->article_1 != null)<img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
                         <td><b>Short Description</b></td>
@@ -73,14 +77,11 @@
 												</tr>
 											@endif
                     @endforeach
-                    <tr>
-                        <td><b>Article Image 1</b></td>
-                        <td>@if($pressRelease->article_1 != null)<img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"> @else No Image Found.. @endif</td>
-                    </tr>
-                    <tr>
+                    
+                    {{-- <tr>
                         <td><b>Article Image 2</b></td>
                         <td>@if($pressRelease->article_2 != null)<img src="{{asset('uploads/').'/'.$pressRelease->article_2}}" width="100"> @else No Image Found.. @endif</td>
-                    </tr>
+                    </tr> --}}
                     {{-- @endif
                     @if(@$dateArray['latest'] != '')
                     <tr>

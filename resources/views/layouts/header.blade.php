@@ -80,13 +80,15 @@
                   <li class="logo d-sm-none border-bottom bg-light border-dark"><a href="#"><h4 class="mb-0 mt-1">The NFT Markets</h4></a></li>
                   <li><span class="material-icons">list</span><a class="fill-a" href="@if(Request::segment(1) == 'category') {{'#'}} @else {{route('category')}} @endif">Category</a></li>
                   <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'news') {{'#'}} @else {{route('news')}} @endif">News</a></li>
-                  <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'videos') {{'#'}} @else {{route('videos')}} @endif">Videos</a></li>
-                  <li><span class="material-icons">newspaper</span><a class="fill-a" href="@if(Request::segment(1) == 'cryptoJournal') {{'#'}} @else {{route('cryptoJournal')}} @endif">Crypto Journal</a></li>
+                  <li><span class="material-icons">movie</span><a class="fill-a" href="@if(Request::segment(1) == 'videos') {{'#'}} @else {{route('videos')}} @endif">Videos</a></li>
+                  <li><span class="material-icons">money</span><a class="fill-a" href="@if(Request::segment(1) == 'cryptoJournal') {{'#'}} @else {{route('cryptoJournal')}} @endif">Crypto Journal</a></li>
                   <li><span class="material-icons">account_circle</span><a class="fill-a" href="@if(Request::segment(1) == 'author') {{'#'}} @else {{route('author')}} @endif">Author</a></li>
                   <li><span class="material-icons">image</span><a class="fill-a" href="@if(Request::segment(1) == 'banner') {{'#'}} @else {{route('banner')}} @endif">Banner</a></li>
                   <li><span class="material-icons">euro</span><a class="fill-a" href="@if(Request::segment(1) == 'dropManagement') {{'#'}} @else {{route('dropManagement')}} @endif">NFT Drops</a></li>
                   <li><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
+                  <li><span class="material-icons">password</span><a class="fill-a" href="{{ route('changePassword') }}">Change Password</a></li>
                   <li><span class="material-icons">logout</span><a class="fill-a" href="{{ route('logout') }}">Logout</a></li>
+              
                 </ul>
               </div>
         </div>

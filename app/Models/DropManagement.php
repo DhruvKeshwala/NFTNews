@@ -21,6 +21,7 @@ class DropManagement extends Model
         'twitterLink',
         'websiteLink',
         'image',
+        'image2',
         'logo',
     ];
     public function category()

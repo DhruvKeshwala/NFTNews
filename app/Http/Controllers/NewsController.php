@@ -8,6 +8,7 @@ use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\NewsService;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -108,6 +109,7 @@ class NewsController extends Controller
             }
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
+        $newsdetails['slug']     = Str::slug($request->title); //Adds slug for news
         $news = NewsService::createNews($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'News Detail Saved Successfully']);
     }
@@ -115,5 +117,22 @@ class NewsController extends Controller
     {
         $news = NewsService::deleteNews($request->id);
         return json_encode(['success'=>1,'message'=>'News has been deleted successfully']);
+    }
+
+    //active inactive
+    public function newsUpdateStatus($id)
+    {
+        $data = News::where('id', $id)->first();
+        if($data->fld_status == 'Active')
+        {
+            $data->fld_status = 'Inactive';
+            $data->save();
+        }
+        else
+        {
+            $data->fld_status = 'Active';
+            $data->save();
+        }
+        return redirect()->back();
     }
 }

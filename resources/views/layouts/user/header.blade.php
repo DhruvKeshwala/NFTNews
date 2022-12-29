@@ -71,8 +71,8 @@
              <li class="nav-item active"><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
              <li class="nav-item"><a href="{{route('user.markets')}}" class="nav-link">Markets</a></li>
              <li class="nav-item"><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
-             <li class="nav-item"><a href="video-lists.html" class="nav-link">Videos</a></li>
-             <li class="nav-item"><a href="crypto-journal.html" class="nav-link">Crypto Journal</a></li>
+             <li class="nav-item"><a href="{{route('user.videos')}}" class="nav-link">Videos</a></li>
+             <li class="nav-item"><a href="{{route('user.cryptoJournals')}}" class="nav-link">Crypto Journal</a></li>
              <li class="nav-item"><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">MarketPlace</a></li>  
             </ul>
           </div>

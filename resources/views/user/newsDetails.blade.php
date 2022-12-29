@@ -106,12 +106,12 @@
             @foreach($resultFeaturedNews as $news)
                 @if($news->is_featurednew == 1)
                 <div class="item text-center">
-                    <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
+                    <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
                     <div class="text">
-                        <h4><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                        <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                         <div class="meta d-md-flex mb-2">
-                        <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
-                        <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                        <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
+                        <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
                         </div>
                     </div>
                 </div>
@@ -143,13 +143,13 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>
@@ -165,13 +165,13 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>
@@ -182,13 +182,13 @@
           @else
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>

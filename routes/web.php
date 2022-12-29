@@ -18,7 +18,8 @@ use App\Http\Controllers\user\UserNewsController;
 use App\Http\Controllers\user\UserPressController;
 use App\Http\Controllers\user\UserNFTDropsController;
 use App\Http\Controllers\user\UserMarketsController;
-
+use App\Http\Controllers\user\UserVideosController;
+use App\Http\Controllers\user\UserCryptoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,12 +42,14 @@ Route::group(['prefix'=>'siteadmin'], function(){
     Route::middleware(['auth'])->group(function () {
         Route::get('news', [NewsController::class, 'index'])->name('news');
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
+
         // Category
         Route::get('category', [CategoryController::class, 'index'])->name('category');
         Route::get('add_category/{id?}', [CategoryController::class, 'addCategory'])->name('add_category');
         Route::post('save_category', [CategoryController::class, 'saveCategory'])->name('save_category');
         Route::post('delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
         Route::get('filter_category', [CategoryController::class, 'filterCategory'])->name('filter_category');
+
         // News
         Route::get('news', [NewsController::class, 'index'])->name('news');
         Route::get('add_news/{id?}', [NewsController::class, 'addNews'])->name('add_news');
@@ -54,18 +57,22 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('save_news', [NewsController::class, 'saveNews'])->name('save_news');
         Route::post('delete_news', [NewsController::class, 'deleteNews'])->name('delete_news');
         Route::get('/filter_news', [NewsController::class, 'filterNews'])->name('filter_news');
+        Route::get('newsUpdateStatus/{id}', [NewsController::class, 'newsUpdateStatus'])->name('news_updateStatus');
+
         // Author
         Route::get('author', [AuthorController::class, 'index'])->name('author');
         Route::get('add_author/{id?}', [AuthorController::class, 'create'])->name('add_author');
         Route::post('save_author', [AuthorController::class, 'store'])->name('save_author');
         Route::post('delete_author', [AuthorController::class, 'destroy'])->name('delete_author');
         Route::get('/filter_author', [AuthorController::class, 'filterAuthor'])->name('filter_author');
+
         // Banner
         Route::get('banner', [BannerController::class, 'index'])->name('banner');
         Route::get('add_banner/{id?}', [BannerController::class, 'create'])->name('add_banner');
         Route::post('save_banner', [BannerController::class, 'store'])->name('save_banner');
         Route::post('delete_banner', [BannerController::class, 'destroy'])->name('delete_banner');
         Route::get('/filter_banner', [BannerController::class, 'filterBanner'])->name('filter_banner');
+
         // Drop Management
         Route::get('dropManagement', [DropManagementController::class, 'index'])->name('dropManagement');
         Route::get('add_dropManagement/{id?}', [DropManagementController::class, 'addDropManagement'])->name('add_dropManagement');
@@ -80,6 +87,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('save_pressRelease', [PressReleaseController::class, 'savePressRelease'])->name('save_pressRelease');
         Route::post('delete_pressRelease', [PressReleaseController::class, 'deletePressRelease'])->name('delete_pressRelease');
         Route::get('/filter_pressRelease', [PressReleaseController::class, 'filterPressRelease'])->name('filter_pressRelease');
+        Route::get('pressUpdateStatus/{id}', [PressReleaseController::class, 'pressUpdateStatus'])->name('press_updateStatus');
         
         // video management
         Route::get('videos', [VideoManagementController::class, 'index'])->name('videos');
@@ -88,6 +96,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('save_video', [VideoManagementController::class, 'saveVideo'])->name('save_video');
         Route::post('delete_video', [VideoManagementController::class, 'deleteVideo'])->name('delete_video');
         Route::get('/filter_video', [VideoManagementController::class, 'filterVideo'])->name('filter_video');
+        Route::get('videoUpdateStatus/{id}', [VideoManagementController::class, 'videoUpdateStatus'])->name('video_updateStatus');
 
         //Crypto Journal Management
         Route::get('cryptoJournal', [CryptoJournalController::class, 'index'])->name('cryptoJournal');
@@ -96,6 +105,13 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('delete_crypto', [CryptoJournalController::class, 'deleteCrypto'])->name('delete_crypto');
         Route::get('/filter_crypto', [CryptoJournalController::class, 'filterCrypto'])->name('filter_crypto');
 
+        Route::get('/changePassword', function(){
+            return view('changePassword');
+        });
+
+        //Change Password
+        Route::get('changePassword', [AuthController::class, 'changePassword'])->name('changePassword');
+        Route::post('save_changePassword', [AuthController::class, 'save_changePassword'])->name('save_changePassword'); 
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
@@ -118,4 +134,12 @@ Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])-
 //Tag wise filter NFT Drops
 Route::get('userFilterNFTDrops', [HomeController::class, 'userFilterNFTDrops'])->name('userFilterNFTDrops');
 
+//Tag wise filter Videos
+Route::get('userFilterVideos', [HomeController::class, 'userFilterVideos'])->name('userFilterVideos');
+
 Route::get('markets', [UserMarketsController::class, 'index'])->name('user.markets');
+
+Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
+Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+
+Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');

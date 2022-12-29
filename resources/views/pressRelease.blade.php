@@ -21,9 +21,9 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="15%">Press-Release Title</th>
+                    <th width="28%">Press-Release Title</th>
                     <th width="15%">Category</th>
-                    <th width="13%">Author</th>
+                    {{-- <th width="13%">Author</th> --}}
                     <th width="15%">Listed In</th>
                     <th width="15%">Posted On</th>
                     <th width="5%">Status</th>
@@ -33,7 +33,7 @@ a:hover {
             <tbody>
                 @if (count($pressRelease)<=0)
                 <tr>
-                    <td colspan="9" class="text-center"> No records found </td>
+                    <td colspan="8" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($pressRelease as $pressReleaseDetails)
@@ -54,16 +54,16 @@ a:hover {
                     <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
                     <td>{{$pressReleaseDetails->title}}</td>
                     <td>{{$pressReleaseDetails->category}}</td>
-                    <td>{{$pressReleaseDetails->author->name}}</td>
+                    {{-- <td>{{$pressReleaseDetails->author->name}}</td> --}}
                     <td>
                         {{ rtrim( $selection_types, ', ') }}
                     </td>
                     <td>{{ $pressReleaseDetails->created_at->format('d-M-Y h:m') }}</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')
-                            <a href="#" class="text-success"><span class="fa fa-check"></span></a>
+                            <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
                         @else
-                            <a href="#" class="text-danger"><span class="fa fa-times"></span></a>
+                            <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
                         @endif
                     </td>
                     <td>

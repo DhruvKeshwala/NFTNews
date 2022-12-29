@@ -15,7 +15,7 @@
                 <li><img src="{{ URL::asset('uploads/' . $data->image)}}" />
                 <p class="flex-caption">
                   <span class="nwscpt">NEWS</span>
-                  <a href="{{ route('user.news_detail', ['id' => base64_encode(@$data->id)]) }}">{{$data->title}}</a><br><span class="thrs">{{$data->created_at->diffForHumans()}}</span></p>
+                  <a href="{{ route('user.news_detail', ['id' => $data->slug]) }}">{{$data->title}}</a><br><span class="thrs">{{$data->created_at->diffForHumans()}}</span></p>
                 </li>
               @endif
             @endforeach
@@ -31,9 +31,9 @@
               <div class="col-md-12 col-6 grid-overlay border-bottom border-white d-xl-block d-lg-block px-0">
                 <p class="flex-caption-small w-auto">
                   <span class="nwscpt">NEWS</span>
-                    <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[0]->id)]) }}">{{$resultHomeNews[0]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[0]->created_at->diffForHumans()}}</span></p>
+                    <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[0]->slug]) }}">{{$resultHomeNews[0]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[0]->created_at->diffForHumans()}}</span></p>
                 <div class="media">
-                  <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[0]->id)]) }}" class="image-link"><img src="{{ URL::asset('uploads/' . $resultHomeNews[0]->article_1)}}" width="100%" height="auto" alt=""></a>
+                  <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[0]->slug]) }}" class="image-link"><img src="{{ URL::asset('uploads/' . $resultHomeNews[0]->article_1)}}" width="100%" height="auto" alt=""></a>
                 </div>
               </div>
             @endif
@@ -42,10 +42,10 @@
               <div class="col-md-12 col-6 grid-overlay d-xl-block d-lg-block px-0">
                 <p class="flex-caption-small w-auto">
                 <span class="nwscpt">NEWS</span>
-                <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[1]->id)]) }}">{{$resultHomeNews[1]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[1]->created_at->diffForHumans()}}</span></p>
+                <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[1]->slug]) }}">{{$resultHomeNews[1]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[1]->created_at->diffForHumans()}}</span></p>
                 
                 <div class="media">
-                  <a href="{{ route('user.news_detail', ['id' => base64_encode($resultHomeNews[1]->id)]) }}" class="image-link">
+                  <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[1]->slug]) }}" class="image-link">
                 <img src="{{ URL::asset('uploads/' . $resultHomeNews[1]->article_1)}}" width="100%" height="auto" alt="">
                   </a>
                 </div>
@@ -90,13 +90,13 @@
               @if(!empty(@$allNews))
                 @foreach($allNews as $news)
                   <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                      <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});"></div></a>
+                      <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});"></div></a>
                       <div class="text pl-md-3">
                         <div class="meta mb-2">
-                            <div><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">INDUSTRY TALK</a></div>
-                            <div><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}"><span class="fa fa-clock"></span> {{ @$news->created_at->diffForHumans() }}</a></div>
+                            <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">INDUSTRY TALK</a></div>
+                            <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span class="fa fa-clock"></span> {{ @$news->created_at->diffForHumans() }}</a></div>
                           </div>
-                          <h4><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                          <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <p>{{ @$news->shortDescription }}</p>
                       </div>
                   </div>
@@ -159,65 +159,62 @@
       </div>
       <div class="col-md-9 text-right">
        <div class="tag-widget post-tag-container">
-        <div class="tagcloud"><a href="#" class="active">ALL</a><a href="#">ART</a><a href="#">COLLECTIBLES</a><a href="#">EDUCATION</a><a href="#">GAMING</a><a href="#">METAVERSE</a><a href="#">MUSIC</a><a href="#">WEB 3.0</a></div>
-      
+        <div class="tagcloud"><a class="tagLink" onclick="filterVideos(0)">ALL</a>
+          @if(@$categories)
+            @foreach($categories as $category)
+              <a class='tagLink' onclick="filterVideos({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
+            @endforeach
+          @endif
         </div>
        </div>
      </div>
      
-     <div class="container">
-     <div class="row video-frame mb-4">
-      <div class="col-md-6 px-0 ftco-animate">
-       <span class="btn btn-outline-light-gradient border">Featured</span>
-        <h3 class="mt-md-5">Macro analysis of FTX’s downfall: Is a Domino effect incoming?</h3>
-        <p class="text-dark">Mike McGlone, senior commodity strategist at Bloomberg, explains how the FTX debacle is triggering a domino effect that could spread beyond the crypto markets.</p>
-        <a href="#" class="btn btn-outline-light-gradient border py-1">Read More</a>
-      </div>
-      
-      <div class="col-md-6">
-       <div class="play">
-        <img src="{{ URL::asset('assets/user/images/video-feature-img.png')}}" height="300" width="100%" class="img-video" /></div>
-      </div> <!-- col-md-6 end -->
-     </div>
-     <div class="row">
-      <div class="col-md-12 px-0">
-       <div class="featured-drops owl-carousel ftco-owl">
-          <div class="item play">          
-          <a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small01.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small02.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small03.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small04.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small01.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          <div class="item play"><a href="#"><img src="{{ URL::asset('assets/user/images/newsimg-small02.png')}}" width="100%" height="auto" alt=""></a>
-           <span class="text-light d-block mt-2">BITCOIN VIDEOS</span>
-	       <p><a href="#" class="text-dark">SEBA, a crypto-friendly Swiss bank, offers NFT custody</a></p>			
-          </div>
-          
-          
-       </div>
-       
-       <a href="#" class="btn d-block btn-outline-light py-2 mt-4">More Videos</a>
-       
-      </div>
-	 </div>
      
-     
-     </div>
+        
+          <div class="container">
+            <div class="row video-frame mb-4">
+              <div class="col-md-6 px-0 ftco-animate">
+              <span class="btn btn-outline-light-gradient border">Featured</span>
+                <h3 class="mt-md-5">Macro analysis of FTX’s downfall: Is a Domino effect incoming?</h3>
+                <p class="text-dark">Mike McGlone, senior commodity strategist at Bloomberg, explains how the FTX debacle is triggering a domino effect that could spread beyond the crypto markets.</p>
+                <a href="#" class="btn btn-outline-light-gradient border py-1">Read More</a>
+              </div>
+              
+              <div class="col-md-6">
+              <div class="play">
+                <img src="{{ URL::asset('assets/user/images/video-feature-img.png')}}" height="300" width="100%" class="img-video" /></div>
+              </div> <!-- col-md-6 end -->
+            </div>
+
+            {{-- <div class="allVideos"></div>
+            <div class="Videos"> --}}
+            <div class="row">
+              <div class="col-md-12 px-0">
+              
+                
+                <div class="featured-drops owl-carousel ftco-owl">
+                    @if(!empty($videos))
+                      @foreach($videos as $video)
+                        <div class="item play">          
+                        <a href="#"><img src="{{URL::asset('uploads/' . @$video->image1)}}" width="100%" height="auto" alt=""></a>
+                        <span class="text-light d-block mt-2">{{@$video->title}}</span>
+                      <p class="text-justify"><a href="#" class="text-dark">{{@$video->shortDescription}}</a></p>			
+                        </div>
+                      @endforeach
+                    @else
+                      <div><h2>No Videos Available..</h2></div>
+                    @endif
+                </div>
+                
+                
+                <a href="{{ route('user.videos') }}" class="btn d-block btn-outline-light py-2 mt-4">More Videos</a>
+                
+                
+              </div>
+            </div>
+            </div>
+          </div>
+        
     </div>
     </section>
 
@@ -260,7 +257,7 @@
                               <h2><small class="mb-2 d-block">{{@$data->created_at->diffForHumans()}}</small>{{@$data->title}}</h2>
                                 <p>{{@$data->shortDescription}}</p>
                             </div>
-                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$data->id)]) }}">View more</a>
+                            <a href="{{ route('user.news_detail', ['id' => @$data->slug]) }}">View more</a>
                         </figcaption>			
                     </figure>
                 </div>
@@ -290,7 +287,7 @@
                     <a class='tagLink' onclick="filterNFTDrops({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
                   @endforeach
                 @endif
-              </div>
+            </div>
           
             </div>
            </div>
@@ -325,7 +322,7 @@
            </tbody>
         </table>
         </div> {{-- end div of Drops --}}
-        <a href="" class="btn d-block btn-outline-light py-2 mt-4" >View More NFT Drops</a>
+        <a href="{{ route('user.list_nftDrops') }}" class="btn d-block btn-outline-light py-2 mt-4" >View More NFT Drops</a>
       </div>
     </section>
     
@@ -360,12 +357,12 @@ No annual fees. Top-up with fiat or crypto.</p>
                 @foreach($resultFeaturedNews as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
-                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
                         <div class="text">
-                          <h4><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                          <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
-                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
-                            <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
+                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
                           </div>
                         </div>
                     </div>
@@ -397,13 +394,13 @@ No annual fees. Top-up with fiat or crypto.</p>
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>
@@ -419,13 +416,13 @@ No annual fees. Top-up with fiat or crypto.</p>
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>
@@ -436,13 +433,13 @@ No annual fees. Top-up with fiat or crypto.</p>
           @else
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
                 </a>
                 <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}">{{$news->title}}</a></h3>
+                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
                   <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => base64_encode(@$news->id)]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
+                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
+                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
                   </div>
                 </div>
               </div>
@@ -576,6 +573,32 @@ $(document).ready(function() {
         $(this).addClass("active");
     });
 });
+
+// function filterVideos(value)
+// {
+//   var categoryId = parseInt(value);
+
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+//     $.ajax({
+//         url: "{{ url('userFilterVideos') }}",
+//         type: "GET",
+//         data: {
+//             categoryId: categoryId,
+//         },
+//         dataType : 'html',
+//         success: function(videos) {
+//           console.log(videos);
+//           console.log('success'); // code here paste
+//           $('.Videos').html(videos);
+//           $('.allVideos').hide();
+//         },
+//         error: function(xhr, status, error) {}
+//     });
+// }
 
 function filterCategory(value){
     var categoryId = parseInt(value);

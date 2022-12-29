@@ -10,6 +10,7 @@ use App\Models\News;
 use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
+use App\Models\Video_management;
 use Illuminate\Support\Facades\Response;
 use View, DB;
 
@@ -82,7 +83,26 @@ class HomeController extends Controller
         $pressReleases       = PressReleaseService::getPressRelease();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::all();
-        return view('user.index', compact('getAllNewses', 'result', 'resultHomeNews', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
+        $videos              = Video_management::all();
+        return view('user.index', compact('videos', 'getAllNewses', 'result', 'resultHomeNews', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
+    }
+
+    public function userFilterVideos(Request $request)
+    {
+        $categoryId = $request->categoryId;
+        if($categoryId == 0)
+        {
+            $videos    =  Video_management::take(10)->get();
+        }
+        else
+        {
+            $videos    =  Video_management::where('categoryId', $categoryId)->get();
+        }
+        
+        $contents = View::make('user.videosDisplay')->with('videos', $videos);
+        $response = Response::make($contents, 200);
+        $response->header('Content-Type', 'text/plain');
+        return $response;
     }
 
     public function userFilterCategory(Request $request)

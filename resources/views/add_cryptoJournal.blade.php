@@ -24,7 +24,7 @@
                 <td><textarea rows="5" cols="30" name="fullDescription" id="fullDescription" placeholder="Full Description">{{ @$crypto->fullDescription }}</textarea><div id="fullDescriptionError"></div></td>
             </tr>
             <tr>
-                <td><label>Image</label></td>
+                <td><label>Image</label><small class="text-muted">Choose Image size of 500x280 pixels</small></td>
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$crypto->image != '')

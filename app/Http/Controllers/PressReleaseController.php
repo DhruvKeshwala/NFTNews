@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Author;
+use App\Models\PressRelease;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -29,9 +30,9 @@ class PressReleaseController extends Controller
     public function addPressRelease($id=null)
     {
         $categories   = Category::all();
-        $authors      = Author::all();
+        // $authors      = Author::all();
         $pressRelease = PressReleaseService::getPressReleaseById($id);
-        return view('add_pressRelease',compact('pressRelease','id','categories','authors'));
+        return view('add_pressRelease',compact('pressRelease','id','categories'));
     }
     public function pressReleaseDetail($id)
     {
@@ -44,7 +45,7 @@ class PressReleaseController extends Controller
         $request->validate([
             'title'             => 'required',
             'categoryId'        => 'required',
-            'authorId'          => 'required',
+            // 'authorId'          => 'required',
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             'pressReleaseId'    => 'required',
@@ -55,7 +56,7 @@ class PressReleaseController extends Controller
             'shortDescription',
             'fullDescription',
             'categoryId',
-            'authorId',
+            // 'authorId',
         ]);
         if($request->file('image') != null)
         {
@@ -71,13 +72,13 @@ class PressReleaseController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $pressReleasedetails['article_1'] = $fileName;
         }
-        if($request->file('article_2') != null)
-        {
-            $file      = $request->file('article_2');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $pressReleasedetails['article_2'] = $fileName;
-        }
+        // if($request->file('article_2') != null)
+        // {
+        //     $file      = $request->file('article_2');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $pressReleasedetails['article_2'] = $fileName;
+        // }
         $pressTypeDate = array();
         $start_date = explode(',',$request->start_date);
         $end_date = explode(',',$request->end_date);
@@ -98,5 +99,22 @@ class PressReleaseController extends Controller
     {
         $pressRelease = PressReleaseService::deletePressRelease($request->id);
         return json_encode(['success'=>1,'message'=>'Press Release has been deleted successfully']);
+    }
+
+    //active inactive
+    public function pressUpdateStatus($id)
+    {
+        $data = PressRelease::where('id', $id)->first();
+        if($data->fld_status == 'Active')
+        {
+            $data->fld_status = 'Inactive';
+            $data->save();
+        }
+        else
+        {
+            $data->fld_status = 'Active';
+            $data->save();
+        }
+        return redirect()->back();
     }
 }

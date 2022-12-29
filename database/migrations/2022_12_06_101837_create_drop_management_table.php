@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('twitterLink')->nullable();
             $table->string('websiteLink')->nullable();
             $table->string('image')->nullable();
+            $table->string('image2')->nullable();
             $table->string('logo')->nullable();
             $table->timestamps();
             $table->softDeletes();

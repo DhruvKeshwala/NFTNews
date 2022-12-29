@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('video_managements', function (Blueprint $table) {
             $table->id();
             $table->string('categoryId');
-            $table->string('authorId');
+            $table->string('authorId')->nullable();
             $table->string('title')->nullable();
             $table->longText('shortDescription')->nullable();
             $table->longText('fullDescription')->nullable();
