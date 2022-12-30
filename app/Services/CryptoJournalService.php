@@ -8,6 +8,10 @@ class CryptoJournalService
     {
         return CryptoJournal::orderby('id','desc')->paginate(10);
     }
+    public static function getCryptoBySlug($categoryId)
+    {
+        return CryptoJournal::where('slug', $categoryId)->first();
+    } 
     // delete country
     public static function deleteCrypto($newsId) 
     {

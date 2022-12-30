@@ -70,10 +70,10 @@
             </div>
             <div class="col-md-9 text-right">
             	<div class="tag-widget post-tag-container">
-              <div class="tagcloud"><a class="tagLink" onclick="filterCategory(0)">ALL</a>
+              <div class="tagcloud"><a href="javascript:void(0)" class="tagLink" onclick="filterCategory(0)">ALL</a>
                 @if(@$categories)
                   @foreach($categories as $category)
-                    <a class='tagLink' onclick="filterCategory({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
+                    <a href="javascript:void(0)" class='tagLink' onclick="filterCategory({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
                   @endforeach
                 @endif
               </div>
@@ -159,10 +159,10 @@
       </div>
       <div class="col-md-9 text-right">
        <div class="tag-widget post-tag-container">
-        <div class="tagcloud"><a class="tagLink" onclick="filterVideos(0)">ALL</a>
+        <div class="tagcloud"><a href="javascript:void(0)" class="tagLink" onclick="filterVideos(0)">ALL</a>
           @if(@$categories)
             @foreach($categories as $category)
-              <a class='tagLink' onclick="filterVideos({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
+              <a href="javascript:void(0)" class='tagLink' onclick="filterVideos({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
             @endforeach
           @endif
         </div>
@@ -196,9 +196,9 @@
                     @if(!empty($videos))
                       @foreach($videos as $video)
                         <div class="item play">          
-                        <a href="#"><img src="{{URL::asset('uploads/' . @$video->image1)}}" width="100%" height="auto" alt=""></a>
-                        <span class="text-light d-block mt-2">{{@$video->title}}</span>
-                      <p class="text-justify"><a href="#" class="text-dark">{{@$video->shortDescription}}</a></p>			
+                        <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img src="{{URL::asset('uploads/' . @$video->image1)}}" width="100%" height="auto" alt=""></a>
+                        <span class="text-light d-block mt-2" title="{{@$video->title}}">{{substr(@$video->title, 0, 30)}}..</span>
+                      <p class="text-justify"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" title="{{ @$video->shortDescription }}" class="text-dark">{{substr(@$video->shortDescription, 0, 40)}}..</a></p>			
                         </div>
                       @endforeach
                     @else
@@ -254,8 +254,8 @@
                         <img src="{{URL::asset('uploads/' . @$data->article_2)}}" alt="img12"/>
                         <figcaption>
                             <div>
-                              <h2><small class="mb-2 d-block">{{@$data->created_at->diffForHumans()}}</small>{{@$data->title}}</h2>
-                                <p>{{@$data->shortDescription}}</p>
+                              <h2><small class="mb-2 d-block">{{@$data->created_at->diffForHumans()}}</small>{{substr(@$data->title, 0, 30)}}..</h2>
+                                <p>{{substr(@$data->shortDescription, 0, 30)}}..</p>
                             </div>
                             <a href="{{ route('user.news_detail', ['id' => @$data->slug]) }}">View more</a>
                         </figcaption>			
@@ -281,10 +281,10 @@
           </div>
           <div class="px-0 ml-auto text-right py-2">
            <div class="tag-widget post-tag-container">
-            <div class="tagcloud"><a class="tagLink" onclick="filterNFTDrops(0)">ALL</a>
+            <div class="tagcloud"><a href="javascript:void(0)" class="tagLink" onclick="filterNFTDrops(0)">ALL</a>
                 @if(@$categories)
                   @foreach($categories as $category)
-                    <a class='tagLink' onclick="filterNFTDrops({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
+                    <a href="javascript:void(0)" class='tagLink' onclick="filterNFTDrops({{@$category->id}})" id="categoryId">{{@$category->name}}</a>
                   @endforeach
                 @endif
             </div>

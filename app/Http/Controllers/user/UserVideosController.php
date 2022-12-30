@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video_management;
+use App\Services\VideoService;
 
 class UserVideosController extends Controller
 {
@@ -22,9 +23,8 @@ class UserVideosController extends Controller
 
     public function videoDetail($id)
     {
-        $videoDetail = Video_management::find(base64_decode($id));
-        return view('user.videos',compact('videoDetail'));
-        // return $videoDetail;
+        $videoDetail = VideoService::getVideosBySlug($id);
+        return view('user.videoDetails',compact('videoDetail'));
     }
     /**
      * Show the form for creating a new resource.

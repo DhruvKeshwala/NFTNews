@@ -23,6 +23,7 @@ class Video_management extends Model
         'videoType',
         'start_date',
         'end_date',
+        'slug',
     ];
     public function category()
     {

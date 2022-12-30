@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="index.html">Home</a><i class="fa fa-angle-right"></i></span><span>Crypto Journal</span></p>
+          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Crypto Journal</span></p>
           </div>
           
         </div>
@@ -67,11 +67,11 @@
                 @if(!empty($cryptoJournals))
                     @foreach($cryptoJournals as $crypto)
                         <div class="col-md-3 d-flex mb-4 text-center ftco-animate">
-                            <a href="#">
+                            <a href="{{ route('user.crypto_detail', ['id' => @$crypto->slug]) }}">
                             <figure class="effect-lily">
                             <img src="{{URL::asset('uploads/' . @$crypto->image)}}" width="100%" class="img-fluid w-100 h-auto" alt="">
                             <figcaption>
-                                <p class="mt-n5 text-center"><a href="#" class="btn btn-primary border py-1 mt-n5">View More</a> <a href="#" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$crypto->id}}">Quick View</a></p>
+                                <p class="mt-n5 text-center"><a href="{{ route('user.crypto_detail', ['id' => @$crypto->slug]) }}" class="btn btn-primary border py-1 mt-n5">View More</a> <a href="#" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$crypto->id}}">Quick View</a></p>
                             </figcaption>
                             </figure>
                             </a>

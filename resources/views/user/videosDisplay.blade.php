@@ -7,7 +7,7 @@
     <p><a href="#" class="text-dark">{{@$video->shortDescription}}</a></p>			
       </div>
     @endforeach
-  @else
-    <div><h2>No Videos Available..</h2></div>
+  {{-- @else
+    <div><h2>No Videos Available..</h2></div> --}}
   @endif
   </div>

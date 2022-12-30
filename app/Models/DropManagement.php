@@ -23,6 +23,7 @@ class DropManagement extends Model
         'image',
         'image2',
         'logo',
+        'slug',
     ];
     public function category()
     {

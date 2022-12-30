@@ -9,6 +9,11 @@ class DropManagementService
         return DropManagement::orderby('id','desc')->paginate(10);
     }
 
+    public static function getNFTDropBySlug($categoryId)
+    {
+        return DropManagement::where('slug', $categoryId)->first();
+    } 
+    
     //user-side home page display only 10 latest records
     public static function getLatestDropManagement()
     {

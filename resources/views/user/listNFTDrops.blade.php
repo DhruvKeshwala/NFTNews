@@ -112,7 +112,7 @@
                       
                       <div class="col-md-6 pt-1 text-right">
                         <a href="#" class="btn btn-outline-light-gradient border py-1 mb-2 w-100" style="font-size: 12px;">Add to Calendar</a>
-                        <a href="nft-details.html" class="btn btn-outline-light-gradient border w-100 py-1 mb-2" style="font-size: 12px;">View Project</a>
+                        <a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}" class="btn btn-outline-light-gradient border w-100 py-1 mb-2" style="font-size: 12px;">View Project</a>
                       </div>
                     </div>
                     

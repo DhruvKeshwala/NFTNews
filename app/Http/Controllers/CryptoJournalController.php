@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CryptoJournal;
 use App\Services\CryptoJournalService;
+use Illuminate\Support\Str;
 
 class CryptoJournalController extends Controller
 {
@@ -68,7 +69,7 @@ class CryptoJournalController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['pdf'] = $fileName;
         }
- 
+        $newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Crypto Journal Saved Successfully']);
     }

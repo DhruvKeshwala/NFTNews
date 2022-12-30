@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Author;
 use App\Services\VideoService;
+use Illuminate\Support\Str;
 
 class VideoManagementController extends Controller
 {
@@ -116,7 +117,7 @@ class VideoManagementController extends Controller
         $newsdetails['videoType']  = $request->videoType;
         $newsdetails['start_date'] = $request->start_date;
         $newsdetails['end_date']   = $request->end_date;
-        
+        $newsdetails['slug']       = Str::slug($request->title); //Adds slug for news
         $news = VideoService::createVideo($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Video Saved Successfully']);
     }

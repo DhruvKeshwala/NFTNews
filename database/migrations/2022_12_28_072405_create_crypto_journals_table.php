@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('fullDescription')->nullable();
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
+            $table->longText('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

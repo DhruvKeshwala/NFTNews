@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('image2')->nullable();
             $table->string('logo')->nullable();
+            $table->longText('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

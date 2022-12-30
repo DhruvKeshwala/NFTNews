@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CryptoJournal;
+use App\Services\CryptoJournalService;
 
 class UserCryptoController extends Controller
 {
@@ -17,6 +18,12 @@ class UserCryptoController extends Controller
     {
         $cryptoJournals   = CryptoJournal::orderby('id','desc')->paginate(10);
         return view('user.cryptoJournals', compact('cryptoJournals'));
+    }
+
+    public function cryptoDetail($id)
+    {
+        $cryptoDetail = CryptoJournalService::getCryptoBySlug($id);
+        return view('user.cryptoDetails',compact('cryptoDetail'));
     }
 
     /**

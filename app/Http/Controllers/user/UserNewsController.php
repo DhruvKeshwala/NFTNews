@@ -44,7 +44,12 @@ class UserNewsController extends Controller
     {
         $getAllNewses   = News::all();
         $title      = $request->filterNewsTitle;
-        $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(2);
+        $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
+
+        if($title == "" | $title == null)
+        {
+            $allNews    = News::orderby('id','desc')->paginate(10);
+        }
         return view('user.news', compact('allNews', 'getAllNewses'));
     }
 

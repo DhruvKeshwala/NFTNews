@@ -8,6 +8,12 @@ class VideoService
     {
         return Video_management::orderby('id','desc')->paginate(10);
     }
+
+    public static function getVideosBySlug($categoryId)
+    {
+        return Video_management::where('slug', $categoryId)->first();
+    } 
+
     // delete country
     public static function deleteNews($newsId) 
     {

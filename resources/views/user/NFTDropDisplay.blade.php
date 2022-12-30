@@ -25,8 +25,8 @@
               </tr>
             @endforeach
            </tbody>
-           @else
-          <h2>No Data Found For This Category..</h2>  
+           {{-- @else
+          <h2>No Data Found For This Category..</h2>   --}}
           @endif
         </table>
         </div> {{-- end div of Drops --}}

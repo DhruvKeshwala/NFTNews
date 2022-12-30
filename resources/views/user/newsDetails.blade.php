@@ -25,18 +25,18 @@
             <div class="news-wrap p-0 align-items-center">
             
             <div class="w-100 pb-2">
-            <a href="#" class="text-dark"><img src="{{ URL::asset('uploads/' . @$newsDetail->article_2)}}" width="100%" alt="" height="auto" class="img"></a>
+            <a href="#" class="text-dark"><img src="{{ URL::asset('uploads/' . @$newsDetail->image)}}" width="100%" alt="" height="auto" class="img"></a>
             </div>
             <div class="row">
-                <div class="col-md-6"><a href="#" class="text-light">INDUSTRY TALK</a> <a href="#" class="ml-4 text-light"><span class="fa fa-calendar"></span> {{ $newsDetail ? $newsDetail->created_at->diffForHumans() : '-' }}</a></div>
+                <div class="col-md-6"><span  class="text-light">INDUSTRY TALK</span> <span class="ml-4 text-light"><span class="fa fa-calendar"></span> {{ $newsDetail ? $newsDetail->created_at->diffForHumans() : '-' }}</span></div>
                 <div class="col-md-6 text-right">
                 <!-- AddToAny BEGIN -->
-                <div class="a2a_kit a2a_kit_size_32 float-right a2a_default_style">
-                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-                <a class="a2a_button_facebook"></a>
-                <a class="a2a_button_twitter"></a>
-                <a class="a2a_button_telegram"></a>
-                <a class="a2a_button_email"></a>
+                <div class="a2a_kit a2a_kit_size_32 float-right a2a_default_style" data-a2a-icon-color="lightgray">
+                  <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                  <a class="a2a_button_facebook"></a>
+                  <a class="a2a_button_twitter"></a>
+                  <a class="a2a_button_telegram"></a>
+                  <a class="a2a_button_email"></a>
                 </div>
                 <script async src="https://static.addtoany.com/menu/page.js"></script>
                 <!-- AddToAny END -->
@@ -44,7 +44,7 @@
             </div>
             <div class="text mt-3">
             
-                <h4><a href="#" class="text-dark">{{ @$newsDetail->title }}</a></h4>
+                <h4><span class="text-dark">{{ @$newsDetail->title }}</span></h4>
                 <div class="text-justify">{!! @$newsDetail->fullDescription !!}</div>
             </div>
             </div>
@@ -70,7 +70,7 @@
         </div>
         
             <div class="sidebar-box">
-            <a href="#" target="_blank"><img src="{{ URL::asset('user/images/side-banner.png')}}" width="100%" height="auto" alt=""></a>
+            <a href="#" target="_blank"><img src="{{ URL::asset('uploads/' . @$newsDetail->article_2)}}" width="100%" height="auto" alt=""></a>
             </div>
             
             <div class="sidebar-box ftco-animate fadeInUp ftco-animated border bg-info-gradient p-3">

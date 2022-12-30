@@ -7,6 +7,7 @@ use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use App\Services\DropManagementService;
 use App\Models\DropManagement;
+use Illuminate\Support\Str;
 
 class DropManagementController extends Controller
 {
@@ -51,6 +52,9 @@ class DropManagementController extends Controller
 
     public function saveDropManagement(Request $request)
     {
+        // $previousId =  DropManagement::select('id')->latest()->get()->first();
+        // $lastId     = $previousId->id;
+
         //validation
         $request->validate([
             'name'       => 'required',
@@ -132,6 +136,7 @@ class DropManagementController extends Controller
         //     }
         // }
         // $newsdetails['newsType'] = json_encode($newsTypeDate);
+        $dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
         $dropManagement = DropManagementService::createDropManagement($dropManagementdetails,$request->dropManagementId);
         return json_encode(['success'=>1,'message'=>'Drop Management has been Saved Successfully']);
     }

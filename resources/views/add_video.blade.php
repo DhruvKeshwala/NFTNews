@@ -72,7 +72,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Code</label></td>
+                <td><label>Embedded Video Code</label></td>
                 <td><textarea name="code" placeholder="Code" cols="30" rows="5">{{@$news->code}}</textarea><div id="codeError"></div>
             </tr>
             <tr>

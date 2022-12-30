@@ -121,12 +121,13 @@ Route::group(['prefix'=>'siteadmin'], function(){
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
-Route::get('filterNews', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
+Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
 Route::get('newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
 
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
 
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
+Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
 
 //Tag wise filter categories
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
@@ -143,3 +144,5 @@ Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos'
 Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
 
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');
+Route::get('cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
+

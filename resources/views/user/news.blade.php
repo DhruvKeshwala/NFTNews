@@ -22,12 +22,12 @@
   
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
-    	<form action="{{ route('user.filter_news') }}" method="get" class="col-md-12 mr-auto pl-0 pr-2">
+    	<form action="{{ route('user.filter_news') }}" method="post" class="col-md-12 mr-auto pl-0 pr-2">
           @csrf
           <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
             <input type="text" name="filterNewsTitle" class="form-control text-center" placeholder="Search news" value="<?php 
-                if (!empty($_GET['filterNewsTitle'])) {
-                    $q = $_GET['filterNewsTitle'];
+                if (!empty($_POST['filterNewsTitle'])) {
+                    $q = $_POST['filterNewsTitle'];
                     echo $q;
                 } ?>">
             <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search"></span></button>

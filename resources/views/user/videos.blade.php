@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="index.html">Home</a><i class="fa fa-angle-right"></i></span><span>Videos</span></p>
+          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Videos</span></p>
           </div>
           
         </div>
@@ -65,12 +65,12 @@
        	  <figure class="effect-lily play">
            <img src="{{URL::asset('uploads/'. @$video->image1)}}" width="100%" class="img-fluid w-100 h-auto" alt="">
            <figcaption>
-            <p class="text-center"><a href="{{ route('user.video_detail', ['id' => base64_encode(@$video->id)]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Quick View</a> <a href="#" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
+            <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Quick View</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
            </figcaption>
           </figure>
           <div class="mt-md-n4">
-          	<span class="text-light d-block">{{@$video->title}}</span>
-		    <p><a href="#" class="text-dark">{{@$video->shortDescription}}</a></p>	
+          	<span class="text-light d-block mt-2" title="{{@$video->title}}">{{substr(@$video->title, 0, 30)}}..</span>
+            <p class="text-justify"><a href="#" title="{{ @$video->shortDescription }}" class="text-dark">{{substr(@$video->shortDescription, 0, 40)}}..</a></p>	
           </div>
         </div>
         @endforeach
