@@ -11,6 +11,7 @@ use App\Http\Controllers\DropManagementController;
 use App\Http\Controllers\PressReleaseController;
 use App\Http\Controllers\VideoManagementController;
 use App\Http\Controllers\CryptoJournalController;
+use App\Http\Controllers\GuideController;
 
 //User controllers
 use App\Http\Controllers\user\HomeController;
@@ -104,6 +105,14 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('save_crypto', [CryptoJournalController::class, 'saveCrypto'])->name('save_crypto');
         Route::post('delete_crypto', [CryptoJournalController::class, 'deleteCrypto'])->name('delete_crypto');
         Route::get('/filter_crypto', [CryptoJournalController::class, 'filterCrypto'])->name('filter_crypto');
+
+        // Guide
+        Route::get('guide', [GuideController::class, 'index'])->name('guide');
+        Route::get('add_guide/{id?}', [GuideController::class, 'addGuide'])->name('add_guide');
+        Route::post('save_guide', [GuideController::class, 'saveguide'])->name('save_guide');
+        // Route::post('delete_news', [GuideController::class, 'deleteNews'])->name('delete_news');
+        // Route::get('/filter_news', [GuideController::class, 'filterNews'])->name('filter_news');
+        // Route::get('newsUpdateStatus/{id}', [GuideController::class, 'newsUpdateStatus'])->name('news_updateStatus');
 
         Route::get('/changePassword', function(){
             return view('changePassword');
