@@ -53,17 +53,6 @@
 @include('layouts.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
-    CKEDITOR.replace( 'question', {
-        fullPage: false,						
-        allowedContent: false,
-        width: '98%',height: '200px',
-        filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
-        filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Images',
-        filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Flash',
-        filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-        filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-    });
     CKEDITOR.replace( 'answer', {
         fullPage: false,						
         allowedContent: false,
@@ -82,8 +71,6 @@
         var category             = $("select[name='category']").val();
         var question        = $("#question").val();
         var answer        = $("#answer").val();
-        var questionValidate = CKEDITOR.instances['question'].getData().replace(/<[^>]*>/gi, '').length;
-        var question = CKEDITOR.instances['question'].getData();
         var answerValidate = CKEDITOR.instances['answer'].getData().replace(/<[^>]*>/gi, '').length;
         var answer = CKEDITOR.instances['answer'].getData();
         var guideId = $("input[name='guideId']").val();

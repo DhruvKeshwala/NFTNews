@@ -38,7 +38,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'getting-started']) }}" class="text-light">Getting Started</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'getting-started']) }}" class="text-light">Getting Started</a></h4>
                       </div>
                     </div>
                   </div>
@@ -48,7 +48,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'buying' ]) }}" class="text-light">Buying</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'buying' ]) }}" class="text-light">Buying</a></h4>
                       </div>
                     </div>
                   </div>
@@ -58,7 +58,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'selling' ]) }}" class="text-light">Selling</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'selling' ]) }}" class="text-light">Selling</a></h4>
                       </div>
                     </div>
                    </div>
@@ -68,7 +68,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'creating']) }}" class="text-light">Creating</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'creating']) }}" class="text-light">Creating</a></h4>
                       </div>
                     </div>
                   </div>
@@ -78,18 +78,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'policies' ]) }}" class="text-light">Policies</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'faqs' ]) }}" class="text-light">FAQs</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'policies' ]) }}" class="text-light">Policies</a></h4>
                       </div>
                     </div>
                   </div>
@@ -100,7 +89,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'userSafety' ]) }}" class="text-light">User Safety</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'faqs' ]) }}" class="text-light">FAQs</a></h4>
                       </div>
                     </div>
                   </div>
@@ -111,7 +100,18 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'developers']) }}" class="text-light">Developers</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'userSafety' ]) }}" class="text-light">User Safety</a></h4>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
+                    <div class="services py-5 rounded border btn-light align-self-stretch">
+                      <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-crm"></span>
+                      </div>
+                      <div class="text px-4 mt-3">
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'developers']) }}" class="text-light">Developers</a></h4>
                       </div>
                     </div>
                   </div>
@@ -122,7 +122,7 @@
                         <span class="flaticon-crm"></span>
                       </div>
                       <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['id' => 'solana']) }}" class="text-light">Solana</a></h4>
+                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'solana']) }}" class="text-light">Solana</a></h4>
                       </div>
                     </div>
                   </div>
