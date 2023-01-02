@@ -16,13 +16,14 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $guide = GuideService::getGuide();        
+        $guide = GuideService::getGuide();     
         return view('guide', compact('guide'));
     }
 
     public function addGuide($id=null)
     {
-        $guide = GuideService::getGuideById($id);
+        $guide = Guide::where('id', $id)->first();
+        // $guide = GuideService::getGuideById($id);
         return view('add_guide',compact('guide','id'));
     }
 
@@ -42,51 +43,28 @@ class GuideController extends Controller
         ]);
         $guidedetails['slug']     = Str::slug($request->question); //Adds slug for guide
         $news = GuideService::createGuide($guidedetails,$request->guideId);
-        return json_encode(['success'=>1,'message'=>'News Detail Saved Successfully']);
+        return json_encode(['success'=>1,'message'=>'Guide Detail Saved Successfully']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Guide $guide)
+    public function guideDetail($id)
     {
-        //
+        $guide = Guide::where('id', $id)->first();
+        return view('guideDetails',compact('guide'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Guide $guide)
+    public function filterGuide(Request $request)
     {
-        //
+        $category = $request->category;
+        // if($category == '' | $category == null)
+        //     $guide = Guide::get();
+        // else
+        $guide       = Guide::where('category', $category)->orderby('id','desc')->paginate(10);
+        return view('guide', compact('guide'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Guide $guide)
+    public function deleteGuide(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Guide $guide)
-    {
-        //
+        $guide = GuideService::deleteGuide($request->id);
+        return json_encode(['success'=>1,'message'=>'Guide has been deleted successfully']);
     }
 }

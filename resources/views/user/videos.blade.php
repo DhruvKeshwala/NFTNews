@@ -96,12 +96,8 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h4>{{@$video->title}}</h4>
-                <p><strong>Company</strong> | Blockchain Bandicoots<br>
-                <strong>Price</strong> | 0.2 ETH<br>
-                <strong>Supply</strong> | 5000</p>
-                
-                <p>{{@$video->shortDescription}}</p>
+                <h4>{{@$video->title}}</h4><br>
+                <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
          </div>
   

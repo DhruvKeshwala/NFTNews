@@ -33,7 +33,7 @@
         </div>
     	<h1 class="my-5 text-justify">{{@$videoDetail->title}}</h1>
         
-        <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         
         <div class="text-left my-4 text-justify">
         	{!!@$videoDetail->fullDescription!!}

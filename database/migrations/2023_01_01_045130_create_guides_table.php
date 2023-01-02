@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('guides', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->longText('question');
-            $table->longText('answer');
+            $table->string('category')->nullable();
+            $table->longText('question')->nullable();
+            $table->longText('answer')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

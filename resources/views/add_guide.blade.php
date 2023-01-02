@@ -15,15 +15,15 @@
                 <td>
                     <select name="category" data-placeholder="Select Category">
                         <option value="">--Select Category--</option>
-                        <option value="GETTING STARTED">GETTING STARTED</option>
-                        <option value="BUYING">BUYING</option>
-                        <option value="SELLING">SELLING</option>
-                        <option value="CREATING">CREATING</option>
-                        <option value="POLICIES">POLICIES</option>
-                        <option value="FAQS">FAQS</option>
-                        <option value="USER SAFETY">USER SAFETY</option>
-                        <option value="DEVELOPERS">DEVELOPERS</option>
-                        <option value="SOLANA">SOLANA</option>
+                        <option value="GETTING STARTED" {{ @$guide->category == 'GETTING STARTED' ? 'selected' : '' }}>GETTING STARTED</option>
+                        <option value="BUYING"          {{ @$guide->category == 'BUYING' ? 'selected' : '' }}>BUYING</option>
+                        <option value="SELLING"         {{ @$guide->category == 'SELLING' ? 'selected' : '' }}>SELLING</option>
+                        <option value="CREATING"        {{ @$guide->category == 'CREATING' ? 'selected' : '' }}>CREATING</option>
+                        <option value="POLICIES"        {{ @$guide->category == 'POLICIES' ? 'selected' : '' }}>POLICIES</option>
+                        <option value="FAQS"            {{ @$guide->category == 'FAQS' ? 'selected' : '' }}>FAQS</option>
+                        <option value="USER SAFETY"     {{ @$guide->category == 'USER SAFETY' ? 'selected' : '' }}>USER SAFETY</option>
+                        <option value="DEVELOPERS"      {{ @$guide->category == 'DEVELOPERS' ? 'selected' : '' }}>DEVELOPERS</option>
+                        <option value="SOLANA"          {{ @$guide->category == 'SOLANA' ? 'selected' : '' }}>SOLANA</option>
                     </select>
                     <input type="hidden" name="guideId" value="{{@$id}}">
                     <div id="categoryError"></div>
@@ -31,11 +31,11 @@
             </tr>
             <tr>
                 <td><label>Question</label></td>
-                <td><textarea rows="5" cols="30" name="question" id="question" placeholder="Question">{{ @$news->question }}</textarea><div id="questionError"></div></td>
+                <td><textarea rows="5" cols="30" name="question" id="question" placeholder="Question">{{ @$guide->question }}</textarea><div id="questionError"></div></td>
             </tr>
             <tr>
                 <td><label>Answer</label></td>
-                <td><textarea rows="5" cols="30" name="answer" id="answer" placeholder="Answer">{{ @$news->answer }}</textarea><div id="answerError"></div></td>
+                <td><textarea rows="5" cols="30" name="answer" id="answer" placeholder="Answer">{{ @$guide->answer }}</textarea><div id="answerError"></div></td>
             </tr>
             <tr>
                 <td></td>
@@ -95,6 +95,7 @@
         fd.append('category', category);
         fd.append('question', question);
         fd.append('answer', answer);
+        fd.append('guideId', guideId);
         if (category == '' || category == null) 
         {
             flag = 0;
@@ -142,7 +143,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('siteadmin/news') }}"
+                                window.location.href =  "{{ URL::to('siteadmin/guide') }}"
                             }
                         })
                     }

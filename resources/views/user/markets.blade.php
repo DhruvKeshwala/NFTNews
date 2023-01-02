@@ -22,39 +22,39 @@
 
 <section class="ftco-section py-5 bg-info-gradient">
        <div class="container">
-       
+       <form action="{{ route('user.filter_marketsNews') }}" id="form-id" method="POST">
+        @csrf
          <div class="row">
-          
-          <div class="col-md-4 d-flex">
-            <a href="#" class="page-link active py-3">ALL</a> <a href="#" class="py-3 page-link px-4 mx-2">LATEST</a> <a href="#" class="py-3 page-link px-4">FEATURED</a>
-          </div>
-          
-          <div class="col-md-3 px-0">
-          	<form action="#" class="w-100">
-              <div class="form-group d-flex bg-white searchform border mb-0 mx-0">
-                <input type="text" class="form-control text-center" placeholder="SEARCH NEWS">
-                <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
-              </div>
-            </form>
-          </div>
-          
+            
+            <div class="col-md-4 d-flex">
+              <input type="hidden" name="filterValue" id="filterValue" value="">
+              <a onclick="filterMarketNews('all')" id="allData" class="page-link py-3">ALL</a> <a onclick="filterMarketNews('latest')" class="py-3 page-link px-4 mx-2">LATEST</a> <a onclick="filterMarketNews('featured')" class="py-3 page-link px-4">FEATURED</a>
+            </div>
+            
+            <div class="col-md-3 px-0">
+              {{-- <form action="#" class="w-100"> --}}
+                <div class="form-group d-flex bg-white searchform border mb-0 mx-0">
+                  <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS">
+                  <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
+                </div>
+              {{-- </form> --}}
+            </div>
+
           <div class="col-md-2 text-right pr-0">
-          <select class="ddl-select" id="list" name="list">
-                <option>SELECT CATEGORY</option>
-                <option value="avalanche">ALL</option>
-                <option value="bsc">NFTs</option>
-                <option value="cardano">COLLECTABLES</option>
-                <option value="ethereum">ART</option>
-                <option value="harmony">BLOCKCHAIN</option>
-                <option value="nahmii">GAMING</option>
-                <option value="near">METAVERSE</option>
-                <option value="nervos">COINS</option>
-                <option value="other">DAO</option>
-                <option value="polygon">WEB 3.0</option>
-                <option value="solana">REVIEWS</option>
+          <select id="list" name="list" onchange="this.form.submit()">
+            {{-- <select class="ddl-select" id="list" name="list"> use this for theme --}}
+                <option value="">SELECT CATEGORY</option>
+                <option value="all">ALL</option>
+                @if($categories)
+                  @foreach($categories as $category)
+                    <option value="{{@$category->id}}" >{{@$category->name}}</option>
+                  @endforeach
+                @endif
+
            </select>
           </div>
           </div>
+        </form>
           <br> 
           <div>
             {{ $getAllNewses->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
@@ -143,10 +143,21 @@
         </div>
       </div>
     </section>
-@endsection
+
+    @endsection
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <script>
+
+      // $(document).ready(function(){
+      //   $("#categoryList").change(function () {
+      //       console.log("you selected..");
+      //   });
+      // });
+
+
     	$(function () {
 		  $(".ddl-select").each(function () {
 			$(this).hide();
@@ -248,5 +259,8 @@
   }
 
 })();
+
+
+
   </script>
 @endsection

@@ -25,7 +25,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                     <div class="subnav text-right ml-auto mr-4">
-                        <a href="services.html">SERVICES</a> <a href="press-release.html">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="advertise.html">ADVERTISE</a> <a href="guide.html">GUIDES</a> <a href="education.html">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="contact.html">CONTACT</a>
+                        <a href="services.html">SERVICES</a> <a href="press-release.html">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="advertise.html">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="education.html">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="contact.html">CONTACT</a>
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
@@ -162,7 +162,7 @@
                </div>
                <div class="col-md-3">
                 <ul class="list-unstyled">
-                	<li><a href="guide.html" class="nav-link">Guides &amp; Support</a></li>
+                	<li><a href="{{route('user.guide')}}" class="nav-link">Guides &amp; Support</a></li>
                     <li><a href="education.html" class="nav-link">Education Academy</a></li>
                     <li><a href="partners.html" class="nav-link">Our Partners</a></li>
                     <li><a href="mediaenq.html" class="nav-link">Media Enquiries</a></li>
@@ -249,7 +249,17 @@
         }
       });
     });
+ 
   </script>
   @yield('script')  
   </body>
 </html>
+<script>
+  
+  function filterMarketNews(value)
+  {
+    $('#filterValue').val(value);
+    var form = document.getElementById("form-id");
+    form.submit();
+  }
+</script>

@@ -189,10 +189,10 @@
             {{-- <div class="allVideos"></div>
             <div class="Videos"> --}}
             <div class="row">
-              <div class="col-md-12 px-0">
+              <div class="col-md-12 px-0 videoSection">
               
                 
-                <div class="featured-drops owl-carousel ftco-owl">
+                <div class="featured-drops owl-carousel ftco-owl ">
                     @if(!empty($videos))
                       @foreach($videos as $video)
                         <div class="item play">          
@@ -564,6 +564,7 @@ No annual fees. Top-up with fiat or crypto.</p>
 @section('script')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="{{ URL::asset('assets/user/js/owl.carousel.min.js')}}"></script>
 
 <script>
 //For Link active and remove class add in category filter 
@@ -574,31 +575,52 @@ $(document).ready(function() {
     });
 });
 
-// function filterVideos(value)
-// {
-//   var categoryId = parseInt(value);
+function filterVideos(value)
+{
+  var categoryId = parseInt(value);
 
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         }
-//     });
-//     $.ajax({
-//         url: "{{ url('userFilterVideos') }}",
-//         type: "GET",
-//         data: {
-//             categoryId: categoryId,
-//         },
-//         dataType : 'html',
-//         success: function(videos) {
-//           console.log(videos);
-//           console.log('success'); // code here paste
-//           $('.Videos').html(videos);
-//           $('.allVideos').hide();
-//         },
-//         error: function(xhr, status, error) {}
-//     });
-// }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "{{ url('userFilterVideos') }}",
+        type: "GET",
+        data: {
+            categoryId: categoryId,
+        },
+        dataType : 'html',
+        success: function(videos) {
+          console.log(videos);
+          console.log('success'); // code here paste
+          $('.videoSection').html(videos);
+          $('.featured-drops').owlCarousel({
+            navigation : true,
+            center: false,
+            loop: true,
+            items: 1,
+            margin: 10,
+            stagePadding: 0,
+            dots: true,
+            nav: false,
+            navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
+            responsive: {
+              0: {
+                items: 2
+              },
+              600: {
+                items: 3
+              },
+              1000: {
+                items: 5
+              }
+            }
+          });
+        },
+        error: function(xhr, status, error) {}
+    });
+}
 
 function filterCategory(value){
     var categoryId = parseInt(value);

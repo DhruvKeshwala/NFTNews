@@ -21,6 +21,8 @@ use App\Http\Controllers\user\UserNFTDropsController;
 use App\Http\Controllers\user\UserMarketsController;
 use App\Http\Controllers\user\UserVideosController;
 use App\Http\Controllers\user\UserCryptoController;
+use App\Http\Controllers\user\UserGuideController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -110,13 +112,16 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('guide', [GuideController::class, 'index'])->name('guide');
         Route::get('add_guide/{id?}', [GuideController::class, 'addGuide'])->name('add_guide');
         Route::post('save_guide', [GuideController::class, 'saveguide'])->name('save_guide');
-        // Route::post('delete_news', [GuideController::class, 'deleteNews'])->name('delete_news');
+        Route::post('delete_guide', [GuideController::class, 'deleteGuide'])->name('delete_guide');
+        Route::get('guide_detail/{id}', [GuideController::class, 'guideDetail'])->name('guide_detail');
+        Route::get('/filter_guide', [GuideController::class, 'filterGuide'])->name('filter_guide');
+
         // Route::get('/filter_news', [GuideController::class, 'filterNews'])->name('filter_news');
         // Route::get('newsUpdateStatus/{id}', [GuideController::class, 'newsUpdateStatus'])->name('news_updateStatus');
 
-        Route::get('/changePassword', function(){
-            return view('changePassword');
-        });
+        // Route::get('/changePassword', function(){
+        //     return view('changePassword');
+        // });
 
         //Change Password
         Route::get('changePassword', [AuthController::class, 'changePassword'])->name('changePassword');
@@ -148,6 +153,7 @@ Route::get('userFilterNFTDrops', [HomeController::class, 'userFilterNFTDrops'])-
 Route::get('userFilterVideos', [HomeController::class, 'userFilterVideos'])->name('userFilterVideos');
 
 Route::get('markets', [UserMarketsController::class, 'index'])->name('user.markets');
+Route::post('markets', [UserMarketsController::class, 'filterMarketNews'])->name('user.filter_marketsNews');
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
 Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
@@ -155,3 +161,6 @@ Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->na
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');
 Route::get('cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
 
+Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
+Route::get('guideList/{id}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');
+Route::get('viewGuide/{id}', [UserGuideController::class, 'guideView'])->name('user.guideView');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\Category;
 
 class UserMarketsController extends Controller
 {
@@ -15,73 +16,66 @@ class UserMarketsController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $getAllNewses   = News::orderby('id','desc')->paginate(20);
-        return view('user.markets', compact('getAllNewses'));
+        return view('user.markets', compact('getAllNewses', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function filterMarketNews(Request $request)
     {
-        //
-    }
+        $categories = Category::all();
+        if($request->list)
+        {
+            if($request->list == 'all')
+            {
+                $getAllNewses = News::orderBy('id')->paginate(50);
+            }
+            else
+            {
+                $categoryId = $request->list;
+                $getAllNewses = News::where('categoryId', $categoryId)->paginate(50);
+            }
+            return view('user.markets', compact('getAllNewses', 'categories'));
+        }
+        if($request->filterValue == 'all')
+        {
+            $getAllNewses = News::orderBy('id')->paginate(50);
+        }
+        elseif($request->filterValue == 'latest')
+        {
+            $getAllNewses = News::orderBy('id','desc')->paginate(50);
+        }
+        elseif($request->filterValue == 'featured')
+        {
+            $getAllNewses             = News::orderBy('id', 'DESC')->paginate(50);
+            $currentDate        = date('d-m-Y');
+            $resultFeaturedNews       = array();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            foreach($getAllNewses as $key => $news)
+            {
+                $resultFeaturedNews[$key] = $news;
+                $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+                if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+                {
+                    $resultFeaturedNews[$key]->is_featurednew = 1;
+                    $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                    $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+                }
+                
+            }
+            return view('user.markets', compact('getAllNewses', 'categories'));
+        }
+        elseif($request->search != null)
+        { 
+            $title          = $request->search;
+            $getAllNewses   = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(50);
+            
+        }
+        elseif($request->search == "" || $request->search == null)
+        {
+            $getAllNewses = News::orderBy('id', 'DESC')->paginate(50);
+        }
+        return view('user.markets', compact('getAllNewses', 'categories'));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

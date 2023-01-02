@@ -37,7 +37,7 @@ class HomeController extends Controller
         // dd($getDateDate);
         $currentDate = date('d-m-Y');
         $result = array();
-        $resultHomeNews = array();
+        $resultHomeNews     = array();
         $resultFeaturedDrop = array();
         $resultFeaturedNews = array();
 

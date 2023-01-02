@@ -19,9 +19,58 @@ a:hover {
         <br>
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
-            <form action="{{ route('filter_news') }}" method="get">
+            <form action="{{ route('filter_guide') }}" method="get">
                 @csrf
-                <td class="pr-0"><input type="text" name="filterNewsTitle" size="45" placeholder="Title"></td>
+                <td class="pr-0">
+                    <select name="category" data-placeholder="Select Category">
+                        <option value="">--Select Category--</option>
+                        <option value="GETTING STARTED" <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'GETTING STARTED') 
+                            {
+                            ?>   selected
+                            <?php } ?>>GETTING STARTED</option>
+                        <option value="BUYING"          <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'BUYING') 
+                            {
+                            ?>   selected
+                            <?php } ?>>BUYING</option>
+                        <option value="SELLING"         <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'SELLING') 
+                            {
+                            ?>   selected
+                            <?php } ?>>SELLING</option>
+                        <option value="CREATING"        <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'CREATING') 
+                            {
+                            ?>   selected
+                            <?php } ?>>CREATING</option>
+                        <option value="POLICIES"        <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'POLICIES') 
+                            {
+                            ?>   selected
+                            <?php } ?>>POLICIES</option>
+                        <option value="FAQS"            <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'FAQS') 
+                            {
+                            ?>   selected
+                            <?php } ?>>FAQS</option>
+                        <option value="USER SAFETY"     <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'USER SAFETY') 
+                            {
+                            ?>   selected
+                            <?php } ?>>USER SAFETY</option>
+                        <option value="DEVELOPERS"       <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'DEVELOPERS') 
+                            {
+                            ?>   selected
+                            <?php } ?>>DEVELOPERS</option>
+                        <option value="SOLANA"          <?php 
+                            if (!empty($_GET['category']) && $_GET['category'] == 'SOLANA') 
+                            {
+                            ?>   selected
+                            <?php } ?>>SOLANA</option>
+                    </select>
+                </td>
                 <td></td>
                 <td></td>
                 <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
@@ -32,60 +81,32 @@ a:hover {
             <thead>
                 <tr>
                     <th width="2%">#</th>
-                    <th width="10%">Image</th>
-                    <th width="15%">News Title</th>
-                    <th width="15%">Category</th>
-                    <th width="13%">Author</th>
-                    <th width="15%">Listed In</th>
-                    <th width="15%">Posted On</th>
-                    <th width="5%">Status</th>
+                    <th width="17%">Category</th>
+                    <th width="35%">Question</th>
+                    <th width="35%">Answer</th>
                     <th width="10%">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @if (count($guide)<=0)
                 <tr>
-                    <td colspan="9" class="text-center"> No records found </td>
+                    <td colspan="5" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($guide as $newsDetails)
-                    @php 
-                        $selection_types = '';
-                        $imgsrc = $newsDetails -> image;
-                        $dateArray = json_decode(@$newsDetails->newsType,true);
-                    @endphp
-                    @foreach(config('constant.news_type') as $key=>$newstype)
-                        @if (!empty($dateArray[$key]['start_date']) && !empty($dateArray[$key]['end_date']))
-                            @php
-                                $selection_types .= $newstype.', ';
-                            @endphp                            
-                        @endif                        
-                    @endforeach
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
-                    <td>{{$newsDetails->title}}</td>
                     <td>{{$newsDetails->category}}</td>
-                    <td>{{$newsDetails->author->name}}</td>
+                    <td>{!!substr($newsDetails->question, 0, 50)!!}.. </td>
+                    <td>{!!substr($newsDetails->answer, 0, 50)!!}.. </td>
                     <td>
-                        {{ rtrim( $selection_types, ', ') }}
-                    </td>
-                    <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
-                    <td align="center">
-                        @if ($newsDetails->fld_status=='Active')
-                            <a href="{{ route('news_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
-                        @else
-                            <a href="{{ route('news_updateStatus',$newsDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
-                        @endif
-                    </td>
-                    <td>
-                        <a title="Edit" href="{{ route('add_news',$newsDetails->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_guide',$newsDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a href="javascript:;" onclick="deleteNews('{{$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
+                        <a href="javascript:;" onclick="deleteGuide('{{$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a> 
-                        <a href="{{ route('news_detail',$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                        <a href="{{ route('guide_detail',$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>
                         </a>
                     </td>
@@ -99,11 +120,10 @@ a:hover {
 </div>
 @include('layouts.footer')
 <script>
-    $("select[name=\"filterCategoryId\"]").select2({
+    $("select[name=\"category\"]").select2({
     });
-    $("select[name=\"filterAuthorId\"]").select2({
-    });
-    function deleteNews(id) {
+   
+    function deleteGuide(id) {
         swal({
             title: "Warning!",
             text: "Are you sure? You want to delete it",
@@ -117,7 +137,7 @@ a:hover {
                     }
                 });
                 $.ajax({
-                    url: "{{ url('siteadmin/delete_news') }}",
+                    url: "{{ url('siteadmin/delete_guide') }}",
                     type: "POST",
                     data: {
                         id: id
