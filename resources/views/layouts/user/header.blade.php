@@ -262,10 +262,39 @@
     var form = document.getElementById("form-id");
     form.submit();
   }
-  function filterForNFTDrops(categoryId)
+  function filterForNFTDrops()
   {
-    $('#filternftcategoryValue').val(categoryId);
+    // $('#filternftcategoryValue').val(categoryId);
     var form = document.getElementById("nft_form");
+    form.submit();
+  }
+
+  function filterForMarkets(value)
+  {
+    if(value != 'category')
+    {
+      $('#filterValue').val(value);
+    }
+    // $('#filternftcategoryValue').val(categoryId);
+    var form = document.getElementById("market_form");
+    form.submit();
+  }
+
+  function filterForVideos(value)
+  {
+    if(value != 'category')
+    {
+      $('#filterValue').val(value);
+    }
+    // $('#filternftcategoryValue').val(categoryId);
+    var form = document.getElementById("video_form");
+    form.submit();
+  }
+
+  function filterForCrypto(value)
+  {
+    $('#filterValue').val(value);
+    var form = document.getElementById("crypto_form");
     form.submit();
   }
 </script>

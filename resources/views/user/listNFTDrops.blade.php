@@ -22,7 +22,7 @@
             <div class="row my-2">
 
                 <div class="col-md-12 text-right py-4"> 
-                  <input type="hidden" name="filternftcategoryValue" id="filternftcategoryValue" value="{{@$filtercategoryId}}">
+                  {{-- <input type="hidden" name="filternftcategoryValue" id="filternftcategoryValue" value="{{@$filtercategoryId}}"> --}}
                     <a href="submit-nft.html"
                         class="rounded px-4 btn bg-white btn-outline-light-gradient border mt-md-n5 pb-2">SUBMIT NFT</a>
                 </div>
@@ -41,24 +41,16 @@
                 </div>
 
                 <div class="col-md-2 text-right pr-0">
-                    <select class="ddl-select" id="list" name="list">
-                        <option>SELECT BLOCKCHAIN</option>
-                        <option value="avalanche">Avalanche</option>
-                        <option value="bsc">BSC</option>
-                        <option value="cardano">Cardano</option>
-                        <option value="ethereum">Ethereum</option>
-                        <option value="harmony">Harmony</option>
-                        <option value="nahmii">Nahmii</option>
-                        <option value="near">Near</option>
-                        <option value="nervos">Nervos</option>
-                        <option value="other">Other</option>
-                        <option value="polygon">Polygon</option>
-                        <option value="solana">Solana</option>
-                        <option value="tezos">Tezos</option>
-                        <option value="ton">TON</option>
-                        <option value="waves">Waves</option>
-                        <option value="wax">Wax</option>
+                    <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForNFTDrops()">
+                        <option value="">Select Categories</option>
+                        <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option>
+                        @foreach($categories as $category)
+                            <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
+                        @endforeach
+                        {{-- <option value="avalanche">Avalanche</option> --}}
                     </select>
+
+                    
                 </div>
                 {{-- <div class="col-md-3 text-right">
             <div class="block-27 pt-2">
@@ -77,7 +69,7 @@
             <br>
             {{ @$allDropManagement->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-12 mt-5 text-center">
                     <div class="tag-widget post-tag-container">
                         <div class="tagcloud">
@@ -89,7 +81,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
     </form>
 </section>

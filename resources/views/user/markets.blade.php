@@ -22,36 +22,33 @@
 
 <section class="ftco-section py-5 bg-info-gradient">
        <div class="container">
-       <form action="{{ route('user.filter_marketsNews') }}" id="form-id" method="POST">
+       <form action="{{ route('user.filter_marketsNews') }}" id="market_form" method="POST">
         @csrf
          <div class="row">
             
             <div class="col-md-4 d-flex">
-              <input type="hidden" name="filterValue" id="filterValue" value="">
-              <a onclick="filterMarketNews('all')" id="allData" class="page-link py-3">ALL</a> <a onclick="filterMarketNews('latest')" class="py-3 page-link px-4 mx-2">LATEST</a> <a onclick="filterMarketNews('featured')" class="py-3 page-link px-4">FEATURED</a>
+              <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
+              <a onclick="filterForMarkets('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> <a onclick="filterForMarkets('latest')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'latest' ? 'active' : '' }}">LATEST</a> <a onclick="filterForMarkets('featured')" class="py-3 page-link px-4 {{ @$filterValue == 'featured' ? 'active' : '' }}">FEATURED</a>
             </div>
             
             <div class="col-md-3 px-0">
               {{-- <form action="#" class="w-100"> --}}
                 <div class="form-group d-flex bg-white searchform border mb-0 mx-0">
-                  <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS">
+                  <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
                   <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
                 </div>
               {{-- </form> --}}
             </div>
 
           <div class="col-md-2 text-right pr-0">
-          <select id="list" name="list" onchange="this.form.submit()">
-            {{-- <select class="ddl-select" id="list" name="list"> use this for theme --}}
-                <option value="">SELECT CATEGORY</option>
-                <option value="all">ALL</option>
-                @if($categories)
-                  @foreach($categories as $category)
-                    <option value="{{@$category->id}}" >{{@$category->name}}</option>
-                  @endforeach
-                @endif
-
-           </select>
+          <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForMarkets('category')">
+            <option value="">Select Categories</option>
+            {{-- <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option> --}}
+            @foreach($categories as $category)
+                <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
+            @endforeach
+            {{-- <option value="avalanche">Avalanche</option> --}}
+          </select>
           </div>
           </div>
         </form>

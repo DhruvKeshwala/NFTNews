@@ -24,58 +24,33 @@ class UserMarketsController extends Controller
     public function filterMarketNews(Request $request)
     {
         $categories = Category::all();
-        if($request->list)
-        {
-            if($request->list == 'all')
-            {
-                $getAllNewses = News::orderBy('id')->paginate(50);
+        $getAllNewses  = News::where(function($dm) {
+            $request = app()->make('request');
+            if($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
+                $dm->where('categoryId', '>', 0);
             }
-            else
-            {
-                $categoryId = $request->list;
-                $getAllNewses = News::where('categoryId', $categoryId)->paginate(50);
+            else if($request->filternftcategoryValue > 0) {
+                $dm->where('categoryId', '=', $request->filternftcategoryValue);
             }
-            return view('user.markets', compact('getAllNewses', 'categories'));
-        }
-        if($request->filterValue == 'all')
-        {
-            $getAllNewses = News::orderBy('id')->paginate(50);
-        }
-        elseif($request->filterValue == 'latest')
-        {
-            $getAllNewses = News::orderBy('id','desc')->paginate(50);
-        }
-        elseif($request->filterValue == 'featured')
-        {
-            $getAllNewses             = News::orderBy('id', 'DESC')->paginate(50);
-            $currentDate        = date('d-m-Y');
-            $resultFeaturedNews       = array();
-
-            foreach($getAllNewses as $key => $news)
-            {
-                $resultFeaturedNews[$key] = $news;
-                $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
-                if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
-                {
-                    $resultFeaturedNews[$key]->is_featurednew = 1;
-                    $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
-                    $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
-                }
-                
+            if($request->search != null && $request->search != '') {
+                $dm->where('title', 'like', '%'.$request->search.'%');
             }
-            return view('user.markets', compact('getAllNewses', 'categories'));
-        }
-        elseif($request->search != null)
-        { 
-            $title          = $request->search;
-            $getAllNewses   = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(50);
-            
-        }
-        elseif($request->search == "" || $request->search == null)
-        {
-            $getAllNewses = News::orderBy('id', 'DESC')->paginate(50);
-        }
-        return view('user.markets', compact('getAllNewses', 'categories'));
+            if($request->filterValue == 'latest') {
+                $dm->where('categoryId','>', 0);
+            }
+            if($request->filterValue == 'featured')
+            {
+                 $currentDate              = date('d-m-Y');
+                 $dm->where('newsType->featurednew->start_date','<=', $currentDate);
+                 $dm->where('newsType->featurednew->end_date','>=', $currentDate);
+            }
+        })->orderby('id','desc')->paginate(20);
+        $filtercategoryId = $request->filternftcategoryValue;
+        $search = $request->search;
+        // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
+        $filterValue = $request->filterValue;
+        return view('user.markets', compact('getAllNewses', 'categories', 'filtercategoryId', 'search', 'filterValue'));
 
     }
+
 }

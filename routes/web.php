@@ -160,9 +160,11 @@ Route::post('markets', [UserMarketsController::class, 'filterMarketNews'])->name
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
 Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+Route::post('videos', [UserVideosController::class, 'filterVideos'])->name('user.filter_videos');
 
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');
 Route::get('cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
+Route::post('cryptoJournals', [UserCryptoController::class, 'filterCrypto'])->name('user.filter_crypto');
 
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
 Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');

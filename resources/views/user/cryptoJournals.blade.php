@@ -16,23 +16,26 @@
 
 <div class="ftco-section bg-info-gradient pb-3 pt-5">
       <div class="container">
-    	<div class="row mt-2">
-          
+      <form action="{{ route('user.filter_crypto') }}" id="crypto_form" method="POST">
+        @csrf
+        <div class="row mt-2">
+            
           <div class="col-md-4 d-flex">
-            <a href="#" class="page-link active py-3">ALL</a> <a href="#" class="py-3 page-link px-4 mx-2">THIS WEEK</a> <a href="#" class="py-3 page-link px-4">THIS MONTH</a>
+            <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
+            <a onclick="filterForCrypto('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> <a onclick="filterForCrypto('thisWeek')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'thisWeek' ? 'active' : '' }}">THIS WEEK</a> <a onclick="filterForCrypto('thisMonth')" class="py-3 page-link px-4 {{ @$filterValue == 'thisMonth' ? 'active' : '' }}">THIS MONTH</a>
           </div>
           
           <div class="col-md-3 px-0">
-          	<form action="#" class="w-100">
+            {{-- <form action="#" class="w-100"> --}}
               <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
-                <input type="text" class="form-control text-center" placeholder="SEARCH NEWS">
+                <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
                 <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
               </div>
-            </form>
+            {{-- </form> --}}
           </div>
           
-          <div class="col-md-2 text-right pr-0">
-          <select class="ddl-select" id="list" name="list">
+          {{-- <div class="col-md-2 text-right pr-0">
+          <select class="form-control" id="list" name="list">
                 <option>SELECT CATEGORY</option>
                 <option value="avalanche">ALL</option>
                 <option value="bsc">NFTs</option>
@@ -45,18 +48,19 @@
                 <option value="other">DAO</option>
                 <option value="polygon">WEB 3.0</option>
                 <option value="solana">REVIEWS</option>
-           </select>
-           
-          </div>
+            </select>
             
-          </div>
-          <br>
-          <div>
-            {{ $cryptoJournals->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
-          </div>
-          <div class="heading-section heading-section-white mt-5 text-center ftco-animate">
-            <h2>Crypto Journal</h2>
-          </div>
+          </div> --}}
+            
+        </div>
+      </form>
+        <br>
+        <div>
+          {{ $cryptoJournals->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
+        </div>
+        <div class="heading-section heading-section-white mt-5 text-center ftco-animate">
+          <h2>Crypto Journal</h2>
+        </div>
         
       </div>
     </div>
