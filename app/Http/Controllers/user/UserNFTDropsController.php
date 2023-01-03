@@ -29,7 +29,6 @@ class UserNFTDropsController extends Controller
     }
     public function filterNFTDrop(Request $request)
     {
-        // dd(Carbon::now()->format('Y-m-d'));
         $categories = Category::all();
         $allDropManagement  = DropManagement::where(function($dm) {
             $request = app()->make('request');
@@ -48,10 +47,14 @@ class UserNFTDropsController extends Controller
             if($request->filterValue == 'past') {
                 $dm->where('saleDate', '<' ,Carbon::now()->format('Y-m-d'))->get();
             }
+            if($request->filterValue == 'mostPopular') {
+                $dm->where('nftType', 'Featured')->get();
+            }
         })->orderby('id','desc')->paginate(10);
         $filterValue = $request->filternftcategoryValue;
         $nftsearch = $request->nft_search;
-        return view('user.listNFTDrops', compact('allDropManagement','categories','filterValue','nftsearch'));
+        $filterParam = $request->filterValue;
+        return view('user.listNFTDrops', compact('filterParam', 'allDropManagement','categories','filterValue','nftsearch'));
     }
     
     public function nftDropDetail($id)

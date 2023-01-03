@@ -79,6 +79,8 @@ class DropManagementController extends Controller
             'twitterLink',
             'websiteLink',
             'categoryId',
+            'start_date',
+            'end_date'
         ]);
 
         if($request->file('image') != null)
@@ -101,42 +103,11 @@ class DropManagementController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $dropManagementdetails['logo'] = $fileName;
-        }
-        // if($request->file('image') != null)
-        // {
-        //     $file      = $request->file('image');
-        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
-        //     $name = $file->move(public_path('uploads'), $fileName);
-        //     $newsdetails['image'] = $fileName;
-        // }
-        // if($request->file('article_1') != null)
-        // {
-        //     $file      = $request->file('article_1');
-        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
-        //     $name = $file->move(public_path('uploads'), $fileName);
-        //     $newsdetails['article_1'] = $fileName;
-        // }
-        // if($request->file('article_2') != null)
-        // {
-        //     $file      = $request->file('article_2');
-        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
-        //     $name = $file->move(public_path('uploads'), $fileName);
-        //     $newsdetails['article_2'] = $fileName;
-        // }
-        // $newsTypeDate = array();
-        // $start_date = explode(',',$request->start_date);
-        // $end_date = explode(',',$request->end_date);
-        // $newsArray = explode(',',$request->newstype);
-        // if(is_array($newsArray))
-        // {
-        //     foreach($newsArray as $key=>$newstype)
-        //     {
-        //         $newsTypeDate[$newstype]['start_date'] = $start_date[$key];
-        //         $newsTypeDate[$newstype]['end_date'] = $end_date[$key];
-        //     }
-        // }
-        // $newsdetails['newsType'] = json_encode($newsTypeDate);
+        }        
         $dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
+        if (!empty($request->start_date) && !empty($request->end_date)) {
+            $dropManagementdetails['nftType']  = 'Featured';
+        }
         $dropManagement = DropManagementService::createDropManagement($dropManagementdetails,$request->dropManagementId);
         return json_encode(['success'=>1,'message'=>'Drop Management has been Saved Successfully']);
     }

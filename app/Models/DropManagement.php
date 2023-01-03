@@ -24,6 +24,9 @@ class DropManagement extends Model
         'image2',
         'logo',
         'slug',
+        'nftType',
+        'start_date',
+        'end_date'
     ];
     public function category()
     {

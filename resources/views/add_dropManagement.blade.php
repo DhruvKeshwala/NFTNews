@@ -83,6 +83,29 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Select Section to Publish In</label></td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Section Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                        <tr>
+                            <td>Featured</td>
+                            <td>
+                                <input type="text" class="datepicker" value="{{ @$dropManagement->start_date }}" name="start_date" placeholder="Start Date">
+                                <div id="start_dateError"></div>
+                            </td>
+                            <td>
+                                <input type="text" class="datepicker" value="{{ @$dropManagement->end_date }}" name="end_date" placeholder="End Date">
+                                <div id="end_dateError"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveDropManagement()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -121,6 +144,8 @@
         var discordLink      = $("input[name='discordLink']").val();
         var twitterLink      = $("input[name='twitterLink']").val();
         var websiteLink      = $("input[name='websiteLink']").val();
+        var start_date      = $("input[name='start_date']").val();
+        var end_date      = $("input[name='end_date']").val();
         var dropManagementId = $("input[name='dropManagementId']").val();
         var fd = new FormData();
         if(dropManagementId == ''){
@@ -154,6 +179,8 @@
         fd.append('discordLink', discordLink);
         fd.append('twitterLink', twitterLink);
         fd.append('websiteLink', websiteLink);
+        fd.append('start_date', start_date);
+        fd.append('end_date', end_date);
         fd.append('dropManagementId', dropManagementId);
 
         if (categoryId == '' || categoryId == null) 
@@ -221,6 +248,18 @@
             flag = 0;
             $("#twitterLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Twitter Link is Invalid</span>');
         }
+
+        /*if (start_date == '') 
+        {
+            flag = 0;
+            $("#start_dateError").html('<span class="errorMessage" style="color:red;">Start Date Required</span>');
+        }
+
+        if (end_date == '') 
+        {
+            flag = 0;
+            $("#end_dateError").html('<span class="errorMessage" style="color:red;">End Date Required</span>');
+        }*/
 
         if (websiteLink == '') 
         {
