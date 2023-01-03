@@ -143,6 +143,8 @@ Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
 Route::post('listNFTDrop', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
 Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
+Route::get('submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
+Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.save_ubmitnft');
 
 
 
@@ -168,3 +170,4 @@ Route::post('cryptoJournals', [UserCryptoController::class, 'filterCrypto'])->na
 
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
 Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');
+

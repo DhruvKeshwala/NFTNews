@@ -25,6 +25,9 @@
      </div> <!-- col-md-8 end -->
     
     @if($resultHomeNews)
+@php
+  // dd($resultHomeNews);
+@endphp
         <div class="col-md-4 col-12 px-0">
           <div class="row mx-0">
             @if($resultHomeNews[0]->is_homenews == 1)

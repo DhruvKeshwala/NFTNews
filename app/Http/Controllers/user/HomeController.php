@@ -51,7 +51,12 @@ class HomeController extends Controller
                 $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
             }
 
+            //Random but uniquly generate data
             $resultHomeNews[$key] = $news;
+
+            $k = array_rand($resultHomeNews);
+            $resultHomeNews[$key] = $resultHomeNews[$k];
+
             $resultHomeNews[$key]->news_type = $newsType = json_decode($news->newsType);
             if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) {
                 $resultHomeNews[$key]->is_homenews = 1;
@@ -76,8 +81,7 @@ class HomeController extends Controller
             }
             
         }
-        
-        
+
         $allNews             = News::take(10)->get();
         $categories          = Category::all();
         $pressReleases       = PressReleaseService::getPressRelease();

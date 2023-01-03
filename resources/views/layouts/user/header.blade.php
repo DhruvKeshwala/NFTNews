@@ -68,11 +68,11 @@
           </button>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-             <li class="nav-item active"><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
-             <li class="nav-item"><a href="{{route('user.markets')}}" class="nav-link">Markets</a></li>
-             <li class="nav-item"><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
-             <li class="nav-item"><a href="{{route('user.videos')}}" class="nav-link">Videos</a></li>
-             <li class="nav-item"><a href="{{route('user.cryptoJournals')}}" class="nav-link">Crypto Journal</a></li>
+             <li class="nav-item {{ Request::segment(1) == 'news' ? 'active' : ''}}"><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
+             <li class="nav-item {{ Request::segment(1) == 'markets' ? 'active' : ''}}"><a href="{{route('user.markets')}}" class="nav-link">Markets</a></li>
+             <li class="nav-item {{ Request::segment(1) == 'listNFTDrop' ? 'active' : ''}}"><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
+             <li class="nav-item {{ Request::segment(1) == 'videos' ? 'active' : ''}}"><a href="{{route('user.videos')}}" class="nav-link">Videos</a></li>
+             <li class="nav-item {{ Request::segment(1) == 'cryptoJournals' ? 'active' : ''}}"><a href="{{route('user.cryptoJournals')}}" class="nav-link">Crypto Journal</a></li>
              <li class="nav-item"><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">MarketPlace</a></li>  
             </ul>
           </div>
@@ -142,11 +142,11 @@
         	<div class="col-md-9 row">
               <div class="col-md-3">
             	<ul class="list-unstyled text-dark">
-                	<li><a href="news-lists.html" class="nav-link">Latest News</a></li>
-                    <li><a href="market-news.html" class="nav-link">Markets News</a></li>
+                	<li><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
+                    <li><a href="{{route('user.markets')}}" class="nav-link">Markets News</a></li>
                     <li><a href="featured-news.html" class="nav-link">Featured</a></li>
-                    <li><a href="nftdrops-lists.html" class="nav-link">NFT Drops</a></li>
-                    <li><a href="video-lists.html" class="nav-link">Videos</a></li>
+                    <li><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
+                    <li><a href="{{route('user.videos')}}" class="nav-link">Videos</a></li>
                     <li><a href="topics.html" class="nav-link">Help</a></li>
                 </ul>
                </div>
@@ -262,8 +262,12 @@
     var form = document.getElementById("form-id");
     form.submit();
   }
-  function filterForNFTDrops()
+  function filterForNFTDrops(value)
   {
+    if(value != 'category')
+    {
+      $('#filterValue').val(value);
+    }
     // $('#filternftcategoryValue').val(categoryId);
     var form = document.getElementById("nft_form");
     form.submit();

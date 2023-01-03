@@ -22,13 +22,14 @@
             <div class="row my-2">
 
                 <div class="col-md-12 text-right py-4"> 
-                  {{-- <input type="hidden" name="filternftcategoryValue" id="filternftcategoryValue" value="{{@$filtercategoryId}}"> --}}
-                    <a href="submit-nft.html"
+                <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
+
+                    <a href="{{route('user.submitnft')}}"
                         class="rounded px-4 btn bg-white btn-outline-light-gradient border mt-md-n5 pb-2">SUBMIT NFT</a>
                 </div>
                 <div class="col-md-4 d-flex">
-                    <a href="#" class="page-link active py-3">UPCOMING</a> <a href="#"
-                        class="py-3 page-link px-4 mx-2">PAST</a> <a href="#" class="py-3 page-link px-4">MOST
+                    <a onclick="filterForNFTDrops('upcoming')" class="page-link  py-3 ">UPCOMING</a> <a onclick="filterForNFTDrops('past')"
+                        class="py-3 page-link px-4 mx-2 ">PAST</a> <a onclick="filterForNFTDrops('mostPopular')" class="py-3 page-link px-4 ">MOST
                         POPULAR</a>
                 </div>
 
@@ -41,11 +42,11 @@
                 </div>
 
                 <div class="col-md-2 text-right pr-0">
-                    <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForNFTDrops()">
+                    <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForNFTDrops('category')">
                         <option value="">Select Categories</option>
-                        <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option>
+                        <option value="all" {{ @$filterValue == 'all' || @$filterValue == ''  ? "selected" : "" }}>All</option>
                         @foreach($categories as $category)
-                            <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
+                            <option value="{{@$category->id}}" {{ @$filterValue == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
                         @endforeach
                         {{-- <option value="avalanche">Avalanche</option> --}}
                     </select>
@@ -73,9 +74,9 @@
                 <div class="col-md-12 mt-5 text-center">
                     <div class="tag-widget post-tag-container">
                         <div class="tagcloud">
-                          <a style="cursor:pointer;" onclick="filterForNFTDrops('all')" class="{{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "active" : "" }}">All</a>
+                          <a style="cursor:pointer;" onclick="filterForNFTDrops('all')" class="{{ @$filterValue == 'all' || @$filterValue == ''  ? "active" : "" }}">All</a>
                             @foreach($categories as $category)
-                            <a style="cursor:pointer;" onclick="filterForNFTDrops('{{ $category->id }}')" class="{{ @$filtercategoryId == $category->id ? "active" : "" }}">{{ $category->name }}</a>
+                            <a style="cursor:pointer;" onclick="filterForNFTDrops('{{ $category->id }}')" class="{{ @$filterValue == $category->id ? "active" : "" }}">{{ $category->name }}</a>
                             @endforeach
                         </div>
                     </div>
