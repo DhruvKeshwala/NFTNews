@@ -24,32 +24,33 @@
       </section>
      </div> <!-- col-md-8 end -->
     
-    @if($resultHomeNews)
+    @if($featured_news)
 @php
-  // dd($resultHomeNews);
+$random_keys=array_rand($featured_news,2);
+//dd($random_keys);
 @endphp
         <div class="col-md-4 col-12 px-0">
           <div class="row mx-0">
-            @if($resultHomeNews[0]->is_homenews == 1)
+            @if($featured_news[$random_keys[0]]->is_homenews == 1)
               <div class="col-md-12 col-6 grid-overlay border-bottom border-white d-xl-block d-lg-block px-0">
                 <p class="flex-caption-small w-auto">
                   <span class="nwscpt">NEWS</span>
-                    <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[0]->slug]) }}">{{$resultHomeNews[0]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[0]->created_at->diffForHumans()}}</span></p>
+                    <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[0]]->slug]) }}">{{$featured_news[$random_keys[0]]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$featured_news[$random_keys[0]]->created_at->diffForHumans()}}</span></p>
                 <div class="media">
-                  <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[0]->slug]) }}" class="image-link"><img src="{{ URL::asset('uploads/' . $resultHomeNews[0]->article_1)}}" width="100%" height="auto" alt=""></a>
+                  <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[0]]->slug]) }}" class="image-link"><img src="{{ URL::asset('uploads/' . $featured_news[$random_keys[0]]->article_1)}}" width="100%" height="auto" alt=""></a>
                 </div>
               </div>
             @endif
 
-            @if($resultHomeNews[1]->is_homenews == 1)
+            @if($featured_news[$random_keys[1]]->is_homenews == 1)
               <div class="col-md-12 col-6 grid-overlay d-xl-block d-lg-block px-0">
                 <p class="flex-caption-small w-auto">
                 <span class="nwscpt">NEWS</span>
-                <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[1]->slug]) }}">{{$resultHomeNews[1]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$resultHomeNews[1]->created_at->diffForHumans()}}</span></p>
+                <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[1]]->slug]) }}">{{$featured_news[$random_keys[1]]->title}}</a><br><span class="thrs"><i class="fa fa-calendar"></i> {{$featured_news[$random_keys[1]]->created_at->diffForHumans()}}</span></p>
                 
                 <div class="media">
-                  <a href="{{ route('user.news_detail', ['id' => $resultHomeNews[1]->slug]) }}" class="image-link">
-                <img src="{{ URL::asset('uploads/' . $resultHomeNews[1]->article_1)}}" width="100%" height="auto" alt="">
+                  <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[1]]->slug]) }}" class="image-link">
+                <img src="{{ URL::asset('uploads/' . $featured_news[$random_keys[1]]->article_1)}}" width="100%" height="auto" alt="">
                   </a>
                 </div>
                 

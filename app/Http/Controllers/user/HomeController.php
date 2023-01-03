@@ -41,6 +41,8 @@ class HomeController extends Controller
         $resultFeaturedDrop = array();
         $resultFeaturedNews = array();
 
+        $featured_news = array();
+        $i = 0;
         foreach($newses as $key => $news)
         {
             $result[$key] = $news;
@@ -51,19 +53,14 @@ class HomeController extends Controller
                 $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
             }
 
-            //Random but uniquly generate data
-            $resultHomeNews[$key] = $news;
-
-            $k = array_rand($resultHomeNews);
-            $resultHomeNews[$key] = $resultHomeNews[$k];
-
-            $resultHomeNews[$key]->news_type = $newsType = json_decode($news->newsType);
-            if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) {
-                $resultHomeNews[$key]->is_homenews = 1;
-                $resultHomeNews[$key]->homenews_start_date = $newsType->homenews->start_date;
-                $resultHomeNews[$key]->homenews_end_date = $newsType->homenews->end_date;                
+            if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) 
+            {
+                $featured_news[$i] = $news;
+                $featured_news[$i]->is_homenews = $result[$key]->is_homeheader = 1;
+                $featured_news[$i]->homeheader_start_date = $result[$key]->homeheader_start_date = $newsType->homeheader->start_date;
+                $featured_news[$i]->homeheader_end_date = $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
+                $i++;
             }
-
             $resultFeaturedDrop[$key] = $news;
             $resultFeaturedDrop[$key]->news_type = $newsType = json_decode($news->newsType);
             if ($newsType->featureddrop && $newsType->featureddrop->start_date <= $currentDate && $newsType->featureddrop->end_date >= $currentDate) {
@@ -79,7 +76,6 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }
-            
         }
 
         $allNews             = News::take(10)->get();
@@ -88,7 +84,7 @@ class HomeController extends Controller
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
-        return view('user.index', compact('videos', 'getAllNewses', 'result', 'resultHomeNews', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
+        return view('user.index', compact('videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
     }
 
     public function userFilterVideos(Request $request)
