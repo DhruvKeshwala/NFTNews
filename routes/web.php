@@ -165,5 +165,4 @@ Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user
 Route::get('cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
 
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
-Route::get('guideList/{id}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');
-Route::get('viewGuide/{id}', [UserGuideController::class, 'guideView'])->name('user.guideView');
+Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');

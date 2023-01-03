@@ -15,11 +15,6 @@ class Guide extends Model
         'question',
         'answer',
         'slug',
+        'categorySlug',
     ];
-
-    // Guide model
-    public function guides()
-    {
-        return $this->hasMany(Guide::class,'id');
-    }
 }

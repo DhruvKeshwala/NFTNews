@@ -41,7 +41,8 @@ class GuideController extends Controller
             'question',
             'answer',
         ]);
-        $guidedetails['slug']     = Str::slug($request->question); //Adds slug for guide
+        $guidedetails['slug']     = Str::slug($request->question);
+        $guidedetails['categorySlug']     = Str::slug($request->category); //Adds slug for guide
         $news = GuideService::createGuide($guidedetails,$request->guideId);
         return json_encode(['success'=>1,'message'=>'Guide Detail Saved Successfully']);
     }
