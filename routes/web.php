@@ -141,7 +141,10 @@ Route::get('newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
 
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
+Route::post('listNFTDrop', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
 Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
+
+
 
 //Tag wise filter categories
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');

@@ -262,4 +262,10 @@
     var form = document.getElementById("form-id");
     form.submit();
   }
+  function filterForNFTDrops(categoryId)
+  {
+    $('#filternftcategoryValue').val(categoryId);
+    var form = document.getElementById("nft_form");
+    form.submit();
+  }
 </script>
