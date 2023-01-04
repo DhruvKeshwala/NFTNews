@@ -71,9 +71,9 @@ a:hover {
                         <a href="javascript:;" onclick="deleteNews('{{$dropManagementDetails->id}}')" title="Delete" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a> 
-                        <!-- <a href="{{ route('news_detail',$dropManagementDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                        <a href="{{ route('dropManagement_detail',$dropManagementDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>
-                        </a> -->
+                        </a>
                     </td>
                 </tr>
                 @endforeach

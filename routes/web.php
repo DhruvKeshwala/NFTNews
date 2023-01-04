@@ -80,6 +80,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('dropManagement', [DropManagementController::class, 'index'])->name('dropManagement');
         Route::get('add_dropManagement/{id?}', [DropManagementController::class, 'addDropManagement'])->name('add_dropManagement');
         Route::post('save_dropManagement', [DropManagementController::class, 'saveDropManagement'])->name('save_dropManagement');
+        Route::get('dropManagement_detail/{id}', [DropManagementController::class, 'dropManagementDetail'])->name('dropManagement_detail');
         Route::post('delete_dropManagement', [DropManagementController::class, 'deleteDropManagement'])->name('delete_dropManagement');
         Route::get('/filter_dropManagement', [DropManagementController::class, 'filterDropManagement'])->name('filter_dropManagement');
 
@@ -133,6 +134,8 @@ Route::group(['prefix'=>'siteadmin'], function(){
 
 //User side
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
+Route::get('advertise', [HomeController::class, 'advertise'])->name('user.advertise');
+Route::get('contact', [HomeController::class, 'contact'])->name('user.contact');
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
@@ -144,7 +147,7 @@ Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name(
 Route::post('listNFTDrop', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
 Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
 Route::get('submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
-Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.save_ubmitnft');
+Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.submitnftpost');
 
 
 
@@ -171,3 +174,5 @@ Route::post('cryptoJournals', [UserCryptoController::class, 'filterCrypto'])->na
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
 Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');
 
+
+Route::get('pressRelease', [UserPressController::class, 'index'])->name('user.pressRelease');

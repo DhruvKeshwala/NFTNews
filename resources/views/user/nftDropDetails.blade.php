@@ -31,7 +31,7 @@
               <div class="news-wrap p-0 align-items-center">
                
                <div class="w-100 pb-2">
-                <a href="#" class="text-dark"><img src="{{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }}" width="100%" alt="" height="auto" class="img"></a>
+                <a href="#" class="text-dark"><img src="@if($nftDropDetail->image2 != null) {{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }} @else {{ URL::asset('images/default-image-2.png') }} @endif" width="100%" alt="" height="auto" class="img"></a>
                </div>
                <div class="row">
                   <div class="col-md-6"><a href="#" class="btn-sm btn-light border d-inline-block">NFT DROPS</a> <a href="#" class="btn-sm btn-light border d-inline-block">ETHEREUM</a></div>

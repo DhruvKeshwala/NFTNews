@@ -102,9 +102,8 @@
             </div>
             <div class="modal-body">
                 <h4>{{@$crypto->title}}</h4>
-                <p><strong>Company</strong> | Blockchain Bandicoots<br>
-                <strong>Price</strong> | 0.2 ETH<br>
-                <strong>Supply</strong> | 5000</p>
+                <p><strong>PDF</strong> <a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank" style="color:blue;">Download</a><br>
+                </p>
                 
                 <p>{{@$crypto->shortDescription}}</p>
             </div>

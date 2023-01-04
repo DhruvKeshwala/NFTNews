@@ -22,7 +22,9 @@
             
             <div class="col-md-4 d-flex">
               <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
-              <a onclick="filterForVideos('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> <a onclick="filterForVideos('latest')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'latest' ? 'active' : '' }}">LATEST</a> <a class="py-3 page-link px-4 ">FEATURED</a>
+              <a onclick="filterForVideos('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> 
+              <a onclick="filterForVideos('latest')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'latest' ? 'active' : '' }}">LATEST</a> 
+              <a onclick="filterForVideos('featured')" class="py-3 page-link px-4 {{ @$filterValue == 'featured' ? 'active' : '' }}">FEATURED</a>
             </div>
             
             <div class="col-md-3 px-0">

@@ -46,12 +46,12 @@ class UserVideosController extends Controller
             if($request->filterValue == 'latest') {
                 $dm->where('categoryId','>', 0);
             }
-            // if($request->filterValue == 'featured')
-            // {
-            //      $currentDate              = date('d-m-Y');
-            //      $dm->where('newsType->featurednew->start_date','<=', $currentDate);
-            //      $dm->where('newsType->featurednew->end_date','>=', $currentDate);
-            // }
+            if($request->filterValue == 'featured')
+            {
+                 $currentDate              = date('Y-m-d');
+                 $dm->where('start_date','<=', $currentDate);
+                 $dm->where('end_date','>=', $currentDate);
+            }
         })->orderby('id','desc')->paginate(20);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;

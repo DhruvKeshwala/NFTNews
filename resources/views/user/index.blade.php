@@ -314,7 +314,7 @@ $random_keys=array_rand($featured_news,2);
            <tbody>
              @foreach($allDropManagement as $dropManagement)
               <tr>
-                  <td><img src="{{URL::asset('uploads/' . @$dropManagement->logo) }}" class="rounded-pill" width="34" height="34" alt="" /></td>
+                  <td><img src="@if($dropManagement->logo != null) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif" class="rounded-pill" width="34" height="34" alt="" /></td>
                   <td>{{@$dropManagement->name}}</td>
                   <td>{{@$dropManagement->token}}</td>
                   <td><strong>{{@$dropManagement->blockChain}}</strong></td>

@@ -141,4 +141,14 @@ class HomeController extends Controller
         $response->header('Content-Type', 'text/plain');
         return $response;
     }
+
+    public function advertise()
+    {
+        return view('user.advertise');
+    }
+
+    public function contact()
+    {
+        return view('user.contact');
+    }
 }

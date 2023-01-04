@@ -22,15 +22,18 @@
                 <div class="row my-2">
 
                     <div class="col-md-12 text-right py-4">
-                        <input type="hidden" name="filterValue" id="filterValue" value="{{ @$filterValue }}">
+                        <input type="hidden" name="filterValue" id="filterValue" value="{{ @$filterParam }}">
 
                         <a href="{{ route('user.submitnft') }}"
                             class="rounded px-4 btn bg-white btn-outline-light-gradient border mt-md-n5 pb-2">SUBMIT NFT</a>
                     </div>
+                    @php
+                    // dd($filterValue);
+                    @endphp
                     <div class="col-md-4 d-flex">
-                        <a onclick="filterForNFTDrops('upcoming')" class="page-link py-3 @if (@$filterParam == 'upcoming') active @endif">UPCOMING</a>
-                        <a onclick="filterForNFTDrops('past')" class="py-3 page-link px-4 mx-2 @if (@$filterParam == 'past') active @endif">PAST</a>
-                        <a onclick="filterForNFTDrops('mostPopular')" class="py-3 page-link px-4 @if (@$filterParam == 'mostPopular') active @endif">MOST POPULAR</a>
+                        <a onclick="filterForNFTDrops('upcoming')" class="page-link py-3 {{ @$filterParam == 'upcoming' ? 'active' : '' }}">UPCOMING</a>
+                        <a onclick="filterForNFTDrops('past')" class="py-3 page-link px-4 mx-2 {{ @$filterParam == 'past' ? 'active' : '' }}">PAST</a>
+                        <a onclick="filterForNFTDrops('mostPopular')" class="py-3 page-link px-4 {{ @$filterParam == 'mostPopular' ? 'active' : '' }}">MOST POPULAR</a>
                     </div>
 
                     <div class="col-md-3 px-0">
@@ -46,8 +49,8 @@
                         <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue"
                             onchange="filterForNFTDrops('category')">
                             <option value="">Select Categories</option>
-                            <option value="all" {{ @$filterValue == 'all' || @$filterValue == '' ? 'selected' : '' }}>
-                                All</option>
+                            {{-- <option value="all" {{ @$filterValue == 'all' || @$filterValue == '' || @$filterValue == null ? 'selected' : '' }}>
+                                All</option> --}}
                             @foreach ($categories as $category)
                                 <option value="{{ @$category->id }}"
                                     {{ @$filterValue == @$category->id ? 'selected' : '' }}>{{ @$category->name }}</option>
@@ -101,7 +104,7 @@
                                     <span class="badge_featured badge-light text-light">Featured</span>
                                 @endif
                                 <a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}" class="block-30 rounded"
-                                    style="background-image: url({{ URL::asset('uploads/' . @$dropManagement->image) }});">
+                                    style="background-image: url(@if($dropManagement->image != null) {{ URL::asset('uploads/' . @$dropManagement->image) }} @else {{ URL::asset('images/default-image-1.png') }} @endif);">
                                 </a>
                                 <div class="text px-4 mt-3 text-center">
 

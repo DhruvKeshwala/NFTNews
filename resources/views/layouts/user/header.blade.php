@@ -25,7 +25,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                     <div class="subnav text-right ml-auto mr-4">
-                        <a href="services.html">SERVICES</a> <a href="press-release.html">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="advertise.html">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="education.html">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="contact.html">CONTACT</a>
+                        <a href="services.html">SERVICES</a> <a href="{{route('user.pressRelease')}}">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="{{route('user.advertise')}}">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="education.html">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="contact.html">CONTACT</a>
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
@@ -130,7 +130,7 @@
           <div class="col-md-4 align-items-center text-md-left text-center mb-4 mb-md-2">
             <img src="{{ URL::asset('images/logo.png')}}" width="210" height="35" alt="" />
           </div>
-          <div class="col-md-4 text-center pt-md-1 text-light">ADVERTISE WITH US? <a href="contact.html" class="btn-outline-light-gradient text-light btn border py-1 align-middle ml-md-5 btn-sm px-3">ENQUIRE</a></div>
+          <div class="col-md-4 text-center pt-md-1 text-light">ADVERTISE WITH US? <a href="{{route('user.contact')}}" class="btn-outline-light-gradient text-light btn border py-1 align-middle ml-md-5 btn-sm px-3">ENQUIRE</a></div>
           <div class="col-md-4 text-md-right text-center">
             <ul class="ftco-social m-0 pl-0">
               <li class="ftco-animate fadeInUp ftco-animated mt-1 border-left pl-4"><a href="https://www.twitter.com/" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter text-light fa-2x"></span></a></li>
@@ -152,12 +152,12 @@
                </div>
                <div class="col-md-3">
                 <ul class="list-unstyled">
-                	<li><a href="press-release.html" class="nav-link">Press Releases</a></li>
+                	<li><a href="{{route('user.pressRelease')}}" class="nav-link">Press Releases</a></li>
                     <li><a href="crypto-journal.html" class="nav-link">Weekly Journal</a></li>
                     <li><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">Marketplace</a></li>
                     <li><a href="about.html" class="nav-link">About Us</a></li>
                     <li><a href="services.html" class="nav-link">Our Services</a></li>
-                    <li><a href="advertise.html" class="nav-link">Advertise</a></li>
+                    <li><a href="{{route('user.advertise')}}" class="nav-link">Advertise</a></li>
                 </ul>
                </div>
                <div class="col-md-3">
@@ -180,7 +180,7 @@
             <div class="col-md-3">
                 <h4 class="footer-heading mb-0 py-2">ARTICLES &amp; LISTINGS</h4>
                 <p>If you wish to list your project or article then contact us</p>
-                <a href="contact.html" class="btn-primary btn btn-sm py-2 px-3">GET IN TOUCH</a>
+                <a href="{{route('user.contact')}}" class="btn-primary btn btn-sm py-2 px-3">GET IN TOUCH</a>
                 
 			</div>
         </div>
