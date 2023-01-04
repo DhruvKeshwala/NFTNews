@@ -75,7 +75,9 @@ class VideoManagementController extends Controller
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             'code'              => 'required',
-
+            'metaTitle'            => 'required',
+            'description'            => 'required',
+            'keywords'            => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -85,6 +87,9 @@ class VideoManagementController extends Controller
             'code',
             'categoryId',
             // 'authorId',
+            'metaTitle',
+            'description',
+            'keywords',
         ]);
         if($request->file('image1') != null)
         {

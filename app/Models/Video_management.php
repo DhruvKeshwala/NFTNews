@@ -24,6 +24,9 @@ class Video_management extends Model
         'start_date',
         'end_date',
         'slug',
+        'metaTitle',
+        'description',
+        'keywords',
     ];
     public function category()
     {
