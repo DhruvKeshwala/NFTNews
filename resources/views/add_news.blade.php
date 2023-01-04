@@ -23,6 +23,18 @@
                     <div id="categoryIdError"></div>
                 </td>
             </tr>
+            <tr>
+                <td><label>Meta Title</label></td>
+                <td><input type="text" value="{{ @$news->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Description</label></td>
+                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$news->description}}</textarea><div id="descriptionError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Keywords</label></td>
+                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$news->keywords }}</textarea><div id="keywordsError"></div></td>
+            </tr>
             
             <tr>
                 <td><label>Author</label></td>
@@ -164,6 +176,9 @@
     {
         $('.errorMessage').hide();
         var flag = 1;
+        var metaTitle = $("input[name=\"metaTitle\"]").val();
+        var description = $("#description").val();
+        var keywords = $("#keywords").val();
         var categoryId              = $("select[name='categoryId[]']").val();
         var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
@@ -199,6 +214,9 @@
             fd.append('article_2',files[0]);
         }
         fd.append('categoryId', categoryId);
+        fd.append('metaTitle', metaTitle);
+        fd.append('description', description);
+        fd.append('keywords', keywords);
         fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('videoURL', videoURL);
@@ -214,6 +232,21 @@
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
+        if (metaTitle == '') 
+        {
+            flag = 0;
+            $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
+        }
+        if (description == '') 
+        {
+            flag = 0;
+            $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
+        }
+        if (keywords == '') 
+        {
+            flag = 0;
+            $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
+        } 
         if (authorId == '' || authorId == null) 
         {
             flag = 0;

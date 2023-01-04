@@ -65,6 +65,9 @@ class NewsController extends Controller
             'fullDescription'   => 'required',
             'videoURL'          => 'required',
             'newsId'            => 'required',
+            'metaTitle'            => 'required',
+            'description'            => 'required',
+            'keywords'            => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -74,6 +77,9 @@ class NewsController extends Controller
             'videoURL',
             'categoryId',
             'authorId',
+            'metaTitle',
+            'description',
+            'keywords',
         ]);
         if($request->file('image') != null)
         {

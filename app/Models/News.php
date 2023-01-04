@@ -22,6 +22,9 @@ class News extends Model
         'article_2',
         'newsType',
         'slug',
+        'metaTitle',
+        'description',
+        'keywords',
     ];
     public function category()
     {

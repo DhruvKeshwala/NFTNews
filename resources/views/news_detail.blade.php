@@ -63,6 +63,18 @@
                         <td>@if($news->article_2 != null)<img src="{{asset('uploads/').'/'.$news->article_2}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
+                        <td><b>Meta Title</b></td>
+                        <td>{{ $news->metaTitle }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Meta Description</b></td>
+                        <td>{{ $news->description }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Meta Keywords</b></td>
+                        <td>{{ $news->keywords }}</td>
+                    </tr>
+                    <tr>
                         <td><b>Short Description</b></td>
                         <td>{{ $news->shortDescription }}</td>
                     </tr>
