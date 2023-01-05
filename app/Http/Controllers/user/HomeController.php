@@ -12,6 +12,10 @@ use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
 use App\Models\Video_management;
 use Illuminate\Support\Facades\Response;
+
+use App\Models\ManagePages;
+use App\Services\ManagePagesService;
+
 use View, DB;
 
 class HomeController extends Controller
@@ -77,14 +81,14 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }
         }
-
+        $pages               = ManagePages::all();
         $allNews             = News::take(10)->get();
         $categories          = Category::all();
         $pressReleases       = PressReleaseService::getPressRelease();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
-        return view('user.index', compact('videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
+        return view('user.index', compact('pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
     }
 
     public function userFilterVideos(Request $request)
@@ -150,5 +154,25 @@ class HomeController extends Controller
     public function contact()
     {
         return view('user.contact');
+    }
+
+    public function education()
+    {
+        $page = ManagePages::where('slug', 'education')->first();
+        if(@$page == null)
+        {
+            $page = 'No Education Information available..';
+        }
+        return view('user.education', compact('page'));
+    }
+
+    public function services()
+    {
+        $page = ManagePages::where('slug', 'services')->first();
+        if(@$page == null)
+        {
+            $page = 'No Services Information available..';
+        }
+        return view('user.services', compact('page'));
     }
 }

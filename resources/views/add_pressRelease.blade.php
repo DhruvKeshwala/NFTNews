@@ -23,7 +23,18 @@
                     <div id="categoryIdError"></div>
                 </td>
             </tr>
-            
+            <tr>
+                <td><label>Meta Title</label></td>
+                <td><input type="text" value="{{ @$pressRelease->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Description</label></td>
+                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$pressRelease->description}}</textarea><div id="descriptionError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Keywords</label></td>
+                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$pressRelease->keywords }}</textarea><div id="keywordsError"></div></td>
+            </tr>
             {{-- <tr>
                 <td><label>Author</label></td>
                 <td>
@@ -88,21 +99,15 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                         </tr>
-                        @php
-                        $dateArray = json_decode(@$pressRelease->pressType,true);
-                        @endphp
-                        @foreach(config('constant.press_type') as $key=>$presstype)
                         <tr>
-                            <td>{{ $presstype }}</td>
+                            <td>Featured Press Release</td>
                             <td>
-                                <input type="text" class="datepicker" value="{{ @$dateArray[$key]['start_date'] }}" name="start_date[]" placeholder="Start Date">
-                                <input type="hidden" name="presstype[]" value="{{$key}}" >
+                                <input type="text" class="datepicker" name="start_date" placeholder="Start Date" value="{{ @$pressRelease->start_date }}">
                             </td>
                             <td>
-                                <input type="text" class="datepicker" value="{{ @$dateArray[$key]['end_date'] }}" name="end_date[]" placeholder="End Date">
+                                <input type="text" class="datepicker" name="end_date" placeholder="End Date" value="{{ @$pressRelease->end_date }}">
                             </td>
                         </tr>
-                        @endforeach
                     </table>
                 </td>
             </tr>
@@ -135,7 +140,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $( ".datepicker" ).datepicker({
-        dateFormat: "dd-mm-yy",
+        dateFormat: "yy-mm-dd",
         duration: "fast",
         minDate: 0
     });
@@ -157,6 +162,9 @@
     {
         $('.errorMessage').hide();
         var flag = 1;
+        var metaTitle = $("input[name=\"metaTitle\"]").val();
+        var description = $("#description").val();
+        var keywords = $("#keywords").val();
         var categoryId              = $("select[name='categoryId[]']").val();
         // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
@@ -164,8 +172,8 @@
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
         var fullDescription = CKEDITOR.instances['fullDescription'].getData();
         var pressReleaseId = $("input[name='pressReleaseId']").val();
-        var start_date = $("input[name='start_date[]']").map(function(){return $(this).val();}).get();
-        var end_date = $("input[name='end_date[]']").map(function(){return $(this).val();}).get();
+        var start_date              = $("input[name='start_date']").val();
+        var end_date                = $("input[name='end_date']").val();
         var presstype = $("input[name='presstype[]']").map(function(){return $(this).val();}).get();
 
         var fd = new FormData();
@@ -191,6 +199,9 @@
         //     fd.append('article_2',files[0]);
         // }
         fd.append('categoryId', categoryId);
+        fd.append('metaTitle', metaTitle);
+        fd.append('description', description);
+        fd.append('keywords', keywords);
         // fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('shortDescription', shortDescription);
@@ -205,6 +216,21 @@
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
+        if (metaTitle == '') 
+        {
+            flag = 0;
+            $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
+        }
+        if (description == '') 
+        {
+            flag = 0;
+            $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
+        }
+        if (keywords == '') 
+        {
+            flag = 0;
+            $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
+        } 
         // if (authorId == '' || authorId == null) 
         // {
         //     flag = 0;

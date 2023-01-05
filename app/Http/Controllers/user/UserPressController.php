@@ -9,6 +9,7 @@ use App\Services\NewsService;
 use App\Models\PressRelease;
 use App\Models\Category;
 use App\Models\News;
+use Carbon\Carbon;
 
 class UserPressController extends Controller
 {
@@ -20,6 +21,8 @@ class UserPressController extends Controller
     public function index()
     {
         $pressReleases          = PressRelease::orderBy('id', 'DESC')->paginate(20);
+        $pressRecommended = PressRelease::orderBy('id', 'DESC')->get();
+
         $newses          = News::orderBy('id', 'DESC')->get();
 
         $currentDate = date('d-m-Y');
@@ -37,81 +40,70 @@ class UserPressController extends Controller
             }  
         }
         // dd($resultFeaturedNews);
-        $allNews        = NewsService::getNews();
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        return view('user.pressRelease', compact('pressReleases', 'categories', 'getAllNewses', 'allNews','resultFeaturedNews'));
+        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
 
     public function pressDetail($id)
     {
-        $pressDetail = PressReleaseService::getPressReleaseById(base64_decode($id));
-        return view('user.pressDetails',compact('pressDetail'));
+        $pressDetail = PressReleaseService::getPressBySlug($id);
+        $newses          = News::orderBy('id', 'DESC')->get();
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews = array();
+
+        foreach($newses as $key => $news)
+        {
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+
+        $categories     = Category::all();
+        $getAllNewses   = News::all();
+        return view('user.pressDetails',compact('pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
     
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function filterPress(Request $request)
     {
-        //
+        $pressRecommended = PressRelease::orderBy('id', 'DESC')->get();
+        $pressReleases  = PressRelease::where(function($dm) {
+            $request = app()->make('request');
+            if($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
+                $dm->get();
+            }
+            else if($request->filternftcategoryValue > 0) {
+                $dm->where('categoryId', '=', $request->filternftcategoryValue);
+            }
+            if($request->search != null && $request->search != '') {
+                $dm->where('title', 'like', '%'.$request->search.'%');
+            }
+            if($request->filterValue == 'thisWeek') {
+                $dm->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+            }
+            if($request->filterValue == 'thisMonth')
+            {
+                $dm->whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->get();
+            }
+            // if($request->filterValue == 'featured')
+            // {
+            //      $currentDate              = date('d-m-Y');
+            //      $dm->where('newsType->featurednew->start_date','<=', $currentDate);
+            //      $dm->where('newsType->featurednew->end_date','>=', $currentDate);
+            // }
+        })->orderby('id','desc')->paginate(20);
+        $filtercategoryId = $request->filternftcategoryValue;
+        $search = $request->search;
+        // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
+        $filterValue = $request->filterValue;
+        $categories     = Category::all();
+        $getAllNewses   = News::all();
+        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

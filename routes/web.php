@@ -12,6 +12,7 @@ use App\Http\Controllers\PressReleaseController;
 use App\Http\Controllers\VideoManagementController;
 use App\Http\Controllers\CryptoJournalController;
 use App\Http\Controllers\GuideController;
+use App\Http\Controllers\ManagePagesController;
 
 //User controllers
 use App\Http\Controllers\user\HomeController;
@@ -117,6 +118,14 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('guide_detail/{id}', [GuideController::class, 'guideDetail'])->name('guide_detail');
         Route::get('/filter_guide', [GuideController::class, 'filterGuide'])->name('filter_guide');
 
+        //Manage Pages
+        Route::get('managePages', [ManagePagesController::class, 'index'])->name('managePages');
+        Route::get('add_page/{id?}', [ManagePagesController::class, 'addPage'])->name('add_page');
+        Route::post('save_page', [ManagePagesController::class, 'savePage'])->name('save_page');
+        Route::post('delete_page', [ManagePagesController::class, 'deletePage'])->name('delete_page');
+        Route::get('page_detail/{id}', [ManagePagesController::class, 'pageDetail'])->name('page_detail');
+
+
         // Route::get('/filter_news', [GuideController::class, 'filterNews'])->name('filter_news');
         // Route::get('newsUpdateStatus/{id}', [GuideController::class, 'newsUpdateStatus'])->name('news_updateStatus');
 
@@ -136,6 +145,10 @@ Route::group(['prefix'=>'siteadmin'], function(){
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 Route::get('advertise', [HomeController::class, 'advertise'])->name('user.advertise');
 Route::get('contact', [HomeController::class, 'contact'])->name('user.contact');
+Route::get('education', [HomeController::class, 'education'])->name('user.education');
+Route::get('services', [HomeController::class, 'services'])->name('user.services');
+
+
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
@@ -176,3 +189,5 @@ Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideLi
 
 
 Route::get('pressRelease', [UserPressController::class, 'index'])->name('user.pressRelease');
+Route::post('pressRelease', [UserPressController::class, 'filterPress'])->name('user.filterPress');
+

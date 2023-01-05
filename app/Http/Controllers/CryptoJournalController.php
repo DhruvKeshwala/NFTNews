@@ -48,12 +48,18 @@ class CryptoJournalController extends Controller
             'title'             => 'required',
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
+            'metaTitle'         => 'required',
+            'description'       => 'required',
+            'keywords'          => 'required',
         ]);
         
         $newsdetails = $request->only([
             'title',
             'shortDescription',
             'fullDescription',
+            'metaTitle',
+            'description',
+            'keywords',
         ]);
         if($request->file('image') != null)
         {

@@ -35,10 +35,10 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="18%">Name</th>
-                    <th width="10%">Category</th>
+                    <th width="12%">Category</th>
                     <th width="20%">Token</th>
                     <th width="20%">Block-Chain</th>
-                    <th width="10%">Price Of Sale</th>
+                    <th width="8%">Price Of Sale</th>
                     <th width="10%">Sale Date</th>
                     <!-- <th>Discord Link</th>
                     <th>Twitter Link</th>
@@ -56,7 +56,7 @@ a:hover {
                 <tr>
                     <td>{{$loop->index + 1}}</td>
                     <td>{{$dropManagementDetails->name}}</td>
-                    <td>{{$dropManagementDetails->category}}</td>
+                    <td class="text-center">@if($dropManagementDetails->category != null) {{$dropManagementDetails->category}} @else <span>—</span> @endif</td>
                     <td>{{$dropManagementDetails->token}}</td>
                     <td>{{$dropManagementDetails->blockChain}}</td>
                     <td>{{$dropManagementDetails->priceOfSale}}</td>

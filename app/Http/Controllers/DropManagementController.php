@@ -66,7 +66,9 @@ class DropManagementController extends Controller
             'discordLink'=> 'required',
             'twitterLink'=> 'required',
             'websiteLink'=> 'required',
-
+            'metaTitle'  => 'required',
+            'description'=> 'required',
+            'keywords'   => 'required',
         ]);
         
         $dropManagementdetails = $request->only([
@@ -80,7 +82,11 @@ class DropManagementController extends Controller
             'websiteLink',
             'categoryId',
             'start_date',
-            'end_date'
+            'end_date',
+            'metaTitle',
+            'description',
+            'keywords',
+            
         ]);
 
         if($request->file('image') != null)

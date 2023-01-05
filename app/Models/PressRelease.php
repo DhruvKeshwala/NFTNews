@@ -19,7 +19,12 @@ class PressRelease extends Model
         'image',
         'article_1',
         'article_2',
-        'pressType',
+        'start_date',
+        'end_date',
+        'slug',
+        'metaTitle',
+        'description',
+        'keywords',
     ];
     public function category()
     {

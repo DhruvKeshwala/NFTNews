@@ -62,18 +62,118 @@
                         <td><b>NFT Logo</b></td>
                         <td><img src="@if($dropManagement->logo != null) {{asset('uploads/').'/'.$dropManagement->logo}} @else {{asset('images/default-logo.png')}} @endif" width="100"></td>
                     </tr>
+                    @if($dropManagement->token != null) 
                     <tr>
                         <td><b>Token</b></td>
-                        <td>@if($dropManagement->token != null) {{@$dropManagement->token}} @else Token Unavailable.. @endif</td>
+                        <td>{{@$dropManagement->token}}</td>
                     </tr>
+                    @endif
+                    @if($dropManagement->blockChain != null)
                     <tr>
                         <td><b>Block Chain</b></td>
-                        <td>@if($dropManagement->blockChain != null) {{@$dropManagement->blockChain}} @else Block Chain Unavailable.. @endif</td>
+                        <td>{{@$dropManagement->blockChain}}</td>
                     </tr>
+                    @endif
+                    @if($dropManagement->priceOfSale != null)
                     <tr>
                         <td><b>Price Of Sale</b></td>
-                        <td>@if($dropManagement->priceOfSale != null) {{@$dropManagement->priceOfSale}} @else Price is Unavailable.. @endif</td>
+                        <td>{{@$dropManagement->priceOfSale}}</td>
                     </tr>
+                    @endif
+                    <tr>
+                        @if(@$dropManagement->saleDate != null && @$dropManagement->saleEndDate != null)
+                        <td><b>Sale Date:</b></td>
+                        <td><b>Starts From : </b>{{ @$dropManagement->saleDate }} <b>To :</b>{{ @$dropManagement->saleEndDate }} </td>
+                        @else
+                        <td><b>Sale Date:</b></td>
+                        <td>{{ @$dropManagement->saleDate }}</td>
+                        @endif
+                    </tr>
+                    @if($dropManagement->phone != null)
+                    <tr>
+                        <td><b>Phone</b></td>
+                        <td> {{@$dropManagement->phone}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->location != null)
+                    <tr>
+                        <td><b>Location</b></td>
+                        <td> {{@$dropManagement->location}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->skype != null)
+                    <tr>
+                        <td><b>Skype/Telegram ID</b></td>
+                        <td> {{@$dropManagement->skype}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->projectName != null)
+                    <tr>
+                        <td><b>Project Name</b></td>
+                        <td> {{@$dropManagement->projectName}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->shortDescription != null)
+                    <tr>
+                        <td><b>Short Description</b></td>
+                        <td> {{@$dropManagement->shortDescription}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->collectionName != null)
+                    <tr>
+                        <td><b>Collection Name</b></td>
+                        <td> {{@$dropManagement->collectionName}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->collectionItem != null)
+                    <tr>
+                        <td><b>Collection Item</b></td>
+                        <td> {{@$dropManagement->collectionItem}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->contractAddress != null)
+                    <tr>
+                        <td><b>Contract Address</b></td>
+                        <td> {{@$dropManagement->contractAddress}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->nftType != null)
+                    <tr>
+                        <td><b>NFT Type</b></td>
+                        <td> {{@$dropManagement->nftType}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->metaData != null)
+                    <tr>
+                        <td><b>Meta Data of NFT</b></td>
+                        <td> {{@$dropManagement->metaData}}</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->start_date != null && $dropManagement->end_date != null)
+                    <tr>
+                        <td><b>Featured Date:</b></td>
+                        <td><b>Starts From : </b>{{ @$dropManagement->start_date }} <b>To :</b>{{ @$dropManagement->end_date }} </td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->discordLink != null)
+                    <tr>
+                        <td><b>Discord Link</b></td>
+                        <td> <a href="{{@$dropManagement->discordLink}}">Link</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->twitterLink != null)
+                    <tr>
+                        <td><b>Twitter Link</b></td>
+                        <td> <a href="{{@$dropManagement->twitterLink}}">Link</td>
+                    </tr>
+                    @endif
+                    @if($dropManagement->websiteLink != null)
+                    <tr>
+                        <td><b>Website Link</b></td>
+                        <td><a href="{{@$dropManagement->websiteLink}}">Link</td>
+                    </tr>
+                    @endif
+
                 </table>
                 <div class="clearfix"></div>
             </div>

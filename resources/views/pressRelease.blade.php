@@ -21,10 +21,10 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="28%">Press-Release Title</th>
+                    <th width="43%">Press-Release Title</th>
                     <th width="15%">Category</th>
                     {{-- <th width="13%">Author</th> --}}
-                    <th width="15%">Listed In</th>
+                    {{-- <th width="15%">Listed In</th> --}}
                     <th width="15%">Posted On</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
@@ -33,7 +33,7 @@ a:hover {
             <tbody>
                 @if (count($pressRelease)<=0)
                 <tr>
-                    <td colspan="8" class="text-center"> No records found </td>
+                    <td colspan="7" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($pressRelease as $pressReleaseDetails)
@@ -55,9 +55,9 @@ a:hover {
                     <td>{{$pressReleaseDetails->title}}</td>
                     <td>{{$pressReleaseDetails->category}}</td>
                     {{-- <td>{{$pressReleaseDetails->author->name}}</td> --}}
-                    <td>
+                    {{-- <td>
                         {{ rtrim( $selection_types, ', ') }}
-                    </td>
+                    </td> --}}
                     <td>{{ $pressReleaseDetails->created_at->format('d-M-Y h:m') }}</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')

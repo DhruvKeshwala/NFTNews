@@ -15,23 +15,26 @@
     
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
+      <form action="{{ route('user.filterPress') }}" id="press_form" method="POST">
+        @csrf
     	<div class="row my-2">
           
           <div class="col-md-4 d-flex">
-            <a href="#" class="page-link active py-3">ALL</a> <a href="#" class="py-3 page-link px-4 mx-2">THIS WEEK</a> <a href="#" class="py-3 page-link px-4">THIS MONTH</a>
+            <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
+            <a onclick="filterForPress('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> <a onclick="filterForPress('thisWeek')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'thisWeek' ? 'active' : '' }}">THIS WEEK</a> <a onclick="filterForPress('thisMonth')" class="py-3 page-link px-4 {{ @$filterValue == 'thisMonth' ? 'active' : '' }}">THIS MONTH</a>
           </div>
           
           <div class="col-md-3 px-0">
-          	<form action="#" class="w-100">
+          	{{-- <form action="#" class="w-100"> --}}
               <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
-                <input type="text" class="form-control text-center" placeholder="SEARCH NEWS">
+                <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
                 <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
               </div>
-            </form>
+            {{-- </form> --}}
           </div>
           
           <div class="col-md-2 text-right pr-0">
-          <select class="form-control" id="list" name="list">
+          <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForPress('category')">
             <option value="">Select Categories</option>
             {{-- <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option> --}}
             @foreach($categories as $category)
@@ -40,6 +43,7 @@
            </select>
           </div>
       </div>
+      </form>
     <br>
     <div>
         {{ $pressReleases->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
@@ -58,13 +62,13 @@
              @if($pressReleases)
              @foreach($pressReleases as $press)
                 <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                    <a href="#" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"></div></a>
+                    <a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"></div></a>
                     <div class="text pl-md-3">
                         <div class="meta mb-2">
-                        <div><a href="#" class="meta-chat">PRESS RELEASE</a></div>
-                        <div><a href="#"><span class="fa fa-clock"></span> {{ @$press->created_at->diffForHumans() }}</a></div>
+                        <div><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="meta-chat">PRESS RELEASE</a></div>
+                        <div><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}"><span class="fa fa-clock"></span> {{ @$press->created_at->diffForHumans() }}</a></div>
                         </div>
-                        <h4><a href="#" class="text-dark">{{@$press->title}}</a></h4>
+                        <h4><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark">{{@$press->title}}</a></h4>
                         <p>{{@$press->shortDescription}}</p>
                     </div>
                 </div>
@@ -85,12 +89,12 @@
             <div class="sidebar-box ftco-animate">
               <div class="categories">
                 <h3>Recommended</h3>
-                @if($pressReleases)
-                    @foreach($pressReleases as $press)
+                @if($pressRecommended)
+                  @foreach($pressRecommended as $pressRec)
                   <div class="block-21 border p-1 mb-2 d-flex">
-                  	<a href="#" class="blog-img mr-2" style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"></a>
+                  	<a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}" class="blog-img mr-2" style="background-image: url({{ URL::asset('uploads/' . @$pressRec->image)}});"></a>
                     <div class="text">
-                      <h3 class="heading mb-1"><a href="#">{{@$press->title}}</a></h3>
+                      <h3 class="heading mb-1"><a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}">{{@$pressRec->title}}</a></h3>
                     </div>
                   </div>
                   @endforeach
@@ -99,7 +103,7 @@
             </div>
           	
           	 <div class="sidebar-box">
-                <a href="#"><img src="images/side-banner.png" width="100%" height="auto" alt=""></a>
+                <a href="#"><img src="{{ URL::asset('images/side-banner.png') }}" width="100%" height="auto" alt=""></a>
              </div>
             
             

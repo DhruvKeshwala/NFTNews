@@ -9,6 +9,7 @@ use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\PressReleaseService;
+use Illuminate\Support\Str;
 
 class PressReleaseController extends Controller
 {
@@ -49,6 +50,9 @@ class PressReleaseController extends Controller
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             'pressReleaseId'    => 'required',
+            'metaTitle'         => 'required',
+            'description'       => 'required',
+            'keywords'          => 'required',
         ]);
         
         $pressReleasedetails = $request->only([
@@ -56,6 +60,11 @@ class PressReleaseController extends Controller
             'shortDescription',
             'fullDescription',
             'categoryId',
+            'start_date',
+            'end_date',
+            'metaTitle',
+            'description',
+            'keywords',
             // 'authorId',
         ]);
         if($request->file('image') != null)
@@ -79,19 +88,22 @@ class PressReleaseController extends Controller
         //     $name = $file->move(base_path('uploads'), $fileName);
         //     $pressReleasedetails['article_2'] = $fileName;
         // }
-        $pressTypeDate = array();
-        $start_date = explode(',',$request->start_date);
-        $end_date = explode(',',$request->end_date);
-        $pressArray = explode(',',$request->presstype);
-        if(is_array($pressArray))
-        {
-            foreach($pressArray as $key=>$presstype)
-            {
-                $pressTypeDate[$presstype]['start_date'] = $start_date[$key];
-                $pressTypeDate[$presstype]['end_date'] = $end_date[$key];
-            }
-        }
-        $pressReleasedetails['pressType'] = json_encode($pressTypeDate);
+        // $pressTypeDate = array();
+        // $start_date = explode(',',$request->start_date);
+        // $end_date = explode(',',$request->end_date);
+        // $pressArray = explode(',',$request->presstype);
+        // if(is_array($pressArray))
+        // {
+        //     foreach($pressArray as $key=>$presstype)
+        //     {
+        //         $pressTypeDate[$presstype]['start_date'] = $start_date[$key];
+        //         $pressTypeDate[$presstype]['end_date'] = $end_date[$key];
+        //     }
+        // } 
+        $pressReleasedetails['start_date'] = $request->start_date;
+        $pressReleasedetails['end_date']   = $request->end_date;
+        $pressReleasedetails['slug']       = Str::slug($request->title); //Adds slug for news
+        // $pressReleasedetails['pressType'] = json_encode($pressTypeDate);
         $news = PressReleaseService::createPressRelease($pressReleasedetails,$request->pressReleaseId);
         return json_encode(['success'=>1,'message'=>'Press Release Detail Saved Successfully']);
     }

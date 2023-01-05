@@ -8,6 +8,10 @@ class PressReleaseService
     {
         return PressRelease::orderby('id','desc')->paginate(10);
     }
+    public static function getPressBySlug($categoryId)
+    {
+        return PressRelease::where('slug', $categoryId)->first();
+    } 
     // delete country
     public static function deletePressRelease($pressReleaseId) 
     {

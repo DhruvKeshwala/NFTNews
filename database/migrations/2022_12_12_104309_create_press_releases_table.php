@@ -24,8 +24,11 @@ return new class extends Migration
                 $table->string('image')->nullable();
                 $table->string('article_1')->nullable();
                 $table->string('article_2')->nullable();
-                $table->longText('pressType');
+                // $table->longText('pressType');
+                $table->date('start_date')->nullable();
+                $table->date('end_date')->nullable();
                 $table->enum('fld_status', ['Active', 'Inactive'])->default('Active');
+                $table->longText('slug')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

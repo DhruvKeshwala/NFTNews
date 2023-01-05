@@ -25,7 +25,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                     <div class="subnav text-right ml-auto mr-4">
-                        <a href="services.html">SERVICES</a> <a href="{{route('user.pressRelease')}}">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="{{route('user.advertise')}}">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="education.html">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="contact.html">CONTACT</a>
+                        <a href="{{route('user.services')}}">SERVICES</a> <a href="{{route('user.pressRelease')}}">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="{{route('user.advertise')}}">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="{{ route('user.education') }}">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="{{route('user.contact')}}">CONTACT</a>
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
@@ -156,14 +156,14 @@
                     <li><a href="crypto-journal.html" class="nav-link">Weekly Journal</a></li>
                     <li><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">Marketplace</a></li>
                     <li><a href="about.html" class="nav-link">About Us</a></li>
-                    <li><a href="services.html" class="nav-link">Our Services</a></li>
+                    <li><a href="{{route('user.services')}}" class="nav-link">Our Services</a></li>
                     <li><a href="{{route('user.advertise')}}" class="nav-link">Advertise</a></li>
                 </ul>
                </div>
                <div class="col-md-3">
                 <ul class="list-unstyled">
                 	<li><a href="{{route('user.guide')}}" class="nav-link">Guides &amp; Support</a></li>
-                    <li><a href="education.html" class="nav-link">Education Academy</a></li>
+                    <li><a href="{{route('user.education')}}" class="nav-link">Education Academy</a></li>
                     <li><a href="partners.html" class="nav-link">Our Partners</a></li>
                     <li><a href="mediaenq.html" class="nav-link">Media Enquiries</a></li>
                     <li><a href="invest-funding.html" class="nav-link">Investment &amp; Funding</a></li>
@@ -299,6 +299,16 @@
   {
     $('#filterValue').val(value);
     var form = document.getElementById("crypto_form");
+    form.submit();
+  }
+
+  function filterForPress(value)
+  {
+    if(value != 'category')
+    {
+      $('#filterValue').val(value);
+    }
+    var form = document.getElementById("press_form");
     form.submit();
   }
 </script>

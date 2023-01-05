@@ -56,7 +56,7 @@
         
         <div class="col-md-3 pl-md-0">
         
-        <div class="sidebar-box ftco-animate">
+        {{-- <div class="sidebar-box ftco-animate">
             <div class="categories">
             <h3>Browse Categories</h3>
             <li class="pl-2"><a href="#">Art </a></li>
@@ -67,7 +67,7 @@
             <li class="pl-2"><a href="#">Music </a></li>
             <li class="pl-2"><a href="#">Web 3.0 </a></li>
             </div>
-        </div>
+        </div> --}}
         
             <div class="sidebar-box">
             <a href="#" target="_blank"><img src="{{ URL::asset('uploads/' . @$newsDetail->article_2)}}" width="100%" height="auto" alt=""></a>

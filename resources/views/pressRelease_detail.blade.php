@@ -59,6 +59,10 @@
                         <td>@if($pressRelease->article_1 != null)<img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
+                        <td><b>Title</b></td>
+                        <td>{{ $pressRelease->title }}</td>
+                    </tr>
+                    <tr>
                         <td><b>Short Description</b></td>
                         <td>{{ $pressRelease->shortDescription }}</td>
                     </tr>

@@ -42,7 +42,7 @@
         <div class="main my-0">
             <div class="row mt-3 mx-0">
                 <div class="col-md-6 ml-3">
-                    <h3>News Detail</h3>
+                    <h3>Page Detail</h3>
                 </div>
                 <div class="col-md-5 text-right">
                     &nbsp;
@@ -52,71 +52,28 @@
                 <table class="webforms sttbl mt-0">
                     <tr>
                         <td><b>Image 1</b></td>
-                        <td>@if($news->image != null)<img src="{{asset('uploads/').'/'.$news->image}}" width="100">@endif</td>
+                        <td>@if($page->image1 != null)<img src="{{asset('uploads/').'/'.$page->image1}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
                         <td><b>Image 2</b></td>
-                        <td>@if($news->article_1 != null)<img src="{{asset('uploads/').'/'.$news->article_1}}" width="100"> @else No Image Found.. @endif</td>
-                    </tr>
-                    <tr>
-                        <td><b>Image 3</b></td>
-                        <td>@if($news->article_2 != null)<img src="{{asset('uploads/').'/'.$news->article_2}}" width="100"> @else No Image Found.. @endif</td>
+                        <td>@if($page->image2 != null)<img src="{{asset('uploads/').'/'.$page->image2}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
                         <td><b>Meta Title</b></td>
-                        <td>{{ $news->metaTitle }}</td>
+                        <td>{{ @$page->metaTitle }}</td>
                     </tr>
                     <tr>
                         <td><b>Meta Description</b></td>
-                        <td>{{ $news->description }}</td>
+                        <td>{{ @$page->description }}</td>
                     </tr>
                     <tr>
                         <td><b>Meta Keywords</b></td>
-                        <td>{{ $news->keywords }}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Short Description</b></td>
-                        <td>{{ $news->shortDescription }}</td>
+                        <td>{{ @$page->keywords }}</td>
                     </tr>
                     <tr>
                         <td><b>Full Description</b></td>
-                        <td>{!! $news->fullDescription !!}</td>
+                        <td class="text-wrap">{!! @$page->contents !!}</td>
                     </tr>
-                    <tr>
-                        <td><b>Video URL</b></td>
-                        <td><a href="{{ $news->videoURL }}" target="_blank">Link</td>
-                    </tr>
-                    @php
-                    $dateArray = json_decode(@$news->newsType,true);
-                    @endphp
-                    @foreach(config('constant.news_type') as $key=>$newstype)
-											@if (!empty(@$dateArray[$key]['start_date']) && !empty(@$dateArray[$key]['end_date']))
-												<tr>
-													<td><b>{{ $newstype }}</b></td>
-													<td><b>From : </b>{{ @$dateArray[$key]['start_date'] ? @$dateArray[$key]['start_date'] : '' }} <b>To :</b>{{ @$dateArray[$key]['end_date'] ? @$dateArray[$key]['end_date'] : '' }}</td>
-												</tr>
-											@endif
-                    @endforeach
-                    
-                    {{-- @endif
-                    @if(@$dateArray['latest'] != '')
-                    <tr>
-                        <td>Latest News</td>
-                        <td>{{ $dateArray['featured'] }}</td>
-                    </tr>
-                    @endif
-                    @if(@$dateArray['video'] != '')
-                    <tr>
-                        <td>Video</td>
-                        <td>{{ $dateArray['featured'] }}</td>
-                    </tr>
-                    @endif
-                    @if(@$dateArray['press'] != '')
-                    <tr>
-                        <td>Press Releases</td>
-                        <td>{{ $dateArray['featured'] }}</td>
-                    </tr>
-                    @endif --}}
                 </table>
                 <div class="clearfix"></div>
             </div>
