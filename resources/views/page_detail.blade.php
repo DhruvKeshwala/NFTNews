@@ -59,6 +59,10 @@
                         <td>@if($page->image2 != null)<img src="{{asset('uploads/').'/'.$page->image2}}" width="100"> @else No Image Found.. @endif</td>
                     </tr>
                     <tr>
+                        <td><b>Title</b></td>
+                        <td>{{ @$page->title }}</td>
+                    </tr>
+                    <tr>
                         <td><b>Meta Title</b></td>
                         <td>{{ @$page->metaTitle }}</td>
                     </tr>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\NewsService;
 use App\Models\Category;
 use App\Models\News;
+use App\Models\Guide;
 use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
@@ -88,7 +89,8 @@ class HomeController extends Controller
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
-        return view('user.index', compact('pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement'));
+        $guides              = Guide::all();
+        return view('user.index', compact('pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides'));
     }
 
     public function userFilterVideos(Request $request)
@@ -175,4 +177,172 @@ class HomeController extends Controller
         }
         return view('user.services', compact('page'));
     }
+
+    public function partners()
+    {
+        $page = ManagePages::where('slug', 'partners')->first();
+        if(@$page == null)
+        {
+            $page = 'No Partners Information available..';
+        }
+        return view('user.partners', compact('page'));
+    }
+
+    public function privacyPolicy()
+    {
+        $page = ManagePages::where('slug', 'privacy-policy')->first();
+        if(@$page == null)
+        {
+            $page = 'No Privacy Policy Information available..';
+        }
+        return view('user.privacyPolicy', compact('page'));
+    }
+
+    public function termsAndConditions()
+    {
+        $page = ManagePages::where('slug', 'terms-and-conditions')->first();
+        if(@$page == null)
+        {
+            $page = 'No Terms And Conditions Information available..';
+        }
+        return view('user.termsAndConditions', compact('page'));
+    }
+
+    public function gdpr()
+    {
+        $page = ManagePages::where('slug', 'gdpr')->first();
+        if(@$page == null)
+        {
+            $page = 'No GDPR Information available..';
+        }
+        return view('user.gdpr', compact('page'));
+    }
+
+    public function termsOfService()
+    {
+        $page = ManagePages::where('slug', 'terms-of-service')->first();
+        if(@$page == null)
+        {
+            $page = 'No Terms Of Service Information available..';
+        }
+        return view('user.termsOfService', compact('page'));
+    }
+
+    public function investmentAndFunding()
+    {
+        $page = ManagePages::where('slug', 'investment-and-funding')->first();
+        if(@$page == null)
+        {
+            $page = 'No Investment & Funding Information available..';
+        }
+        return view('user.investmentAndFunding', compact('page'));
+    }
+
+    public function mediaEnquiries()
+    {
+        $page = ManagePages::where('slug', 'media-enquiries')->first();
+        if(@$page == null)
+        {
+            $page = 'No Media Enquiries Information available..';
+        }
+        return view('user.mediaEnquiries', compact('page'));
+    }
+
+    public function careers()
+    {
+        $page = ManagePages::where('slug', 'careers')->first();
+        if(@$page == null)
+        {
+            $page = 'No Careers Information available..';
+        }
+        return view('user.careers', compact('page'));
+    }
+
+    public function subscribe()
+    {
+        return view('user.subscribe');
+    }
+
+    public function about()
+    {
+        $page = ManagePages::where('slug', 'about')->first();
+        if(@$page == null)
+        {
+            $page = 'No About Page Information available..';
+        }
+        return view('user.about', compact('page'));
+    }
+
+    public function featuredNews()
+    {
+        $newses          = News::orderBy('id', 'DESC')->get();
+
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews = array();
+        $resultFeaturedNews2 = array();
+        foreach($newses as $key => $news)
+        {
+            
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+        $resultFeaturedNews2 = $resultFeaturedNews;
+        $getAllNewses   = News::all();
+        return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
+    }
+
+    public function filterFeaturedNews(Request $request)
+    {
+        $newses          = News::orderBy('id', 'DESC')->get();
+
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews2 = array();
+        foreach($newses as $key => $news)
+        {
+            $resultFeaturedNews2[$key] = $news;
+            $resultFeaturedNews2[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews2[$key]->is_featurednew = 1;
+                $resultFeaturedNews2[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews2[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+        
+        $getAllNewses   = News::all();
+        $title      = $request->filterNewsTitle;
+        $newses    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->get();
+        if($title == "" | $title == null)
+        {
+            $newses    = News::orderby('id','desc')->get();
+        }
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews = array();
+        foreach($newses as $key => $news)
+        {
+            
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+        
+
+        // $allNews        = NewsService::getNews();
+        // $categories     = Category::all();
+        $getAllNewses   = News::all();
+        return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
+
+    }
+    
 }

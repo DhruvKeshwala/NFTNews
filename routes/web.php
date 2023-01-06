@@ -147,8 +147,19 @@ Route::get('advertise', [HomeController::class, 'advertise'])->name('user.advert
 Route::get('contact', [HomeController::class, 'contact'])->name('user.contact');
 Route::get('education', [HomeController::class, 'education'])->name('user.education');
 Route::get('services', [HomeController::class, 'services'])->name('user.services');
+Route::get('partners', [HomeController::class, 'partners'])->name('user.partners');
+Route::get('privacyPolicy', [HomeController::class, 'privacyPolicy'])->name('user.privacyPolicy');
+Route::get('termsAndConditions', [HomeController::class, 'termsAndConditions'])->name('user.termsAndConditions');
+Route::get('GDPR', [HomeController::class, 'gdpr'])->name('user.gdpr');
+Route::get('termsOfService', [HomeController::class, 'termsOfService'])->name('user.termsOfService');
+Route::get('investmentAndFunding', [HomeController::class, 'investmentAndFunding'])->name('user.investmentAndFunding');
+Route::get('mediaEnquiries', [HomeController::class, 'mediaEnquiries'])->name('user.mediaEnquiries');
+Route::get('careers', [HomeController::class, 'careers'])->name('user.careers');
+Route::get('about', [HomeController::class, 'about'])->name('user.about');
+Route::get('subscribe', [HomeController::class, 'subscribe'])->name('user.subscribe');
 
-
+Route::get('featuredNews', [HomeController::class, 'featuredNews'])->name('user.featuredNews');
+Route::post('featuredNews', [HomeController::class, 'filterFeaturedNews'])->name('user.filterFeaturedNews');
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');

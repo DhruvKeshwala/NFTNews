@@ -467,53 +467,22 @@ No annual fees. Top-up with fiat or crypto.</p>
           <div class="col-md-12 mb-4 heading-section text-center ftco-animate">
             <h2>GUIDES</h2>
           </div>
-      
-          <div class="col-md-3 no-gutters">
-          	<h5 class="text-uppercase">Bitcoin</h5>
-            <ul class="line-lists">
-            	<li><a href="#">How Does Bitcoin Mining Work?</a></li>
-                <li><a href="#">Is Bitcoin a Pyramid Scheme?</a></li>
-                <li><a href="#">Is Bitcoin a Bubble?</a></li>
-                <li><a href="#">Is Bitcoin Legal?</a></li>
-                <li><a href="#">How Does Bitcoin Mining Work?</a></li>
-            </ul>            
-          </div>
-          <div class="col-md-3 no-gutters">
-          	<h5 class="text-uppercase">NFT</h5>
-            <ul class="line-lists">
-            	<li><a href="#">A Beginner's Guide to NFTs: What You Should Know</a></li>
-                <li><a href="#">How to Create an NFT?</a></li>
-                <li><a href="#">Top 10 NFT Marketplaces</a></li>
-                <li><a href="#">How to Add Tokens to MetaMask Wallet</a></li>
-                <li><a href="#">How to Create an NFT?</a></li>
-            </ul>            
-          </div>
-          <div class="col-md-3 no-gutters">
-          	<h5 class="text-uppercase">Cryptocurrency</h5>
-            <ul class="line-lists">
-            	<li><a href="#">How To Store Cryptocurrency Safely in 2022</a></li>
-                <li><a href="#">How To Make Money With Crypto Arbitrage</a></li>
-                <li><a href="#">Why It Is Risky To Leave Your Cryptocurrency In Exchange</a></li>
-                <li><a href="#">Beginner's Guide to Crypto Trading Strategies</a></li>
-                <li><a href="#">How Does Bitcoin Mining Work?</a></li>
-            </ul>            
-          </div>
-          <div class="col-md-3 no-gutters">
-          	<h5 class="text-uppercase">Ethereum</h5>
-            <ul class="line-lists">
-            	<li><a href="#">Before You Sell Ethereum</a></li>
-                <li><a href="#">Countries Where Ethereum is Banned or Legal</a></li>
-                <li><a href="#">Hardware for Ethereum Mining</a></li>
-                <li><a href="#">How to Buy and Sell Ethereum in India?</a></li>
-                <li><a href="#">How Does Bitcoin Mining Work?</a></li>
-            </ul>            
-          </div>
+          @if(@$guides)
+          @foreach($guides as $guide)
+            <div class="col-md-3 no-gutters">
+              <h5 class="text-uppercase">{{@$guide->category}}</h5>
+              <ul class="line-lists">
+                <li><a href="{{ url('guideList/' . @$guide->categorySlug . '/' . @$guide->slug) }}">{!!@$guide->question!!}</a></li>
+              </ul>            
+            </div>
+          @endforeach
+          @endif
           
           
        </div>
        
        <div class="col-12 mt-4 text-center">
-       	<a href="guide.html" class="btn btn-outline-light py-2 bg-white mt-4">View More</a>
+       	<a href="{{route('user.guide')}}" class="btn btn-outline-light py-2 bg-white mt-4">View More</a>
        </div>
       
      </div>
@@ -582,7 +551,7 @@ $(document).ready(function() {
 function filterVideos(value)
 {
   var categoryId = parseInt(value);
-
+  
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

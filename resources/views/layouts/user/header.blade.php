@@ -25,7 +25,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                     <div class="subnav text-right ml-auto mr-4">
-                        <a href="{{route('user.services')}}">SERVICES</a> <a href="{{route('user.pressRelease')}}">PRESS</a> <a href="featured-news.html">FEATURED</a> <a href="{{route('user.advertise')}}">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="{{ route('user.education') }}">EDUCATION</a> <a href="partners.html">PARTNERS</a> <a href="{{route('user.contact')}}">CONTACT</a>
+                        <a href="{{route('user.services')}}">SERVICES</a> <a href="{{route('user.pressRelease')}}">PRESS</a> <a href="{{route('user.featuredNews')}}">FEATURED</a> <a href="{{route('user.advertise')}}">ADVERTISE</a> <a href="{{route('user.guide')}}">GUIDES</a> <a href="{{ route('user.education') }}">EDUCATION</a> <a href="{{route('user.partners')}}">PARTNERS</a> <a href="{{route('user.contact')}}">CONTACT</a>
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
@@ -112,7 +112,7 @@
                     </button>
                     
                     <h5>“*Dont forget to follow us on our socials, Stay connected!"</h5>
-                    <p>By entering your email, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                    <p>By entering your email, you agree to our <a href="{{route('user.termsOfService')}}">Terms of Service</a> and <a href="{{route('user.privacyPolicy')}}">Privacy Policy</a>.</p>
                     
                </div>
              </div>
@@ -144,18 +144,18 @@
             	<ul class="list-unstyled text-dark">
                 	<li><a href="{{route('user.news')}}" class="nav-link">Latest News</a></li>
                     <li><a href="{{route('user.markets')}}" class="nav-link">Markets News</a></li>
-                    <li><a href="featured-news.html" class="nav-link">Featured</a></li>
+                    <li><a href="{{route('user.featuredNews')}}" class="nav-link">Featured</a></li>
                     <li><a href="{{route('user.list_nftDrops')}}" class="nav-link">NFT Drops</a></li>
                     <li><a href="{{route('user.videos')}}" class="nav-link">Videos</a></li>
-                    <li><a href="topics.html" class="nav-link">Help</a></li>
+                    <li><a href="{{route('user.guide')}}" class="nav-link">Help</a></li>
                 </ul>
                </div>
                <div class="col-md-3">
                 <ul class="list-unstyled">
                 	<li><a href="{{route('user.pressRelease')}}" class="nav-link">Press Releases</a></li>
-                    <li><a href="crypto-journal.html" class="nav-link">Weekly Journal</a></li>
+                    <li><a href="{{route('user.cryptoJournals')}}" class="nav-link">Weekly Journal</a></li>
                     <li><a href="https://www.thenftmarkets.com/" target="_blank" class="nav-link">Marketplace</a></li>
-                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="{{route('user.about')}}" class="nav-link">About Us</a></li>
                     <li><a href="{{route('user.services')}}" class="nav-link">Our Services</a></li>
                     <li><a href="{{route('user.advertise')}}" class="nav-link">Advertise</a></li>
                 </ul>
@@ -164,16 +164,16 @@
                 <ul class="list-unstyled">
                 	<li><a href="{{route('user.guide')}}" class="nav-link">Guides &amp; Support</a></li>
                     <li><a href="{{route('user.education')}}" class="nav-link">Education Academy</a></li>
-                    <li><a href="partners.html" class="nav-link">Our Partners</a></li>
-                    <li><a href="mediaenq.html" class="nav-link">Media Enquiries</a></li>
-                    <li><a href="invest-funding.html" class="nav-link">Investment &amp; Funding</a></li>
-                    <li><a href="careers.html" class="nav-link">Careers</a></li>
+                    <li><a href="{{route('user.partners')}}" class="nav-link">Our Partners</a></li>
+                    <li><a href="{{route('user.mediaEnquiries')}}" class="nav-link">Media Enquiries</a></li>
+                    <li><a href="{{route('user.investmentAndFunding')}}" class="nav-link">Investment &amp; Funding</a></li>
+                    <li><a href="{{route('user.careers')}}" class="nav-link">Careers</a></li>
                 </ul>
                </div>
                <div class="col-md-3">
                	<h2 class="footer-heading mb-0 py-2">NEWSLETTER</h2>
                 <p>Keep upto date with all the latest news &amp; insights</p>
-                <a href="subscribe.html" class="btn-outline-light-gradient btn border py-2 btn-sm px-3">SUBSCRIBE</a>
+                <a href="{{route('user.subscribe')}}" class="btn-outline-light-gradient btn border py-2 btn-sm px-3">SUBSCRIBE</a>
                 
                </div>
             </div>
@@ -188,7 +188,7 @@
       
       <div class="container border-top  text-center py-md-4">
       	<div class="d-inline text-center">
-        	<a href="#" class="mr-2 ftlinks">Privacy Policy</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">Terms &amp; Conditions</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">GDPR</a> <span class="text-secondary">|</span> <a href="#" class="mx-2 ftlinks">Terms of Service</a>
+        	<a href="{{route('user.privacyPolicy')}}" class="mr-2 ftlinks">Privacy Policy</a> <span class="text-secondary">|</span> <a href="{{route('user.termsAndConditions')}}" class="mx-2 ftlinks">Terms &amp; Conditions</a> <span class="text-secondary">|</span> <a href="{{route('user.gdpr')}}" class="mx-2 ftlinks">GDPR</a> <span class="text-secondary">|</span> <a href="{{route('user.termsOfService')}}" class="mx-2 ftlinks">Terms of Service</a>
         </div>
         
         

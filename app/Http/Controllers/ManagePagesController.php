@@ -22,7 +22,7 @@ class ManagePagesController extends Controller
 
     public function addPage($id=null)
     {
-        $page = ManagePagesService::getPageById($id);
+        $page  = ManagePagesService::getPageById($id);
         return view('add_page', compact('page', 'id'));
     }
 
@@ -38,7 +38,7 @@ class ManagePagesController extends Controller
             'contents'          => 'required',
             'selectTemplate'    => 'required',
         ]);
-        
+
         $pagedetails = $request->only([
             'name',
             'title',
@@ -48,6 +48,12 @@ class ManagePagesController extends Controller
             'contents',
             'selectTemplate',
         ]);
+
+        if($request->pageId != 0)
+        {
+            $request->except('name');
+        }
+
         if($request->file('image1') != null)
         {
             $file      = $request->file('image1');
@@ -62,8 +68,10 @@ class ManagePagesController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $pagedetails['image2'] = $fileName;
         }
-        
-        $pagedetails['slug']     = Str::slug($request->name); //Adds slug for news
+        if($request->pageId == 0)
+        {
+            $pagedetails['slug']     = Str::slug($request->name); //Adds slug for news
+        }
         $page = ManagePagesService::createPage($pagedetails,$request->pageId);
         return json_encode(['success'=>1,'message'=>'New Page Details Saved Successfully']);
     }

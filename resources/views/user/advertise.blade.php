@@ -4,14 +4,14 @@
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Advertise</span></p>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end">
+      <div class="col-md-9 ftco-animate">
+        <p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Advertise</span></p>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
     
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">

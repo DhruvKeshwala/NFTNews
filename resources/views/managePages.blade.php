@@ -9,9 +9,9 @@ a:hover {
         <div class="col-md-6">
             <h3>Manage Pages</h3>
         </div>
-        <div class="col-md-6 text-right">
+        {{-- <div class="col-md-6 text-right">
             <a href="{{route('add_page')}}" class="btn btn-info">Add Page</a>
-        </div>
+        </div> --}}
     </div>
 
     <div class="container_fluid mt-2 px-3">

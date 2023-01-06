@@ -34,7 +34,7 @@ class UserNewsController extends Controller
             }  
         }
         // dd($resultFeaturedNews);
-        $allNews        = NewsService::getNews();
+        $allNews        = News::orderby('id','desc')->paginate(10);
         $categories     = Category::all();
         $getAllNewses   = News::all();
         return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));

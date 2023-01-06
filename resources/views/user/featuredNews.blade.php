@@ -1,119 +1,87 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | Press Release')
+@section('title', 'NFT Markets | Featured News')
 
 @section('content')
+<style>
+.tagLink {
+  cursor: pointer;
+}  
+</style>
+
 <section class="hero-wrap hero-wrap-2">
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Press Release</span></p>
+          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Featured News</span></p>
           </div>
         </div>
       </div>
     </section>
-    
-    <div class="ftco-section py-5 bg-info-gradient">
+
+<div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
-      <form action="{{ route('user.filterPress') }}" id="press_form" method="POST">
-        @csrf
-    	<div class="row my-2">
-          
-          <div class="col-md-4 d-flex">
-            <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
-            <a onclick="filterForPress('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> <a onclick="filterForPress('thisWeek')" class="py-3 page-link px-4 mx-2 {{ @$filterValue == 'thisWeek' ? 'active' : '' }}">THIS WEEK</a> <a onclick="filterForPress('thisMonth')" class="py-3 page-link px-4 {{ @$filterValue == 'thisMonth' ? 'active' : '' }}">THIS MONTH</a>
+    	<form action="{{ route('user.filterFeaturedNews') }}" method="post" class="col-md-12 mr-auto pl-0 pr-2">
+          @csrf
+          <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
+            <input type="text" name="filterNewsTitle" class="form-control text-center" placeholder="Search news" value="<?php 
+                if (!empty($_POST['filterNewsTitle'])) {
+                    $q = $_POST['filterNewsTitle'];
+                    echo $q;
+                } ?>">
+            <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search"></span></button>
           </div>
-          
-          <div class="col-md-3 px-0">
-          	{{-- <form action="#" class="w-100"> --}}
-              <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
-                <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
-                <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
-              </div>
-            {{-- </form> --}}
-          </div>
-          
-          <div class="col-md-2 text-right pr-0">
-          <select class="form-control" id="filternftcategoryValue" name="filternftcategoryValue" onchange="filterForPress('category')">
-            <option value="">Select Categories</option>
-            {{-- <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option> --}}
-            @foreach($categories as $category)
-                <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
-            @endforeach
-           </select>
-          </div>
+        </form>
       </div>
-      </form>
-    <br>
-    <div>
-        {{ $pressReleases->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
     </div>
-    </div>
-    
    	
     <section class="ftco-section pt-0 pb-4">
-      <div class="container">
-         
-        <div class="row">    
-          <div class="col-md-9 px-md-0 px-0">
+    	<div class="container">
+    	 <div class="row">
+          
+          <div class="col-md-12 px-md-0 px-0">
            <div class="container">
-            
+            <div class="mb-3 ftco-animate">
+            <div class="heading-section">
+             <h2 class="mb-0 py-1">FEATURED NEWS</h2>
+            </div>
+           </div>
+           	
             <div class="news-listing ftco-animate">
-             @if($pressReleases)
-             @foreach($pressReleases as $press)
-                <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                    <a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"></div></a>
-                    <div class="text pl-md-3">
-                        <div class="meta mb-2">
-                        <div><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="meta-chat">PRESS RELEASE</a></div>
-                        <div><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}"><span class="fa fa-clock"></span> {{ @$press->created_at->diffForHumans() }}</a></div>
-                        </div>
-                        <h4><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark">{{@$press->title}}</a></h4>
-                        <p>{{@$press->shortDescription}}</p>
-                    </div>
-                </div>
-            @endforeach
-            @endif
+            {{-- {{ $resultFeaturedNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }} --}}
+             
+              @if(@$resultFeaturedNews)
+                  @foreach($resultFeaturedNews as $news)
+                    @if($news->is_featurednew == 1)
+                      <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
+                      <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"></div></a>
+                      <div class="text pl-md-3">
+                          <div class="meta mb-2">
+                          <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">INDUSTRY TALK</a></div>
+                          <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span class="fa fa-clock"></span>{{ @$news->created_at->diffForHumans() }}</a></div>
+                          </div>
+                          <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                          <p>{{@$news->shortDescription}}</p>
+                      </div>
+                      </div>
+                    @endif
+                  @endforeach
+              @else
+                  <p>No Data Found..</p>
+              @endif
+            </div>
+            {{-- {{ $resultFeaturedNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }} --}}
+             
              
             </div>
             <!--<a href="#" class="btn d-block btn-light py-2 mt-4">Load More News</a>-->
            </div>
-           
-           <div>
-                {{ $pressReleases->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
-            </div>
-          </div>
+           </div>
           
-          <div class="col-md-3 pl-md-0">
-            
-            <div class="sidebar-box ftco-animate">
-              <div class="categories">
-                <h3>Recommended</h3>
-                @if($pressRecommended)
-                  @foreach($pressRecommended as $pressRec)
-                  <div class="block-21 border p-1 mb-2 d-flex">
-                  	<a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}" class="blog-img mr-2" style="background-image: url({{ URL::asset('uploads/' . @$pressRec->image)}});"></a>
-                    <div class="text">
-                      <h3 class="heading mb-1"><a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}">{{@$pressRec->title}}</a></h3>
-                    </div>
-                  </div>
-                  @endforeach
-                @endif
-              </div>
-            </div>
-          	
-          	 <div class="sidebar-box">
-                <a href="#"><img src="{{ URL::asset('images/side-banner.png') }}" width="100%" height="auto" alt=""></a>
-             </div>
-            
-            
-            </div>
-                       
-            
+          
           </div>
-    	</div>
+    	{{-- </div> --}}
     </section>
-    
     <section class="ftco-section bg-light mb-5 py-5">
       <div class="container mb-5">
 		<div class="row ftco-animate">
@@ -123,8 +91,8 @@
         </div>
         <div class="ftco-animate">
             <div class="mktnws-slider owl-carousel ftco-owl">
-              @if(@$resultFeaturedNews)
-                @foreach($resultFeaturedNews as $news)
+              @if(@$resultFeaturedNews2)
+                @foreach($resultFeaturedNews2 as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
                       <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
@@ -138,12 +106,13 @@
                     </div>
                   @endif
                 @endforeach
-              @endif
-              
+              @endif              
           </div>
         </div>
       </div>
-      @php 
+      
+
+@php 
     $i=1;
     $ln=0;
     $ln2=0;

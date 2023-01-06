@@ -22,11 +22,31 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Name</label></td>
+                <td><label>Page Name</label></td>
                 <td>
-                    <input type="text" value="{{@$page->name}}" name="name" placeholder="Name">
-                    <input type="hidden" name="pageId" value="{{@$id}}">
+                    @if(@$id != 0)
+                        <input type="text" value="{{@$page->name}}" name="name" placeholder="Name" disabled>
+                    @else
+                        <select name="name" data-placeholder="Select From Below Pages">
+                            <option value="">Select Page</option>
+                            <option value="Services" {{ @$page->slug == 'services' ? 'selected' : '' }}>Services</option>
+                            <option value="Education" {{ @$page->slug == 'education' ? 'selected' : '' }}>Education</option>
+                            <option value="Partners" {{ @$page->slug == 'partners' ? 'selected' : '' }}>Partners</option>
+                            <option value="Privacy Policy" {{ @$page->slug == 'privacy-policy' ? 'selected' : '' }}>Privacy Policy</option>
+                            <option value="Terms & Conditions" {{ @$page->slug == 'terms-and-conditions' ? 'selected' : '' }}>Terms & Conditions</option>
+                            <option value="GDPR" {{ @$page->slug == 'gdpr' ? 'selected' : '' }}>GDPR</option>
+                            <option value="Terms Of Services" {{ @$page->slug == 'terms-of-service' ? 'selected' : '' }}>Terms Of Service</option>
+                            <option value="Investment And Funding" {{ @$page->slug == 'investment-and-funding' ? 'selected' : '' }}>Investment & Funding</option>
+                            <option value="Media Enquiries" {{ @$page->slug == 'media-enquiries' ? 'selected' : '' }}>Media Enquiries</option>
+                            <option value="Careers" {{ @$page->slug == 'careers' ? 'selected' : '' }}>Careers</option>
+                            <option value="About" {{ @$page->slug == 'about' ? 'selected' : '' }}>About</option>
+
+                        </select>
+                        
+                    @endif
                     <div id="nameError"></div>
+                    {{-- <input type="text" value="{{@$page->name}}" name="name" placeholder="Name"> --}}
+                    <input type="hidden" name="pageId" value="{{@$id}}">
                 </td>
             </tr>
             <tr>
@@ -107,21 +127,31 @@
     function savePage() 
     {
         $('.errorMessage').hide();
+        var pageId = $("input[name='pageId']").val();
+        if(pageId == ''){
+            pageId = 0;
+        }
         var flag = 1;
         var selectTemplate = $("select[name='selectTemplate']").val();
-        var name = $("input[name='name']").val();
+        
+        if(pageId == 0)
+        {
+            var name           = $("select[name='name']").val();
+        }
+        else
+        {
+           var name = $("input[name='name']").val(); 
+        }
+        // var name = $("input[name='name']").val();
         var title = $("input[name='title']").val();
         var metaTitle = $("input[name='metaTitle']").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
         var contentsValidate = CKEDITOR.instances['contents'].getData().replace(/<[^>]*>/gi, '').length;
         var contents = CKEDITOR.instances['contents'].getData();
-        var pageId = $("input[name='pageId']").val();
 
         var fd = new FormData();
-        if(pageId == ''){
-            pageId = 0;
-        }
+        
         // Append data 
         var files = $('#image1')[0].files;
         if(files.length > 0)
@@ -134,7 +164,9 @@
             fd.append('image2',files[0]);
         }
         fd.append('selectTemplate', selectTemplate);
+        
         fd.append('name', name);
+        
         fd.append('title', title);
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
@@ -150,7 +182,7 @@
         if (name == '' || name == null) 
         {
             flag = 0;
-            $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
+            $("#nameError").html('<span class="errorMessage" style="color:red;">Page Name Required</span>');
         }
         if (title == '' || title == null) 
         {
