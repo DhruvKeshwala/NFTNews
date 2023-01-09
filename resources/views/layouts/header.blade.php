@@ -89,6 +89,7 @@
                   <li><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide')}}">Guide</a></li>
                   <li><span class="material-icons">assignment</span><a class="fill-a" href="{{route('managePages')}}">Manage Pages</a></li>
                   <li><span class="material-icons">password</span><a class="fill-a" href="{{ route('changePassword') }}">Change Password</a></li>
+                  <li><span class="material-icons">engineering</span><a class="fill-a" href="{{ route('settings') }}">Settings</a></li>
                   <li><span class="material-icons">logout</span><a class="fill-a" href="{{ route('logout') }}">Logout</a></li>
               
                 </ul>

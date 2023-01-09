@@ -137,6 +137,10 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('changePassword', [AuthController::class, 'changePassword'])->name('changePassword');
         Route::post('save_changePassword', [AuthController::class, 'save_changePassword'])->name('save_changePassword'); 
 
+        //Update Password
+        Route::get('settings', [AuthController::class, 'updateSettings'])->name('settings');
+        Route::post('update_settings', [AuthController::class, 'updateAdminSettings'])->name('update_settings'); 
+
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
@@ -201,4 +205,6 @@ Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideLi
 
 Route::get('pressRelease', [UserPressController::class, 'index'])->name('user.pressRelease');
 Route::post('pressRelease', [UserPressController::class, 'filterPress'])->name('user.filterPress');
+
+Route::post('send_mail', [UserPressController::class, 'sendMail'])->name('send_mail');
 

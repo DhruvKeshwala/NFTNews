@@ -61,7 +61,9 @@
        <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('assets/user/images/nft-logo.svg')}}" width="210" height="35" alt=""></a>
         <div class="searchform order-sm-start order-lg-last">
           <a href="#" class="btn text-uppercase btn-outline-light-gradient border pt-2 px-3 pb-1" data-toggle="modal" data-target="#myModal">Subscribe</a>
-          <a href="#" class="btn-lg pt-3 pb-1"><i class="fa fa-twitter text-light"></i></a>
+          @if (@$settings->twitter)
+            <a href="{{ @$settings->twitter }}" target="_blank" class="btn-lg pt-3 pb-1" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter text-light"></i></a>
+          @endif
         </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fa fa-bars"></span> Menu
@@ -102,12 +104,13 @@
                     <p>Looking for the latest NFTs collection that will launch soon? You're in the right place. Stay upto date on the latest NFTs trends, giveaways &amp; competitions!</p>
                     
                     <!-- SUBSCRIBE FORM -->
-                    <form action="#" class="form-consultation">
+                    <form action="{{ route('send_mail') }}" method="POST" id="subscribe_form" class="form-consultation">
+                      @csrf
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="text" name="email" class="form-control" placeholder="Email">
                       </div>
                     </form>
-                    <button type="submit" class="btn btn-primary mb-2 bt-mdl">
+                    <button type="submit" onclick="submitSubscribeForm()" class="btn btn-primary mb-2 bt-mdl">
                        Subscribe <i class="fa fa-paper-plane"></i>
                     </button>
                     
@@ -132,8 +135,25 @@
           </div>
           <div class="col-md-4 text-center pt-md-1 text-light">ADVERTISE WITH US? <a href="{{route('user.contact')}}" class="btn-outline-light-gradient text-light btn border py-1 align-middle ml-md-5 btn-sm px-3">ENQUIRE</a></div>
           <div class="col-md-4 text-md-right text-center">
-            <ul class="ftco-social m-0 pl-0">
+            {{-- <ul class="ftco-social m-0 pl-0">
               <li class="ftco-animate fadeInUp ftco-animated mt-1 border-left pl-4"><a href="https://www.twitter.com/" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter text-light fa-2x"></span></a></li>
+            </ul> --}}
+            <ul class="ftco-footer-social m-0">
+              @if (@$settings->facebook)
+                <li class="ftco-animate"><a href="{{ @$settings->facebook }}" target="_blank" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+              @endif
+              @if (@$settings->twitter)
+                <li class="ftco-animate"><a href="{{ @$settings->twitter }}" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+              @endif
+              @if (@$settings->instagram)
+                <li class="ftco-animate"><a href="{{ @$settings->instagram }}" data-toggle="tooltip" target="_blank" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+              @endif
+              @if (@$settings->linkedin)
+                <li class="ftco-animate"><a href="{{ @$settings->linkedin }}" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><span class="fa fa-linkedin"></span></a></li>
+              @endif
+              @if (@$settings->youtube)
+                <li class="ftco-animate"><a href="{{ @$settings->youtube }}" data-toggle="tooltip" target="_blank" data-placement="top" title="youtube"><span class="fa fa-youtube-play"></span></a></li>
+              @endif
             </ul>
           </div>
 		</div>
@@ -309,6 +329,10 @@
       $('#filterValue').val(value);
     }
     var form = document.getElementById("press_form");
+    form.submit();
+  }
+  function submitSubscribeForm(){
+    var form = document.getElementById("subscribe_form");
     form.submit();
   }
 </script>

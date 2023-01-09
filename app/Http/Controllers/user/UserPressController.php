@@ -10,6 +10,7 @@ use App\Models\PressRelease;
 use App\Models\Category;
 use App\Models\News;
 use Carbon\Carbon;
+use Mail;
 
 class UserPressController extends Controller
 {
@@ -104,6 +105,15 @@ class UserPressController extends Controller
         $categories     = Category::all();
         $getAllNewses   = News::all();
         return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
+    }
+
+    public function sendMail(Request $request)
+    {
+        Mail::send('mail', [], function ($message) {
+            $message->to('kishangareja241@gmail.com', 'NFT News')->subject('Laravel Basic Testing Mail');
+            $message->from('krupapandit7023@gmail.com','Krupa Pandit');
+        });
+        return true;
     }
     
 }

@@ -12,7 +12,9 @@ use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
 use App\Models\Video_management;
+use App\Models\CryptoJournal;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 use App\Models\ManagePages;
 use App\Services\ManagePagesService;
@@ -82,6 +84,8 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }
         }
+
+        $cryptoJournals  = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->orderby('id','desc')->first();
         $pages               = ManagePages::all();
         $allNews             = News::take(10)->get();
         $categories          = Category::all();
@@ -90,7 +94,8 @@ class HomeController extends Controller
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
         $guides              = Guide::all();
-        return view('user.index', compact('pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides'));
+        $settings = DB::table('settings')->where('id', 1)->first();
+        return view('user.index', compact('cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides'));
     }
 
     public function userFilterVideos(Request $request)
