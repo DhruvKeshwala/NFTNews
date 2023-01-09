@@ -25,9 +25,13 @@
     	<form action="{{ route('user.filter_news') }}" method="post" class="col-md-12 mr-auto pl-0 pr-2">
           @csrf
           <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
-            <input type="text" name="filterNewsTitle" class="form-control text-center" placeholder="Search news" value="<?php 
+            <input type="text" name="filterNewsTitle" class="form-control text-center" placeholder="SEARCH NEWS" value="<?php 
                 if (!empty($_POST['filterNewsTitle'])) {
                     $q = $_POST['filterNewsTitle'];
+                    echo $q;
+                }  
+                if (!empty($_POST['homeSearch'])) {
+                    $q = $_POST['homeSearch'];
                     echo $q;
                 } ?>">
             <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search"></span></button>
@@ -98,14 +102,20 @@
               </div>
             </div>
           	
-          	 <div class="sidebar-box">
+            @if($banners->size == "280 x 400 pixels")
+              <div class="sidebar-box">
+                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                          width="100%" height="auto" alt=""></a>
+              </div>
+            @endif
+          	 {{-- <div class="sidebar-box">
                 <a href="#"><img src="images/side-banner.png" width="100%" height="auto" alt=""></a>
-             </div>
+             </div> --}}
              
              <div class="sidebar-box ftco-animate fadeInUp ftco-animated border bg-info-gradient p-3">
                 <h5 style="background-image:url(images/envelope-icon.png); padding: 5px 0px 5px 35px; background-repeat:no-repeat;">SUBSCRIBE NOW</h5>
                 <p>Sign up for free newsletters and get more NFT Markets delivered to your inbox</p>
-                <form action="#" class="form-consultation">
+                <form action="{{ route('user.subscribe') }}" class="form-consultation">
                   <div class="form-group">
                     <button type="submit" class="btn-outline-light-gradient px-3 btn border py-1">SIGN UP NOW</button>
                   </div>

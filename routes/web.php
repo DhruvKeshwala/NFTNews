@@ -149,6 +149,9 @@ Route::group(['prefix'=>'siteadmin'], function(){
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 Route::get('advertise', [HomeController::class, 'advertise'])->name('user.advertise');
 Route::get('contact', [HomeController::class, 'contact'])->name('user.contact');
+Route::post('sendMailForContact', [HomeController::class, 'sendMailForContact'])->name('sendMailForContact');
+
+
 Route::get('education', [HomeController::class, 'education'])->name('user.education');
 Route::get('services', [HomeController::class, 'services'])->name('user.services');
 Route::get('partners', [HomeController::class, 'partners'])->name('user.partners');
@@ -160,10 +163,15 @@ Route::get('investmentAndFunding', [HomeController::class, 'investmentAndFunding
 Route::get('mediaEnquiries', [HomeController::class, 'mediaEnquiries'])->name('user.mediaEnquiries');
 Route::get('careers', [HomeController::class, 'careers'])->name('user.careers');
 Route::get('about', [HomeController::class, 'about'])->name('user.about');
+
 Route::get('subscribe', [HomeController::class, 'subscribe'])->name('user.subscribe');
+Route::post('sendMailForSubscribe', [HomeController::class, 'sendMailForSubscribe'])->name('sendMailForSubscribe');
 
 Route::get('featuredNews', [HomeController::class, 'featuredNews'])->name('user.featuredNews');
 Route::post('featuredNews', [HomeController::class, 'filterFeaturedNews'])->name('user.filterFeaturedNews');
+
+Route::post('newsHomeSearch', [HomeController::class, 'newsHomeSearch'])->name('user.newsHomeSearch');
+
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');

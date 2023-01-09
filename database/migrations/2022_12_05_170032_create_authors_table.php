@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('mobile');
             $table->longText('short_bio');
             $table->string('image');
+            $table->string('twitterLink')->nullable();
+            $table->string('linkedInLink')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

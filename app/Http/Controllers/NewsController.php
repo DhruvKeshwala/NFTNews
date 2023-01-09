@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\NewsService;
 use Illuminate\Support\Str;
-
 class NewsController extends Controller
 {
     public function index()
@@ -20,8 +19,9 @@ class NewsController extends Controller
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
             $value['category'] = implode(',',$categories);
         }
-        $categories = Category::all();
+        $categories  = Category::all();
         $authors     = Author::all();
+
         return view('news', compact('news','categories','authors'));
     }
 
@@ -51,7 +51,7 @@ class NewsController extends Controller
     }
     public function newsDetail($id)
     {
-        $news = NewsService::getNewsById($id);
+        $news        = NewsService::getNewsById($id);
         return view('news_detail',compact('news'));
     }
     public function saveNews(Request $request)

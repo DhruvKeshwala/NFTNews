@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\NewsService;
 use App\Models\News;
 use App\Models\Category;
+use App\Models\Banner;
 
 class UserNewsController extends Controller
 {
@@ -37,11 +38,13 @@ class UserNewsController extends Controller
         $allNews        = News::orderby('id','desc')->paginate(10);
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
+        $banners     = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews', 'banners'));
     }
 
     public function filterNews(Request $request)
     {
+        // dd($request->all());
         $getAllNewses   = News::all();
         $title      = $request->filterNewsTitle;
         $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
@@ -50,7 +53,14 @@ class UserNewsController extends Controller
         {
             $allNews    = News::orderby('id','desc')->paginate(10);
         }
-        return view('user.news', compact('allNews', 'getAllNewses'));
+
+        if($request->homeSearch)
+        {
+            $title      = $request->homeSearch;
+            $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
+        }
+        $banners     = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.news', compact('allNews', 'getAllNewses', 'banners'));
     }
 
     public function newsDetail($id)
@@ -74,7 +84,7 @@ class UserNewsController extends Controller
             }  
         }
         $getAllNewses   = News::all();
-
-        return view('user.newsDetails',compact('newsDetail', 'resultFeaturedNews', 'getAllNewses'));
+        $banners     = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.newsDetails',compact('newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners'));
     }
 }

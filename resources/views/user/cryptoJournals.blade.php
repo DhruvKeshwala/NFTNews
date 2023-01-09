@@ -30,7 +30,7 @@
           <div class="col-md-3 px-0">
             {{-- <form action="#" class="w-100"> --}}
               <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
-                <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
+                <input type="text" name="search" class="form-control text-center" placeholder="SEARCH CRYPTO JOURNAL" value="{{@$search}}">
                 <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
               </div>
             {{-- </form> --}}
@@ -95,19 +95,21 @@
     <!-- Quick View -->
     @foreach($cryptoJournals as $crypto)
     <div class="modal fade" id="myModal-{{@$crypto->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">  
+        <div class="modal-dialog" style="max-width: 100%; max-height: 100%;" role="document">  
           <!-- Modal content-->     
           <div class="modal-content">
             <div class="modal-header">
-              <h6 class="modal-title"><i class="fa fa-calendar"></i> {{@$crypto->created_at->format('F d, Y')}}</h6>
+              {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i> {{@$crypto->created_at->format('F d, Y')}}</h6> --}}
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h4>{{@$crypto->title}}</h4>
-                <p><strong>PDF</strong> <a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank" style="color:blue;">Download</a><br>
-                </p>
+                {{-- <h4>{{@$crypto->title}}</h4> --}}
+                {{-- <strong>PDF</strong> --}}
+                <iframe width="100%" height="415" src="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" title="PDF" frameborder="0"  allowfullscreen></iframe>
+                {{-- <p><strong>PDF</strong> <a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank" style="color:blue;">Download</a><br>
+                </p> --}}
                 
-                <p>{{@$crypto->shortDescription}}</p>
+                {{-- <p>{{@$crypto->shortDescription}}</p> --}}
             </div>
          </div>
   

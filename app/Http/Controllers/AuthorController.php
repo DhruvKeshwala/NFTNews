@@ -54,6 +54,8 @@ class AuthorController extends Controller
             'mobile' => 'required',
             'shortBio' => 'required',
             'authorId' => 'required',
+            'twitterLink'=> 'required',
+            'linkedInLink'=> 'required',
         ]);
         
         $request->only([
@@ -61,6 +63,8 @@ class AuthorController extends Controller
             'email',
             'mobile',
             'shortBio',
+            'twitterLink',
+            'linkedInLink',
         ]);
         if($request->file('image') != null)
         {
@@ -74,6 +78,9 @@ class AuthorController extends Controller
         $data['email'] = $request->email;
         $data['mobile'] = $request->mobile;
         $data['short_bio'] = $request->shortBio;
+        $data['twitterLink'] = $request->twitterLink;
+        $data['linkedInLink'] = $request->linkedInLink;
+
         // $data['authorId'] = $request->authorId;
         $result = AuthorService::createUpdate($data,$request->authorId);
         return json_encode(['success'=>1,'message'=>'Author Saved Successfully']);

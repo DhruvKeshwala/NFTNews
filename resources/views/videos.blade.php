@@ -71,7 +71,7 @@ a:hover {
                     {{-- <td>
                         {{ $newsDetails->start_date }}
                     </td> --}}
-                    <td>{{ $newsDetails->created_at->format('d-M-Y h:m') }}</td>
+                    <td>{{ $newsDetails->created_at->format('d-m-Y') }}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a href="{{ route('video_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

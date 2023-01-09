@@ -39,7 +39,7 @@
                     <div class="col-md-3 px-0">
                         <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
                             <input type="text" name="nft_search" value="{{ @$nftsearch }}"
-                                class="form-control text-center" placeholder="SEARCH NFT Drops">
+                                class="form-control text-center" placeholder="SEARCH NFT DROPS">
                             <button type="submit" placeholder="" class="form-control w-auto"><span
                                     class="fa fa-search text-light"></span></button>
                         </div>

@@ -10,5 +10,5 @@ class Author extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name','email','mobile','short_bio','image'];
+    protected $fillable = ['name','email','mobile','short_bio','image', 'twitterLink', 'linkedInLink'];
 }

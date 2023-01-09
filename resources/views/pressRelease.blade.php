@@ -58,7 +58,7 @@ a:hover {
                     {{-- <td>
                         {{ rtrim( $selection_types, ', ') }}
                     </td> --}}
-                    <td>{{ $pressReleaseDetails->created_at->format('d-M-Y h:m') }}</td>
+                    <td>{{ $pressReleaseDetails->created_at->format('d-m-Y') }}</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')
                             <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

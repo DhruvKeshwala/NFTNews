@@ -40,6 +40,14 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Twitter Link</label></td>
+                <td><input type="text" value="{{ @$data->twitterLink }}" name="twitterLink" placeholder="Twitter Link"><div id="twitterLinkError"></div><div id="twitterLinkURLPatternError"></div></td>
+            </tr>
+            <tr>
+                <td><label>LinkedIn Link</label></td>
+                <td><input type="text" value="{{ @$data->linkedInLink }}" name="linkedInLink" placeholder="LinkedIn Link"><div id="linkedInLinkError"></div><div id="linkedInLinkURLPatternError"></div></td>
+            </tr>
+            <tr>
                 <td><label>Image</label></td>
                 <td>
                     <input type="file" name="image" id="image">
@@ -74,7 +82,8 @@
         var mobile = $("input[name='mobile']").val();
         var shortBio = $("#shortBio").val()
         var authorId = $("input[name='authorId']").val();
-
+        var twitterLink      = $("input[name='twitterLink']").val();
+        var linkedInLink      = $("input[name='linkedInLink']").val();
         var fd = new FormData();
         if(authorId == ''){
             authorId = 0;
@@ -91,7 +100,8 @@
         fd.append('mobile', mobile);
         fd.append('shortBio', shortBio);
         fd.append('authorId', authorId);
-
+        fd.append('twitterLink', twitterLink);
+        fd.append('linkedInLink', linkedInLink);
         if (name == '' || name == null) 
         {
             flag = 0;
@@ -109,6 +119,16 @@
             var re = /\S+@\S+\.\S+/;
             return re.test(email);
         }
+        //function for URL validation
+        function isValidHttpUrl(string) {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
         if (email != '' && validateEmail(email) == false) 
         {
             flag = 0;
@@ -125,6 +145,28 @@
             flag = 0;
             $("#mobileError").html('<span class="errorMessage" style="color:red;">Mobile No Required</span>');
         } 
+        if (twitterLink == '') 
+        {
+            flag = 0;
+            $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
+        }
+        // URL validation
+        if(twitterLink != '' && isValidHttpUrl(twitterLink) == false)
+        {
+            flag = 0;
+            $("#twitterLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Twitter Link is Invalid</span>');
+        }
+        if (linkedInLink == '') 
+        {
+            flag = 0;
+            $("#linkedInLinkError").html('<span class="errorMessage" style="color:red;">LinkedIn Link Required</span>');
+        }
+        // URL validation
+        if(linkedInLink != '' && isValidHttpUrl(linkedInLink) == false)
+        {
+            flag = 0;
+            $("#linkedInLinkURLPatternError").html('<span class="errorMessage" style="color:red;">LinkedIn Link is Invalid</span>');
+        }
         if(flag == 1) 
         {
             var saveBtn                 = document.getElementById("saveBtn");

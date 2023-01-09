@@ -23,18 +23,6 @@
                     <div id="categoryIdError"></div>
                 </td>
             </tr>
-            <tr>
-                <td><label>Meta Title</label></td>
-                <td><input type="text" value="{{ @$pressRelease->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
-            </tr>
-            <tr>
-                <td><label>Meta Description</label></td>
-                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$pressRelease->description}}</textarea><div id="descriptionError"></div></td>
-            </tr>
-            <tr>
-                <td><label>Meta Keywords</label></td>
-                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$pressRelease->keywords }}</textarea><div id="keywordsError"></div></td>
-            </tr>
             {{-- <tr>
                 <td><label>Author</label></td>
                 <td>
@@ -123,6 +111,18 @@
                 </td>
             </tr>
             @endforeach --}}
+            <tr>
+                <td><label>Meta Title</label></td>
+                <td><input type="text" value="{{ @$pressRelease->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Description</label></td>
+                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$pressRelease->description}}</textarea><div id="descriptionError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Meta Keywords</label></td>
+                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$pressRelease->keywords }}</textarea><div id="keywordsError"></div></td>
+            </tr>
             <tr>
                 <td></td>
                 <td>

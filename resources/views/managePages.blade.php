@@ -41,8 +41,8 @@ a:hover {
                         <a title="Edit" href="{{ route('add_page',$page->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a href="javascript:;" onclick="deletePage('{{$page->id}}')" title="Delete" class="text-danger mr-2">
-                            <span class="fa fa-trash-o fa-lg"></span>
+                        {{-- <a href="javascript:;" onclick="deletePage('{{$page->id}}')" title="Delete" class="text-danger mr-2">
+                            <span class="fa fa-trash-o fa-lg"></span> --}}
                         </a> 
                         <a href="{{ route('page_detail',$page->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>

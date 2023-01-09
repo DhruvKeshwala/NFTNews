@@ -20,6 +20,7 @@
     
   </head>
   <body>
+
   <div class="bg-info-gradient-2 pt-1 pb-3">
     <div class="wrap mb-2">
         <div class="container">
@@ -29,8 +30,12 @@
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
-                          <form action="/search" method="get">
-                            <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
+                          <form action="{{route('user.filter_news')}}" method="post">
+                            @csrf
+                            <input class="search expandright" id="searchright" type="search" name="homeSearch" placeholder="Search" value="<?php if (!empty($_POST['homeSearch'])) {
+                    $q = $_POST['homeSearch'];
+                    echo $q;
+                }?>">
                             <label class="button searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
                           </form>
                        </div>
@@ -60,7 +65,7 @@
      <div class="container">
        <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('assets/user/images/nft-logo.svg')}}" width="210" height="35" alt=""></a>
         <div class="searchform order-sm-start order-lg-last">
-          <a href="#" class="btn text-uppercase btn-outline-light-gradient border pt-2 px-3 pb-1" data-toggle="modal" data-target="#myModal">Subscribe</a>
+          <a href="#" class="btn text-uppercase btn-outline-light-gradient border pt-2 px-3 pb-1" data-toggle="modal" data-target="#myModalSubscribe">Subscribe</a>
           @if (@$settings->twitter)
             <a href="{{ @$settings->twitter }}" target="_blank" class="btn-lg pt-3 pb-1" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter text-light"></i></a>
           @endif
@@ -83,12 +88,26 @@
 	  </nav>
       <!-- END nav -->
     </div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block text-center">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
+
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block text-center">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
+
     @yield('content')
     {{-- Add contents here --}}
     
   
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="myModalSubscribe" role="dialog" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">  
           <!-- Modal content-->     
           <div class="modal-content">

@@ -30,7 +30,7 @@
             <div class="col-md-3 px-0">
               {{-- <form action="#" class="w-100"> --}}
                 <div class="form-group d-flex bg-white searchform border mb-0 mx-0">
-                  <input type="text" name="search" class="form-control text-center" placeholder="SEARCH NEWS" value="{{@$search}}">
+                  <input type="text" name="search" class="form-control text-center" placeholder="SEARCH VIDEOS" value="{{@$search}}">
                   <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search text-light"></span></button>
                 </div>
               {{-- </form> --}}
@@ -87,15 +87,15 @@
     <!-- Quick View -->
     @foreach($videos as $video)
     <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">  
+        <div class="modal-dialog" style="max-width: 80%;" role="document">  
           <!-- Modal content-->     
           <div class="modal-content">
             <div class="modal-header">
-              <h6 class="modal-title"><i class="fa fa-calendar"></i>{{@$video->created_at->format('F d, Y')}}</h6>
+              {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i>{{@$video->created_at->format('F d, Y')}}</h6> --}}
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h4>{{@$video->title}}</h4><br>
+                {{-- <h4>{{@$video->title}}</h4><br> --}}
                 <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
          </div>

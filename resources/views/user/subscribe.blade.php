@@ -69,7 +69,8 @@
                                         </div>
 										<div id="form-message-warning" class="mb-4"></div> 
 					      				<div id="form-message-success" class="mb-4"></div>
-										<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+										<form method="POST" action="{{ route('sendMailForSubscribe') }}" id="contactForm" name="contactForm" class="contactForm">
+											@csrf
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
@@ -102,8 +103,9 @@
                                                         <div class="col-md-5">
 														 <input type="text" class="form-control border border-light pl-3" name="captcha" id="captcha" placeholder="security code" required></div>
                                                         <div class="col-md-2 pl-0">
-								                           	<span class="form-control text-center" style="background:rgba(0,0,0,.1)!important; color: rgba(0,0,0,.5)!important; padding-top: 16px;">4073</span>
-                                                        </div>
+								                           	<span class="form-control text-center" style="background:rgba(0,0,0,.1)!important; color: rgba(0,0,0,.5)!important; padding-top: 16px;">{{@$fourRandomDigit}}</span>
+															<input type="hidden" name="fourDigitRandom" value="{{@$fourRandomDigit}}">
+														</div>
                                                        </div>
 													</div>
 												</div>

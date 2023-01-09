@@ -144,12 +144,14 @@
 
                     </div>
                 </div>
-
+                
                 <div class="col-md-3">
-                    <div class="sidebar-box">
-                        <a href="#" target="_blank"><img src="{{ URL::asset('user/images/side-banner.png') }}"
-                                width="100%" height="auto" alt=""></a>
-                    </div>
+                    @if($banners->size == "280 x 400 pixels")
+                        <div class="sidebar-box">
+                            <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                                    width="100%" height="auto" alt=""></a>
+                        </div>
+                    @endif
 
                     <div class="sidebar-box ftco-animate">
                         <h3>Press Releases</h3>
@@ -279,6 +281,7 @@
     <section class="ftco-section pb-0 upcevent-section bg-info-gradient">
         <div class="container">
             <div class="row ftco-animate mx-1">
+                @if(@$cryptoJournals != null || @$cryptoJournals != '')
                 <div class="col-md-6 px-md-0 py-md-5 heading-section heading-section-white ftco-animate">
                     <span>Cryptonaire Weekly <span class="text-light">|</span> <span class="text-light">Latest Edition
                             Live</span></span>
@@ -286,6 +289,7 @@
                     <p class="text-dark">{{ @$cryptoJournals->shortDescription }}</p>
                     <a href="{{ route('user.cryptoJournals') }}" class="btn btn-outline-light-gradient bg-white py-1">Cryptonaire
                         Weekly</a>
+                        
                     <a href="{{ route('user.crypto_detail', ['id' => @$cryptoJournals->slug]) }}"
                         class="btn btn-outline-light-gradient bg-white py-1">Read More</a>
                 </div>
@@ -293,6 +297,7 @@
                     <img src="{{URL::asset('uploads/' . @$cryptoJournals->image)}}" class="img"
                         width="100%" height="337" alt="">                        
                 </div>
+                @endif
             </div>
         </div>
     </section>
@@ -456,6 +461,10 @@
         $i = 1;
         $ln = 0;
         $ln2 = 0;
+        $sb = 0;
+        $bz = 0;
+        $sbcount = count($banners_small);
+        $bzcount = count($banners_horizontal);
     @endphp
     <section class="ftco-section py-5">
         <div class="container">
@@ -466,8 +475,13 @@
                             {{-- Ad Banner small --}}
                             <div class="col-md-4 d-flex ftco-animate rounded">
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-                                    <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
+                                    @if($sbcount == 0)
+                                    <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
                                             width="100%" alt="" class="img-fluid"></a>
+                                    @else 
+                                    <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
+                                            width="100%" alt="" class="img-fluid"></a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
@@ -495,12 +509,22 @@
 
                             @php
                                 $ln = $i;
+                                $sb++;
+                                if($sb>=$sbcount)
+                                {
+                                    $sb = 0;
+                                }
                             @endphp
                         @elseif($i == 6 || $i - $ln2 == 5)
                             {{-- horizontal Ad --}}
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
-                                <img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded">
+                                    @if($bzcount == 0)
+                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
+                                    height="auto" class="img-fluid rounded"></a>
+                                    @else 
+                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
+                                    height="auto" class="img-fluid rounded"></a>
+                                    @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
@@ -526,6 +550,11 @@
                             </div>
                             @php
                                 $ln2 = $i;
+                                $bz++;
+                                if($bz >= $bzcount)
+                                {
+                                    $bz = 0;
+                                }
                             @endphp
                         @else
                             <div class="col-md-4 d-flex ftco-animate">
@@ -637,7 +666,7 @@
 
                     </div>
 
-                    <div class="col-12 text-center"><a href="#"
+                    <div class="col-12 text-center"><a href="{{route('user.partners')}}"
                             class="btn btn-light border py-2 mt-4 text-center">View All Partners</a></div>
 
                 </div>

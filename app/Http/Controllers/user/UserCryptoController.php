@@ -8,6 +8,7 @@ use App\Models\CryptoJournal;
 use App\Services\CryptoJournalService;
 use App\Models\Category;
 use Carbon\Carbon;
+use App\Models\Banner;
 
 class UserCryptoController extends Controller
 {
@@ -24,8 +25,9 @@ class UserCryptoController extends Controller
 
     public function cryptoDetail($id)
     {
-        $cryptoDetail = CryptoJournalService::getCryptoBySlug($id);
-        return view('user.cryptoDetails',compact('cryptoDetail'));
+        $banners             = Banner::where('size', '280 x 400 pixels')->first();
+        $cryptoDetail        = CryptoJournalService::getCryptoBySlug($id);
+        return view('user.cryptoDetails',compact('cryptoDetail', 'banners'));
     }
 
     public function filterCrypto(Request $request)

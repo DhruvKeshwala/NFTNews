@@ -27,7 +27,8 @@
                   <p>Send us a message using the form below so that we may better serve you.</p>
                   <div id="form-message-warning" class="mb-4"></div>
                   <div id="form-message-success" class="mb-4"></div>
-                  <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                  <form method="POST" id="contactForm" name="contactForm" class="contactForm" action="{{route('sendMailForContact')}}">
+                    @csrf
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -92,7 +93,8 @@
                             </div>
                             <div class="col-md-2 pl-0">
                               <span class="form-control text-center"
-                                style="background:rgba(0,0,0,.1)!important; color: rgba(0,0,0,.5)!important; padding-top: 16px;">4073</span>
+                                style="background:rgba(0,0,0,.1)!important; color: rgba(0,0,0,.5)!important; padding-top: 16px;">{{@$fourRandomDigit}}</span>
+                                <input type="hidden" name="fourDigitRandom" value="{{@$fourRandomDigit}}">
                             </div>
                           </div>
                         </div>

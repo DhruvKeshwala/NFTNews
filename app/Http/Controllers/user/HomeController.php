@@ -8,6 +8,7 @@ use App\Services\NewsService;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\Guide;
+use App\Models\Banner;
 use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
@@ -20,6 +21,7 @@ use App\Models\ManagePages;
 use App\Services\ManagePagesService;
 
 use View, DB;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -94,8 +96,11 @@ class HomeController extends Controller
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
         $guides              = Guide::all();
+        $banners_small = Banner::where('size', '375 x 400 pixels')->get()->toArray();
+        $banners_horizontal = Banner::where('size', '1210 x 210 pixels')->get()->toArray();
+        $banners             = Banner::where('size', '280 x 400 pixels')->first();
         $settings = DB::table('settings')->where('id', 1)->first();
-        return view('user.index', compact('cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides'));
+        return view('user.index', compact('banners', 'cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides', 'banners_small','banners_horizontal'));
     }
 
     public function userFilterVideos(Request $request)
@@ -160,9 +165,67 @@ class HomeController extends Controller
 
     public function contact()
     {
-        return view('user.contact');
+        $fourRandomDigit = mt_rand(1000,9999);
+        return view('user.contact', compact('fourRandomDigit'));
+    }
+    public function sendMailForContact(Request $request)
+    {
+
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phn;
+        $organization = $request->org;
+        $location = $request->loc;
+        $nmeproj = $request->nmeproj;
+        $enquire_nature = $request->enquire_nature;
+        $message = $request->message;
+        $captcha = $request->captcha;
+        $fourDigitRandom = $request->fourDigitRandom;
+
+        if($request->captcha == $fourDigitRandom)
+        {
+            Mail::send('mailForContact', ['email' => $email], function ($message) use ($email){
+                $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Contact Request.');
+                $message->from($email,'NFT News');
+            });
+            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Invalid Captcha.');
+        }
+        
+    }
+    public function subscribe()
+    {
+        $fourRandomDigit = mt_rand(1000,9999);
+        return view('user.subscribe', compact('fourRandomDigit'));
     }
 
+    public function sendMailForSubscribe(Request $request)
+    {
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phn;
+        $subject = $request->subject;
+        $message = $request->message;
+        $captcha = $request->captcha;
+        $fourDigitRandom = $request->fourDigitRandom;
+
+        if($request->captcha == $fourDigitRandom)
+        {
+            Mail::send('mailForSubscribe', ['email' => $email], function ($message) use ($email){
+                $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Subscription Request.');
+                $message->from($email,'NFT News');
+            });
+            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Invalid Captcha.');
+        }
+        
+    }
     public function education()
     {
         $page = ManagePages::where('slug', 'education')->first();
@@ -263,11 +326,6 @@ class HomeController extends Controller
         return view('user.careers', compact('page'));
     }
 
-    public function subscribe()
-    {
-        return view('user.subscribe');
-    }
-
     public function about()
     {
         $page = ManagePages::where('slug', 'about')->first();
@@ -348,6 +406,33 @@ class HomeController extends Controller
         $getAllNewses   = News::all();
         return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
 
+    }
+
+    public function newsHomeSearch(Request $request)
+    {
+        $homeSearch = $request->homeSearch;
+
+        $newses          = News::orderBy('id', 'DESC')->get();
+
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews = array();
+
+        foreach($newses as $key => $news)
+        {
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+        // dd($resultFeaturedNews);
+        $allNews        = News::orderby('id','desc')->paginate(10);
+        $categories     = Category::all();
+        $getAllNewses   = News::all();
+        return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews','homeSearch'));
     }
     
 }

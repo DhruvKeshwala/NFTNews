@@ -46,10 +46,10 @@
                 
                 <!-- SUBSCRIBE FORM -->
 
-                <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
+                {{-- <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
                    MAKE ENQUIRY
                    <i class="fa fa-paper-plane"></i>
-                </a>
+                </a> --}}
                 
                 
            </div>

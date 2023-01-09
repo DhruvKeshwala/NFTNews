@@ -8,6 +8,7 @@ use App\Services\PressReleaseService;
 use App\Services\NewsService;
 use App\Models\PressRelease;
 use App\Models\Category;
+use App\Models\Banner;
 use App\Models\News;
 use Carbon\Carbon;
 use Mail;
@@ -43,7 +44,8 @@ class UserPressController extends Controller
         // dd($resultFeaturedNews);
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews'));
+        $banners        = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews', 'banners'));
     }
 
     public function pressDetail($id)
@@ -67,7 +69,8 @@ class UserPressController extends Controller
 
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        return view('user.pressDetails',compact('pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
+        $banners        = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.pressDetails',compact('banners', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
     
     public function filterPress(Request $request)
@@ -104,16 +107,18 @@ class UserPressController extends Controller
         $filterValue = $request->filterValue;
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
+        $banners        = Banner::where('size', '280 x 400 pixels')->first();
+        return view('user.pressRelease', compact('banners', 'pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
     }
 
     public function sendMail(Request $request)
     {
-        Mail::send('mail', [], function ($message) {
-            $message->to('kishangareja241@gmail.com', 'NFT News')->subject('Laravel Basic Testing Mail');
-            $message->from('krupapandit7023@gmail.com','Krupa Pandit');
+        $email = $request->email;
+        Mail::send('mailForSubscribe', ['email' => $email], function ($message) use ($email){
+            $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Subscription Request.');
+            $message->from($email,'NFT News');
         });
-        return true;
+        return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
     }
     
 }

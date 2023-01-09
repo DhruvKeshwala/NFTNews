@@ -13,6 +13,7 @@ class Banner extends Model
     protected $fillable = [
         'size',
         'image',
-        'url'
+        'url',
+        'location',
     ];
 }

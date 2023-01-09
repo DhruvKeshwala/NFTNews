@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('size')->nullable();
             $table->string('image')->nullable();
             $table->string('url')->nullable();
+            $table->longText('location')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

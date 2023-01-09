@@ -68,15 +68,21 @@
             <li class="pl-2"><a href="#">Web 3.0 </a></li>
             </div>
         </div> --}}
-        
-            <div class="sidebar-box">
+
+            @if($banners->size == "280 x 400 pixels")
+              <div class="sidebar-box">
+                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                          width="100%" height="auto" alt=""></a>
+              </div>
+            @endif
+            {{-- <div class="sidebar-box">
             <a href="#" target="_blank"><img src="{{ URL::asset('uploads/' . @$newsDetail->article_2)}}" width="100%" height="auto" alt=""></a>
-            </div>
+            </div> --}}
             
             <div class="sidebar-box ftco-animate fadeInUp ftco-animated border bg-info-gradient p-3">
             <h5 style="background-image:url(images/envelope-icon.png); padding-left: 35px; background-repeat:no-repeat;">SUBSCRIBE NOW</h5>
             <p>Sign up for free newsletters and get more NFT Markets delivered to your inbox</p>
-            <form action="#" class="form-consultation">
+            <form action="{{ route('user.subscribe') }}" class="form-consultation">
                 <div class="form-group">
                 <button type="submit" class="btn-outline-light-gradient px-3 btn border py-1">SIGN UP NOW</button>
                 </div>
