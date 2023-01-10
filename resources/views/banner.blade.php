@@ -64,7 +64,8 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="74%">Size</th>
+                    <th width="54%">Size</th>
+                    <th width="20$">Location</th>
                     <th width="4%">URL</th>
                     <th width="10%">Action</th>
                 </tr>
@@ -76,7 +77,8 @@ a:hover {
                 </tr> 
                 @endif
                 @foreach($data as $row)
-                    @php 
+                    @php
+                        $bannerlocation = config('constant.banner_location'); 
                         $selection_types = '';
                         $imgsrc = $row->image;
                     @endphp
@@ -84,6 +86,7 @@ a:hover {
                     <td>{{$loop->index + 1}}</td>
                     <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'.$imgsrc}}" width="100">@endif</td>
                     <td>{{$row->size}}</td>
+                    <td>{{$bannerlocation[$row->location]}}</td>
                     <td class="text-center"><a href="{{$row->url}}" title="View URL" target="_blank">
                         <span class="fa fa-play fa-lg"></span>
                     </a></td>

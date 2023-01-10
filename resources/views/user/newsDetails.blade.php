@@ -20,7 +20,6 @@
         
         <div class="col-md-9 px-md-0 px-0">
         <div class="container">
-        
         <div class="news-listing ftco-animate">
             <div class="news-wrap p-0 align-items-center">
             
@@ -46,6 +45,27 @@
             
                 <h4><span class="text-dark">{{ @$newsDetail->title }}</span></h4>
                 <div class="text-justify">{!! @$newsDetail->fullDescription !!}</div>
+                <br>       
+                <h1>About Author</h1>
+                @if(@$newsDetail->authorId != null || @$newsDetail->authorId != '')
+                    <div class="container">
+                      <div class="row">
+                          <div class="col-md-4">
+                              <div class="imgAbt">
+                                  <img width="220" height="220" src="{{ URL::asset('uploads/' . @$newsDetail->author->image)}}" />
+                              </div>
+                          </div>
+                          <div class="col-md-8">
+                              <p><strong>Name</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->name}}</p>
+                              <p><strong>Short Bio</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->short_bio}}</p>
+                              <p><strong>Social Media Link</strong>&nbsp;&nbsp;&nbsp;<a target="_blank" href="{{@$newsDetail->author->twitterLink}}"><i class="fa fa-twitter"></i></a>
+                          <a target="_blank" href="{{@$newsDetail->author->linkedInLink}}"><i class="fa fa-globe"></i></a></p>
+                          </div>
+                      </div>
+                  </div>
+                @else
+                  <p>No Author Information Available For This News</p>
+                @endif
             </div>
             </div>
             

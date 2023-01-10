@@ -68,6 +68,13 @@ class ManagePagesController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $pagedetails['image2'] = $fileName;
         }
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $pagedetails['uploadSocialBanner'] = $fileName;
+        }
         if($request->pageId == 0)
         {
             $pagedetails['slug']     = Str::slug($request->name); //Adds slug for news

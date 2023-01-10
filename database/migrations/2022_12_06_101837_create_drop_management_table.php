@@ -44,6 +44,8 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->longText('slug')->nullable();
+            $table->longText('uploadSocialBanner')->nullable();
+            $table->integer('orderIndex')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

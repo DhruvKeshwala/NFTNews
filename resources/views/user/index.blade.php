@@ -709,7 +709,7 @@
                     console.log(videos);
                     console.log('success'); // code here paste
                     $('.videoSection').html(videos);
-                    $('.featured-drops').owlCarousel({
+                    $('.videoSection').find('.featured-drops').owlCarousel({
                         navigation: true,
                         center: false,
                         loop: true,

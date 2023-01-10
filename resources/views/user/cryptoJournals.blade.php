@@ -95,7 +95,7 @@
     <!-- Quick View -->
     @foreach($cryptoJournals as $crypto)
     <div class="modal fade" id="myModal-{{@$crypto->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 100%; max-height: 100%;" role="document">  
+        <div class="modal-dialog" style="top:15%; max-width: 60%;" role="document">  
           <!-- Modal content-->     
           <div class="modal-content">
             <div class="modal-header">

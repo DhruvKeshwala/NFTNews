@@ -49,6 +49,7 @@ class BannerController extends Controller
         $request->validate([
             'size'     => 'required',
             'url'      => 'required',
+            'location'      => 'required',
             // 'image'    => 'required',
             'bannerId' => 'required',
         ]);
@@ -57,6 +58,7 @@ class BannerController extends Controller
             'size',
             'url',
             'image',
+            'location',
         ]);
         if($request->file('image') != null)
         {
@@ -68,6 +70,7 @@ class BannerController extends Controller
 
         $data['size'] =  $request->size;
         $data['url'] = $request->url;
+        $data['location'] = $request->location;
         // $data['authorId'] = $request->authorId; 
         $result = BannerService::createUpdate($data,$request->bannerId);
         return json_encode(['success'=>1,'message'=>'Banner Saved Successfully']);

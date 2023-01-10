@@ -29,6 +29,8 @@ return new class extends Migration
                 $table->date('end_date')->nullable();
                 $table->enum('fld_status', ['Active', 'Inactive'])->default('Active');
                 $table->longText('slug')->nullable();
+                $table->longText('uploadSocialBanner')->nullable();
+                $table->integer('orderIndex')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

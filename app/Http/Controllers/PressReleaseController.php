@@ -53,6 +53,7 @@ class PressReleaseController extends Controller
             'metaTitle'         => 'required',
             'description'       => 'required',
             'keywords'          => 'required',
+            'orderIndex'        => 'required',
         ]);
         
         $pressReleasedetails = $request->only([
@@ -66,6 +67,7 @@ class PressReleaseController extends Controller
             'description',
             'keywords',
             // 'authorId',
+            'orderIndex',
         ]);
         if($request->file('image') != null)
         {
@@ -80,6 +82,13 @@ class PressReleaseController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $pressReleasedetails['article_1'] = $fileName;
+        }
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $pressReleasedetails['uploadSocialBanner'] = $fileName;
         }
         // if($request->file('article_2') != null)
         // {

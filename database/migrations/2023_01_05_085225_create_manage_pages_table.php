@@ -26,6 +26,7 @@ return new class extends Migration
             $table->longText('contents')->nullable();
             $table->longText('selectTemplate')->nullable();
             $table->longText('slug')->nullable();
+            $table->longText('uploadSocialBanner')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

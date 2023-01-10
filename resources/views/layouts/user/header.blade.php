@@ -18,6 +18,39 @@
     
     <link rel="stylesheet" href="{{ URL::asset('assets/user/css/flexslider.css')}}" type="text/css" media="screen" />
     
+    <meta name="description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}">
+
+    <meta name="keywords" content="{{(@$newsDetail->keywords != null) ? @$newsDetail->keywords : ((@$page->keywords != null) ? @$page->keywords : ((@$nftDropDetail != null) ? @$nftDropDetail->keywords : ((@$videoDetail->keywords != null) ? @$videoDetail->keywords : ((@$cryptoDetail->keywords != null) ? @$cryptoDetail->keywords : ((@$pressDetail->keywords != null) ? @$pressDetail->keywords : 'Meta Keywords')))))  }}">
+
+    <meta property="og:type" content="website" >
+
+    <meta property="og:locale" content="en_in" >
+
+    <meta property="og:url" content="[WEBSITE_URL]" >
+
+    <meta property="og:title" content="{{(@$newsDetail->metaTitle != null) ? @$newsDetail->metaTitle : ((@$page->metaTitle != null) ? @$page->metaTitle : ((@$nftDropDetail != null) ? @$nftDropDetail->metaTitle : ((@$videoDetail->metaTitle != null) ? @$videoDetail->metaTitle : ((@$cryptoDetail->metaTitle != null) ? @$cryptoDetail->metaTitle : ((@$pressDetail->metaTitle != null) ? @$pressDetail->metaTitle : 'Meta Title')))))  }}" >
+
+    <meta property="og:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
+
+    <meta property="og:image" content="[IMAGE]" >
+
+    <meta property="og:image:type" content="image/jpg" >
+
+    <meta property="og:site_name" content="[WEBSITE_NAME]" >
+
+    <meta property="og:see_also" content="[TWITTER-URL]" >
+
+    <meta property="og:see_also" content="[FACEBOOK_URL]" >
+
+    <meta name="twitter:card" content="summary">
+
+    <meta name="twitter:site" content="[TWITTER_USERNAME_WITH_@]">
+    <meta name="twitter:title" content="{{(@$newsDetail->metaTitle != null) ? @$newsDetail->metaTitle : ((@$page->metaTitle != null) ? @$page->metaTitle : ((@$nftDropDetail != null) ? @$nftDropDetail->metaTitle : ((@$videoDetail->metaTitle != null) ? @$videoDetail->metaTitle : ((@$cryptoDetail->metaTitle != null) ? @$cryptoDetail->metaTitle : ((@$pressDetail->metaTitle != null) ? @$pressDetail->metaTitle : 'Meta Title')))))  }}" >
+
+    <meta name="twitter:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
+
+    <meta name="twitter:image" content="[IMAGE]" >
+
   </head>
   <body>
 
@@ -245,8 +278,9 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
+  @php
+  $routename = Request::route()->getName();
+  @endphp
   <script src="{{ URL::asset('assets/user/js/jquery.min.js')}}"></script>
   <script src="{{ URL::asset('assets/user/js/jquery-migrate-3.0.1.min.js')}}"></script>
   <script src="{{ URL::asset('assets/user/js/popper.min.js')}}"></script>
@@ -270,8 +304,10 @@
   </script>
  
   <!-- jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
+  @if($routename != 'user.crypto_detail')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
+  @endif
 
   <!-- FlexSlider -->
   <script defer src="{{ URL::asset('assets/user/js/jquery.flexslider.js') }}"></script>

@@ -75,9 +75,10 @@ class VideoManagementController extends Controller
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             'code'              => 'required',
-            'metaTitle'            => 'required',
-            'description'            => 'required',
-            'keywords'            => 'required',
+            'metaTitle'         => 'required',
+            'description'       => 'required',
+            'keywords'          => 'required',
+            'orderIndex'        => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -90,6 +91,7 @@ class VideoManagementController extends Controller
             'metaTitle',
             'description',
             'keywords',
+            'orderIndex',
         ]);
         if($request->file('image1') != null)
         {
@@ -105,7 +107,13 @@ class VideoManagementController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['image2'] = $fileName;
         }
-
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['uploadSocialBanner'] = $fileName;
+        }
         // $newsTypeDate = array();
         // $start_date = explode(',',$request->start_date);
         // $end_date = explode(',',$request->end_date);

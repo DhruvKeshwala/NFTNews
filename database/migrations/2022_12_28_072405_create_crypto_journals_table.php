@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
             $table->longText('slug')->nullable();
+            $table->longText('uploadSocialBanner')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

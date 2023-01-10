@@ -106,6 +106,10 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Order Index</label></td>
+                <td><input type="number" value="{{ @$dropManagement->orderIndex }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+            </tr>
+            <tr>
                 <td><label>Meta Title</label></td>
                 <td><input type="text" value="{{ @$dropManagement->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
             </tr>
@@ -116,6 +120,16 @@
             <tr>
                 <td><label>Meta Keywords</label></td>
                 <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$dropManagement->keywords }}</textarea><div id="keywordsError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Upload Social Banner</label></td>
+                <td>
+                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    @if(@$dropManagement->uploadSocialBanner != '')
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->uploadSocialBanner}}" width = "100"></div>
+                    @endif
+                    <div id="uploadSocialBannerError"></div>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -149,6 +163,7 @@
         var metaTitle        = $("input[name=\"metaTitle\"]").val();
         var description      = $("#description").val();
         var keywords         = $("#keywords").val();
+        var orderIndex = $("input[name='orderIndex']").val();
         var categoryId       = $("select[name='categoryId[]']").val();
         var name             = $("input[name='name']").val();
         var token            = $("input[name='token']").val();
@@ -189,6 +204,7 @@
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
         fd.append('keywords', keywords);
+        fd.append('orderIndex', orderIndex);
         fd.append('name', name);
         fd.append('token', token);
         fd.append('blockChain', blockChain);
@@ -201,6 +217,12 @@
         fd.append('end_date', end_date);
         fd.append('dropManagementId', dropManagementId);
 
+         // Append article 1 
+        var files = $('#uploadSocialBanner')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('uploadSocialBanner',files[0]);
+        }
         if (categoryId == '' || categoryId == null) 
         {
             flag = 0;
@@ -221,6 +243,11 @@
             flag = 0;
             $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
         } 
+        if (orderIndex == '') 
+        {
+            flag = 0;
+            $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
+        }
         if (name == '') 
         {
             flag = 0;

@@ -75,6 +75,13 @@ class CryptoJournalController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['pdf'] = $fileName;
         }
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['uploadSocialBanner'] = $fileName;
+        }
         $newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Crypto Journal Saved Successfully']);

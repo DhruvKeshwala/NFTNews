@@ -60,7 +60,7 @@ a:hover {
                     <td>{{$dropManagementDetails->token}}</td>
                     <td>{{$dropManagementDetails->blockChain}}</td>
                     <td>{{$dropManagementDetails->priceOfSale}}</td>
-                    <td>{{$dropManagementDetails->saleDate}}</td>
+                    <td>{{date('d-m-Y', strtotime($dropManagementDetails->saleDate))}}</td>
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{$dropManagementDetails->twitterLink}}</td>
                     <td>{{$dropManagementDetails->websiteLink}}</td> -->

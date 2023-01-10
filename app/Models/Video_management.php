@@ -24,6 +24,8 @@ class Video_management extends Model
         'start_date',
         'end_date',
         'slug',
+        'uploadSocialBanner',
+        'orderIndex',
         'metaTitle',
         'description',
         'keywords',

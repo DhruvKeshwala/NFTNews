@@ -25,6 +25,19 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Banner Location</label></td>
+                <td>
+                    <select name="location" data-placeholder="Select Banner Location">
+                        <option value="">Select Banner Location</option>
+                        @foreach(config('constant.banner_location') as $key=>$bannerlocation)
+                        <option value="{{ $key }}" {{ @$data->location == $key ? 'selected' : '' }}>{{$bannerlocation}}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="bannerId" value="{{@$id}}">
+                    <div id="locationError"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Banner URL</label></td>
                 <td><input type="text" value="{{ @$data->url }}" name="url" placeholder="Banner URL"><div id="urlError"></div><div id="urlURLPatternError"></div></td>
             </tr>
@@ -58,6 +71,7 @@
         $('.errorMessage').hide();
         var flag     = 1;
         var size     = $("select[name='size']").val();
+        var location = $("select[name='location']").val();
         var url      = $("input[name='url']").val();
         var bannerId = $("input[name='bannerId']").val();
 
@@ -75,12 +89,19 @@
         fd.append('size', size);
         fd.append('url', url);
         fd.append('bannerId', bannerId);
+        fd.append('location', location);
+
 
         if (size == '' || size == null) 
         {
             flag = 0;
             $("#sizeError").html('<span class="errorMessage" style="color:red;">Banner Size Required</span>');
         } 
+        if(location == '' || location == null)
+        {
+            flag = 0;
+            $("#locationError").html('<span class="errorMessage" style="color:red;">Banner Location Required</span>');
+        }
         if (url == '') 
         {
             flag = 0;

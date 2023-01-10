@@ -82,10 +82,12 @@
                         <td><b>Video Type</b></td>
                         <td>{{ $news->videoType }}</td>
                     </tr>
+                    @if(@$news->start_date != null && @$news->start_date != null)
                     <tr>
                         <td><b>Featured Video</b></td>
                         <td><b>From : </b>{{ @$news->start_date }} <b>To :</b>{{ @$news->end_date }}</td>
                     </tr>
+                    @endif
                 </table>
                 <div class="clearfix"></div>
             </div>

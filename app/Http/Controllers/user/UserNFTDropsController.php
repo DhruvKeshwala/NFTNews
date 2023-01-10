@@ -60,8 +60,9 @@ class UserNFTDropsController extends Controller
     
     public function nftDropDetail($id)
     {
-        $nftDropDetail = DropManagementService::getNFTDropBySlug($id);
-        return view('user.nftDropDetails',compact('nftDropDetail'));
+        $featuredDropManagement  = DropManagement::where('nftType', 'Featured')->orderby('id','desc')->get();
+        $nftDropDetail      = DropManagementService::getNFTDropBySlug($id);
+        return view('user.nftDropDetails',compact('nftDropDetail', 'featuredDropManagement'));
     }
 
     public function submitNFT()

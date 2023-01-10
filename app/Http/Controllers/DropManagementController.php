@@ -69,6 +69,7 @@ class DropManagementController extends Controller
             'metaTitle'  => 'required',
             'description'=> 'required',
             'keywords'   => 'required',
+            'orderIndex' => 'required',
         ]);
         
         $dropManagementdetails = $request->only([
@@ -86,7 +87,7 @@ class DropManagementController extends Controller
             'metaTitle',
             'description',
             'keywords',
-            
+            'orderIndex',
         ]);
 
         if($request->file('image') != null)
@@ -109,7 +110,14 @@ class DropManagementController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $dropManagementdetails['logo'] = $fileName;
-        }        
+        }    
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $dropManagementdetails['uploadSocialBanner'] = $fileName;
+        }    
         $dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
         if (!empty($request->start_date) && !empty($request->end_date)) {
             $dropManagementdetails['nftType']  = 'Featured';

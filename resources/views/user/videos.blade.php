@@ -87,17 +87,17 @@
     <!-- Quick View -->
     @foreach($videos as $video)
     <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 80%;" role="document">  
+        <div class="modal-dialog" style="top:15%; max-width: 60%;" role="document">  
           <!-- Modal content-->     
           <div class="modal-content">
             <div class="modal-header">
               {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i>{{@$video->created_at->format('F d, Y')}}</h6> --}}
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 {{-- <h4>{{@$video->title}}</h4><br> --}}
-                <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+              {!!@$video->code!!}
+              </div>
          </div>
   
         </div>

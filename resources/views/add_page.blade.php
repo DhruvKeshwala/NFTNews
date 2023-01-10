@@ -96,6 +96,16 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Upload Social Banner</label></td>
+                <td>
+                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    @if(@$page->uploadSocialBanner != '')
+                    <div><img src="{{asset('uploads/').'/'.@$page->uploadSocialBanner}}" width = "100"></div>
+                    @endif
+                    <div id="uploadSocialBannerError"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="savePage()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -174,6 +184,13 @@
         fd.append('contents', contents);
         fd.append('pageId', pageId);
 
+        // Append article 1 
+        var files = $('#uploadSocialBanner')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('uploadSocialBanner',files[0]);
+        }
+        
         if (selectTemplate == '' || selectTemplate == null) 
         {
             flag = 0;

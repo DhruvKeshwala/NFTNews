@@ -74,5 +74,65 @@
   
         </div>
     </div>
+@endsection
+
+@section('script')
+<!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{{ URL::asset('wow_book/pdf.combined.min.js')}}"></script>
+  <link rel="stylesheet" href="{{ URL::asset('wow_book/wow_book.css')}}" type="text/css" />
+  <script type="text/javascript" src="{{ URL::asset('wow_book/pdf.combined.min.js')}}"></script>
+  <script type="text/javascript" src="{{ URL::asset('wow_book/wow_book.min.js')}}"></script>
+<script type="text/javascript">
+    
+    $(function () {
+
+      function fullscreenErrorHandler() {
+        if (self != top) return "The frame is blocking full screen mode. Click on 'remove frame' button above and try to go full screen again."
+      }
+      var optionsBook1 = {
+        height: 1236
+        , width: 800 * 2
+        // ,maxWidth : 800
+        // ,maxHeight : 800
+        , pageNumbers: false
+
+        , pdf: "{{ URL::asset('uploads/' . @$cryptoDetail->pdf) }}"
+        , pdfFind: true
+
+        , lightbox: "#book1-trigger"
+        , lightboxClass: "lightbox-pdf"
+        , centeredWhenClosed: true
+        , hardcovers: true
+        , curl: false
+        , toolbar: "lastLeft, left, currentPage, right, download, lastRight, zoomin, zoomout, slideshow, flipsound, fullscreen, thumbnails"
+        , thumbnailsPosition: 'bottom'
+        , responsiveHandleWidth: 50
+
+        , onFullscreenError: fullscreenErrorHandler
+      };
+
+
+      var books = {
+        "#book1": optionsBook1,
+      };
+      $("#book1-trigger").on("click", function () {
+        buildBook("#" + this.id.replace("-trigger", ""));
+      })
+
+      function buildBook(elem) {
+        var book = $.wowBook(elem);
+        if (!book) {
+          $(elem).wowBook(books[elem]);
+          book = $.wowBook(elem);
+        }
+        // book.opts.onHideLightbox = function(){
+        //     setTimeout( function(){ book.destroy(); }, 1000);
+        // }
+        book.showLightbox();
+      }
+
+
+    });
+  </script>
 
 @endsection

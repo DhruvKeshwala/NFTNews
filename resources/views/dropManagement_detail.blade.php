@@ -83,7 +83,7 @@
                     <tr>
                         @if(@$dropManagement->saleDate != null && @$dropManagement->saleEndDate != null)
                         <td><b>Sale Date:</b></td>
-                        <td><b>Starts From : </b>{{ @$dropManagement->saleDate }} <b>To :</b>{{ @$dropManagement->saleEndDate }} </td>
+                        <td><b>Starts From : </b>{{date('d-m-Y', strtotime($dropManagement->saleDate))}} <b>To :</b>{{date('d-m-Y', strtotime($dropManagement->saleEndDate))}} </td>
                         @else
                         <td><b>Sale Date:</b></td>
                         <td>{{ @$dropManagement->saleDate }}</td>
@@ -152,7 +152,7 @@
                     @if($dropManagement->start_date != null && $dropManagement->end_date != null)
                     <tr>
                         <td><b>Featured Date:</b></td>
-                        <td><b>Starts From : </b>{{ @$dropManagement->start_date }} <b>To :</b>{{ @$dropManagement->end_date }} </td>
+                        <td><b>Starts From : </b>{{date('d-m-Y', strtotime($dropManagement->start_date))}} <b>To :</b>{{date('d-m-Y', strtotime($dropManagement->end_date))}} </td>
                     </tr>
                     @endif
                     @if($dropManagement->discordLink != null)

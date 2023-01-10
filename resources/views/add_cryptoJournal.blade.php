@@ -58,6 +58,16 @@
                 <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$crypto->keywords }}</textarea><div id="keywordsError"></div></td>
             </tr>
             <tr>
+                <td><label>Upload Social Banner</label></td>
+                <td>
+                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    @if(@$crypto->uploadSocialBanner != '')
+                    <div><img src="{{asset('uploads/').'/'.@$crypto->uploadSocialBanner}}" width = "100"></div>
+                    @endif
+                    <div id="uploadSocialBannerError"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveCrypto()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -126,7 +136,12 @@
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
         fd.append('newsId', newsId);
-
+        // Append article 1 
+        var files = $('#uploadSocialBanner')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('uploadSocialBanner',files[0]);
+        }
         if (title == '') 
         {
             flag = 0;

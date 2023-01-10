@@ -22,6 +22,8 @@ class News extends Model
         'article_2',
         'newsType',
         'slug',
+        'uploadSocialBanner',
+        'orderIndex',
         'metaTitle',
         'description',
         'keywords',

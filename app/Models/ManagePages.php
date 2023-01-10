@@ -22,6 +22,7 @@ class ManagePages extends Model
         'keywords',
         'contents',
         'selectTemplate',
-        'slug'
+        'slug',
+        'uploadSocialBanner',
     ];
 }

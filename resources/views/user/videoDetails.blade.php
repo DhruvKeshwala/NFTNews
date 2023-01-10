@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="index.html">Home</a><i class="fa fa-angle-right"></i></span><span>Videos</span></p>
+          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Videos</span></p>
           </div>
           
         </div>
@@ -33,7 +33,8 @@
         </div>
     	<h1 class="my-5 text-justify">{{@$videoDetail->title}}</h1>
         
-        <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {!!@$videoDetail->code!!}
+        {{-- <iframe width="100%" height="415" src="https://www.youtube.com/embed/vMnlgWFnJWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
         
         <div class="text-left my-4 text-justify">
         	{!!@$videoDetail->fullDescription!!}

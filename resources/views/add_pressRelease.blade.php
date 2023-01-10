@@ -112,6 +112,10 @@
             </tr>
             @endforeach --}}
             <tr>
+                <td><label>Order Index</label></td>
+                <td><input type="number" value="{{ @$pressRelease->orderIndex }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+            </tr>
+            <tr>
                 <td><label>Meta Title</label></td>
                 <td><input type="text" value="{{ @$pressRelease->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
             </tr>
@@ -122,6 +126,16 @@
             <tr>
                 <td><label>Meta Keywords</label></td>
                 <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$pressRelease->keywords }}</textarea><div id="keywordsError"></div></td>
+            </tr>
+            <tr>
+                <td><label>Upload Social Banner</label></td>
+                <td>
+                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    @if(@$pressRelease->uploadSocialBanner != '')
+                    <div><img src="{{asset('uploads/').'/'.@$pressRelease->uploadSocialBanner}}" width = "100"></div>
+                    @endif
+                    <div id="uploadSocialBannerError"></div>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -165,6 +179,7 @@
         var metaTitle = $("input[name=\"metaTitle\"]").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
+        var orderIndex = $("input[name='orderIndex']").val();
         var categoryId              = $("select[name='categoryId[]']").val();
         // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
@@ -202,6 +217,7 @@
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
         fd.append('keywords', keywords);
+        fd.append('orderIndex', orderIndex);
         // fd.append('authorId', authorId);
         fd.append('title', title);
         fd.append('shortDescription', shortDescription);
@@ -210,7 +226,12 @@
         fd.append('start_date', start_date);
         fd.append('end_date', end_date);
         fd.append('presstype', presstype);
-
+        
+        var files = $('#uploadSocialBanner')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('uploadSocialBanner',files[0]);
+        }
         if (categoryId == '' || categoryId == null) 
         {
             flag = 0;
@@ -231,6 +252,11 @@
             flag = 0;
             $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
         } 
+        if (orderIndex == '') 
+        {
+            flag = 0;
+            $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
+        }
         // if (authorId == '' || authorId == null) 
         // {
         //     flag = 0;

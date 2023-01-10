@@ -22,12 +22,14 @@ return new class extends Migration
             $table->longText('fullDescription')->nullable();
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
-            $table->string('code')->nullable();
+            $table->text('code')->nullable();
             $table->longText('videoType');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->enum('fld_status',['Active','Inactive'])->default('Active');
             $table->longText('slug')->nullable();
+            $table->longText('uploadSocialBanner')->nullable();
+            $table->integer('orderIndex')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

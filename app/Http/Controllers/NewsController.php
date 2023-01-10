@@ -65,9 +65,10 @@ class NewsController extends Controller
             'fullDescription'   => 'required',
             'videoURL'          => 'required',
             'newsId'            => 'required',
-            'metaTitle'            => 'required',
-            'description'            => 'required',
-            'keywords'            => 'required',
+            'metaTitle'         => 'required',
+            'description'       => 'required',
+            'keywords'          => 'required',
+            'orderIndex'        => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -80,6 +81,7 @@ class NewsController extends Controller
             'metaTitle',
             'description',
             'keywords',
+            'orderIndex',
         ]);
         if($request->file('image') != null)
         {
@@ -101,6 +103,13 @@ class NewsController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['article_2'] = $fileName;
+        }
+        if($request->file('uploadSocialBanner') != null)
+        {
+            $file      = $request->file('uploadSocialBanner');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['uploadSocialBanner'] = $fileName;
         }
         $newsTypeDate = array();
         $start_date = explode(',',$request->start_date);
