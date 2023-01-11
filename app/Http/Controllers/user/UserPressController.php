@@ -45,7 +45,9 @@ class UserPressController extends Controller
         $categories     = Category::all();
         $getAllNewses   = News::all();
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.pressRelease', compact('pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews', 'banners'));
+        $pressTopBanner = Banner::where('location', 'pressrelfull')->first();
+        $pressSideBanner = Banner::where('location', 'prssrelrect')->first();
+        return view('user.pressRelease', compact('pressSideBanner', 'pressTopBanner', 'pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews', 'banners'));
     }
 
     public function pressDetail($id)
@@ -69,8 +71,8 @@ class UserPressController extends Controller
 
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        $banners        = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.pressDetails',compact('banners', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        return view('user.pressDetails',compact('innerSideBanner', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
     
     public function filterPress(Request $request)

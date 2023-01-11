@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Services\DropManagementService;
 use App\Models\DropManagement;
@@ -26,7 +27,8 @@ class UserNFTDropsController extends Controller
     {
         $categories = Category::all();
         $allDropManagement  = DropManagement::orderby('id','desc')->paginate(10);
-        return view('user.listNFTDrops', compact('allDropManagement','categories'));
+        $banners = Banner::where('location', 'nftdropfull')->first();
+        return view('user.listNFTDrops', compact('allDropManagement','categories','banners'));
     }
     public function filterNFTDrop(Request $request)
     {
@@ -55,7 +57,8 @@ class UserNFTDropsController extends Controller
         $filterValue = $request->filternftcategoryValue;
         $nftsearch = $request->nft_search;
         $filterParam = $request->filterValue;
-        return view('user.listNFTDrops', compact('filterParam', 'allDropManagement','categories','filterValue','nftsearch'));
+        $banners = Banner::where('location', 'nftdropfull')->first();
+        return view('user.listNFTDrops', compact('filterParam', 'allDropManagement','categories','filterValue','nftsearch','banners'));
     }
     
     public function nftDropDetail($id)

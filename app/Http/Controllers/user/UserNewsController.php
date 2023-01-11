@@ -38,8 +38,9 @@ class UserNewsController extends Controller
         $allNews        = News::orderby('id','desc')->paginate(10);
         $categories     = Category::all();
         $getAllNewses   = News::all();
-        $banners     = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews', 'banners'));
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
+        return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
     }
 
     public function filterNews(Request $request)
@@ -59,8 +60,8 @@ class UserNewsController extends Controller
             $title      = $request->homeSearch;
             $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
         }
-        $banners     = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.news', compact('allNews', 'getAllNewses', 'banners'));
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        return view('user.news', compact('allNews', 'getAllNewses', 'innerSideBanner'));
     }
 
     public function newsDetail($id)
@@ -83,8 +84,9 @@ class UserNewsController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        $getAllNewses   = News::all();
-        $banners     = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.newsDetails',compact('newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners'));
+        $getAllNewses    = News::all();
+        $banners         = Banner::where('size', '280 x 400 pixels')->first();
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        return view('user.newsDetails',compact('innerSideBanner', 'newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners'));
     }
 }

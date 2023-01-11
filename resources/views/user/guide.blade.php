@@ -19,6 +19,17 @@
         </div>
       </div>
     </section>
+    <div class="news-banner mb-3">
+      @if(@$guideTopBanner->location != null)
+          <a href="{{@$guideTopBanner->url}}" class="text-dark" target="_blank"><img
+          src="{{ URL::asset('uploads/banner/' . @$guideTopBanner->image) }}" width="100%"
+          height="auto" alt=""></a>
+      @else
+          <a href="#" class="text-dark" target="_blank"><img
+              src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
+              height="auto" alt=""></a>
+      @endif
+    </div>
     
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
@@ -31,105 +42,23 @@
                     <h2 class="mb-0 py-1">GUIDE</h2>
                   </div>
                 </div>
-				<div class="row d-flex">
-                  <div class="col-md-4 d-flex mb-4 text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'getting-started']) }}" class="text-light">Getting Started</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'buying' ]) }}" class="text-light">Buying</a></h4>
+				        <div class="row d-flex">
+                  @if(!empty($guidesCategory))
+                    @foreach(@$guidesCategory as $key => $guidesCategoryDetail)
+                    <div class="col-md-4 d-flex mb-4 text-center ftco-animate">
+                      <div class="services py-5 rounded border btn-light align-self-stretch">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                          <span class="flaticon-crm"></span>
+                        </div>
+                        <div class="text px-4 mt-3">
+                          <h4 class="heading"><a href="{{ route('user.guideList', ['category' => @$guidesCategoryDetail->id]) }}" class="text-light">{{@$guidesCategoryDetail->name}}</a></h4>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'selling' ]) }}" class="text-light">Selling</a></h4>
-                      </div>
-                    </div>
-                   </div>
-                   <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'creating']) }}" class="text-light">Creating</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'policies' ]) }}" class="text-light">Policies</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'faqs' ]) }}" class="text-light">FAQs</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'userSafety' ]) }}" class="text-light">User Safety</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'developers']) }}" class="text-light">Developers</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                   
-                  <div class="col-md-4 mb-4 d-flex text-center ftco-animate">
-                    <div class="services py-5 rounded border btn-light align-self-stretch">
-                      <div class="icon d-flex justify-content-center align-items-center">
-                        <span class="flaticon-crm"></span>
-                      </div>
-                      <div class="text px-4 mt-3">
-                        <h4 class="heading"><a href="{{ route('user.guideList', ['category' => 'solana']) }}" class="text-light">Solana</a></h4>
-                      </div>
-                    </div>
-                  </div>
-                   
+                    @endforeach
+                  @endif
                   </div>
                </div>
-               
              </div>
     	</div>
     </section>

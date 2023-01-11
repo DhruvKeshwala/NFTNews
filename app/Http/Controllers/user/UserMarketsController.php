@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Category;
+use App\Models\Banner;
 
 class UserMarketsController extends Controller
 {
@@ -18,7 +19,11 @@ class UserMarketsController extends Controller
     {
         $categories = Category::all();
         $getAllNewses   = News::orderby('id','desc')->paginate(20);
-        return view('user.markets', compact('getAllNewses', 'categories'));
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        $marketTopBanner = Banner::where('location', 'marketsfull')->first();
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.markets', compact('innerSideBanner', 'marketTopBanner', 'getAllNewses', 'categories','banners_small','banners_horizontal'));
     }
 
     public function filterMarketNews(Request $request)

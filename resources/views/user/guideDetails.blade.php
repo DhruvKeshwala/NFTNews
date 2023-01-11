@@ -29,7 +29,7 @@
                             <h3>Articles in this section</h3>
                             @if (count($guides))
                                 @foreach ($guides as $guide)
-                                    <a href="{{ url('guideList/' . @$guide->categorySlug . '/' . @$guide->slug) }}"
+                                    <a href="{{ url('guideList/' . @$guide->category . '/' . @$guide->slug) }}"
                                         class="btn btn-outline-light d-block border my-2 <?php if ($guide->slug == $slug) {
                                             echo 'active';
                                         } ?>">

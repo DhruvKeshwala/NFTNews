@@ -96,7 +96,7 @@ a:hover {
                 @foreach($guide as $newsDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>{{$newsDetails->category}}</td>
+                    <td>{{$newsDetails->guideCategory->name}}</td>
                     <td>{!!substr($newsDetails->question, 0, 50)!!}.. </td>
                     <td>{!!substr($newsDetails->answer, 0, 50)!!}.. </td>
                     <td>

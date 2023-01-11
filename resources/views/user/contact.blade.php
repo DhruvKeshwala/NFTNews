@@ -15,6 +15,18 @@
     </div>
   </section>
 
+  <div class="news-banner mb-3">
+    @if(@$contactTopBanner->location != null)
+        <a href="{{@$contactTopBanner->url}}" class="text-dark" target="_blank"><img
+        src="{{ URL::asset('uploads/banner/' . @$contactTopBanner->image) }}" width="100%"
+        height="auto" alt=""></a>
+    @else
+        <a href="#" class="text-dark" target="_blank"><img
+            src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
+            height="auto" alt=""></a>
+    @endif
+  </div>
+
   <section class="ftco-section pt-0 pb-0 bg-info-gradient-3">
     <div class="container">
       <div class="row justify-content-center">

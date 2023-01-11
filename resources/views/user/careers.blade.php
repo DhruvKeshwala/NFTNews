@@ -12,6 +12,7 @@
         </div>
       </div>
     </section>
+    <div class="news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt=""></a></div>
  @if(@$page->selectTemplate == 'education')   
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">

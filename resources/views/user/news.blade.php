@@ -18,7 +18,19 @@
     </div>
   </div>
 </section>
-    
+
+<div class="news-banner mb-3">
+  @if(@$newsTopBanner->location != null)
+      <a href="{{@$newsTopBanner->url}}" class="text-dark" target="_blank"><img
+      src="{{ URL::asset('uploads/banner/' . @$newsTopBanner->image) }}" width="100%"
+      height="auto" alt=""></a>
+  @else
+      <a href="#" class="text-dark" target="_blank"><img
+          src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
+          height="auto" alt=""></a>
+  @endif
+</div>
+
   
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
@@ -102,9 +114,9 @@
               </div>
             </div>
           	
-            @if($banners->size == "280 x 400 pixels")
+            @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
-                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                  <a href="{{$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $innerSideBanner->image) }}"
                           width="100%" height="auto" alt=""></a>
               </div>
             @endif

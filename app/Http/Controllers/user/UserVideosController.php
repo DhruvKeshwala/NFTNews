@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Video_management;
 use App\Services\VideoService;
@@ -19,7 +20,8 @@ class UserVideosController extends Controller
     {
         $categories = Category::all();
         $videos   = Video_management::orderby('id','desc')->paginate(10);
-        return view('user.videos', compact('videos', 'categories'));
+        $banners = Banner::where('location', 'videosfull')->first();
+        return view('user.videos', compact('videos', 'categories','banners'));
     }
 
 
@@ -57,7 +59,8 @@ class UserVideosController extends Controller
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
         $filterValue = $request->filterValue;
-        return view('user.videos', compact('videos', 'categories', 'filtercategoryId', 'search', 'filterValue'));
+        $banners = Banner::where('location', 'videosfull')->first();
+        return view('user.videos', compact('videos', 'categories', 'filtercategoryId', 'search', 'filterValue','banners'));
 
     }
     /**

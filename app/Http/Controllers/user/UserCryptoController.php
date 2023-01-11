@@ -20,7 +20,8 @@ class UserCryptoController extends Controller
     public function index()
     {
         $cryptoJournals   = CryptoJournal::orderby('id','desc')->paginate(10);
-        return view('user.cryptoJournals', compact('cryptoJournals'));
+        $banners = Banner::where('location', 'cryjounfull')->first();
+        return view('user.cryptoJournals', compact('cryptoJournals','banners'));
     }
 
     public function cryptoDetail($id)
@@ -32,6 +33,7 @@ class UserCryptoController extends Controller
 
     public function filterCrypto(Request $request)
     {
+        $banners = Banner::where('location', 'cryjounfull')->first();
         $cryptoJournals  = CryptoJournal::where(function($dm) {
             $request = app()->make('request');
             if($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
@@ -61,6 +63,6 @@ class UserCryptoController extends Controller
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
         $filterValue = $request->filterValue;
-        return view('user.cryptoJournals', compact('cryptoJournals', 'search', 'filterValue'));
+        return view('user.cryptoJournals', compact('cryptoJournals', 'search', 'filterValue','banners'));
     }
 }

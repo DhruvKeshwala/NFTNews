@@ -96,11 +96,14 @@ class HomeController extends Controller
         $getAllNewses        = News::all();
         $videos              = Video_management::all();
         $guides              = Guide::all();
-        $banners_small = Banner::where('size', '375 x 400 pixels')->get()->toArray();
-        $banners_horizontal = Banner::where('size', '1210 x 210 pixels')->get()->toArray();
-        $banners             = Banner::where('size', '280 x 400 pixels')->first();
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $settings = DB::table('settings')->where('id', 1)->first();
-        return view('user.index', compact('banners', 'cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides', 'banners_small','banners_horizontal'));
+
+        $homeTopBanner = Banner::where('location', 'hplatnewsfull')->first();
+        $homeSideBanner = Banner::where('location', 'hplatnewsrect')->first();
+
+        return view('user.index', compact('homeSideBanner', 'homeTopBanner', 'cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides', 'banners_small','banners_horizontal'));
     }
 
     public function userFilterVideos(Request $request)
@@ -160,13 +163,15 @@ class HomeController extends Controller
 
     public function advertise()
     {
-        return view('user.advertise');
+        $advertiseTopBanner = Banner::where('location', 'advertisefull')->first();
+        return view('user.advertise', compact('advertiseTopBanner'));
     }
 
     public function contact()
     {
         $fourRandomDigit = mt_rand(1000,9999);
-        return view('user.contact', compact('fourRandomDigit'));
+        $contactTopBanner = Banner::where('location', 'contactfull')->first();
+        return view('user.contact', compact('fourRandomDigit', 'contactTopBanner'));
     }
     public function sendMailForContact(Request $request)
     {
@@ -233,7 +238,8 @@ class HomeController extends Controller
         {
             $page = 'No Education Information available..';
         }
-        return view('user.education', compact('page'));
+        $educationTopBanner = Banner::where('location', 'edufull')->first();
+        return view('user.education', compact('page', 'educationTopBanner'));
     }
 
     public function services()
@@ -243,7 +249,8 @@ class HomeController extends Controller
         {
             $page = 'No Services Information available..';
         }
-        return view('user.services', compact('page'));
+        $serviceTopBanner = Banner::where('location', 'servicesfull')->first();
+        return view('user.services', compact('serviceTopBanner', 'page'));
     }
 
     public function partners()
@@ -253,27 +260,30 @@ class HomeController extends Controller
         {
             $page = 'No Partners Information available..';
         }
-        return view('user.partners', compact('page'));
+        $partnerTopBanner = Banner::where('location', 'partnerfull')->first();
+        return view('user.partners', compact('page', 'partnerTopBanner'));
     }
 
     public function privacyPolicy()
     {
         $page = ManagePages::where('slug', 'privacy-policy')->first();
+        $banners = Banner::where('location', 'pripolfull')->first();
         if(@$page == null)
         {
             $page = 'No Privacy Policy Information available..';
         }
-        return view('user.privacyPolicy', compact('page'));
+        return view('user.privacyPolicy', compact('page','banners'));
     }
 
     public function termsAndConditions()
     {
         $page = ManagePages::where('slug', 'terms-and-conditions')->first();
+        $banners = Banner::where('location', 'termsfull')->first();
         if(@$page == null)
         {
             $page = 'No Terms And Conditions Information available..';
         }
-        return view('user.termsAndConditions', compact('page'));
+        return view('user.privacyPolicy', compact('page','banners'));
     }
 
     public function gdpr()
@@ -289,51 +299,56 @@ class HomeController extends Controller
     public function termsOfService()
     {
         $page = ManagePages::where('slug', 'terms-of-service')->first();
+        $banners = Banner::where('location', 'terserfull')->first();
         if(@$page == null)
         {
             $page = 'No Terms Of Service Information available..';
         }
-        return view('user.termsOfService', compact('page'));
+        return view('user.termsOfService', compact('page','banners'));
     }
 
     public function investmentAndFunding()
     {
         $page = ManagePages::where('slug', 'investment-and-funding')->first();
+        $banners = Banner::where('location', 'invfunfull')->first();
         if(@$page == null)
         {
             $page = 'No Investment & Funding Information available..';
         }
-        return view('user.investmentAndFunding', compact('page'));
+        return view('user.investmentAndFunding', compact('page','banners'));
     }
 
     public function mediaEnquiries()
     {
         $page = ManagePages::where('slug', 'media-enquiries')->first();
+        $banners = Banner::where('location', 'medenqfull')->first();
         if(@$page == null)
         {
             $page = 'No Media Enquiries Information available..';
         }
-        return view('user.mediaEnquiries', compact('page'));
+        return view('user.mediaEnquiries', compact('page','banners'));
     }
 
     public function careers()
     {
         $page = ManagePages::where('slug', 'careers')->first();
+        $banners = Banner::where('location', 'careerfull')->first();
         if(@$page == null)
         {
             $page = 'No Careers Information available..';
         }
-        return view('user.careers', compact('page'));
+        return view('user.careers', compact('page','banners'));
     }
 
     public function about()
     {
         $page = ManagePages::where('slug', 'about')->first();
+        $banners = Banner::where('location', 'aboutfull')->first();
         if(@$page == null)
         {
             $page = 'No About Page Information available..';
         }
-        return view('user.about', compact('page'));
+        return view('user.about', compact('page','banners'));
     }
 
     public function featuredNews()

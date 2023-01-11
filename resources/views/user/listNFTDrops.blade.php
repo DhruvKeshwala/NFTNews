@@ -13,7 +13,7 @@
             </div>
         </div>
     </section>
-
+    <div class="news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt=""></a></div>
     <section class="ftco-section pt-0 pb-5 bg-info-gradient">
         <form action="{{ route('user.filter_nftdrops') }}" id="nft_form" method="POST">
             @csrf

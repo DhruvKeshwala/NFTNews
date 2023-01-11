@@ -17,4 +17,8 @@ class Guide extends Model
         'slug',
         'categorySlug',
     ];
+    public function guideCategory()
+    {
+        return $this->hasOne(GuideCategory::class,'id','category');
+    }
 }

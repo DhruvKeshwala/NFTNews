@@ -12,6 +12,18 @@
         </div>
       </div>
     </section>
+<div class="news-banner mb-3">
+  @if(@$serviceTopBanner->location != null)
+      <a href="{{@$serviceTopBanner->url}}" class="text-dark" target="_blank"><img
+      src="{{ URL::asset('uploads/banner/' . @$serviceTopBanner->image) }}" width="100%"
+      height="auto" alt=""></a>
+  @else
+      <a href="#" class="text-dark" target="_blank"><img
+          src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
+          height="auto" alt=""></a>
+  @endif
+</div>
+
  @if(@$page->selectTemplate == 'education')   
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">

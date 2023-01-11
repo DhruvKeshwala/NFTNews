@@ -89,9 +89,9 @@
             </div>
         </div> --}}
 
-            @if($banners->size == "280 x 400 pixels")
+            @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
-                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                  <a href="{{$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $innerSideBanner->image) }}"
                           width="100%" height="auto" alt=""></a>
               </div>
             @endif

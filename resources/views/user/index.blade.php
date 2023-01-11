@@ -106,10 +106,17 @@
                         </div>
 
                         <div class="news-listing ftco-animate">
-                            <div class="news-banner mb-3"><a href="#" class="text-dark" target="_blank"><img
+                            <div class="news-banner mb-3">
+                                @if(@$homeTopBanner->location != null)
+                                    <a href="{{@$homeTopBanner->url}}" class="text-dark" target="_blank"><img
+                                    src="{{ URL::asset('uploads/banner/' . @$homeTopBanner->image) }}" width="100%"
+                                    height="auto" alt=""></a>
+                                @else
+                                    <a href="#" class="text-dark" target="_blank"><img
                                         src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-                                        height="auto" alt=""></a></div>
-
+                                        height="auto" alt=""></a>
+                                @endif
+                            </div>
                             <div class="allNews"></div>
                             <div class="Newses">
                                 @if (!empty(@$allNews))
@@ -146,9 +153,9 @@
                 </div>
                 
                 <div class="col-md-3">
-                    @if($banners->size == "280 x 400 pixels")
+                    @if(@$homeSideBanner->location)
                         <div class="sidebar-box">
-                            <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                            <a href="{{@$homeSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$homeSideBanner->image) }}"
                                     width="100%" height="auto" alt=""></a>
                         </div>
                     @endif

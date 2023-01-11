@@ -13,7 +13,7 @@
         </div>
       </div>
     </section>
-
+    <div class="news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt=""></a></div>
 <div class="ftco-section bg-info-gradient pb-3 pt-5">
       <div class="container">
       <form action="{{ route('user.filter_crypto') }}" id="crypto_form" method="POST">
