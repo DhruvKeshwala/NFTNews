@@ -23,7 +23,7 @@
              <h1 class="mb-4 text-center">{{@$cryptoDetail->title}}</h1>
              
              <div id="book1-trigger" class="text-center">
-             	<img src="{{ URL::asset('uploads/' . @$cryptoDetail->image) }}" width="auto" height="500">
+             	<img style="cursor:pointer" src="{{ URL::asset('uploads/' . @$cryptoDetail->image) }}" width="auto" height="500">
              </div>
              <div style="display: none">
 	         	<div id="book1"></div>

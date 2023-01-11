@@ -159,7 +159,8 @@
                     <form action="{{ route('send_mail') }}" method="POST" id="subscribe_form" class="form-consultation">
                       @csrf
                       <div class="form-group">
-                        <input type="text" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="email" id="subscribeemail" class="form-control" placeholder="Email">
+                        <div id="subscribeemailError"></div>
                       </div>
                     </form>
                     <button type="submit" onclick="submitSubscribeForm()" class="btn btn-primary mb-2 bt-mdl">
@@ -387,7 +388,18 @@
     form.submit();
   }
   function submitSubscribeForm(){
-    var form = document.getElementById("subscribe_form");
-    form.submit();
+    var subscribeemail = $("#subscribeemail").val();
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if(subscribeemail == '')
+    {
+      $("#subscribeemailError").html('<span style="color:red;">Email required</span>');
+    }
+    else if (!subscribeemail.match(validRegex)) {
+      $("#subscribeemailError").html('<span style="color:red;">Invalid Email</span>');
+    }
+    else{
+      var form = document.getElementById("subscribe_form");
+      form.submit();
+    }
   }
 </script>

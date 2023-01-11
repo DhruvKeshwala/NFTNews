@@ -13,7 +13,7 @@
   </div>
 </section>
 
-<div class="news-banner mb-3">
+<div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
   @if(@$advertiseTopBanner->location != null)
       <a href="{{@$advertiseTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$advertiseTopBanner->image) }}" width="100%"

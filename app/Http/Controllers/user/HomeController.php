@@ -178,7 +178,7 @@ class HomeController extends Controller
 
         $name = $request->name;
         $email = $request->email;
-        $phone = $request->phn;
+        $phone = $request->phone;
         $organization = $request->org;
         $location = $request->loc;
         $nmeproj = $request->nmeproj;
@@ -186,6 +186,21 @@ class HomeController extends Controller
         $message = $request->message;
         $captcha = $request->captcha;
         $fourDigitRandom = $request->fourDigitRandom;
+
+        $validatedData = $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'enquire_nature' => 'required',
+            'message'   => 'required',
+            //'email' => 'required|email|unique:users'
+        ], [
+            'name.required'  => 'Name is required',
+            'email.required' => 'Email is required',
+            'phone.required' => 'Phone is required',
+            'enquire_nature.required' => 'Enquiry Information is required',
+            'message.required' => 'Message is required',
+        ]);
 
         if($request->captcha == $fourDigitRandom)
         {
@@ -216,6 +231,15 @@ class HomeController extends Controller
         $message = $request->message;
         $captcha = $request->captcha;
         $fourDigitRandom = $request->fourDigitRandom;
+
+        $validatedData = $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            //'email' => 'required|email|unique:users'
+        ], [
+            'name.required'  => 'Name is required',
+            'email.required' => 'Email is required',
+        ]);
 
         if($request->captcha == $fourDigitRandom)
         {

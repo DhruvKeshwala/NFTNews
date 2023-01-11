@@ -12,7 +12,8 @@
         </div>
       </div>
     </section>
-    <div class="news-banner mb-3">
+
+    <div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
       @if(@$pressTopBanner->location != null)
           <a href="{{@$pressTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$pressTopBanner->image) }}" width="100%"

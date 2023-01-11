@@ -74,27 +74,33 @@
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control border" name="name" id="name" placeholder="Full Name">
+														<input type="text" class="form-control border" name="name" id="name" placeholder="Full Name" value="{{old('name')}}">
+														@if ($errors->has('name'))
+														<span class="text-danger">{{ $errors->first('name') }}</span>
+														@endif
 													</div>
 												</div>
 												<div class="col-md-6"> 
 													<div class="form-group">
-														<input type="email" class="form-control border" name="email" id="email" placeholder="Email Address">
+														<input type="email" class="form-control border" name="email" id="email" placeholder="Email Address" value="{{old('email')}}">
+														@if ($errors->has('email'))
+														<span class="text-danger">{{ $errors->first('email') }}</span>
+														@endif
 													</div>
 												</div>
                                                 <div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control border" name="phn" id="phone" placeholder="Phone">
+														<input type="text" class="form-control border" name="phn" id="phone" placeholder="Phone" value="{{old('phn')}}">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control border" name="subject" id="subject" placeholder="Subject">
+														<input type="text" class="form-control border" name="subject" id="subject" placeholder="Subject" value="{{old('subject')}}">
 													</div>
 												</div>
 												<div class="col-md-12">
 													<div class="form-group">
-													<textarea name="message" class="form-control border" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+													<textarea name="message" class="form-control border" id="message" cols="30" rows="4" placeholder="Message">{{old('message')}}</textarea>
 													</div>
 												</div>
                                                 <div class="col-md-12">

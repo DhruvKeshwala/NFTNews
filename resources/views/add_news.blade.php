@@ -81,7 +81,10 @@
             </tr>
             <tr>
                 <td><label>Video URL</label></td>
-                <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL"><div id="videoURLError"></div><div id="videoURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL">
+                    {{-- <div id="videoURLError"></div> --}}
+                    {{-- <div id="videoURLPatternError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Select Section to Publish In</label></td>
@@ -124,19 +127,28 @@
             @endforeach --}}
             <tr>
                 <td><label>Order Index</label></td>
-                <td><input type="number" value="{{ @$news->orderIndex }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+                <td><input type="number" value="{{ @$news->orderIndex != null || @$news->orderIndex != 0  ? @$news->orderIndex : 0 }}" name="orderIndex" placeholder="Order Index Number">
+                    {{-- <div id="orderIndexError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Meta Title</label></td>
-                <td><input type="text" value="{{ @$news->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
+                <td><input type="text" value="{{ @$news->metaTitle }}" name="metaTitle" placeholder="Meta Title">
+                    
+                    {{-- <div id="metaTitleError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Meta Description</label></td>
-                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$news->description}}</textarea><div id="descriptionError"></div></td>
+                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$news->description}}</textarea>
+                    {{-- <div id="descriptionError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Meta Keywords</label></td>
-                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$news->keywords }}</textarea><div id="keywordsError"></div></td>
+                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$news->keywords }}</textarea>
+                    {{-- <div id="keywordsError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Upload Social Banner</label></td>
@@ -255,26 +267,26 @@
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         }
-        if (metaTitle == '') 
-        {
-            flag = 0;
-            $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
-        }
-        if (description == '') 
-        {
-            flag = 0;
-            $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
-        }
-        if (keywords == '') 
-        {
-            flag = 0;
-            $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
-        } 
-        if (orderIndex == '') 
-        {
-            flag = 0;
-            $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
-        }
+        // if (metaTitle == '') 
+        // {
+        //     flag = 0;
+        //     $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
+        // }
+        // if (description == '') 
+        // {
+        //     flag = 0;
+        //     $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
+        // }
+        // if (keywords == '') 
+        // {
+        //     flag = 0;
+        //     $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
+        // } 
+        // if (orderIndex == '') 
+        // {
+        //     flag = 0;
+        //     $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
+        // }
         if (authorId == '' || authorId == null) 
         {
             flag = 0;
@@ -295,23 +307,23 @@
             flag = 0;
             $("#fullDescriptionError").html('<span class="errorMessage" style="color:red;">Full Description Required</span>');
         } 
-        if (videoURL == '') 
-        {
-            flag = 0;
-            $("#videoURLError").html('<span class="errorMessage" style="color:red;">Video URL Required</span>');
-        }
+        // if (videoURL == '') 
+        // {
+        //     flag = 0;
+        //     $("#videoURLError").html('<span class="errorMessage" style="color:red;">Video URL Required</span>');
+        // }
         
-        //function for URL validation
-        function isValidHttpUrl(string) {
-            let url;
-            try {
-                url = new URL(string);
-            } catch (_) {
-                return false;
-            }
-            return url.protocol === "http:" || url.protocol === "https:";
-        }
-        // URL validation
+        // //function for URL validation
+        // function isValidHttpUrl(string) {
+        //     let url;
+        //     try {
+        //         url = new URL(string);
+        //     } catch (_) {
+        //         return false;
+        //     }
+        //     return url.protocol === "http:" || url.protocol === "https:";
+        // }
+        // // URL validation
         if(videoURL != '' && isValidHttpUrl(videoURL) == false)
         {
             flag = 0;

@@ -56,6 +56,7 @@ class NewsController extends Controller
     }
     public function saveNews(Request $request)
     {
+        
         //validation
         $request->validate([
             'title'             => 'required',
@@ -63,12 +64,12 @@ class NewsController extends Controller
             'authorId'          => 'required',
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
-            'videoURL'          => 'required',
+            // 'videoURL'          => 'required',
             'newsId'            => 'required',
-            'metaTitle'         => 'required',
-            'description'       => 'required',
-            'keywords'          => 'required',
-            'orderIndex'        => 'required',
+            // 'metaTitle'         => 'required',
+            // 'description'       => 'required',
+            // 'keywords'          => 'required',
+            // 'orderIndex'        => 'required',
         ]);
         
         $newsdetails = $request->only([

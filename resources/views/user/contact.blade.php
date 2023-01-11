@@ -15,7 +15,7 @@
     </div>
   </section>
 
-  <div class="news-banner mb-3">
+  <div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
     @if(@$contactTopBanner->location != null)
         <a href="{{@$contactTopBanner->url}}" class="text-dark" target="_blank"><img
         src="{{ URL::asset('uploads/banner/' . @$contactTopBanner->image) }}" width="100%"
@@ -45,55 +45,70 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <input type="text" class="form-control border border-light" name="name" id="name"
-                            placeholder="Name">
+                            placeholder="Name" value="{{old('name')}}">
+                            @if ($errors->has('name'))
+														<span class="text-danger">{{ $errors->first('name') }}</span>
+														@endif
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <input type="email" class="form-control border border-light" name="email" id="email"
-                            placeholder="Email Address">
-                        </div>
+                            placeholder="Email Address" value="{{old('email')}}">
+                            @if ($errors->has('email'))
+														<span class="text-danger">{{ $errors->first('email') }}</span>
+														@endif
+                          </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="text" class="form-control border border-light" name="phn" id="phone"
-                            placeholder="Phone">
+                          <input type="text" class="form-control border border-light" name="phone" id="phone"
+                            placeholder="Phone" value="{{old('phone')}}">
+                            @if ($errors->has('phone'))
+														<span class="text-danger">{{ $errors->first('phone') }}</span>
+														@endif
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <input type="text" class="form-control border border-light" name="org" id="phone"
-                            placeholder="Organisation">
+                            placeholder="Organisation" value="{{old('org')}}">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <input type="text" class="form-control border border-light" name="loc" id="phone"
-                            placeholder="Location">
+                            placeholder="Location" value="{{old('loc')}}">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <input type="text" class="form-control border border-light" name="nmeproj" id="subject"
-                            placeholder="Name of Project">
+                            placeholder="Name of Project" value="{{old('nmeproj')}}">
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <select name="enquire_nature" class="border border-light text-light form-control">
-                            <option>Select Enquiry Nature</option>
+                            <option value="">Select Enquiry Nature</option>
                             <option value="Existing listing">Existing listing</option>
                             <option value="New listing">New listing</option>
                             <option value="Advertising">Advertising</option>
                             <option value="Consultancy">Consultancy</option>
                             <option value="Media/PR">Media/PR</option>
                           </select>
+                          @if ($errors->has('enquire_nature'))
+														<span class="text-danger">{{ $errors->first('enquire_nature') }}</span>
+														@endif
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <textarea name="message" class="form-control border border-light" id="message" cols="30"
-                            rows="4" placeholder="Insert Message Here"></textarea>
+                            rows="4" placeholder="Insert Message Here">{{old('message')}}</textarea>
+                            @if ($errors->has('message'))
+														<span class="text-danger">{{ $errors->first('message') }}</span>
+														@endif
                         </div>
                       </div>
                       <div class="col-md-12">
