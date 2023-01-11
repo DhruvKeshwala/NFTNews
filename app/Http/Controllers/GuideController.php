@@ -6,6 +6,7 @@ use App\Models\Guide;
 use Illuminate\Http\Request;
 use App\Services\GuideService;
 use Illuminate\Support\Str;
+use App\Services\GuideCategoryService;
 
 class GuideController extends Controller
 {
@@ -16,15 +17,16 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $guide = GuideService::getGuide();     
+        $guide = GuideService::getGuide();
         return view('guide', compact('guide'));
     }
 
     public function addGuide($id=null)
     {
         $guide = Guide::where('id', $id)->first();
+        $categories = GuideCategoryService::getAllCategory();
         // $guide = GuideService::getGuideById($id);
-        return view('add_guide',compact('guide','id'));
+        return view('add_guide',compact('guide','id', 'categories'));
     }
 
     public function saveGuide(Request $request)

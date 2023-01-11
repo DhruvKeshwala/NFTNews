@@ -15,15 +15,9 @@
                 <td>
                     <select name="category" data-placeholder="Select Category">
                         <option value="">--Select Category--</option>
-                        <option value="GETTING STARTED" {{ @$guide->category == 'GETTING STARTED' ? 'selected' : '' }}>GETTING STARTED</option>
-                        <option value="BUYING"          {{ @$guide->category == 'BUYING' ? 'selected' : '' }}>BUYING</option>
-                        <option value="SELLING"         {{ @$guide->category == 'SELLING' ? 'selected' : '' }}>SELLING</option>
-                        <option value="CREATING"        {{ @$guide->category == 'CREATING' ? 'selected' : '' }}>CREATING</option>
-                        <option value="POLICIES"        {{ @$guide->category == 'POLICIES' ? 'selected' : '' }}>POLICIES</option>
-                        <option value="FAQS"            {{ @$guide->category == 'FAQS' ? 'selected' : '' }}>FAQS</option>
-                        <option value="USER SAFETY"     {{ @$guide->category == 'USER SAFETY' ? 'selected' : '' }}>USER SAFETY</option>
-                        <option value="DEVELOPERS"      {{ @$guide->category == 'DEVELOPERS' ? 'selected' : '' }}>DEVELOPERS</option>
-                        <option value="SOLANA"          {{ @$guide->category == 'SOLANA' ? 'selected' : '' }}>SOLANA</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}" @if($category->id == @$guide->categoryId) selected  @endif >{{ $category->name }}</option>
+                        @endforeach
                     </select>
                     <input type="hidden" name="guideId" value="{{@$id}}">
                     <div id="categoryError"></div>

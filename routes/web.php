@@ -13,6 +13,7 @@ use App\Http\Controllers\VideoManagementController;
 use App\Http\Controllers\CryptoJournalController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\ManagePagesController;
+use App\Http\Controllers\GuideCategoryController;
 
 //User controllers
 use App\Http\Controllers\user\HomeController;
@@ -117,6 +118,13 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('delete_guide', [GuideController::class, 'deleteGuide'])->name('delete_guide');
         Route::get('guide_detail/{id}', [GuideController::class, 'guideDetail'])->name('guide_detail');
         Route::get('/filter_guide', [GuideController::class, 'filterGuide'])->name('filter_guide');
+        
+        //Guide Category
+        Route::get('guide_category', [GuideCategoryController::class, 'index'])->name('guide_category');
+        Route::get('add_guide_category/{id?}', [GuideCategoryController::class, 'addCategory'])->name('add_guide_category');
+        Route::post('save_guide_category', [GuideCategoryController::class, 'saveCategory'])->name('save_guide_category');
+        Route::post('delete_guide_category', [GuideCategoryController::class, 'deleteCategory'])->name('delete_guide_category');
+        Route::post('filter_guide_category', [GuideCategoryController::class, 'filterCategory'])->name('filter_guide_category');
 
         //Manage Pages
         Route::get('managePages', [ManagePagesController::class, 'index'])->name('managePages');
