@@ -20,15 +20,11 @@
       </div>
     </section>
 
-<div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
+<div class="container news-banner mb-3">
   @if(@$marketTopBanner->location != null)
       <a href="{{@$marketTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$marketTopBanner->image) }}" width="100%"
       height="auto" alt=""></a>
-  @else
-      <a href="#" class="text-dark" target="_blank"><img
-          src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-          height="auto" alt=""></a>
   @endif
 </div>
 <section class="ftco-section py-5 bg-info-gradient">

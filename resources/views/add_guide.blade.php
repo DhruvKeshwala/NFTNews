@@ -16,7 +16,7 @@
                     <select name="category" data-placeholder="Select Category">
                         <option value="">--Select Category--</option>
                         @foreach($categories as $category)
-                        <option value="{{ $category->id }}" @if($category->id == @$guide->categoryId) selected  @endif >{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" @if($category->id == @$guide->category) selected  @endif >{{ $category->name }}</option>
                         @endforeach
                     </select>
                     <input type="hidden" name="guideId" value="{{@$id}}">

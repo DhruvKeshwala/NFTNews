@@ -20,15 +20,11 @@
       </div>
     </section>
     
-    <div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
+    <div class="container news-banner mb-3">
       @if(@$guideTopBanner->location != null)
           <a href="{{@$guideTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$guideTopBanner->image) }}" width="100%"
           height="auto" alt=""></a>
-      @else
-          <a href="#" class="text-dark" target="_blank"><img
-              src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-              height="auto" alt=""></a>
       @endif
     </div>
     <section class="ftco-section py-5 bg-info-gradient-3">
@@ -43,7 +39,6 @@
                   </div>
                 </div>
 				        <div class="row d-flex">
-                <div class="row d-flex">
                   @if(!empty($guidesCategory))
                     @foreach(@$guidesCategory as $key => $guidesCategoryDetail)
                     <div class="col-md-4 d-flex mb-4 text-center ftco-animate">
@@ -57,9 +52,7 @@
                       </div>
                     </div>
                     @endforeach
-                  @endif
-                   
-                  </div>
+                  @endif                   
                </div>
                
              </div>

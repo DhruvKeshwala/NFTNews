@@ -608,7 +608,7 @@
                 @if (@$guides)
                     @foreach ($guides as $guide)
                         <div class="col-md-3 no-gutters">
-                            <h5 class="text-uppercase">{{ @$guide->category }}</h5>
+                            <h5 class="text-uppercase">{{ @$guide->guideCategory->name}}</h5>
                             <ul class="line-lists">
                                 <li><a
                                         href="{{ url('guideList/' . @$guide->categorySlug . '/' . @$guide->slug) }}">{!! @$guide->question !!}</a>

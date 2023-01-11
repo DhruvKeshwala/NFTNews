@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 /public/uploads
 /uploads
+/.zip

@@ -15,15 +15,11 @@
     </div>
   </section>
 
-  <div class="news-banner mb-3" style="margin-left: 7%;max-width: 86%;">
+  <div class="container news-banner mb-3">
     @if(@$contactTopBanner->location != null)
         <a href="{{@$contactTopBanner->url}}" class="text-dark" target="_blank"><img
         src="{{ URL::asset('uploads/banner/' . @$contactTopBanner->image) }}" width="100%"
         height="auto" alt=""></a>
-    @else
-        <a href="#" class="text-dark" target="_blank"><img
-            src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-            height="auto" alt=""></a>
     @endif
   </div>
 
