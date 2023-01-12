@@ -12,7 +12,7 @@
                         <ul class="slides">
                             @foreach ($result as $data)
                                 @if ($data->is_homeheader == 1)
-                                    <li><img src="{{ URL::asset('uploads/' . $data->image) }}" />
+                                    <li><img src="{{ URL::asset('uploads/' . $data->image) }}" alt="{{ $data->title }}"/>
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
                                             <a

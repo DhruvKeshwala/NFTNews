@@ -101,7 +101,7 @@ $settings = \App\Models\Settings::first();
    	<nav class="navbar navbar-expand-lg navbar-dark pb-2 ftco_navbar ftco-navbar-light" id="ftco-navbar">
          
      <div class="container">
-       <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('assets/user/images/nft-logo.svg')}}" width="210" height="35" alt=""></a>
+       <a class="navbar-brand" href="{{route('user.home')}}"><img src="{{ URL::asset('assets/user/images/nft-logo.svg')}}" alt="NFTNews" width="210" height="35" alt=""></a>
         <div class="searchform order-sm-start order-lg-last">
           <a href="#" class="btn text-uppercase btn-outline-light-gradient border pt-2 px-3 pb-1" data-toggle="modal" data-target="#myModalSubscribe">Subscribe</a>
           @if (@$settings->twitter)
@@ -153,7 +153,7 @@ $settings = \App\Models\Settings::first();
             <div class="modal-body">
              <button type="button" class="close" data-dismiss="modal">&times;</button>
              <div class="row py-4">
-                <div class="col-md-6"><img src="{{ URL::asset('user/images/newsletter-popup-image-1.jpg') }}" width="100%" height="auto" alt=""></div>
+                <div class="col-md-6"><img src="{{ URL::asset('user/images/newsletter-popup-image-1.jpg') }}" alt="NFTNews" width="100%" height="auto" alt=""></div>
                 <div class="col-md-6">
                     <h5 class="modal-title">THE MOST POPULAR</h5>
                     <h3 class="modal-title mb-3">NFTs IN THE MARKET</h3>
@@ -189,7 +189,7 @@ $settings = \App\Models\Settings::first();
       <div class="container">
       	<div class="row border-top pt-3 pb-2 border-bottom px-3">
           <div class="col-md-4 align-items-center text-md-left text-center mb-4 mb-md-2">
-            <img src="{{ URL::asset('images/logo.png')}}" width="210" height="35" alt="" />
+            <img src="{{ URL::asset('images/logo.png')}}" alt="NFTNews" width="210" height="35" alt="" />
           </div>
           <div class="col-md-4 text-center pt-md-1 text-light">ADVERTISE WITH US? <a href="{{route('user.contact')}}" class="btn-outline-light-gradient text-light btn border py-1 align-middle ml-md-5 btn-sm px-3">ENQUIRE</a></div>
           <div class="col-md-4 text-md-right text-center">

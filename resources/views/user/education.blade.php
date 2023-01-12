@@ -50,7 +50,7 @@
 <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" alt=""></div>
+         	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" alt="{{@$page->title}}"></div>
             <div class="col-md-12">
             	<h5 class="modal-title">{{@$page->title}}</h5>
 		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
