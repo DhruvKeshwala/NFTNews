@@ -1,6 +1,10 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | News')
+@if(@$newsDetail->metaTitle != null)
+  @section('title', @$newsDetail->metaTitle)
+@else
+  @section('title', 'NFT Markets | News')
+@endif
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">
@@ -56,10 +60,10 @@
                               </div>
                           </div>
                           <div class="col-md-8">
-                              <p><strong>Name</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->name}}</p>
-                              <p><strong>Short Bio</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->short_bio}}</p>
-                              <p><strong>Social Media Link</strong>&nbsp;&nbsp;&nbsp;<a target="_blank" href="{{@$newsDetail->author->twitterLink}}"><i class="fa fa-twitter"></i></a>
-                          <a target="_blank" href="{{@$newsDetail->author->linkedInLink}}"><i class="fa fa-globe"></i></a></p>
+                              <h4><strong>Name</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->name}}</h4>
+                              <h4><strong>Short Bio</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->short_bio}}</h4>
+                              <h4><strong>Social Media Link</strong>&nbsp;&nbsp;&nbsp;<a target="_blank" href="{{@$newsDetail->author->twitterLink}}" class="a2a_button_twitter"></a>
+                          <a target="_blank" href="{{@$newsDetail->author->linkedInLink}}"><i class="fa fa-globe"></i></a></h4>
                           </div>
                       </div>
                   </div>

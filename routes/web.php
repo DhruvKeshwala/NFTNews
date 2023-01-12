@@ -222,5 +222,7 @@ Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideLi
 Route::get('pressRelease', [UserPressController::class, 'index'])->name('user.pressRelease');
 Route::post('pressRelease', [UserPressController::class, 'filterPress'])->name('user.filterPress');
 
+// Route::post('send_mail', [UserPressController::class, 'sendMail'])->name('send_mail');
+
 Route::post('send_mail', [UserPressController::class, 'sendMail'])->name('send_mail');
 

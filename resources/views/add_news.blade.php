@@ -32,7 +32,7 @@
                             <option value="{{$author->id}}" @if($author->id == @$news->authorId) selected @endif>{{$author->name}}</option>
                         @endforeach
                     </select>
-                    <div id="authorIdError"></div>
+                    {{-- <div id="authorIdError"></div> --}}
                 </td>
             </tr>
 
@@ -287,11 +287,11 @@
         //     flag = 0;
         //     $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
         // }
-        if (authorId == '' || authorId == null) 
-        {
-            flag = 0;
-            $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
-        } 
+        // if (authorId == '' || authorId == null) 
+        // {
+        //     flag = 0;
+        //     $("#authorIdError").html('<span class="errorMessage" style="color:red;">Author Required</span>');
+        // } 
         if (title == '') 
         {
             flag = 0;
@@ -324,11 +324,11 @@
         //     return url.protocol === "http:" || url.protocol === "https:";
         // }
         // // URL validation
-        if(videoURL != '' && isValidHttpUrl(videoURL) == false)
-        {
-            flag = 0;
-            $("#videoURLPatternError").html('<span class="errorMessage" style="color:red;">Given Invalid URL..</span>');
-        }
+        // if(videoURL != '' && isValidHttpUrl(videoURL) == false)
+        // {
+        //     flag = 0;
+        //     $("#videoURLPatternError").html('<span class="errorMessage" style="color:red;">Given Invalid URL..</span>');
+        // }
         if(flag == 1) 
         {
             var saveBtn                 = document.getElementById("saveBtn");

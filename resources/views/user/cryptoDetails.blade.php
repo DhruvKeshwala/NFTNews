@@ -1,6 +1,10 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | Crypto Journal')
+@if(@$cryptoDetail->metaTitle != null)
+  @section('title', @$cryptoDetail->metaTitle)
+@else
+  @section('title', 'NFT Markets | Crypto Journal')
+@endif
 
 @section('content')
 

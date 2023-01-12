@@ -1,6 +1,10 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | Eduction')
+@if(@$page->metaTitle != null)
+  @section('title', @$page->metaTitle)
+@else
+  @section('title', 'NFT Markets | Eduction')
+@endif
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">
@@ -34,10 +38,10 @@
                 
                 <!-- SUBSCRIBE FORM -->
 
-                <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
+                {{-- <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
                    MAKE ENQUIRY
                    <i class="fa fa-paper-plane"></i>
-                </a>
+                </a> --}}
            </div>
          </div>
     	</div>

@@ -52,7 +52,7 @@
                 <table class="webforms sttbl mt-0">
                     <tr>
                         <td><b>Category</b></td>
-                        <td>{{ @$guide->category }}</td>
+                        <td>{{ @$guide->guideCategory->name }}</td>
                     </tr>
                     <tr>
                         <td><b>Question</b></td>

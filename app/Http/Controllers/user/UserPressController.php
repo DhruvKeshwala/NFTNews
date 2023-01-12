@@ -12,6 +12,7 @@ use App\Models\Banner;
 use App\Models\News;
 use Carbon\Carbon;
 use Mail;
+use App\Mail\subscribeMail;
 
 class UserPressController extends Controller
 {
@@ -113,13 +114,30 @@ class UserPressController extends Controller
         return view('user.pressRelease', compact('banners', 'pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
     }
 
+    // public function sendMail(Request $request)
+    // {
+    //     $email = $request->email;
+    //     Mail::send('mailForSubscribe', ['email' => $email], function ($message) use ($email){
+    //         $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Subscription Request.');
+    //         $message->from($email,'NFT News');
+    //     });
+    //     return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+    // }
+
     public function sendMail(Request $request)
     {
+        // return view('welcome'); 
         $email = $request->email;
-        Mail::send('mailForSubscribe', ['email' => $email], function ($message) use ($email){
-            $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Subscription Request.');
-            $message->from($email,'NFT News');
-        });
+        Mail::to($email)->send(new subscribeMail($email));
+        
+        // Mail::to('desaipratik595@gmail.com')->send(new subscribeMail($email), ['email' => $email], function ($message) use ($email){
+        //     $message->from('email');
+        // });
+       
+
+
+        // Mail::to('info@infinitedryer.com', 'NFT News | Admin')->send(new subscribeMail(), ['email' => $email], function ($message) use ($email){$message->from('email','NFT News');
+        // });
         return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
     }
     

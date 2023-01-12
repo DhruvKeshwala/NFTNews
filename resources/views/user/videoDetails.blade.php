@@ -1,6 +1,10 @@
 @extends('layouts.user.header')
+@if(@$videoDetail->metaTitle != null)
+  @section('title', @$videoDetail->metaTitle)
+@else
+ @section('title', 'NFT Markets | Videos')
+@endif
 
-@section('title', 'NFT Markets | Videos')
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">

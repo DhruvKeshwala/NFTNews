@@ -1,6 +1,11 @@
 @extends('layouts.user.header')
 
-@section('title', 'NFT Markets | NFT Drops')
+@if(@$nftDropDetail->metaTitle != null)
+  @section('title', @$nftDropDetail->metaTitle)
+@else
+  @section('title', 'NFT Markets | NFT Drops')
+@endif
+
 
 @section('content')
 <section class="hero-wrap hero-wrap-2">

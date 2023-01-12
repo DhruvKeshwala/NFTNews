@@ -61,7 +61,7 @@ class NewsController extends Controller
         $request->validate([
             'title'             => 'required',
             'categoryId'        => 'required',
-            'authorId'          => 'required',
+            // 'authorId'          => 'required',
             'shortDescription'  => 'required',
             'fullDescription'   => 'required',
             // 'videoURL'          => 'required',

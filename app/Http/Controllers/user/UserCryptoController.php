@@ -19,7 +19,7 @@ class UserCryptoController extends Controller
      */
     public function index()
     {
-        $cryptoJournals   = CryptoJournal::orderby('id','desc')->paginate(10);
+        $cryptoJournals   = CryptoJournal::orderby('id','desc')->paginate(12);
         $banners = Banner::where('location', 'cryjounfull')->first();
         return view('user.cryptoJournals', compact('cryptoJournals','banners'));
     }
@@ -58,7 +58,7 @@ class UserCryptoController extends Controller
             //      $dm->where('newsType->featurednew->start_date','<=', $currentDate);
             //      $dm->where('newsType->featurednew->end_date','>=', $currentDate);
             // }
-        })->orderby('id','desc')->paginate(20);
+        })->orderby('id','desc')->paginate(50);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 

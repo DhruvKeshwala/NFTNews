@@ -1,3 +1,7 @@
+@php
+$settings = \App\Models\Settings::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,22 +30,23 @@
 
     <meta property="og:locale" content="en_in" >
 
-    <meta property="og:url" content="[WEBSITE_URL]" >
+    <meta property="og:url" content="{{URL::current()}}" >
 
     <meta property="og:title" content="{{(@$newsDetail->metaTitle != null) ? @$newsDetail->metaTitle : ((@$page->metaTitle != null) ? @$page->metaTitle : ((@$nftDropDetail != null) ? @$nftDropDetail->metaTitle : ((@$videoDetail->metaTitle != null) ? @$videoDetail->metaTitle : ((@$cryptoDetail->metaTitle != null) ? @$cryptoDetail->metaTitle : ((@$pressDetail->metaTitle != null) ? @$pressDetail->metaTitle : 'Meta Title')))))  }}" >
 
     <meta property="og:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
 
-    <meta property="og:image" content="[IMAGE]" >
+    <meta property="og:image" content="{{URL::asset('images/logo.png')}}" >
 
     <meta property="og:image:type" content="image/jpg" >
 
-    <meta property="og:site_name" content="[WEBSITE_NAME]" >
-
-    <meta property="og:see_also" content="[TWITTER-URL]" >
-
-    <meta property="og:see_also" content="[FACEBOOK_URL]" >
-
+    <meta property="og:site_name" content="NFT Markets" >
+    @if(@$settings->twitter != null || @$settings->twitter != '')
+      <meta property="og:see_also" content="{{$settings->twitter}}" >
+    @endif
+    @if(@$settings->facebook != null || @$settings->facebook != '')
+      <meta property="og:see_also" content="{{$settings->facebook}}" >
+    @endif
     <meta name="twitter:card" content="summary">
 
     <meta name="twitter:site" content="[TWITTER_USERNAME_WITH_@]">
@@ -49,7 +54,7 @@
 
     <meta name="twitter:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
 
-    <meta name="twitter:image" content="[IMAGE]" >
+    <meta name="twitter:image" content="{{URL::asset('images/Twitter_Logo.png')}}" >
 
   </head>
   <body>

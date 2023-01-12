@@ -88,25 +88,25 @@ a:hover {
                 </tr>
             </thead>
             <tbody>
-                @if (count($guide)<=0)
+                @if (count(@$guide)<=0)
                 <tr>
                     <td colspan="5" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($guide as $newsDetails)
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>{{$newsDetails->guideCategory->name}}</td>
-                    <td>{!!substr($newsDetails->question, 0, 50)!!}.. </td>
-                    <td>{!!substr($newsDetails->answer, 0, 50)!!}.. </td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>{{@$newsDetails->guideCategory->name}}</td>
+                    <td>{!!substr(@$newsDetails->question, 0, 50)!!}.. </td>
+                    <td>{!!substr(@$newsDetails->answer, 0, 50)!!}.. </td>
                     <td>
-                        <a title="Edit" href="{{ route('add_guide',$newsDetails->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_guide',@$newsDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a href="javascript:;" onclick="deleteGuide('{{$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
+                        <a href="javascript:;" onclick="deleteGuide('{{@$newsDetails->id}}')" title="Delete" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a> 
-                        <a href="{{ route('guide_detail',$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                        <a href="{{ route('guide_detail',@$newsDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>
                         </a>
                     </td>
