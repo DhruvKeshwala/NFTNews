@@ -16,6 +16,30 @@ a:hover {
 
     <div class="container_fluid mt-2 px-3">
         {{ $pressRelease->links('vendor.pagination.custom') }}
+        <br>
+        <table class="webforms sttbl bg-light my-0 table-responsive-sm">
+          <tbody><tr>
+            <form action="{{ route('filter_pressRelease') }}" method="get">
+                @csrf
+                <td class="pr-0"><input type="text" name="filterPressTitle" size="45" placeholder="Title" value="<?php 
+                if (!empty($_GET['filterPressTitle'])) {
+                    $q = $_GET['filterPressTitle'];
+                    echo $q;
+                } ?>"></td>
+                <td><select name="filterCategoryId" data-placeholder="Select Category">
+                        <option value="">Select Categories</option>
+                        @foreach($categories as $category)
+                        <option value="{{ @$category->id }}" <?php 
+                            if (!empty($_GET['filterCategoryId']) && $_GET['filterCategoryId'] == @$category->id) 
+                            {
+                            ?>   selected
+                            <?php } ?>>{{ @$category->name }}</option>
+                        @endforeach
+                    </select></td>
+                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+            </form>
+          </tr>
+         </tbody></table>
         <table class="table mt-2 table-responsive-sm">
             <thead>
                 <tr>

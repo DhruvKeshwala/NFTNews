@@ -23,7 +23,7 @@
         </div>
         <div class="modal-body">
          <div class="row">
-         	<div class="col-md-5"><img src="{{ URL::asset('images/newsletter-popup-image-1.jpg') }}" width="100%" height="auto" alt=""></div>
+         	<div class="col-md-5"><img src="{{ URL::asset('images/newsletter-popup-image-1.jpg') }}" width="100%" height="auto" alt="Popup Image"></div>
             <div class="col-md-7">
             	<h5 class="modal-title">THE MOST POPULAR</h5>
 		        <h3 class="modal-title mb-3">NFTs IN THE MARKET</h3>

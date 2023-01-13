@@ -19,7 +19,7 @@
     @if(@$contactTopBanner->location != null)
         <a href="{{@$contactTopBanner->url}}" class="text-dark" target="_blank"><img
         src="{{ URL::asset('uploads/banner/' . @$contactTopBanner->image) }}" width="100%"
-        height="auto" alt=""></a>
+        height="auto" alt="Banner Image"></a>
     @endif
   </div>
 

@@ -15,7 +15,7 @@
            <tbody>
              @foreach($allDropManagement as $dropManagement)
               <tr>
-                  <td><img src="{{URL::asset('uploads/' . @$dropManagement->logo) }}" class="rounded-pill" width="34" height="34" alt="" /></td>
+                  <td><img src="{{URL::asset('uploads/' . @$dropManagement->logo) }}" class="rounded-pill" width="34" height="34" alt="NFT DROP Logo" /></td>
                   <td>{{@$dropManagement->name}}</td>
                   <td>{{@$dropManagement->token}}</td>
                   <td><strong>{{@$dropManagement->blockChain}}</strong></td>

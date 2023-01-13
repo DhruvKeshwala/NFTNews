@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guide;
+use App\Models\GuideCategory;
 use Illuminate\Http\Request;
 use App\Services\GuideService;
 use Illuminate\Support\Str;
@@ -18,7 +19,8 @@ class GuideController extends Controller
     public function index()
     {
         $guide = GuideService::getGuide();
-        return view('guide', compact('guide'));
+        $categories  = GuideCategory::all();
+        return view('guide', compact('guide', 'categories'));
     }
 
     public function addGuide($id=null)
@@ -57,12 +59,13 @@ class GuideController extends Controller
 
     public function filterGuide(Request $request)
     {
-        $category = $request->category;
-        // if($category == '' | $category == null)
-        //     $guide = Guide::get();
-        // else
-        $guide       = Guide::where('category', $category)->orderby('id','desc')->paginate(10);
-        return view('guide', compact('guide'));
+        $category = $request->filterCategoryId;
+        if($category == '' | $category == null)
+            $guide = Guide::orderby('id','asc')->paginate(10);
+        else
+            $guide       = Guide::where('category', $category)->orderby('id','desc')->paginate(10);
+        $categories  = GuideCategory::all();
+        return view('guide', compact('guide', 'categories'));
     }
 
     public function deleteGuide(Request $request)

@@ -50,42 +50,60 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
+                    @if($news->image != null)
                     <tr>
                         <td><b>Image 1</b></td>
-                        <td>@if($news->image != null)<img src="{{asset('uploads/').'/'.$news->image}}" width="100">@endif</td>
+                        <td><img src="{{asset('uploads/').'/'.$news->image}}" width="100"></td>
                     </tr>
+                    @endif
+                    @if($news->article_1 != null)
                     <tr>
                         <td><b>Image 2</b></td>
-                        <td>@if($news->article_1 != null)<img src="{{asset('uploads/').'/'.$news->article_1}}" width="100"> @else No Image Found.. @endif</td>
+                        <td><img src="{{asset('uploads/').'/'.$news->article_1}}" width="100"></td>
                     </tr>
+                    @endif
+                    @if($news->article_2 != null)
                     <tr>
                         <td><b>Image 3</b></td>
-                        <td>@if($news->article_2 != null)<img src="{{asset('uploads/').'/'.$news->article_2}}" width="100"> @else No Image Found.. @endif</td>
+                        <td><img src="{{asset('uploads/').'/'.$news->article_2}}" width="100"></td>
                     </tr>
+                    @endif
+                    @if($news->metaTitle != null)
                     <tr>
                         <td><b>Meta Title</b></td>
                         <td>{{ $news->metaTitle }}</td>
                     </tr>
+                    @endif
+                    @if($news->description != null)
                     <tr>
                         <td><b>Meta Description</b></td>
                         <td>{{ $news->description }}</td>
                     </tr>
+                    @endif
+                    @if($news->keywords != null)
                     <tr>
                         <td><b>Meta Keywords</b></td>
                         <td>{{ $news->keywords }}</td>
                     </tr>
+                    @endif
+                    @if($news->shortDescription != null)
                     <tr>
                         <td><b>Short Description</b></td>
                         <td>{{ $news->shortDescription }}</td>
                     </tr>
+                    @endif
+                    @if($news->fullDescription != null)
                     <tr>
                         <td><b>Full Description</b></td>
                         <td>{!! $news->fullDescription !!}</td>
                     </tr>
+                    @endif
+                    @if($news->videoURL != null)
                     <tr>
                         <td><b>Video URL</b></td>
                         <td><a href="{{ $news->videoURL }}" target="_blank">Link</td>
                     </tr>
+                    @endif
                     @php
                     $dateArray = json_decode(@$news->newsType,true);
                     @endphp

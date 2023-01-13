@@ -60,8 +60,11 @@ class UserNewsController extends Controller
             $title      = $request->homeSearch;
             $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
         }
+        $categories     = Category::all();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
-        return view('user.news', compact('allNews', 'getAllNewses', 'innerSideBanner'));
+        $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
+
+        return view('user.news', compact('categories', 'allNews', 'getAllNewses', 'innerSideBanner', 'newsTopBanner'));
     }
 
     public function newsDetail($id)

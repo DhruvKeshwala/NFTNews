@@ -19,13 +19,11 @@
         </div>
       </div>
     </section>
-    
+
     <div class="container news-banner mb-3">
-      @if(@$guideTopBanner->location != null)
           <a href="{{@$guideTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$guideTopBanner->image) }}" width="100%"
-          height="auto" alt=""></a>
-      @endif
+          height="auto" alt="Top Banner Image"></a>
     </div>
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">

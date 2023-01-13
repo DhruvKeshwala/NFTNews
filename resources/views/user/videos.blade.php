@@ -13,7 +13,7 @@
         </div>
       </div>
     </section>
-    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt=""></a></div>
+    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="Top Banner Image"></a></div>
     
     <section class="ftco-section py-5 bg-info-gradient">
        <div class="container">
@@ -63,7 +63,7 @@
         @foreach($videos as $video)
         <div class="col-md-3"> 
        	  <figure class="effect-lily play">
-           <img src="{{URL::asset('uploads/'. @$video->image1)}}" width="100%" class="img-fluid w-100 h-auto" alt="">
+           <img src="{{URL::asset('uploads/'. @$video->image1)}}" width="100%" class="img-fluid w-100 h-auto" alt="{{@$video->title}}">
            <figcaption>
             <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Quick View</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
            </figcaption>

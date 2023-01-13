@@ -20,11 +20,11 @@
 </section>
 
 <div class="container news-banner mb-3">
-  @if(@$newsTopBanner->location != null)
+  {{-- @if(@$newsTopBanner->location != null) --}}
       <a href="{{@$newsTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$newsTopBanner->image) }}" width="100%"
-      height="auto" alt=""></a>
-  @endif
+      height="auto" alt="Top Banner Image"></a>
+  {{-- @endif --}}
 </div>
 
   
@@ -112,8 +112,8 @@
           	
             @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
-                  <a href="{{$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $innerSideBanner->image) }}"
-                          width="100%" height="auto" alt=""></a>
+                  <a href="{{@$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$innerSideBanner->image) }}"
+                          width="100%" height="auto" alt="Side Banner Image"></a>
               </div>
             @endif
           	 {{-- <div class="sidebar-box">
@@ -151,7 +151,7 @@
                 @foreach($resultFeaturedNews as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
-                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt=""/></a></div>
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
                         <div class="text">
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
@@ -182,7 +182,7 @@
             {{-- Ad Banner small --}}
             <div class="col-md-4 d-flex ftco-animate rounded">
               <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="Middle List Ad Banner" class="img-fluid"></a>
               </div>
             </div>
             <div class="col-md-4 d-flex ftco-animate">
@@ -205,7 +205,7 @@
           @elseif($i==6 || ($i-$ln2)==5)
             {{-- horizontal Ad --}}
             <div class="col-md-12 d-flex mb-4 ftco-animate">
-              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
+              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" alt="Banner Full Width Image" class="img-fluid rounded">
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">

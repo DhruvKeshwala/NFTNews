@@ -17,14 +17,14 @@
   @if(@$advertiseTopBanner->location != null)
       <a href="{{@$advertiseTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$advertiseTopBanner->image) }}" width="100%"
-      height="auto" alt=""></a>
+      height="auto" alt="Banner Image"></a>
   @endif
 </div>
 
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-5"><img src="{{ URL::asset('images/middle-list-ads.jpg')}}" width="100%" height="auto" alt=""></div>
+         	<div class="col-md-5"><img src="{{ URL::asset('images/middle-list-ads.jpg')}}" width="100%" height="auto" alt="Banner Image"></div>
             <div class="col-md-7">
             	<h5 class="modal-title">THE MOST POPULAR</h5>
 		        <h3 class="modal-title mb-3">NFTs IN THE MARKET</h3>

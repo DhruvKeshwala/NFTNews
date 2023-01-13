@@ -86,7 +86,7 @@
                   <li><span class="material-icons">image</span><a class="fill-a" href="@if(Request::segment(1) == 'banner') {{'#'}} @else {{route('banner')}} @endif">Banner</a></li>
                   <li><span class="material-icons">euro</span><a class="fill-a" href="@if(Request::segment(1) == 'dropManagement') {{'#'}} @else {{route('dropManagement')}} @endif">NFT Drops</a></li>
                   <li><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
-                  <li><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide_category')}}">Guide Category</a></li>
+                  <li><span class="material-icons">category</span><a class="fill-a" href="{{route('guide_category')}}">Guide Category</a></li>
                   <li><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide')}}">Guide</a></li>
                   <li><span class="material-icons">assignment</span><a class="fill-a" href="{{route('managePages')}}">Manage Pages</a></li>
                   <li><span class="material-icons">password</span><a class="fill-a" href="{{ route('changePassword') }}">Change Password</a></li>

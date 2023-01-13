@@ -21,7 +21,7 @@
       @if(@$educationTopBanner->location != null)
           <a href="{{@$educationTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$educationTopBanner->image) }}" width="100%"
-          height="auto" alt=""></a>
+          height="auto" alt="Top Banner Image"></a>
       @endif
     </div>
 
@@ -29,7 +29,7 @@
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" alt=""></div>
+         	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" alt="{{@$page->title}}"></div>
             <div class="col-md-7">
             	<h5 class="modal-title">{{@$page->title}}</h5>
 		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>

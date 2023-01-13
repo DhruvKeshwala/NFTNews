@@ -24,7 +24,7 @@
   @if(@$marketTopBanner->location != null)
       <a href="{{@$marketTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$marketTopBanner->image) }}" width="100%"
-      height="auto" alt=""></a>
+      height="auto" alt="Top Market Banner"></a>
   @endif
 </div>
 <section class="ftco-section py-5 bg-info-gradient">
@@ -80,7 +80,7 @@
             {{-- Ad Banner small --}}
             <div class="col-md-4 d-flex ftco-animate rounded">
               <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="" class="img-fluid"></a>
+                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="Middle List Ad Banner" class="img-fluid"></a>
               </div>
             </div>
             <div class="col-md-4 d-flex ftco-animate">
@@ -103,7 +103,7 @@
           @elseif($i==6 || ($i-$ln2)==5)
             {{-- horizontal Ad --}}
             <div class="col-md-12 d-flex mb-4 ftco-animate">
-              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" class="img-fluid rounded">
+              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" alt="Banner Full Width" class="img-fluid rounded">
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">

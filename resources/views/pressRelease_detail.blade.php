@@ -50,36 +50,46 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
-                    <tr>
-                        <td><b>Image 1</b></td>
-                        <td>@if($pressRelease->image != null)<img src="{{asset('uploads/').'/'.$pressRelease->image}}" width="100">@endif</td>
-                    </tr>
-                    <tr>
-                        <td><b>Image 2</b></td>
-                        <td>@if($pressRelease->article_1 != null)<img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"> @else No Image Found.. @endif</td>
-                    </tr>
-                    <tr>
-                        <td><b>Title</b></td>
-                        <td>{{ $pressRelease->title }}</td>
-                    </tr>
+                    @if($pressRelease->image != null)
+                        <tr>
+                            <td><b>Image 1</b></td>
+                            <td><img src="{{asset('uploads/').'/'.$pressRelease->image}}" width="100"></td>
+                        </tr>
+                    @endif
+                    @if($pressRelease->article_1 != null)
+                        <tr>
+                            <td><b>Image 2</b></td>
+                            <td><img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"></td>
+                        </tr>
+                    @endif
+                    @if($pressRelease->title != null)
+                        <tr>
+                            <td><b>Title</b></td>
+                            <td>{{ $pressRelease->title }}</td>
+                        </tr>
+                    @endif
+                    @if($pressRelease->shortDescription != null)
                     <tr>
                         <td><b>Short Description</b></td>
                         <td>{{ $pressRelease->shortDescription }}</td>
                     </tr>
+                    @endif
+                    @if($pressRelease->fullDescription != null)
                     <tr>
                         <td><b>Full Description</b></td>
                         <td>{!! $pressRelease->fullDescription !!}</td>
                     </tr>
+                    @endif
                     @php
                     $dateArray = json_decode(@$pressRelease->pressType,true);
                     @endphp
                     @foreach(config('constant.press_type') as $key=>$presstype)
-											@if (!empty(@$dateArray[$key]['start_date']) && !empty(@$dateArray[$key]['end_date']))
-												<tr>
-													<td><b>{{ $presstype }}</b></td>
-													<td><b>From : </b>{{ @$dateArray[$key]['start_date'] ? @$dateArray[$key]['start_date'] : '' }} <b>To :</b>{{ @$dateArray[$key]['end_date'] ? @$dateArray[$key]['end_date'] : '' }}</td>
-												</tr>
-											@endif
+                        @if (!empty(@$dateArray[$key]['start_date']) && !empty(@$dateArray[$key]['end_date']))
+                            <tr>
+                                <td><b>{{ $presstype }}</b></td>
+                                <td><b>From : </b>{{ @$dateArray[$key]['start_date'] ? @$dateArray[$key]['start_date'] : '' }} <b>To :</b>{{ @$dateArray[$key]['end_date'] ? @$dateArray[$key]['end_date'] : '' }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                     
                     {{-- <tr>

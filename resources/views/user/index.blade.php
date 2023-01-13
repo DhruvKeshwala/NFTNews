@@ -39,15 +39,15 @@
                                 <p class="flex-caption-small w-auto">
                                     <span class="nwscpt">NEWS</span>
                                     <a
-                                        href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[0]]->slug]) }}">{{ $featured_news[$random_keys[0]]->title }}</a><br><span
+                                        href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}">{{ @$featured_news[$random_keys[0]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
-                                        {{ $featured_news[$random_keys[0]]->created_at->diffForHumans() }}</span>
+                                        {{ @$featured_news[$random_keys[0]]->created_at->diffForHumans() }}</span>
                                 </p>
                                 <div class="media">
-                                    <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[0]]->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}"
                                         class="image-link"><img
-                                            src="{{ URL::asset('uploads/' . $featured_news[$random_keys[0]]->article_1) }}"
-                                            width="100%" height="auto" alt=""></a>
+                                            src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[0]]->article_1) }}"
+                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"></a>
                                 </div>
                             </div>
                         @endif
@@ -57,16 +57,16 @@
                                 <p class="flex-caption-small w-auto">
                                     <span class="nwscpt">NEWS</span>
                                     <a
-                                        href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[1]]->slug]) }}">{{ $featured_news[$random_keys[1]]->title }}</a><br><span
+                                        href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}">{{ @$featured_news[$random_keys[1]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
-                                        {{ $featured_news[$random_keys[1]]->created_at->diffForHumans() }}</span>
+                                        {{ @$featured_news[$random_keys[1]]->created_at->diffForHumans() }}</span>
                                 </p>
 
                                 <div class="media">
-                                    <a href="{{ route('user.news_detail', ['id' => $featured_news[$random_keys[1]]->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}"
                                         class="image-link">
-                                        <img src="{{ URL::asset('uploads/' . $featured_news[$random_keys[1]]->article_1) }}"
-                                            width="100%" height="auto" alt="">
+                                        <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[1]]->article_1) }}"
+                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[1]]->title }}<">
                                     </a>
                                 </div>
 
@@ -110,11 +110,11 @@
                                 @if(@$homeTopBanner->location != null)
                                     <a href="{{@$homeTopBanner->url}}" class="text-dark" target="_blank"><img
                                     src="{{ URL::asset('uploads/banner/' . @$homeTopBanner->image) }}" width="100%"
-                                    height="auto" alt=""></a>
+                                    height="auto" alt="Home Top Banner"></a>
                                 @else
                                     <a href="#" class="text-dark" target="_blank"><img
                                         src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-                                        height="auto" alt=""></a>
+                                        height="auto" alt="Home Top Banner"></a>
                                 @endif
                             </div>
                             <div class="allNews"></div>
@@ -156,7 +156,7 @@
                     @if(@$homeSideBanner->location)
                         <div class="sidebar-box">
                             <a href="{{@$homeSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$homeSideBanner->image) }}"
-                                    width="100%" height="auto" alt=""></a>
+                                    width="100%" height="auto" alt="Home Page Side Banner"></a>
                         </div>
                     @endif
 
@@ -238,7 +238,7 @@
                             <div class="play">
                               <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
                                 <img src="{{ URL::asset('uploads/' . @$videos[0]->image1) }}" height="300"
-                                    width="100%" class="img-video" />
+                                    width="100%" class="img-video" alt="{{ @$videos[0]->title}}" />
                               </a>
                             </div>
                         </div> <!-- col-md-6 end -->
@@ -254,7 +254,7 @@
                                         <div class="item play">
                                             <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img
                                                     src="{{ URL::asset('uploads/' . @$video->image1) }}" width="100%"
-                                                    height="auto" alt=""></a>
+                                                    height="auto" alt="{{ @$video->title}}"></a>
                                             <span class="text-light d-block mt-2"
                                                 title="{{ @$video->title }}">{{ substr(@$video->title, 0, 30) }}..</span>
                                             <p class="text-justify"><a
@@ -302,7 +302,7 @@
                 </div>
                 <div class="col-md-6 p-4">
                     <img src="{{URL::asset('uploads/' . @$cryptoJournals->image)}}" class="img"
-                        width="100%" height="337" alt="">                        
+                        width="100%" height="337" alt="{{ @$cryptoJournals->title}}">                        
                 </div>
                 @endif
             </div>
@@ -324,7 +324,7 @@
                         @if ($data->is_featuredDrop == 1)
                             <div class="item grid">
                                 <figure class="effect-lily">
-                                    <img src="{{ URL::asset('uploads/' . @$data->article_2) }}" alt="img12" />
+                                    <img src="{{ URL::asset('uploads/' . @$data->article_2) }}" alt="{{@$data->title}}" class="text-white"/>
                                     <figcaption>
                                         <div>
                                             <h2><small
@@ -388,8 +388,8 @@
                     <tbody>
                         @foreach ($allDropManagement as $dropManagement)
                             <tr>
-                                <td><img src="@if ($dropManagement->logo != null) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif"
-                                        class="rounded-pill" width="34" height="34" alt="" /></td>
+                                <td><img src="@if (@$dropManagement->logo != null) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif"
+                                        class="rounded-pill" width="34" height="34" alt="{{@$dropManagement->name}}" /></td>
                                 <td>{{ @$dropManagement->name }}</td>
                                 <td>{{ @$dropManagement->token }}</td>
                                 <td><strong>{{ @$dropManagement->blockChain }}</strong></td>
@@ -442,7 +442,7 @@
                                     <div class="align-items-center justify-content-center"><a
                                             href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img
                                                 src="{{ URL::asset('uploads/' . @$news->article_1) }}" width="100%"
-                                                class="img-thumbnail" height="auto" alt="" /></a></div>
+                                                class="img-thumbnail" height="auto" alt="{{@$new->title}}" /></a></div>
                                     <div class="text">
                                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                                 class="text-dark">{{ @$news->title }}</a></h4>
@@ -484,10 +484,10 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="" class="img-fluid"></a>
+                                            width="100%" alt="Banner" class="img-fluid"></a>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
-                                            width="100%" alt="" class="img-fluid"></a>
+                                            width="100%" alt="Banner" class="img-fluid"></a>
                                     @endif
                                 </div>
                             </div>
@@ -527,10 +527,10 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded"></a>
+                                    height="auto" class="img-fluid rounded" alt="Banner Full Width"></a>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
-                                    height="auto" class="img-fluid rounded"></a>
+                                    height="auto" class="img-fluid rounded" alt="Banner Full Width"></a>
                                     @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
@@ -640,35 +640,35 @@
                     <div class="logos-carousel owl-carousel ftco-owl">
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo01.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo1">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo02.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo2">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo03.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo3">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo04.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo4">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo05.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo5">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo06.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo6">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo07.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo7">
                         </div>
                         <div class="item">
                             <img src="{{ URL::asset('assets/user/images/logo08.jpg') }}" width="auto" height="72"
-                                class="w-auto m-auto" alt="">
+                                class="w-auto m-auto" alt="Company Logo8">
                         </div>
 
                     </div>

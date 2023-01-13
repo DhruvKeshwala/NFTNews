@@ -22,9 +22,18 @@ a:hover {
             <form action="{{ route('filter_guide') }}" method="get">
                 @csrf
                 <td class="pr-0">
-                    <select name="category" data-placeholder="Select Category">
+                    <select name="filterCategoryId" data-placeholder="Select Category">
                         <option value="">--Select Category--</option>
-                        <option value="GETTING STARTED" <?php 
+                        @foreach($categories as $category)
+                        <option value="{{ @$category->id }}" <?php 
+                            if (!empty($_GET['filterCategoryId']) && $_GET['filterCategoryId'] == @$category->id) 
+                            {
+                            ?>   selected
+                            <?php } ?>>{{ @$category->name }}</option>
+                        @endforeach
+
+
+                        {{-- <option value="GETTING STARTED" <?php 
                             if (!empty($_GET['category']) && $_GET['category'] == 'GETTING STARTED') 
                             {
                             ?>   selected
@@ -69,7 +78,7 @@ a:hover {
                             {
                             ?>   selected
                             <?php } ?>>SOLANA</option>
-                    </select>
+                    </select> --}}
                 </td>
                 <td></td>
                 <td></td>

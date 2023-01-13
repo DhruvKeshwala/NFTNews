@@ -26,7 +26,8 @@ class PressReleaseController extends Controller
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
             $value['category'] = implode(',',$categories);
         }
-        return view('pressRelease', compact('pressRelease'));
+        $categories  = Category::all();
+        return view('pressRelease', compact('pressRelease', 'categories'));
     }
     public function addPressRelease($id=null)
     {
@@ -120,6 +121,22 @@ class PressReleaseController extends Controller
     {
         $pressRelease = PressReleaseService::deletePressRelease($request->id);
         return json_encode(['success'=>1,'message'=>'Press Release has been deleted successfully']);
+    }
+
+    public function filterPressRelease(Request $request)
+    {
+        
+        $title      = $request->filterPressTitle;
+        $categoryId = $request->filterCategoryId;
+        
+        $pressRelease       = PressRelease::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->orderby('id','desc')->paginate(10);
+        foreach($pressRelease as $key=>$value)
+        {
+            $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
+            $value['category'] = implode(',',$categories);
+        }
+        $categories = Category::all();
+        return view('pressRelease', compact('pressRelease','categories'));
     }
 
     //active inactive

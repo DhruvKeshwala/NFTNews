@@ -50,18 +50,24 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
+                    @if(@$guide->guideCategory->name != null)
                     <tr>
                         <td><b>Category</b></td>
                         <td>{{ @$guide->guideCategory->name }}</td>
                     </tr>
+                    @endif
+                    @if(@$guide->question)
                     <tr>
                         <td><b>Question</b></td>
                         <td>{!! @$guide->question !!}</td>
                     </tr>
+                    @endif
+                    @if(@$guide->answer)
                     <tr>
                         <td><b>Answer</b></td>
                         <td>{!! @$guide->answer !!}</td>
                     </tr>
+                    @endif
                 </table>
                 <div class="clearfix"></div>
             </div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\GuideCategory;
 use Illuminate\Http\Request;
 use App\Models\Guide;
+use App\Models\Banner;
+
 
 class UserGuideController extends Controller
 {
@@ -16,8 +18,9 @@ class UserGuideController extends Controller
      */
     public function index()
     {     
+        $guideTopBanner = Banner::where('location', 'guidefull')->first();
         $guidesCategory = GuideCategory::get();           
-        return view('user.guide',compact('guidesCategory'));
+        return view('user.guide',compact('guidesCategory', 'guideTopBanner'));
     }
 
     public function guideList($category=null, $slug=null)
