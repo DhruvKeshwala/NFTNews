@@ -53,7 +53,7 @@
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$news->image != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100" alt="{{ @$news->title }}"></div>
                     @endif
                     <div id="imageError"></div>
                     
@@ -64,7 +64,7 @@
                 <td>
                     <input type="file" name="article_1" id="article_1">
                     @if(@$news->article_1 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100" alt="{{ @$news->title }}"></div>
                     @endif
                     <div id="article1Error"></div>
                 </td>
@@ -74,7 +74,7 @@
                 <td>
                     <input type="file" name="article_2" id="article_2">
                     @if(@$news->article_2 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100" alt="{{ @$news->title }}"></div>
                     @endif
                     <div id="article2Error"></div>
                 </td>

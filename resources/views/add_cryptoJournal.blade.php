@@ -24,7 +24,7 @@
                 <td><textarea rows="5" cols="30" name="fullDescription" id="fullDescription" placeholder="Full Description">{{ @$crypto->fullDescription }}</textarea><div id="fullDescriptionError"></div></td>
             </tr>
             <tr>
-                <td><label>Image</label><small class="text-muted">Choose Image size of 500x280 pixels</small></td>
+                <td><label>Image</label><small class="text-muted">Choose Image size of 270x380 pixels</small></td>
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$crypto->image != '')
@@ -45,6 +45,12 @@
                     <div id="pdfError"></div>
                 </td>
             </tr>
+             <tr>
+                <td><label>Order Index</label></td>
+                <td><input type="number" value="{{ @$crypto->orderIndex != null || @$crypto->orderIndex != 0  ? @$crypto->orderIndex : '' }}" name="orderIndex" placeholder="Order Index Number">
+                    <div id="orderIndexError"></div>
+                </td>
+            </tr>
             <tr>
                 <td><label>Meta Title</label></td>
                 <td><input type="text" value="{{ @$crypto->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
@@ -57,8 +63,9 @@
                 <td><label>Meta Keywords</label></td>
                 <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$crypto->keywords }}</textarea><div id="keywordsError"></div></td>
             </tr>
+           
             <tr>
-                <td><label>Upload Social Banner</label></td>
+                <td><label>Upload Social Banner</label><small class="text-muted">Choose Image size of 530x330 pixels</small><br><small class="text-muted">Home Page | Cryptonaire Weekly | Latest Edition Live Image</small></td>
                 <td>
                     <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
                     @if(@$crypto->uploadSocialBanner != '')
@@ -101,6 +108,7 @@
         var metaTitle = $("input[name=\"metaTitle\"]").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
+        var orderIndex = $("input[name='orderIndex']").val();
         var title                   = $("input[name='title']").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
@@ -133,6 +141,7 @@
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
         fd.append('keywords', keywords);
+        fd.append('orderIndex', orderIndex);
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
         fd.append('newsId', newsId);
@@ -172,6 +181,11 @@
             flag = 0;
             $("#fullDescriptionError").html('<span class="errorMessage" style="color:red;">Full Description Required</span>');
         } 
+        if (orderIndex == '') 
+        {
+            flag = 0;
+            $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
+        }
         
         if(flag == 1) 
         {

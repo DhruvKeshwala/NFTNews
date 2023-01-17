@@ -55,23 +55,34 @@
           </div>
       </div>
     </section>
-    
+    <style>
+        figure.effect-lily.video-section img{
+            height: auto !important;
+        }
+        figure.effect-lily.video-section p{
+            line-height: 0 !important;
+        }
+    </style>
     <section class="ftco-section ftco-animate pt-0">
     <div class="container">
        <div class="row">
        @if(count($videos))
         @foreach($videos as $video)
+        
         <div class="col-md-3"> 
        	  <figure class="effect-lily play">
            <img src="{{URL::asset('uploads/'. @$video->image1)}}" width="100%" class="img-fluid w-100 h-auto" alt="{{@$video->title}}">
            <figcaption>
-            <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Quick View</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
-           </figcaption>
-          </figure>
+            @if($video->videoType == 'Featured Video')
+              <span class="badge_featured badge-light text-light">Featured</span>
+            @endif
+            <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
+           </figcaption>          
           <div class="mt-md-n4">
           	<span class="text-light d-block mt-2" title="{{@$video->title}}">{{substr(@$video->title, 0, 30)}}..</span>
-            <p class="text-justify"><a href="#" title="{{ @$video->shortDescription }}" class="text-dark">{{substr(@$video->shortDescription, 0, 40)}}..</a></p>	
+            {{-- <p class="text-justify"><a href="#" title="{{ @$video->shortDescription }}" class="text-dark">{{substr(@$video->shortDescription, 0, 40)}}..</a></p>	 --}}
           </div>
+          </figure>
         </div>
         @endforeach
         @endif

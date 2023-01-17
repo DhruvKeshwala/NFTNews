@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\user;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\NewsService;
@@ -87,14 +91,14 @@ class HomeController extends Controller
             }
         }
 
-        $cryptoJournals  = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->orderby('id','desc')->first();
+        $cryptoJournals  = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
         $pages               = ManagePages::all();
         $allNews             = News::take(10)->get();
         $categories          = Category::all();
         $pressReleases       = PressReleaseService::getPressRelease();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::all();
-        $videos              = Video_management::all();
+        $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('created_at','desc')->get();
         $guides              = Guide::all();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
@@ -224,6 +228,12 @@ class HomeController extends Controller
 
     public function sendMailForSubscribe(Request $request)
     {
+        //Load Composer's autoloader
+        require base_path("vendor/autoload.php");
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
         $name = $request->name;
         $email = $request->email;
         $phone = $request->phn;
@@ -243,11 +253,47 @@ class HomeController extends Controller
 
         if($request->captcha == $fourDigitRandom)
         {
-            Mail::send('mailForSubscribe', ['email' => $email], function ($message) use ($email){
-                $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Subscription Request.');
-                $message->from($email,'NFT News');
-            });
-            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+
+            //try {
+                //Server settings
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                
+                $mail->SMTPDebug  = 2;
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->Port       = 587;                           //SMTP password
+                $mail->SMTPKeepAlive = true;
+                $mail->Mailer = "tls";
+                $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
+                $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
+                $mail->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
+                
+                //Recipients
+                $mail->setFrom($email, 'User requested for subscribe our newslatter');
+                $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+
+
+                //Content
+                //$mail->isHTML(true);                                  //Set email format to HTML
+                //$mail->Subject = 'New Mail from Admin';
+                $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+                //$mail->IsHTML(true);
+            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                $mail->send();
+                //echo 'Message has been sent';
+                //} 
+                //catch (Exception $e) {
+                //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                //}
+                return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
         }
         else
         {
@@ -473,5 +519,37 @@ class HomeController extends Controller
         $getAllNewses   = News::all();
         return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews','homeSearch'));
     }
+
+    public function mailData()
+    {
+        //Load Composer's autoloader
+        require base_path("vendor/autoload.php");
+        
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        
+        $mail->SMTPDebug  = 2;
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+        $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->Port       = 587;                           //SMTP password
+        $mail->SMTPKeepAlive = true;
+        $mail->Mailer = "tls";
+        $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
+        $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
+        $mail->SMTPOptions = array(
+        'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+        ));
+
+         return response()->json($mail);
+    }
+
     
 }

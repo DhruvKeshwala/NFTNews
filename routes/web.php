@@ -1,5 +1,9 @@
 <?php
-  
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\Auth\AuthController;
@@ -110,6 +114,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('save_crypto', [CryptoJournalController::class, 'saveCrypto'])->name('save_crypto');
         Route::post('delete_crypto', [CryptoJournalController::class, 'deleteCrypto'])->name('delete_crypto');
         Route::get('/filter_crypto', [CryptoJournalController::class, 'filterCrypto'])->name('filter_crypto');
+        Route::get('cryptoUpdateStatus/{id}', [CryptoJournalController::class, 'cryptoUpdateStatus'])->name('crypto_updateStatus');
 
         // Guide
         Route::get('guide', [GuideController::class, 'index'])->name('guide');
@@ -172,8 +177,15 @@ Route::get('mediaEnquiries', [HomeController::class, 'mediaEnquiries'])->name('u
 Route::get('careers', [HomeController::class, 'careers'])->name('user.careers');
 Route::get('about', [HomeController::class, 'about'])->name('user.about');
 
+
+
+Route::get('mailData', [HomeController::class, 'mailData'])->name('user.mailData'); //For Mail Credentials
+
+
+
+
 Route::get('subscribe', [HomeController::class, 'subscribe'])->name('user.subscribe');
-Route::post('sendMailForSubscribe', [HomeController::class, 'sendMailForSubscribe'])->name('sendMailForSubscribe');
+Route::get('sendMailForSubscribe', [HomeController::class, 'sendMailForSubscribe'])->name('sendMailForSubscribe');
 
 Route::get('featuredNews', [HomeController::class, 'featuredNews'])->name('user.featuredNews');
 Route::post('featuredNews', [HomeController::class, 'filterFeaturedNews'])->name('user.filterFeaturedNews');
@@ -226,3 +238,63 @@ Route::post('pressRelease', [UserPressController::class, 'filterPress'])->name('
 
 Route::post('send_mail', [UserPressController::class, 'sendMail'])->name('send_mail');
 
+Route::get('send-email', function () {
+   
+//Load Composer's autoloader
+require base_path("vendor/autoload.php");
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    
+    $mail->SMTPDebug  = 2;
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+    $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->Port       = 587;                           //SMTP password
+    $mail->SMTPKeepAlive = true;
+    $mail->Mailer = "tls";
+    $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
+    $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
+    $mail->SMTPOptions = array(
+    'ssl' => array(
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true
+    )
+);
+    //Recipients
+    $mail->setFrom('desaipratik1462@gmail.com', 'Mail From Admin');
+    $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+    
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'New Mail from Pratik';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        //Recipients
+    $mail->setFrom('nftnews@infinitedryer.com', 'Mail From Admin');
+    $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+
+
+    //Content
+    //$mail->isHTML(true);                                  //Set email format to HTML
+    //$mail->Subject = 'New Mail from Admin';
+    $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+    //$mail->IsHTML(true);
+   // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->send();
+    echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
+        
+
+});

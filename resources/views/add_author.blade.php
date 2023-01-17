@@ -15,37 +15,42 @@
                 <td>
                     <input type="text" value="{{ @$data->name }}" name="name" placeholder="Name">
                     <input type="hidden" name="authorId" value="{{@$id}}">
-                    <div id="nameError"></div>
+                    {{-- <div id="nameError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Email</label></td>
                 <td>
                     <input type="text" value="{{ @$data->email }}" name="email" placeholder="Email">
-                    <div id="emailError"></div><div id="invalidEmailError"></div>
+                    {{-- <div id="emailError"></div> --}}
+                    <div id="invalidEmailError"></div>
                 </td>
             </tr>
             <tr>
                 <td><label>Mobile</label></td>
                 <td>
                     <input type="text" value="{{ @$data->mobile }}" name="mobile" placeholder="Mobile">
-                    <div id="mobileError"></div>
+                    {{-- <div id="mobileError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Short Bio</label></td>
                 <td>
                     <textarea rows="5" cols="30" name="shortBio" id="shortBio" placeholder="Short Description">{{@$data->short_bio}}</textarea>
-                    <div id="shortDescriptionError"></div>
+                    {{-- <div id="shortDescriptionError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Twitter Link</label></td>
-                <td><input type="text" value="{{ @$data->twitterLink }}" name="twitterLink" placeholder="Twitter Link"><div id="twitterLinkError"></div><div id="twitterLinkURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$data->twitterLink }}" name="twitterLink" placeholder="Twitter Link">
+                    {{-- <div id="twitterLinkError"></div> --}}
+                    <div id="twitterLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>LinkedIn Link</label></td>
-                <td><input type="text" value="{{ @$data->linkedInLink }}" name="linkedInLink" placeholder="LinkedIn Link"><div id="linkedInLinkError"></div><div id="linkedInLinkURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$data->linkedInLink }}" name="linkedInLink" placeholder="LinkedIn Link">
+                    {{-- <div id="linkedInLinkError"></div> --}}
+                <div id="linkedInLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Image</label></td>
@@ -54,7 +59,7 @@
                     @if(@$data->image != '')
                     <div><img src="{{asset('uploads/').'/'.@$data->image}}" width = "100"></div>
                     @endif
-                    <div id="imageError"></div>
+                    {{-- <div id="imageError"></div> --}}
                 </td>
             </tr>
             <tr>
@@ -102,17 +107,17 @@
         fd.append('authorId', authorId);
         fd.append('twitterLink', twitterLink);
         fd.append('linkedInLink', linkedInLink);
-        if (name == '' || name == null) 
-        {
-            flag = 0;
-            $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
-        }
+        // if (name == '' || name == null) 
+        // {
+        //     flag = 0;
+        //     $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
+        // }
 
-        if (email == '') 
-        {
-            flag = 0;
-            $("#emailError").html('<span class="errorMessage" style="color:red;">Email Required</span>');
-        }
+        // if (email == '') 
+        // {
+        //     flag = 0;
+        //     $("#emailError").html('<span class="errorMessage" style="color:red;">Email Required</span>');
+        // }
         //Email validation
         function validateEmail(email) 
         {
@@ -135,32 +140,32 @@
             $("#invalidEmailError").html('<span class="errorMessage" style="color:red;">Invalid Email</span>');
         }
 
-        if (shortBio == '') 
-        {
-            flag = 0;
-            $("#shortDescriptionError").html('<span class="errorMessage" style="color:red;">Short Bio Required</span>');
-        } 
-        if (mobile == '') 
-        {
-            flag = 0;
-            $("#mobileError").html('<span class="errorMessage" style="color:red;">Mobile No Required</span>');
-        } 
-        if (twitterLink == '') 
-        {
-            flag = 0;
-            $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
-        }
+        // if (shortBio == '') 
+        // {
+        //     flag = 0;
+        //     $("#shortDescriptionError").html('<span class="errorMessage" style="color:red;">Short Bio Required</span>');
+        // } 
+        // if (mobile == '') 
+        // {
+        //     flag = 0;
+        //     $("#mobileError").html('<span class="errorMessage" style="color:red;">Mobile No Required</span>');
+        // } 
+        // if (twitterLink == '') 
+        // {
+        //     flag = 0;
+        //     $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
+        // }
         // URL validation
         if(twitterLink != '' && isValidHttpUrl(twitterLink) == false)
         {
             flag = 0;
             $("#twitterLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Twitter Link is Invalid</span>');
         }
-        if (linkedInLink == '') 
-        {
-            flag = 0;
-            $("#linkedInLinkError").html('<span class="errorMessage" style="color:red;">LinkedIn Link Required</span>');
-        }
+        // if (linkedInLink == '') 
+        // {
+        //     flag = 0;
+        //     $("#linkedInLinkError").html('<span class="errorMessage" style="color:red;">LinkedIn Link Required</span>');
+        // }
         // URL validation
         if(linkedInLink != '' && isValidHttpUrl(linkedInLink) == false)
         {

@@ -67,11 +67,11 @@ a:hover {
                 @foreach($dropManagement as $dropManagementDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>{{$dropManagementDetails->name}}</td>
+                    <td>@if($dropManagementDetails->name != null) {{$dropManagementDetails->name}} <span>—</span> @endif<span></td>
                     <td class="text-center">@if($dropManagementDetails->category != null) {{$dropManagementDetails->category}} @else <span>—</span> @endif</td>
-                    <td>{{$dropManagementDetails->token}}</td>
-                    <td>{{$dropManagementDetails->blockChain}}</td>
-                    <td>{{$dropManagementDetails->priceOfSale}}</td>
+                    <td>@if($dropManagementDetails->token != null) {{$dropManagementDetails->token}} @else <span>—</span> @endif</td>
+                    <td>@if($dropManagementDetails->blockChain != null) {{$dropManagementDetails->blockChain}} @else <span>—</span> @endif</td>
+                    <td>@if($dropManagementDetails->priceOfSale != null) {{$dropManagementDetails->priceOfSale}} @else <span>0</span> @endif</td>
                     <td>{{date('d-m-Y', strtotime($dropManagementDetails->saleDate))}}</td>
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{$dropManagementDetails->twitterLink}}</td>

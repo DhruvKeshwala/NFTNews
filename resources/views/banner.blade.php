@@ -19,10 +19,10 @@ a:hover {
         <br>
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
-            <form action="{{ route('filter_banner') }}" method="get">
+            <form action="{{ route('filter_banner') }}" method="get" id="bannerSearchForm">
                 @csrf
                 <td class="pr-0">
-                <select name="filterSize" data-placeholder="Select Banner Size" size="100">
+                <select name="filterSize" data-placeholder="Select Banner Size">
                         <option value="">Banner Size</option>
                         <option value="280 x 400 pixels" <?php 
                             if (!empty($_GET['filterSize']) && $_GET['filterSize'] == '280 x 400 pixels') 
@@ -44,8 +44,23 @@ a:hover {
                             {
                             ?>   selected
                             <?php } ?>>1210 x 210 pixels</option>
-                    </select></td>
-                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+                    </select>
+                    
+                </td>
+                <td>
+                    <select name="location" data-placeholder="Select Banner Location">
+                        <option value="">Select Banner Location</option>
+                        @foreach(config('constant.banner_location') as $key=>$bannerlocation)
+                        <option value="{{ $key }}" <?php 
+                            if (!empty($_GET['location']) && $_GET['location'] == @$key) 
+                            {
+                            ?>   selected
+                            <?php } ?>>{{$bannerlocation}}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white">
+                <a href="{{ route('banner')}}"  class="btn btn-dark py-1 px-2 text-white">Reset</a></td>
             </form>
                 {{-- <td class="pr-0"><input type="number" size="" placeholder="Meta Description"></td>
            <td class="pr-0"><select>
@@ -108,7 +123,14 @@ a:hover {
 </div>
 @include('layouts.footer')
 <script>
+function resetFormFields() {
+  document.getElementById("bannerSearchForm").reset();
+}
+</script>
+<script>
     $("select[name=\"filterSize\"]").select2({
+    });
+    $("select[name=\"location\"]").select2({
     });
     function deleteBanner(id) {
         swal({

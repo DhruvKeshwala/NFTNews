@@ -49,7 +49,7 @@
                 <td><textarea rows="5" cols="30" name="fullDescription" id="fullDescription" placeholder="Full Description">{{ @$news->fullDescription }}</textarea><div id="fullDescriptionError"></div></td>
             </tr>
             <tr>
-                <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 500x280 pixels</small></td>
+                <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 300x200 pixels</small></td>
                 <td>
                     <input type="file" name="image1" id="image1">
                     @if(@$news->image1 != '')
@@ -60,7 +60,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 230x130 pixels</small></td>
+                <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 300x200 pixels</small></td>
                 <td>
                     <input type="file" name="image2" id="image2">
                     @if(@$news->image2 != '')

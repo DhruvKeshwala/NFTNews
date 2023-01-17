@@ -24,7 +24,7 @@ class AuthorController extends Controller
         $name       = $request->filterAuthorName;
         $email      = $request->filterEmail;
         $mobile     = $request->filterMobile;
-        $data       = Author::where('name', 'LIKE', '%'.$name.'%')->where('email', 'LIKE', '%'.$email.'%')->where('mobile', 'LIKE', '%'.$mobile.'%')->orderby('id','desc')->paginate(1);
+        $data       = Author::where('name', 'LIKE', '%'.$name.'%')->where('email', 'LIKE', '%'.$email.'%')->where('mobile', 'LIKE', '%'.$mobile.'%')->orderby('id','desc')->paginate(10);
         return view('author', compact('data'));
     }
 
@@ -48,15 +48,15 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //validation
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'mobile' => 'required',
-            'shortBio' => 'required',
-            'authorId' => 'required',
-            'twitterLink'=> 'required',
-            'linkedInLink'=> 'required',
-        ]);
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'mobile' => 'required',
+        //     'shortBio' => 'required',
+        //     'authorId' => 'required',
+        //     'twitterLink'=> 'required',
+        //     'linkedInLink'=> 'required',
+        // ]);
         
         $request->only([
             'name',

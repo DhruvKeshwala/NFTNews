@@ -21,8 +21,10 @@ class BannerController extends Controller
 
     public function filterBanner(Request $request)
     {
+        $location = $request->location;
+        //$locations = BannerService::getById($id);
         $size       = $request->filterSize;
-        $data       = Banner::where('size', 'LIKE', '%'.$size.'%')->orderby('id','desc')->paginate(10);
+        $data       = Banner::where('size', 'LIKE', '%'.$size.'%')->where('location', 'LIKE', '%'.$location.'%')->orderby('id','desc')->paginate(10);
         return view('banner', compact('data'));
     }
 

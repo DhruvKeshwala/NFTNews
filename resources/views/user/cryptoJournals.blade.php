@@ -13,7 +13,9 @@
         </div>
       </div>
     </section>
+    @if(@$banners->image != null || @$banners->image != '')
     <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="Top Banner Image"></a></div>
+    @endif
 <div class="ftco-section bg-info-gradient pb-3 pt-5">
       <div class="container">
       <form action="{{ route('user.filter_crypto') }}" id="crypto_form" method="POST">
@@ -95,9 +97,9 @@
     <!-- Quick View -->
     @foreach($cryptoJournals as $crypto)
     <div class="modal fade" id="myModal-{{@$crypto->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="top:15%; max-width: 60%;" role="document">  
+        <div class="modal-dialog" style="max-width: 90%;height: 95% !important;" role="document">  
           <!-- Modal content-->     
-          <div class="modal-content">
+          <div class="modal-content" style="height: 100%;">
             <div class="modal-header">
               {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i> {{@$crypto->created_at->format('F d, Y')}}</h6> --}}
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -105,7 +107,7 @@
             <div class="modal-body">
                 {{-- <h4>{{@$crypto->title}}</h4> --}}
                 {{-- <strong>PDF</strong> --}}
-                <iframe width="100%" height="415" src="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" title="PDF" frameborder="0"  allowfullscreen></iframe>
+                <iframe width="100%" height="100%" src="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" title="PDF" frameborder="0"  allowfullscreen></iframe>
                 {{-- <p><strong>PDF</strong> <a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank" style="color:blue;">Download</a><br>
                 </p> --}}
                 

@@ -12,7 +12,11 @@
                         <ul class="slides">
                             @foreach ($result as $data)
                                 @if ($data->is_homeheader == 1)
-                                    <li><img src="{{ URL::asset('uploads/' . $data->image) }}" alt="{{ $data->title }}"/>
+                                    <li>@if(@$data->image != null || @$data->image != '')
+                                            <img src="{{ URL::asset('uploads/' . $data->image) }}" alt="{{ $data->title }}"/>
+                                        @else
+                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" alt="{{ $data->title }}"/>
+                                        @endif
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
                                             <a
@@ -45,9 +49,15 @@
                                 </p>
                                 <div class="media">
                                     <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}"
-                                        class="image-link"><img
-                                            src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[0]]->article_1) }}"
-                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"></a>
+                                        class="image-link">
+                                        {{-- @dd($featured_news[$random_keys[0]]->article_1); --}}
+                                        @if(@$featured_news[$random_keys[0]]->article_1 != null || @$featured_news[$random_keys[0]]->article_1 != '')
+                                            <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[0]]->article_1) }}"
+                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}">
+                                        @else
+                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
+                                        @endif
+                                    </a>
                                 </div>
                             </div>
                         @endif
@@ -65,8 +75,12 @@
                                 <div class="media">
                                     <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}"
                                         class="image-link">
-                                        <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[1]]->article_1) }}"
-                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[1]]->title }}<">
+                                        @if(@$featured_news[$random_keys[1]]->article_1 != null || @$featured_news[$random_keys[1]]->article_1 != '')
+                                            <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[1]]->article_1) }}"
+                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[1]]->title }}">
+                                        @else
+                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
+                                        @endif    
                                     </a>
                                 </div>
 
@@ -236,8 +250,9 @@
 
                         <div class="col-md-6">
                             <div class="play">
+                                <span class="badge_featured badge-light text-light" >Featured</span>
                               <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
-                                <img src="{{ URL::asset('uploads/' . @$videos[0]->image1) }}" height="300"
+                                <img src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}" height="300"
                                     width="100%" class="img-video" alt="{{ @$videos[0]->title}}" />
                               </a>
                             </div>
@@ -246,23 +261,38 @@
 
                     {{-- <div class="allVideos"></div>
             <div class="Videos"> --}}
+                <style>
+                    figure.effect-lily.video-section img{
+                        height: auto !important;
+                    }
+                    figure.effect-lily.video-section p{
+                        line-height: 0 !important;
+                    }
+                </style>
                     <div class="row">
                         <div class="col-md-12 px-0 videoSection">
                             <div class="featured-drops owl-carousel ftco-owl ">
+
                                 @if (!empty($videos))
                                     @foreach ($videos as $video)
-                                        <div class="item play">
+                                    
+                                        <figure class="effect-lily video-section item play">
+                                            <figcaption>
+                                            <span class="badge_featured badge-light text-light">Featured</span>
                                             <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img
                                                     src="{{ URL::asset('uploads/' . @$video->image1) }}" width="100%"
                                                     height="auto" alt="{{ @$video->title}}"></a>
-                                            <span class="text-light d-block mt-2"
+                                            
+                                                <p class="text-center" style="margin-bottom: 10px !important;"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
+                                            </figcaption>       
+                                            <span class="text-light d-block"
                                                 title="{{ @$video->title }}">{{ substr(@$video->title, 0, 30) }}..</span>
-                                            <p class="text-justify"><a
+                                            {{-- <p class="text-justify"><a
                                                     href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"
                                                     title="{{ @$video->shortDescription }}"
                                                     class="text-dark">{{ substr(@$video->shortDescription, 0, 40) }}..</a>
-                                            </p>
-                                        </div>
+                                            </p> --}}
+                                        </figure>
                                     @endforeach
                                 @else
                                     <div>
@@ -301,7 +331,7 @@
                         class="btn btn-outline-light-gradient bg-white py-1">Read More</a>
                 </div>
                 <div class="col-md-6 p-4">
-                    <img src="{{URL::asset('uploads/' . @$cryptoJournals->image)}}" class="img"
+                    <img src="{{URL::asset('uploads/' . @$cryptoJournals->uploadSocialBanner)}}" class="img"
                         width="100%" height="337" alt="{{ @$cryptoJournals->title}}">                        
                 </div>
                 @endif
@@ -681,6 +711,25 @@
         </div>
     </section>
 
+<!-- Quick View -->
+    @foreach($videos as $video)
+    <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" style="top:15%; max-width: 60%;" role="document">  
+          <!-- Modal content-->     
+          <div class="modal-content">
+            <div class="modal-header">
+              {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i>{{@$video->created_at->format('F d, Y')}}</h6> --}}
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                {{-- <h4>{{@$video->title}}</h4><br> --}}
+              {!!@$video->code!!}
+              </div>
+         </div>
+  
+        </div>
+    </div>
+    @endforeach
 @endsection
 
 @section('script')

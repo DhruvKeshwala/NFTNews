@@ -91,13 +91,13 @@ class UserNFTDropsController extends Controller
                 'websiteLink'   => 'required|url',
                 'collectionName'    => 'required',
                 'collectionItem'    => 'required|integer',
-                'contractAddress'   => 'required',
+                //'contractAddress'   => 'required',
                 'saleDate'          => 'required',
                 'saleTime'          => 'required',
                 'saleEndDate'       => 'required',
                 'captcha'           => 'required',
                 // 'metaData'      => 'required',
-                'priceOfSale'   => 'required',
+                //'priceOfSale'   => 'required',
                 //'password' => 'required|min:5',
                 //'email' => 'required|email|unique:users'
             ], [

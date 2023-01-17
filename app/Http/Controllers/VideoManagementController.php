@@ -127,9 +127,15 @@ class VideoManagementController extends Controller
         //     }
         // }
         // $newsdetails['newsType'] = json_encode($newsTypeDate);
-        $newsdetails['videoType']  = $request->videoType;
+        
+        //$newsdetails['videoType']  = $request->videoType;
+        
         $newsdetails['start_date'] = $request->start_date;
         $newsdetails['end_date']   = $request->end_date;
+        
+        if($request->start_date!= null || $request->start_date != '' || $request->end_date != null || $request->end_date != '')
+            $newsdetails['videoType']  = $request->videoType;
+        
         $newsdetails['slug']       = Str::slug($request->title); //Adds slug for news
         $news = VideoService::createVideo($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Video Saved Successfully']);

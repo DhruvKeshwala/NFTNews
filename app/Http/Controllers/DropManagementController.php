@@ -58,10 +58,10 @@ class DropManagementController extends Controller
         //validation
         $request->validate([
             'name'       => 'required',
-            'categoryId' => 'required',
-            'token'      => 'required',
-            'blockChain' => 'required',
-            'priceOfSale'=> 'required',
+            // 'categoryId' => 'required',
+            // 'token'      => 'required',
+            // 'blockChain' => 'required',
+            // 'priceOfSale'=> 'required',
             'saleDate'   => 'required',
             'discordLink'=> 'required',
             'twitterLink'=> 'required',

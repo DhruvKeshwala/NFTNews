@@ -51,6 +51,7 @@ class CryptoJournalController extends Controller
             'metaTitle'         => 'required',
             'description'       => 'required',
             'keywords'          => 'required',
+            'orderIndex'        => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -60,6 +61,7 @@ class CryptoJournalController extends Controller
             'metaTitle',
             'description',
             'keywords',
+            'orderIndex',
         ]);
         if($request->file('image') != null)
         {
@@ -82,6 +84,7 @@ class CryptoJournalController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['uploadSocialBanner'] = $fileName;
         }
+
         $newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Crypto Journal Saved Successfully']);
@@ -91,5 +94,22 @@ class CryptoJournalController extends Controller
     {
         $video = CryptoJournalService::deleteCrypto($request->id);
         return json_encode(['success'=>1,'message'=>'Crypto Journal has been deleted successfully']);
+    }
+
+    //active inactive
+    public function cryptoUpdateStatus($id)
+    {
+        $data = CryptoJournal::where('id', $id)->first();
+        if($data->fld_status == 'Active')
+        {
+            $data->fld_status = 'Inactive';
+            $data->save();
+        }
+        else
+        {
+            $data->fld_status = 'Active';
+            $data->save();
+        }
+        return redirect()->back();
     }
 }

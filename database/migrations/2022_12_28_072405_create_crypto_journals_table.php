@@ -20,8 +20,10 @@ return new class extends Migration
             $table->longText('fullDescription')->nullable();
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
+            $table->enum('fld_status',['Active','Inactive'])->default('Active')->nullable();
             $table->longText('slug')->nullable();
             $table->longText('uploadSocialBanner')->nullable();
+            $table->integer('orderIndex')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

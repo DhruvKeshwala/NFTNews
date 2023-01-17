@@ -20,28 +20,38 @@
                         @endforeach
                     </select>
                     <input type="hidden" name="dropManagementId" value="{{@$id}}">
-                    <div id="categoryIdError"></div>
+                    {{-- <div id="categoryIdError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Name</label></td>
-                <td><input type="text" value="{{ @$dropManagement->name }}" name="name" placeholder="Name"><div id="nameError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->name }}" name="name" placeholder="Name">
+                    <div id="nameError"></div>
+                </td>
             </tr>
             <tr>
                 <td><label>Token</label></td>
-                <td><input type="text" value="{{ @$dropManagement->token }}" name="token" placeholder="Token"><div id="tokenError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->token }}" name="token" placeholder="Token">
+                    {{-- <div id="tokenError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Block-Chain</label></td>
-                <td><input type="text" value="{{ @$dropManagement->blockChain }}" name="blockChain" placeholder="Block Chain"><div id="blockChainError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->blockChain }}" name="blockChain" placeholder="Block Chain">
+                    {{-- <div id="blockChainError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Price Of Sale</label></td>
-                <td><input type="number" value="{{ @$dropManagement->priceOfSale }}" name="priceOfSale" placeholder="Price Of Sale"><div id="priceOfSaleError"></div></td>
+                <td><input type="number" value="{{ @$dropManagement->priceOfSale }}" name="priceOfSale" placeholder="Price Of Sale">
+                    {{-- <div id="priceOfSaleError"></div> --}}
+                </td>
             </tr>
             <tr>
                 <td><label>Sale Date</label></td>
-                <td><input type="text" class="datepicker" value="{{ @$dropManagement->saleDate }}" name="saleDate" placeholder="Sale Date"><div id="saleDateError"></div></td>
+                <td><input type="text" class="datepicker" value="{{ @$dropManagement->saleDate }}" name="saleDate" placeholder="Sale Date">
+                    <div id="saleDateError"></div>
+                </td>
             </tr>
             <tr>
                 <td><label>Discord Link</label></td>
@@ -49,11 +59,17 @@
             </tr>
             <tr>
                 <td><label>Twitter Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->twitterLink }}" name="twitterLink" placeholder="Twitter Link"><div id="twitterLinkError"></div><div id="twitterLinkURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->twitterLink }}" name="twitterLink" placeholder="Twitter Link">
+                    <div id="twitterLinkError"></div>
+                    <div id="twitterLinkURLPatternError"></div>
+                </td>
             </tr>
             <tr>
                 <td><label>Website Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link"><div id="websiteLinkError"></div><div id="websiteLinkURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link">
+                    <div id="websiteLinkError"></div>
+                    <div id="websiteLinkURLPatternError"></div>
+                </td>
             </tr>
             <tr>
                 <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 370x300 pixels</small></td>
@@ -223,11 +239,11 @@
         {
             fd.append('uploadSocialBanner',files[0]);
         }
-        if (categoryId == '' || categoryId == null) 
-        {
-            flag = 0;
-            $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
-        } 
+        // if (categoryId == '' || categoryId == null) 
+        // {
+        //     flag = 0;
+        //     $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
+        // } 
         if (metaTitle == '') 
         {
             flag = 0;
@@ -253,21 +269,21 @@
             flag = 0;
             $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
         }
-        if (token == '') 
-        {
-            flag = 0;
-            $("#tokenError").html('<span class="errorMessage" style="color:red;">Token Required</span>');
-        }
-        if (blockChain == '') 
-        {
-            flag = 0;
-            $("#blockChainError").html('<span class="errorMessage" style="color:red;">Block-Chain Required</span>');
-        } 
-        if (priceOfSale == 0) 
-        {
-            flag = 0;
-            $("#priceOfSaleError").html('<span class="errorMessage" style="color:red;">Price Of Sale Required</span>');
-        }
+        // if (token == '') 
+        // {
+        //     flag = 0;
+        //     $("#tokenError").html('<span class="errorMessage" style="color:red;">Token Required</span>');
+        // }
+        // if (blockChain == '') 
+        // {
+        //     flag = 0;
+        //     $("#blockChainError").html('<span class="errorMessage" style="color:red;">Block-Chain Required</span>');
+        // } 
+        // if (priceOfSale == 0) 
+        // {
+        //     flag = 0;
+        //     $("#priceOfSaleError").html('<span class="errorMessage" style="color:red;">Price Of Sale Required</span>');
+        // }
         if (saleDate == '') 
         {
             flag = 0;

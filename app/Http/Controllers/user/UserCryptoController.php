@@ -19,7 +19,7 @@ class UserCryptoController extends Controller
      */
     public function index()
     {
-        $cryptoJournals   = CryptoJournal::orderby('id','desc')->paginate(12);
+        $cryptoJournals   = CryptoJournal::where('fld_status', 'Active')->orderby('id','desc')->paginate(12);
         $banners = Banner::where('location', 'cryjounfull')->first();
         return view('user.cryptoJournals', compact('cryptoJournals','banners'));
     }

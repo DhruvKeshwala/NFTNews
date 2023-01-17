@@ -19,7 +19,7 @@ class UserVideosController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $videos   = Video_management::orderby('id','desc')->paginate(10);
+        $videos   = Video_management::where('fld_status', 'Active')->orderby('id','desc')->paginate(10);
         $banners = Banner::where('location', 'videosfull')->first();
         return view('user.videos', compact('videos', 'categories','banners'));
     }

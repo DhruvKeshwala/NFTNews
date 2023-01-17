@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
             $table->text('code')->nullable();
-            $table->longText('videoType');
+            $table->longText('videoType')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->enum('fld_status',['Active','Inactive'])->default('Active');
