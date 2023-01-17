@@ -93,12 +93,12 @@ class HomeController extends Controller
 
         $cryptoJournals  = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
         $pages               = ManagePages::all();
-        $allNews             = News::take(10)->get();
+        $allNews             = News::take(10)->orderBy('orderIndex', 'asc')->get();
         $categories          = Category::all();
         $pressReleases       = PressReleaseService::getPressRelease();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
-        $getAllNewses        = News::all();
-        $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('created_at','desc')->get();
+        $getAllNewses        = News::orderBy('orderIndex', 'asc')->get();
+        $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->get();
         $guides              = Guide::all();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
@@ -115,11 +115,11 @@ class HomeController extends Controller
         $categoryId = $request->categoryId;
         if($categoryId == 0)
         {
-            $videos    =  Video_management::take(10)->get();
+            $videos    =  Video_management::take(10)->orderBy('orderIndex', 'asc')->get();
         }
         else
         {
-            $videos    =  Video_management::where('categoryId', $categoryId)->get();
+            $videos    =  Video_management::where('categoryId', $categoryId)->orderBy('orderIndex', 'asc')->get();
         }
         
         $contents = View::make('user.videosDisplay')->with('videos', $videos);
@@ -133,11 +133,11 @@ class HomeController extends Controller
         $categoryId = $request->categoryId;
         if($categoryId == 0)
         {
-            $allNews    =  News::take(10)->get();
+            $allNews    =  News::take(10)->orderBy('orderIndex', 'asc')->get();
         }
         else
         {
-            $allNews    =  News::where('categoryId', $categoryId)->get();
+            $allNews    =  News::where('categoryId', $categoryId)->orderBy('orderIndex', 'asc')->paginate(10);
         }
         
         $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
@@ -152,11 +152,11 @@ class HomeController extends Controller
         $categoryId = $request->categoryId;
         if($categoryId == 0)
         {
-            $allDropManagement    =  DropManagement::get();
+            $allDropManagement    =  DropManagement::orderBy('orderIndex', 'asc')->get();
         }
         else
         {
-            $allDropManagement    =  DropManagement::where('categoryId', $categoryId)->get();
+            $allDropManagement    =  DropManagement::where('categoryId', $categoryId)->orderBy('orderIndex', 'asc')->get();
         }
         
         $contents = View::make('user.NFTDropDisplay')->with('allDropManagement', $allDropManagement);
@@ -423,7 +423,7 @@ class HomeController extends Controller
 
     public function featuredNews()
     {
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -441,13 +441,13 @@ class HomeController extends Controller
             }  
         }
         $resultFeaturedNews2 = $resultFeaturedNews;
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
     }
 
     public function filterFeaturedNews(Request $request)
     {
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews2 = array();
@@ -463,12 +463,12 @@ class HomeController extends Controller
             }  
         }
         
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $title      = $request->filterNewsTitle;
-        $newses    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->get();
+        $newses    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('orderIndex','asc')->get();
         if($title == "" | $title == null)
         {
-            $newses    = News::orderby('id','desc')->get();
+            $newses    = News::orderby('orderIndex','asc')->get();
         }
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -488,7 +488,7 @@ class HomeController extends Controller
 
         // $allNews        = NewsService::getNews();
         // $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderby('orderIndex','asc')->get();
         return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
 
     }
@@ -497,7 +497,7 @@ class HomeController extends Controller
     {
         $homeSearch = $request->homeSearch;
 
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -514,9 +514,9 @@ class HomeController extends Controller
             }  
         }
         // dd($resultFeaturedNews);
-        $allNews        = News::orderby('id','desc')->paginate(10);
+        $allNews        = News::orderby('orderIndex','asc')->paginate(10);
         $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderby('orderIndex','asc')->get();
         return view('user.news', compact('getAllNewses', 'allNews', 'categories', 'resultFeaturedNews','homeSearch'));
     }
 

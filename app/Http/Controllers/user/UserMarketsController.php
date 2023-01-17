@@ -18,7 +18,7 @@ class UserMarketsController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $getAllNewses   = News::orderby('id','desc')->paginate(20);
+        $getAllNewses   = News::orderby('orderIndex','asc')->paginate(20);
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $marketTopBanner = Banner::where('location', 'marketsfull')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
@@ -49,7 +49,7 @@ class UserMarketsController extends Controller
                  $dm->where('newsType->featurednew->start_date','<=', $currentDate);
                  $dm->where('newsType->featurednew->end_date','>=', $currentDate);
             }
-        })->orderby('id','desc')->paginate(20);
+        })->orderby('orderIndex','asc')->paginate(20);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 

@@ -17,7 +17,7 @@ class DropManagementService
     //user-side home page display only 10 latest records
     public static function getLatestDropManagement()
     {
-        return DropManagement::orderby('id','desc')->take(10)->get();
+        return DropManagement::orderby('orderIndex','asc')->take(10)->get();
     }
 
     // delete country

@@ -23,10 +23,10 @@ class UserPressController extends Controller
      */
     public function index()
     {
-        $pressReleases          = PressRelease::orderBy('id', 'DESC')->paginate(20);
-        $pressRecommended = PressRelease::orderBy('id', 'DESC')->get();
+        $pressReleases          = PressRelease::orderBy('orderIndex', 'asc')->paginate(20);
+        $pressRecommended = PressRelease::orderBy('orderIndex', 'asc')->get();
 
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -44,7 +44,7 @@ class UserPressController extends Controller
         }
         // dd($resultFeaturedNews);
         $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
         $pressTopBanner = Banner::where('location', 'pressrelfull')->first();
         $pressSideBanner = Banner::where('location', 'prssrelrect')->first();
@@ -54,7 +54,7 @@ class UserPressController extends Controller
     public function pressDetail($id)
     {
         $pressDetail = PressReleaseService::getPressBySlug($id);
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
 
@@ -71,14 +71,14 @@ class UserPressController extends Controller
         }
 
         $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         return view('user.pressDetails',compact('innerSideBanner', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
     
     public function filterPress(Request $request)
     {
-        $pressRecommended = PressRelease::orderBy('id', 'DESC')->get();
+        $pressRecommended = PressRelease::orderBy('orderIndex', 'asc')->get();
         $pressReleases  = PressRelease::where(function($dm) {
             $request = app()->make('request');
             if($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
@@ -103,13 +103,13 @@ class UserPressController extends Controller
             //      $dm->where('newsType->featurednew->start_date','<=', $currentDate);
             //      $dm->where('newsType->featurednew->end_date','>=', $currentDate);
             // }
-        })->orderby('id','desc')->paginate(20);
+        })->orderby('orderIndex','asc')->paginate(20);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
         $filterValue = $request->filterValue;
         $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
         return view('user.pressRelease', compact('banners', 'pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
     }

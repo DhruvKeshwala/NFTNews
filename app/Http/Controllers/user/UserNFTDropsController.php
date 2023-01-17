@@ -26,7 +26,7 @@ class UserNFTDropsController extends Controller
     public function listNFTDrop()
     {
         $categories = Category::all();
-        $allDropManagement  = DropManagement::orderby('id','desc')->paginate(10);
+        $allDropManagement  = DropManagement::orderby('orderIndex','asc')->paginate(10);
         $banners = Banner::where('location', 'nftdropfull')->first();
         return view('user.listNFTDrops', compact('allDropManagement','categories','banners'));
     }
@@ -53,7 +53,7 @@ class UserNFTDropsController extends Controller
             if($request->filterValue == 'mostPopular') {
                 $dm->where('nftType', 'Featured');
             }
-        })->orderby('id','desc')->paginate(10);
+        })->orderby('orderIndex','asc')->paginate(10);
         $filterValue = $request->filternftcategoryValue;
         $nftsearch = $request->nft_search;
         $filterParam = $request->filterValue;
@@ -63,7 +63,7 @@ class UserNFTDropsController extends Controller
     
     public function nftDropDetail($id)
     {
-        $featuredDropManagement  = DropManagement::where('nftType', 'Featured')->orderby('id','desc')->get();
+        $featuredDropManagement  = DropManagement::where('nftType', 'Featured')->orderby('orderIndex','asc')->get();
         $nftDropDetail      = DropManagementService::getNFTDropBySlug($id);
         return view('user.nftDropDetails',compact('nftDropDetail', 'featuredDropManagement'));
     }

@@ -18,7 +18,7 @@ class UserNewsController extends Controller
      */
     public function index()
     {
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -35,9 +35,9 @@ class UserNewsController extends Controller
             }  
         }
         // dd($resultFeaturedNews);
-        $allNews        = News::orderby('id','desc')->paginate(10);
+        $allNews        = News::orderby('orderIndex','asc')->paginate(10);
         $categories     = Category::all();
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderby('orderIndex','asc')->get();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
         return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
@@ -46,19 +46,19 @@ class UserNewsController extends Controller
     public function filterNews(Request $request)
     {
         // dd($request->all());
-        $getAllNewses   = News::all();
+        $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $title      = $request->filterNewsTitle;
         $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
 
         if($title == "" | $title == null)
         {
-            $allNews    = News::orderby('id','desc')->paginate(10);
+            $allNews    = News::orderby('orderIndex','asc')->paginate(10);
         }
 
         if($request->homeSearch)
         {
             $title      = $request->homeSearch;
-            $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
+            $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('orderIndex','asc')->paginate(10);
         }
         $categories     = Category::all();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
@@ -69,7 +69,7 @@ class UserNewsController extends Controller
 
     public function newsDetail($id)
     {
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $newsDetail = NewsService::getNewsBySlug($id);
         
@@ -87,7 +87,7 @@ class UserNewsController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        $getAllNewses    = News::all();
+        $getAllNewses    = News::orderby('orderIndex','asc')->get();
         $banners         = Banner::where('size', '280 x 400 pixels')->first();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         return view('user.newsDetails',compact('innerSideBanner', 'newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners'));
