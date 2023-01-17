@@ -46,12 +46,13 @@ a:hover {
             <thead>
                 <tr>
                     <th width="2%">#</th>
-                    <th width="18%">Name</th>
+                    <th width="15%">Name</th>
                     <th width="12%">Category</th>
-                    <th width="20%">Token</th>
+                    <th width="15%">Token</th>
                     <th width="20%">Block-Chain</th>
                     <th width="8%">Price Of Sale</th>
                     <th width="10%">Sale Date</th>
+                    <th width="5%">Order Index</th>
                     <!-- <th>Discord Link</th>
                     <th>Twitter Link</th>
                     <th>Website Link</th> -->
@@ -76,6 +77,7 @@ a:hover {
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{$dropManagementDetails->twitterLink}}</td>
                     <td>{{$dropManagementDetails->websiteLink}}</td> -->
+                    <td>{{$dropManagementDetails->orderIndex}}</td>
                     <td>
                         <a title="Edit" href="{{ route('add_dropManagement',$dropManagementDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
