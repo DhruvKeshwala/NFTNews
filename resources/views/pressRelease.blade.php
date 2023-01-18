@@ -45,7 +45,7 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="30%">Press-Release Title</th>
+                    <th width="38%">Press-Release Title</th>
                     <th width="15%">Category</th>
                     {{-- <th width="13%">Author</th> --}}
                     {{-- <th width="15%">Listed In</th> --}}
@@ -84,7 +84,7 @@ a:hover {
                         {{ rtrim( $selection_types, ', ') }}
                     </td> --}}
                     <td>{{ $pressReleaseDetails->created_at->format('d-m-Y') }}</td>
-                    <td>{{$pressReleaseDetails->orderIndex}}</td>
+                    <td class="text-center">{{$pressReleaseDetails->orderIndex}}</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')
                             <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

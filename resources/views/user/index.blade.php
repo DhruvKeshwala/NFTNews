@@ -12,10 +12,11 @@
                         <ul class="slides">
                             @foreach ($result as $data)
                                 @if ($data->is_homeheader == 1)
-                                    <li>@if(@$data->image != null || @$data->image != '')
+                                {{-- @dd(file_exists($data->image)) --}}
+                                    <li>@if(@$data->image != null || @$data->image != '' || file_exists($data->image) == true)
                                             <img src="{{ URL::asset('uploads/' . $data->image) }}" alt="{{ $data->title }}"/>
                                         @else
-                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" alt="{{ $data->title }}"/>
+                                            <img src="{{ URL::asset('images/default-large-image-slider.png') }}" alt="{{ $data->title }}"/>
                                         @endif
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
@@ -51,11 +52,11 @@
                                     <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}"
                                         class="image-link">
                                         {{-- @dd($featured_news[$random_keys[0]]->article_1); --}}
-                                        @if(@$featured_news[$random_keys[0]]->article_1 != null || @$featured_news[$random_keys[0]]->article_1 != '')
+                                        @if(@$featured_news[$random_keys[0]]->article_1 != null || @$featured_news[$random_keys[0]]->article_1 != '' || file_exists(@$featured_news[$random_keys[0]]->article_1) == true)
                                             <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[0]]->article_1) }}"
                                             width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}">
                                         @else
-                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
+                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
                                         @endif
                                     </a>
                                 </div>
@@ -75,11 +76,11 @@
                                 <div class="media">
                                     <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}"
                                         class="image-link">
-                                        @if(@$featured_news[$random_keys[1]]->article_1 != null || @$featured_news[$random_keys[1]]->article_1 != '')
+                                        @if(@$featured_news[$random_keys[1]]->article_1 != null || @$featured_news[$random_keys[1]]->article_1 != '' || file_exists(@$featured_news[$random_keys[1]]->article_1) == true)
                                             <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[1]]->article_1) }}"
                                             width="100%" height="auto" alt="{{ @$featured_news[$random_keys[1]]->title }}">
                                         @else
-                                            <img src="{{ URL::asset('images/hp-headerimg-big01.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
+                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->title }}"/>   
                                         @endif    
                                     </a>
                                 </div>
@@ -125,10 +126,6 @@
                                     <a href="{{@$homeTopBanner->url}}" class="text-dark" target="_blank"><img
                                     src="{{ URL::asset('uploads/banner/' . @$homeTopBanner->image) }}" width="100%"
                                     height="auto" alt="Home Top Banner"></a>
-                                @else
-                                    <a href="#" class="text-dark" target="_blank"><img
-                                        src="{{ URL::asset('user/images/banner-horizontal.png') }}" width="100%"
-                                        height="auto" alt="Home Top Banner"></a>
                                 @endif
                             </div>
                             <div class="allNews"></div>
@@ -139,7 +136,12 @@
                                             <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                                 class="text-dark">
                                                 <div class="img"
-                                                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});">
+                                                    @if($news->image != null || $news->image != '' || file_exists(@$news->image) == true)
+                                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                                    @else
+                                                        style="background-image: url({{ URL::asset('images/default-listing-news.png') }});" 
+                                                    @endif
+                                                    >
                                                 </div>
                                             </a>
                                             <div class="text pl-md-3">
@@ -156,13 +158,10 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                @else
-                                    <p>No Data Found..</p>
                                 @endif
                             </div>
-
+                            <a href="{{ route('user.news') }}" class="btn d-block btn-outline-light py-2 mt-4">More News</a>
                         </div>
-
                     </div>
                 </div>
                 
@@ -180,7 +179,13 @@
                             @foreach ($pressReleases as $pressRelease)
                                 <div class="block-21 border p-1 mb-2 d-flex">
                                     <a href="#" class="blog-img mr-2"
-                                        style="background-image: url({{ URL::asset('uploads/' . @$pressRelease->image) }});"></a>
+                                    @if($pressRelease->image)
+                                        style="background-image: url({{ URL::asset('uploads/' . @$pressRelease->image) }});"
+                                    @else
+                                        style="background-image: url({{ URL::asset('images/default-press-releases.png') }});"
+                                    @endif
+                                    ></a>
+                                    
                                     <div class="text">
                                         <h3 class="heading mb-1"><a
                                                 href="{{ route('user.press_detail', ['id' => base64_encode(@$pressRelease->id)]) }}">{{ @$pressRelease->title }}</a>
@@ -252,7 +257,12 @@
                             <div class="play">
                                 <span class="badge_featured badge-light text-light" >Featured</span>
                               <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
-                                <img src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}" height="300"
+                                <img    @if($videos[0]->uploadSocialBanner || file_exists(@$videos[0]->uploadSocialBanner) == true) 
+                                            src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}"
+                                        @else
+                                            src="{{ URL::asset('images/default-video-featured-first.png') }}"
+                                        @endif 
+                                        height="300"
                                     width="100%" class="img-video" alt="{{ @$videos[0]->title}}" />
                               </a>
                             </div>
@@ -280,7 +290,12 @@
                                             <figcaption>
                                             <span class="badge_featured badge-light text-light">Featured</span>
                                             <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img
-                                                    src="{{ URL::asset('uploads/' . @$video->image1) }}" width="100%"
+                                                    @if($video->image1 != null || $video->image1 != '' || file_exists(@$video->image1) == true)
+                                                        src="{{ URL::asset('uploads/' . @$video->image1) }}"
+                                                    @else
+                                                        src="{{ URL::asset('images/default-video-list-image.png') }}"
+                                                    @endif
+                                                    width="100%"
                                                     height="auto" alt="{{ @$video->title}}"></a>
                                             
                                                 <p class="text-center" style="margin-bottom: 10px !important;"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
@@ -294,10 +309,6 @@
                                             </p> --}}
                                         </figure>
                                     @endforeach
-                                @else
-                                    <div>
-                                        <h2>No Videos Available..</h2>
-                                    </div>
                                 @endif
                             </div>
 
@@ -331,8 +342,13 @@
                         class="btn btn-outline-light-gradient bg-white py-1">Read More</a>
                 </div>
                 <div class="col-md-6 p-4">
-                    <img src="{{URL::asset('uploads/' . @$cryptoJournals->uploadSocialBanner)}}" class="img"
-                        width="100%" height="337" alt="{{ @$cryptoJournals->title}}">                        
+                    <img 
+                    @if($cryptoJournals->uploadSocialBanner != null || $cryptoJournals->uploadSocialBanner!= ''  ||  file_exists(@$cryptoJournals->uploadSocialBanner) == true)
+                        src="{{URL::asset('uploads/' . @$cryptoJournals->uploadSocialBanner)}}"
+                    @else
+                        src="{{URL::asset('images/default-crypto-journal-first.png')}}"
+                    @endif
+                    class="img" width="100%" height="337" alt="{{ @$cryptoJournals->title}}">                        
                 </div>
                 @endif
             </div>
@@ -354,8 +370,15 @@
                         @if ($data->is_featuredDrop == 1)
                             <div class="item grid">
                                 <figure class="effect-lily">
-                                    <img src="{{ URL::asset('uploads/' . @$data->article_2) }}" alt="{{@$data->title}}" class="text-white"/>
-                                    <figcaption>
+                                    <img 
+                                    @if($data->article_2 != null || $data->article_2 != ''  ||  file_exists(@$data->article_2) == true)
+                                        src="{{ URL::asset('uploads/' . @$data->article_2) }}"
+                                    @else
+                                        src="{{ URL::asset('images/default-featured-drop-news.png') }}"
+                                    @endif
+                                    alt="{{@$data->title}}" class="text-white"/>
+                                    
+                                        <figcaption>
                                         <div>
                                             <h2><small
                                                     class="mb-2 d-block">{{ @$data->created_at->diffForHumans() }}</small>{{ substr(@$data->title, 0, 30) }}..
@@ -418,7 +441,7 @@
                     <tbody>
                         @foreach ($allDropManagement as $dropManagement)
                             <tr>
-                                <td><img src="@if (@$dropManagement->logo != null) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif"
+                                <td><img src="@if (@$dropManagement->logo != null || @$dropManagement->logo != '' || file_exists(@$dropManagement->logo) == true) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif"
                                         class="rounded-pill" width="34" height="34" alt="{{@$dropManagement->name}}" /></td>
                                 <td>{{ @$dropManagement->name }}</td>
                                 <td>{{ @$dropManagement->token }}</td>
@@ -471,7 +494,12 @@
                                 <div class="item text-center">
                                     <div class="align-items-center justify-content-center"><a
                                             href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img
-                                                src="{{ URL::asset('uploads/' . @$news->article_1) }}" width="100%"
+                                            @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
+                                                src="{{ URL::asset('uploads/' . @$news->article_1) }}"
+                                            @else
+                                                src="{{ URL::asset('images/default-market-news-featured.png') }}"
+                                            @endif
+                                            width="100%"
                                                 class="img-thumbnail" height="auto" alt="{{@$new->title}}" /></a></div>
                                     <div class="text">
                                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
@@ -525,7 +553,12 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});">
+                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @else
+                                            style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                        @endif
+                                        >
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
@@ -567,7 +600,12 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});">
+                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @else
+                                            style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                        @endif
+                                        >
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
@@ -598,7 +636,12 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});">
+                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @else
+                                            style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                        @endif
+                                        >
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a

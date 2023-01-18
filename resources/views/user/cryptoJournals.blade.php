@@ -77,7 +77,13 @@
                         <div class="col-md-3 d-flex mb-4 text-center ftco-animate">
                             <a href="{{ route('user.crypto_detail', ['id' => @$crypto->slug]) }}">
                             <figure class="effect-lily">
-                            <img src="{{URL::asset('uploads/' . @$crypto->image)}}" width="100%" class="img-fluid w-100 h-auto" alt="{{@$crypto->title}}">
+                            <img
+                            @if($crypto->image != null || $crypto->images != ''|| file_exists($crypto->image) == true) 
+                              src="{{URL::asset('uploads/' . @$crypto->image)}}"
+                            @else
+                              src="{{URL::asset('images/default-crypto-list.png')}}"
+                            @endif
+                            width="100%" class="img-fluid w-100 h-auto" alt="{{@$crypto->title}}">
                             <figcaption>
                                 <p class="mt-n5 text-center"><a href="{{ route('user.crypto_detail', ['id' => @$crypto->slug]) }}" class="btn btn-primary border py-1 mt-n5">View More</a> <a href="#" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$crypto->id}}">Quick View</a></p>
                             </figcaption>

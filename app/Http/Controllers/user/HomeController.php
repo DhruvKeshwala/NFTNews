@@ -128,6 +128,50 @@ class HomeController extends Controller
         return $response;
     }
 
+    public function userFilterCategoryNews($categoryId='')
+    {
+        $newses  = $getAllNewses  = News::orderBy('orderIndex', 'asc')->get();
+
+        $currentDate = date('d-m-Y');
+        $resultFeaturedNews = array();
+
+        foreach($newses as $key => $news)
+        {
+            $resultFeaturedNews[$key] = $news;
+            $resultFeaturedNews[$key]->news_type = $newsType = json_decode($news->newsType);
+            if ($newsType->featurednew && $newsType->featurednew->start_date <= $currentDate && $newsType->featurednew->end_date >= $currentDate) 
+            {
+                $resultFeaturedNews[$key]->is_featurednew = 1;
+                $resultFeaturedNews[$key]->featurednew_start_date = $newsType->featurednew->start_date;
+                $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
+            }  
+        }
+
+        // $categoryId = $request->categoryId;
+        $categories     = Category::all();
+        $innerSideBanner = Banner::where('location', 'innerrec')->first();
+        $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
+
+        if($categoryId == 'All' || $categoryId == null || $categoryId == '')
+        {
+            $allNews    =  News::orderBy('orderIndex', 'asc')->paginate(10);
+        }
+        else
+        {
+            $getCategoryId = Category::select('id')->where('slug', $categoryId)->first();
+            if($getCategoryId)
+                $allNews    =  News::where('categoryId', $getCategoryId->id)->orderBy('orderIndex', 'asc')->paginate(10);
+            else
+                return redirect('userFilterCategory/All');
+        }
+        return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
+        
+        // $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
+        // $response = Response::make($contents, 200);
+        // $response->header('Content-Type', 'text/plain');
+        // return $response;
+    }
+
     public function userFilterCategory(Request $request)
     {
         $categoryId = $request->categoryId;

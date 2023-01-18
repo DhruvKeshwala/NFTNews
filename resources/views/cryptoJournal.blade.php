@@ -36,8 +36,8 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="50%">Title</th>
-                    <th width="23%">Order Index</th>
+                    <th width="68%">Title</th>
+                    <th width="5%">Order Index</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
                 </tr>
@@ -53,7 +53,7 @@ a:hover {
                     <td>{{$loop->index + 1}}</td>
                     <td>@if($newsDetails->image != null)<img src="{{asset('uploads/').'/'.$newsDetails->image}}" width="100">@endif</td>
                     <td>{{$newsDetails->title}}</td>
-                    <td>{{$newsDetails->orderIndex}}</td>
+                    <td class="text-center">{{$newsDetails->orderIndex}}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a title="Active" href="{{ route('crypto_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

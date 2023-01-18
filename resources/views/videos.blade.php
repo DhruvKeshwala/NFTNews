@@ -46,12 +46,12 @@ a:hover {
                 <tr>
                     <th width="2%">#</th>
                     <th width="10%">Image</th>
-                    <th width="30%">Video Title</th>
+                    <th width="38%">Video Title</th>
                     <th width="15%">Category</th>
                     {{-- <th width="13%">Author</th> --}}
                     {{-- <th width="15%">Listed In</th> --}}
                     <th width="15%">Posted On</th>
-                    <th width="10%">Order Index</th>
+                    <th width="5%">Order Index</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
                 </tr>
@@ -73,7 +73,7 @@ a:hover {
                         {{ $newsDetails->start_date }}
                     </td> --}}
                     <td>{{ $newsDetails->created_at->format('d-m-Y') }}</td>
-                    <td>{{$newsDetails->orderIndex}}</td>
+                    <td class="text-center">{{$newsDetails->orderIndex}}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a href="{{ route('video_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

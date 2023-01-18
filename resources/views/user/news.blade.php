@@ -30,16 +30,16 @@
   
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
-    	<form action="{{ route('user.filter_news') }}" method="post" class="col-md-12 mr-auto pl-0 pr-2">
-          @csrf
+    	<form action="{{ route('user.filter_news') }}" method="get" class="col-md-12 mr-auto pl-0 pr-2">
+          {{-- @csrf --}}
           <div class="form-group d-flex searchform border mb-0 mx-0 bg-white">
             <input type="text" name="filterNewsTitle" class="form-control text-center" placeholder="SEARCH NEWS" value="<?php 
-                if (!empty($_POST['filterNewsTitle'])) {
-                    $q = $_POST['filterNewsTitle'];
+                if (!empty($_REQUEST['filterNewsTitle'])) {
+                    $q = $_REQUEST['filterNewsTitle'];
                     echo $q;
                 }  
-                if (!empty($_POST['homeSearch'])) {
-                    $q = $_POST['homeSearch'];
+                if (!empty($_REQUEST['homeSearch'])) {
+                    $q = $_REQUEST['homeSearch'];
                     echo $q;
                 } ?>">
             <button type="submit" placeholder="" class="form-control w-auto"><span class="fa fa-search"></span></button>
@@ -61,14 +61,17 @@
            </div>
            	
             <div class="news-listing ftco-animate">
-            {{ $allNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
-            
-            <div class="allNews"></div>
             <div class="Newses">
+            {{ $allNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
               @if(@$allNews)
                   @foreach($allNews as $news)
                       <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                      <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"></div></a>
+                      <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" 
+                        @if($news->image != null || $news->image != '' || file_exists($news->image) == true)
+                          style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                        @else
+                          style="background-image: url({{ URL::asset('images/default-listing-news.png') }});" 
+                        @endif></div></a>
                       <div class="text pl-md-3">
                           <div class="meta mb-2">
                           <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">INDUSTRY TALK</a></div>
@@ -82,9 +85,9 @@
               @else
                   <p>No Data Found..</p>
               @endif
-            </div>
             {{ $allNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }} 
-            </div>
+          </div>  
+          </div>
             <!--<a href="#" class="btn d-block btn-light py-2 mt-4">Load More News</a>-->
            
            </div>
@@ -101,10 +104,12 @@
                 <li class="pl-2"><a href="#">Metavers </a></li>
                 <li class="pl-2"><a href="#">Music </a></li>
                 <li class="pl-2"><a href="#">Web 3.0 </a></li> --}}
-                <li><a class="pl-2 tagLink" onclick="filterCategory(0)">ALL</a></li>
+                {{-- <li><a class="pl-2 tagLink" onclick="filterCategory(0)">ALL</a></li> --}}
+                <li><a class="pl-2 tagLink" href="{{ route('userFilterCategoryNews', ['id' => 'All']) }}">All</a></li>
                 @if(@$categories)
                   @foreach($categories as $category)
-                    <li><a class='pl-2 tagLink' onclick="filterCategory({{@$category->id}})" id="categoryId">{{@$category->name}}</a></li>
+                    {{-- <li><a class='pl-2 tagLink' onclick="filterCategory({{@$category->id}})" id="categoryId">{{@$category->name}}</a></li> --}}
+                    <li><a class='pl-2 tagLink' href="{{ route('userFilterCategoryNews', ['id' => @$category->slug])}}" id="categoryId">{{@$category->name}}</a></li>
                   @endforeach
                 @endif
               </div>
@@ -151,7 +156,13 @@
                 @foreach($resultFeaturedNews as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
-                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img 
+                        @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
+                            src="{{ URL::asset('uploads/' . @$news->article_1) }}"
+                        @else
+                            src="{{ URL::asset('images/default-market-news-featured.png') }}"
+                        @endif
+                        width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
                         <div class="text">
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
@@ -187,7 +198,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -209,7 +225,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -226,7 +247,12 @@
           @else
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                  style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                @else
+                      style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -265,7 +291,7 @@ function filterCategory(value){
         }
     });
     $.ajax({
-        url: "{{ url('userFilterCategory') }}",
+        url: "{{ url('userFilterCategoryNews') }}",
         type: "GET",
         data: {
             categoryId: categoryId,
@@ -274,7 +300,6 @@ function filterCategory(value){
         success: function(allNews) {
           console.log('success'); // code here paste
           $('.Newses').html(allNews);
-          $('.allNews').hide();
         },
         error: function(xhr, status, error) {}
     });

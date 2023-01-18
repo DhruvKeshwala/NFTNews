@@ -36,7 +36,7 @@
               <div class="news-wrap p-0 align-items-center">
                
                <div class="w-100 pb-2">
-                <a href="#" class="text-dark"><img src="@if($nftDropDetail->image2 != null) {{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }} @else {{ URL::asset('images/default-image-2.png') }} @endif" width="100%" alt="{{@$nftDropDetail->name}}" height="auto" class="img"></a>
+                <a href="#" class="text-dark"><img src="@if($nftDropDetail->image2 != null || file_exists($nftDropDetail->image) == true) {{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }} @else {{ URL::asset('images/default-image-2.png') }} @endif" width="100%" alt="{{@$nftDropDetail->name}}" height="auto" class="img"></a>
                </div>
                <div class="row">
                   <div class="col-md-6"><span class="btn-sm btn-light border d-inline-block">NFT DROPS</span> <span class="btn-sm btn-light border d-inline-block">ETHEREUM</span></div>
@@ -99,7 +99,7 @@
                               <span class="badge_featured badge-light text-light">Featured</span>
                           @endif
                           <a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}" class="block-30 rounded"
-                              style="background-image: url(@if($dropManagement->image != null) {{ URL::asset('uploads/' . @$dropManagement->image) }} @else {{ URL::asset('images/default-image-1.png') }} @endif);">
+                              style="background-image: url(@if($dropManagement->image != null || file_exists($dropManagement->image) == true) {{ URL::asset('uploads/' . @$dropManagement->image) }} @else {{ URL::asset('images/default-image-1.png') }} @endif);">
                           </a>
                           <div class="text px-4 mt-3 text-center">
 

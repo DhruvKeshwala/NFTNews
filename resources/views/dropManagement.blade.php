@@ -46,7 +46,7 @@ a:hover {
             <thead>
                 <tr>
                     <th width="2%">#</th>
-                    <th width="15%">Name</th>
+                    <th width="18%">Name</th>
                     <th width="12%">Category</th>
                     <th width="15%">Token</th>
                     <th width="20%">Block-Chain</th>
@@ -68,7 +68,7 @@ a:hover {
                 @foreach($dropManagement as $dropManagementDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>@if($dropManagementDetails->name != null) {{$dropManagementDetails->name}} <span>—</span> @endif<span></td>
+                    <td>@if($dropManagementDetails->name != null) {{$dropManagementDetails->name}} @else <span>—</span> @endif<span></td>
                     <td class="text-center">@if($dropManagementDetails->category != null) {{$dropManagementDetails->category}} @else <span>—</span> @endif</td>
                     <td>@if($dropManagementDetails->token != null) {{$dropManagementDetails->token}} @else <span>—</span> @endif</td>
                     <td>@if($dropManagementDetails->blockChain != null) {{$dropManagementDetails->blockChain}} @else <span>—</span> @endif</td>
@@ -77,7 +77,7 @@ a:hover {
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{$dropManagementDetails->twitterLink}}</td>
                     <td>{{$dropManagementDetails->websiteLink}}</td> -->
-                    <td>{{$dropManagementDetails->orderIndex}}</td>
+                    <td class="text-center">{{$dropManagementDetails->orderIndex}}</td>
                     <td>
                         <a title="Edit" href="{{ route('add_dropManagement',$dropManagementDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

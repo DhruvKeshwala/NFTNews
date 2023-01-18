@@ -194,7 +194,7 @@ Route::post('newsHomeSearch', [HomeController::class, 'newsHomeSearch'])->name('
 
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
-Route::post('news', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
+Route::get('newsSearch', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
 Route::get('newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
 
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
@@ -208,6 +208,7 @@ Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->na
 
 
 //Tag wise filter categories
+Route::get('userFilterCategoryNews/{id?}', [HomeController::class, 'userFilterCategoryNews'])->name('userFilterCategoryNews');
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
 
 //Tag wise filter NFT Drops
@@ -221,6 +222,7 @@ Route::post('markets', [UserMarketsController::class, 'filterMarketNews'])->name
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
 Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+Route::get('videoSearch', [UserVideosController::class, 'videoSearch'])->name('user.videoSearch');
 Route::post('videos', [UserVideosController::class, 'filterVideos'])->name('user.filter_videos');
 
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');

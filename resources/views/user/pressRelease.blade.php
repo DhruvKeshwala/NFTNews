@@ -70,7 +70,14 @@
              @if($pressReleases)
              @foreach($pressReleases as $press)
                 <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                    <a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark"><div class="img" style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"></div></a>
+                    <a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="text-dark"><div class="img" 
+                      @if($press->image != null || $press->image != '' || file_exists($press->image) == true)
+                        style="background-image: url({{ URL::asset('uploads/' . @$press->image)}});"
+                      @else
+                        style="background-image: url({{ URL::asset('images/default-press-release.png')}});"
+                      @endif
+                      >
+                      </div></a>
                     <div class="text pl-md-3">
                         <div class="meta mb-2">
                         <div><a href="{{ route('user.press_detail', ['id' => @$press->slug]) }}" class="meta-chat">PRESS RELEASE</a></div>
@@ -100,7 +107,14 @@
                 @if($pressRecommended)
                   @foreach($pressRecommended as $pressRec)
                   <div class="block-21 border p-1 mb-2 d-flex">
-                  	<a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}" class="blog-img mr-2" style="background-image: url({{ URL::asset('uploads/' . @$pressRec->image)}});"></a>
+                  	<a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}" class="blog-img mr-2" 
+                       @if($pressRec->image != null || $pressRec->image != '' || file_exists($pressRec->image) == true)
+                        style="background-image: url({{ URL::asset('uploads/' . @$pressRec->image)}});"
+                      @else
+                        style="background-image: url({{ URL::asset('images/default-press-release-recommended.png')}});"
+                      @endif
+                      >
+                    </a>
                     <div class="text">
                       <h3 class="heading mb-1"><a href="{{ route('user.press_detail', ['id' => @$pressRec->slug]) }}">{{@$pressRec->title}}</a></h3>
                     </div>
@@ -141,7 +155,13 @@
                 @foreach($resultFeaturedNews as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
-                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img src="{{URL::asset('uploads/' . @$news->article_1)}}" width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img 
+                        @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
+                            src="{{ URL::asset('uploads/' . @$news->article_1) }}"
+                        @else
+                            src="{{ URL::asset('images/default-market-news-featured.png') }}"
+                        @endif
+                        width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
                         <div class="text">
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
@@ -176,7 +196,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -198,7 +223,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                  style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                @else
+                      style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -215,7 +245,12 @@
           @else
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>

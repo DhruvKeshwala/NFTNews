@@ -85,7 +85,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -107,7 +112,12 @@
             </div>
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                    style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
@@ -124,7 +134,12 @@
           @else
             <div class="col-md-4 d-flex ftco-animate">
               <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});">
+                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
+                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                  @else
+                    style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                  @endif>
                 </a>
                 <div class="text px-4 mt-3">
                   <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>

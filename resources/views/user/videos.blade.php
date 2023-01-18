@@ -17,10 +17,8 @@
     
     <section class="ftco-section py-5 bg-info-gradient">
        <div class="container">
-       <form action="{{ route('user.filter_videos') }}" id="video_form" method="POST">
-        @csrf
+       <form action="{{ route('user.videoSearch') }}" id="video_form" method="GET">
          <div class="row">
-            
             <div class="col-md-4 d-flex">
               <input type="hidden" name="filterValue" id="filterValue" value="{{@$filterValue}}">
               <a onclick="filterForVideos('all')" id="allData" class="page-link py-3 {{ @$filterValue == 'all' || @$filterValue == '' ? 'active' : '' }}">ALL</a> 
@@ -71,7 +69,13 @@
         
         <div class="col-md-3"> 
        	  <figure class="effect-lily play">
-           <img src="{{URL::asset('uploads/'. @$video->image1)}}" width="100%" class="img-fluid w-100 h-auto" alt="{{@$video->title}}">
+           <img 
+            @if($video->image1 != null || $video->image1 != '' || file_exists($video->image) == true) 
+              src="{{URL::asset('uploads/'. @$video->image1)}}"
+            @else
+              src="{{URL::asset('images/default-video-list.png')}}"
+            @endif 
+            width="100%" class="img-fluid w-100 h-auto" alt="{{@$video->title}}">
            <figcaption>
             @if($video->videoType == 'Featured Video')
               <span class="badge_featured badge-light text-light">Featured</span>
