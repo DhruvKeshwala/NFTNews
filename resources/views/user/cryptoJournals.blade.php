@@ -18,8 +18,8 @@
     @endif
 <div class="ftco-section bg-info-gradient pb-3 pt-5">
       <div class="container">
-      <form action="{{ route('user.filter_crypto') }}" id="crypto_form" method="POST">
-        @csrf
+      <form action="{{ route('user.filter_crypto') }}" id="crypto_form" method="GET">
+        {{-- @csrf --}}
         <div class="row mt-2">
             
           <div class="col-md-4 d-flex">

@@ -28,6 +28,7 @@ class UserMarketsController extends Controller
 
     public function filterMarketNews(Request $request)
     {
+        $request->filternftcategoryValue = base64_decode($request->filternftcategoryValue);
         $categories = Category::all();
         $getAllNewses  = News::where(function($dm) {
             $request = app()->make('request');

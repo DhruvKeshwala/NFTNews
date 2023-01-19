@@ -40,7 +40,7 @@
             <option value="">Select Categories</option>
             {{-- <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option> --}}
             @foreach($categories as $category)
-                <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
+                <option value="{{base64_encode(@$category->id)}}" {{ base64_encode(@$filtercategoryId) == base64_encode(@$category->id)  ? "selected" : "" }}>{{@$category->name}}</option>
             @endforeach
             {{-- <option value="avalanche">Avalanche</option> --}}
           </select>

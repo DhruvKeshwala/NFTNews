@@ -20,8 +20,7 @@
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
             <tbody>
                 <tr>
-                    <form action="{{ route('filter_guide_category') }}" method="POST">
-                        @csrf
+                    <form action="{{ route('filter_guide_category') }}" method="GET">
                         <td class="pr-0"><input type="text" name="filterCategoryName" size="50"
                                 placeholder="Name" value="<?php
                                 if (!empty($name)) { echo $name; } ?>"></td>

@@ -23,8 +23,8 @@
 
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container">
-      <form action="{{ route('user.filterPress') }}" id="press_form" method="POST">
-        @csrf
+      <form action="{{ route('user.filterPress') }}" id="press_form" method="GET">
+        {{-- @csrf --}}
     	<div class="row my-2">
           
           <div class="col-md-4 d-flex">
@@ -46,7 +46,7 @@
             <option value="">Select Categories</option>
             {{-- <option value="all" {{ @$filtercategoryId == 'all' || @$filtercategoryId == ''  ? "selected" : "" }}>All</option> --}}
             @foreach($categories as $category)
-                <option value="{{@$category->id}}" {{ @$filtercategoryId == @$category->id  ? "selected" : "" }}>{{@$category->name}}</option>
+                <option value="{{base64_encode(@$category->id)}}" {{ base64_encode(@$filtercategoryId) == base64_encode(@$category->id)  ? "selected" : "" }}>{{@$category->name}}</option>
             @endforeach
            </select>
           </div>

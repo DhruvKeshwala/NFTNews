@@ -81,16 +81,19 @@
               <div id="sidebarMenu">
                 <ul class="sidebarMenuInner">
                   <li class="logo d-sm-none border-bottom bg-light border-dark"><a href="#"><h4 class="mb-0 mt-1">The NFT Markets</h4></a></li>
-                  <li class="{{ Route::is('category') ? 'active' : '' }}"><span class="material-icons">list</span><a class="fill-a" href="{{route('category')}}">Category</a></li>
-                  <li class="{{ Route::is('news') ? 'active' : '' }}"><span class="material-icons">newspaper</span><a class="fill-a" href="{{route('news')}}">News</a></li>
-                  <li class="{{ Route::is('videos') ? 'active' : '' }}"><span class="material-icons">movie</span><a class="fill-a" href="{{route('videos')}}">Videos</a></li>
-                  <li class="{{ Route::is('cryptoJournal') ? 'active' : '' }}"><span class="material-icons">money</span><a class="fill-a" href="{{route('cryptoJournal')}}">Crypto Journal</a></li>
-                  <li class="{{ Route::is('author') ? 'active' : '' }}"><span class="material-icons">account_circle</span><a class="fill-a" href="{{route('author')}}">Author</a></li>
-                  <li class="{{ Route::is('banner') ? 'active' : '' }}"><span class="material-icons">image</span><a class="fill-a" href="{{route('banner')}}">Banner</a></li>
-                  <li class="{{ Route::is('dropManagement') ? 'active' : '' }}"><span class="material-icons">euro</span><a class="fill-a" href="{{route('dropManagement')}}">NFT Drops</a></li>
-                  <li class="{{ Route::is('pressRelease') ? 'active' : '' }}"><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
-                  <li class="{{ Route::is('guide_category') ? 'active' : '' }}"><span class="material-icons">category</span><a class="fill-a" href="{{route('guide_category')}}">Guide Category</a></li>
-                  <li class="{{ Route::is('guide') ? 'active' : '' }}"><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide')}}">Guide</a></li>
+                  <li class="{{ Request::segment(2) == 'category' || Request::segment(2) == 'add_category' || Request::segment(2) == 'filter_category' ? 'active' : '' }}"><span class="material-icons">list</span><a class="fill-a" href="{{route('category')}}">Category</a></li>
+                  <li class="{{ Request::segment(2) == 'news' || Request::segment(2) == 'add_news' || Request::segment(2) == 'filter_news' ? 'active' : '' }}"><span class="material-icons">newspaper</span><a class="fill-a" href="{{route('news')}}">News</a></li>
+                  <li class="{{ Request::segment(2) == 'videos' || Request::segment(2) == 'add_video' || Request::segment(2) == 'filter_video' ? 'active' : '' }}"><span class="material-icons">movie</span><a class="fill-a" href="{{route('videos')}}">Videos</a></li>
+                  <li class="{{ Request::segment(2) == 'cryptoJournal' || Request::segment(2) == 'add_crypto' || Request::segment(2) == 'filter_crypto' ? 'active' : '' }}"><span class="material-icons">money</span><a class="fill-a" href="{{route('cryptoJournal')}}">Crypto Journal</a></li>
+                  <li class="{{ Request::segment(2) == 'author' || Request::segment(2) == 'add_author' || Request::segment(2) == 'filter_author' ? 'active' : '' }}"><span class="material-icons">account_circle</span><a class="fill-a" href="{{route('author')}}">Author</a></li>
+                  <li class="{{ Request::segment(2) == 'banner' || Request::segment(2) == 'add_banner' || Request::segment(2) == 'filter_banner' ? 'active' : '' }}"><span class="material-icons">image</span><a class="fill-a" href="{{route('banner')}}">Banner</a></li>
+                  <li class="{{ Request::segment(2) == 'dropManagement' || Request::segment(2) == 'add_dropManagement' || Request::segment(2) == 'filter_dropManagement' ? 'active' : '' }}"><span class="material-icons">euro</span><a class="fill-a" href="{{route('dropManagement')}}">NFT Drops</a></li>
+                  <li class="{{ Request::segment(2) == 'pressRelease' || Request::segment(2) == 'add_pressRelease' || Request::segment(2) == 'filter_pressRelease' ? 'active' : '' }}"><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
+                  <li class="{{ Request::segment(2) == 'guide_category' || Request::segment(2) == 'add_guide_category' || Request::segment(2) == 'filter_guide_category' ? 'active' : '' }}"><span class="material-icons">category</span><a class="fill-a" href="{{route('guide_category')}}">Guide Category</a></li>
+                  <li class="{{ Request::segment(2) == 'guide' || Request::segment(2) == 'add_guide' || Request::segment(2) == 'filter_guide' ? 'active' : '' }}"><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide')}}">Guide</a></li>
+                  
+                  <li class="{{ Request::segment(2) == 'subscribersList' ? 'active' : '' }}"><span class="material-icons">add</span><a class="fill-a" href="{{ route('subscribersList') }}">Subscribers</a></li>
+
                   <li class="{{ Route::is('managePages') ? 'active' : '' }}"><span class="material-icons">assignment</span><a class="fill-a" href="{{route('managePages')}}">Manage Pages</a></li>
                   <li class="{{ Route::is('changePassword') ? 'active' : '' }}"><span class="material-icons">password</span><a class="fill-a" href="{{ route('changePassword') }}">Change Password</a></li>
                   <li class="{{ Route::is('settings') ? 'active' : '' }}"><span class="material-icons">engineering</span><a class="fill-a" href="{{ route('settings') }}">Settings</a></li>

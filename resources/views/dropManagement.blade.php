@@ -19,7 +19,6 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_dropManagement') }}" method="get">
-                @csrf
                 <td class="pr-0"><input type="text" name="filterDropName" size="40" placeholder="Name" value="<?php 
                 if (!empty($_GET['filterDropName'])) {
                     $q = $_GET['filterDropName'];
@@ -80,7 +79,7 @@ a:hover {
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{$dropManagementDetails->twitterLink}}</td>
                     <td>{{$dropManagementDetails->websiteLink}}</td> -->
-                    <td class="text-center">{{$dropManagementDetails->orderIndex}}</td>
+                    <td class="text-center">@if(@$dropManagementDetails->orderIndex != null || @$dropManagementDetails->orderIndex == ''){{@$dropManagementDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td>
                         <a title="Edit" href="{{ route('add_dropManagement',$dropManagementDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

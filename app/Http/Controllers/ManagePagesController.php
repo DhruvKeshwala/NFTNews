@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ManagePages;
+use App\Models\Subscribe;
 use App\Services\ManagePagesService;
 
 class ManagePagesController extends Controller
@@ -93,5 +94,11 @@ class ManagePagesController extends Controller
     {
         $page = ManagePagesService::getPageById($id);
         return view('page_detail',compact('page'));
+    }
+
+    public function subscribersList()
+    {
+        $data = Subscribe::paginate(10);
+        return view('subscriberList', compact('data'));
     }
 }

@@ -123,7 +123,8 @@
             </tr>
             <tr>
                 <td><label>Order Index</label></td>
-                <td><input type="number" value="{{ @$dropManagement->orderIndex }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+                <td><input type="number" value="{{ @$dropManagement->orderIndex != null || @$dropManagement->orderIndex != 0  ? @$dropManagement->orderIndex : 0 }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+                
             </tr>
             <tr>
                 <td><label>Meta Title</label></td>

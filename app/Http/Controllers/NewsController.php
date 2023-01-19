@@ -69,7 +69,7 @@ class NewsController extends Controller
             // 'metaTitle'         => 'required',
             // 'description'       => 'required',
             // 'keywords'          => 'required',
-            // 'orderIndex'        => 'required',
+            'orderIndex'        => 'required',
         ]);
         
         $newsdetails = $request->only([
@@ -125,8 +125,22 @@ class NewsController extends Controller
             }
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
+        
         $newsdetails['slug']     = Str::slug($request->title); //Adds slug for news
-        $news = NewsService::createNews($newsdetails,$request->newsId);
+        
+        $getSlugs = News::select('slug')->withTrashed()->get();
+        if(count($getSlugs))
+        {
+            $lastId     = News::select('id')->withTrashed()->latest()->first();
+            foreach($getSlugs as $value)
+            {
+                if($value->slug == $newsdetails['slug'])
+                {
+                    $newsdetails['slug'] = Str::slug($request->title . '-' . base64_encode($lastId->id));
+                }
+            }
+        }
+        NewsService::createNews($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'News Detail Saved Successfully']);
     }
     public function deleteNews(Request $request)

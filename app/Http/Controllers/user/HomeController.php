@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\News;
 use App\Models\Guide;
 use App\Models\Banner;
+use App\Models\PressRelease;
 use App\Models\DropManagement;
 use App\Services\PressReleaseService;
 use App\Services\DropManagementService;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
 
 use App\Models\ManagePages;
+use App\Models\Subscribe;
 use App\Services\ManagePagesService;
 
 use View, DB;
@@ -91,11 +93,11 @@ class HomeController extends Controller
             }
         }
 
-        $cryptoJournals  = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
+        $cryptoJournals      = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
         $pages               = ManagePages::all();
         $allNews             = News::take(10)->orderBy('orderIndex', 'asc')->get();
         $categories          = Category::all();
-        $pressReleases       = PressReleaseService::getPressRelease();
+        $pressReleases       = PressRelease::orderBy('orderIndex', 'asc')->get();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::orderBy('orderIndex', 'asc')->get();
         $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->get();
@@ -272,15 +274,15 @@ class HomeController extends Controller
 
     public function sendMailForSubscribe(Request $request)
     {
-        //Load Composer's autoloader
-        require base_path("vendor/autoload.php");
+        // //Load Composer's autoloader
+        // require base_path("vendor/autoload.php");
 
-        //Create an instance; passing `true` enables exceptions
-        $mail = new PHPMailer(true);
+        // //Create an instance; passing `true` enables exceptions
+        // $mail = new PHPMailer(true);
 
         $name = $request->name;
         $email = $request->email;
-        $phone = $request->phn;
+        $phone = $request->phone;
         $subject = $request->subject;
         $message = $request->message;
         $captcha = $request->captcha;
@@ -295,48 +297,57 @@ class HomeController extends Controller
             'email.required' => 'Email is required',
         ]);
 
+        $subscribeDetails = $request->only([
+            'name',
+            'email',
+            'phone',
+            'subject',
+            'message',
+        ]);
+
         if($request->captcha == $fourDigitRandom)
         {
 
-            //try {
-                //Server settings
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                $mail->isSMTP();                                            //Send using SMTP
+            // //try {
+            //     //Server settings
+            //     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            //     $mail->isSMTP();                                            //Send using SMTP
                 
-                $mail->SMTPDebug  = 2;
-                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-                $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
-                $mail->Port       = 587;                           //SMTP password
-                $mail->SMTPKeepAlive = true;
-                $mail->Mailer = "tls";
-                $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
-                $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
-                $mail->SMTPOptions = array(
-                'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-                )
-            );
+            //     $mail->SMTPDebug  = 2;
+            //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            //     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            //     $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
+            //     $mail->Port       = 587;                           //SMTP password
+            //     $mail->SMTPKeepAlive = true;
+            //     $mail->Mailer = "tls";
+            //     $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
+            //     $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
+            //     $mail->SMTPOptions = array(
+            //     'ssl' => array(
+            //     'verify_peer' => false,
+            //     'verify_peer_name' => false,
+            //     'allow_self_signed' => true
+            //     )
+            // );
                 
-                //Recipients
-                $mail->setFrom($email, 'User requested for subscribe our newslatter');
-                $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+                // //Recipients
+                // $mail->setFrom($email, 'User requested for subscribe our newslatter');
+                // $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
 
 
-                //Content
-                //$mail->isHTML(true);                                  //Set email format to HTML
-                //$mail->Subject = 'New Mail from Admin';
-                $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
-                //$mail->IsHTML(true);
-            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                $mail->send();
-                //echo 'Message has been sent';
-                //} 
-                //catch (Exception $e) {
-                //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                //}
+            //     //Content
+            //     //$mail->isHTML(true);                                  //Set email format to HTML
+            //     //$mail->Subject = 'New Mail from Admin';
+            //     $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+            //     //$mail->IsHTML(true);
+            // // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            //     $mail->send();
+            //     //echo 'Message has been sent';
+            //     //} 
+            //     //catch (Exception $e) {
+            //     //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            //     //}
+                Subscribe::create($subscribeDetails);
                 return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
         }
         else
@@ -491,7 +502,7 @@ class HomeController extends Controller
 
     public function filterFeaturedNews(Request $request)
     {
-        $newses          = News::orderBy('orderIndex', 'asc')->get();
+        $newses          = News::orderBy('orderIndex', 'asc')->paginate(1);
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews2 = array();

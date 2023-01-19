@@ -161,7 +161,7 @@ $settings = \App\Models\Settings::first();
                     <p>Looking for the latest NFTs collection that will launch soon? You're in the right place. Stay upto date on the latest NFTs trends, giveaways &amp; competitions!</p>
                     
                     <!-- SUBSCRIBE FORM -->
-                    <form action="{{ route('send_mail') }}" method="GET" id="subscribe_form" class="form-consultation">
+                    <form action="{{ route('sendMailForSubscribe') }}" method="POST" id="subscribe_form" class="form-consultation">
                       @csrf
                       <div class="form-group">
                         <input type="text" name="email" id="subscribeemail" class="form-control" placeholder="Email">

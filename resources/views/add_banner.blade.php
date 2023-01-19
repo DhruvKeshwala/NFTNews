@@ -45,6 +45,7 @@
                 <td><label>Banner Image</label></td>
                 <td>
                     <input type="file" name="image" id="image">
+                    <div id="imageError"></div>
                     @if(@$data->image != '')
                     <div><img src="{{asset('uploads/banner/').'/'.@$data->image}}" width = "100"></div>
                     @endif
@@ -75,6 +76,8 @@
         var url      = $("input[name='url']").val();
         var bannerId = $("input[name='bannerId']").val();
 
+        var image   = document.getElementById("image");
+
         var fd = new FormData();
         if(bannerId == ''){
             bannerId = 0;
@@ -91,7 +94,14 @@
         fd.append('bannerId', bannerId);
         fd.append('location', location);
 
-
+        if(bannerId == 0)
+        {
+            if(image.files.length == 0)
+            {
+                flag = 0;
+                $('#imageError').html('<span class="errorMessage" style="color:red;">Image is Required</span>');
+            }
+        }
         if (size == '' || size == null) 
         {
             flag = 0;

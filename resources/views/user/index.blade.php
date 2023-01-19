@@ -178,7 +178,7 @@
                         @if (@$pressReleases)
                             @foreach ($pressReleases as $pressRelease)
                                 <div class="block-21 border p-1 mb-2 d-flex">
-                                    <a href="#" class="blog-img mr-2"
+                                    <a href="{{ route('user.press_detail', ['id' => @$pressRelease->slug]) }}" class="blog-img mr-2"
                                     @if($pressRelease->image)
                                         style="background-image: url({{ URL::asset('uploads/' . @$pressRelease->image) }});"
                                     @else
@@ -188,7 +188,7 @@
                                     
                                     <div class="text">
                                         <h3 class="heading mb-1"><a
-                                                href="{{ route('user.press_detail', ['id' => base64_encode(@$pressRelease->id)]) }}">{{ @$pressRelease->title }}</a>
+                                                href="{{ route('user.press_detail', ['id' => @$pressRelease->slug]) }}">{{ @$pressRelease->title }}</a>
                                         </h3>
                                     </div>
                                 </div>

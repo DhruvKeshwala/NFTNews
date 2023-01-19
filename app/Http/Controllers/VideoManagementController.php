@@ -133,8 +133,20 @@ class VideoManagementController extends Controller
         $newsdetails['start_date'] = $request->start_date;
         $newsdetails['end_date']   = $request->end_date;
         
-        if($request->start_date!= null || $request->start_date != '' || $request->end_date != null || $request->end_date != '')
-            $newsdetails['videoType']  = $request->videoType;
+        if($request->newsId != 0 || $request->newsId != null)
+        {
+            if($request->start_date == null || $request->end_date == null)
+            {
+                $newsdetails['videoType'] = null;
+            }
+            else
+            {
+                $newsdetails['videoType']  = $request->videoType;
+            }
+        }
+
+        // if($request->start_date!= null || $request->start_date != '' || $request->end_date != null || $request->end_date != '')
+        //     $newsdetails['videoType']  = $request->videoType;
         
         $newsdetails['slug']       = Str::slug($request->title); //Adds slug for news
         $news = VideoService::createVideo($newsdetails,$request->newsId);

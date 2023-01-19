@@ -20,7 +20,6 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_author') }}" method="get">
-                @csrf
                 <td class="pr-0"><input type="text" name="filterAuthorName" size="45" value="<?php 
                 if (!empty($_GET['filterAuthorName'])) {
                     $q = $_GET['filterAuthorName'];

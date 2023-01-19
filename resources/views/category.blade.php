@@ -20,7 +20,7 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_category') }}" method="get">
-            @csrf
+            {{-- @csrf --}}
             <td class="pr-0"><input type="text" name="filterCategoryName" size="50" placeholder="Name" value="<?php 
                 if (!empty($_GET['filterCategoryName'])) {
                     $q = $_GET['filterCategoryName'];

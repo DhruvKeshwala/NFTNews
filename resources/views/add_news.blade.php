@@ -128,7 +128,7 @@
             <tr>
                 <td><label>Order Index</label></td>
                 <td><input type="number" value="{{ @$news->orderIndex != null || @$news->orderIndex != 0  ? @$news->orderIndex : 0 }}" name="orderIndex" placeholder="Order Index Number">
-                    {{-- <div id="orderIndexError"></div> --}}
+                    <div id="orderIndexError"></div>
                 </td>
             </tr>
             <tr>
@@ -282,11 +282,11 @@
         //     flag = 0;
         //     $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
         // } 
-        // if (orderIndex == '') 
-        // {
-        //     flag = 0;
-        //     $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
-        // }
+        if (orderIndex == '') 
+        {
+            flag = 0;
+            $("#orderIndexError").html('<span class="errorMessage" style="color:red;">Order Index Required</span>');
+        }
         // if (authorId == '' || authorId == null) 
         // {
         //     flag = 0;

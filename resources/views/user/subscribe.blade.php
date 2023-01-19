@@ -90,7 +90,7 @@
 												</div>
                                                 <div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control border" name="phn" id="phone" placeholder="Phone" value="{{old('phn')}}">
+														<input type="text" class="form-control border" name="phone" id="phone" placeholder="Phone" value="{{old('phn')}}">
 													</div>
 												</div>
 												<div class="col-md-6">

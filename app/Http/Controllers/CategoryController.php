@@ -41,8 +41,22 @@ class CategoryController extends Controller
             'description',
             'keywords'
         ]);
+
         $categoryDetails['slug'] = Str::slug($request->name);
-        $country = CategoryService::createCategory($categoryDetails,$request->categoryId);
+
+        $categories = Category::select('slug')->withTrashed()->get();
+        if(count($categories))
+        {
+            $lastId     = Category::select('id')->withTrashed()->latest()->first();
+            foreach($categories as $value)
+            {
+                if($value->slug == $categoryDetails['slug'])
+                {
+                    $categoryDetails['slug'] = Str::slug($request->name . '-' . base64_encode($lastId->id));
+                }
+            }
+        }
+        CategoryService::createCategory($categoryDetails,$request->categoryId);
         return json_encode(['success'=>1,'message'=>'Category Detail Saved Successfully']);
     }
     public function deleteCategory(Request $request)

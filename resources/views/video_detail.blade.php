@@ -50,14 +50,18 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
-                    <tr>
-                        <td><b>Image 1</b></td>
-                        <td>@if($news->image1 != null)<img src="{{asset('uploads/').'/'.$news->image1}}" width="100">@endif</td>
-                    </tr>
+                    @if($news->image1 != null)
+                        <tr>
+                            <td><b>Image 1</b></td>
+                            <td><img src="{{asset('uploads/').'/'.$news->image1}}" width="100"></td>
+                        </tr>
+                    @endif
+                    @if($news->image2 != null)
                     <tr>
                         <td><b>Image 2</b></td>
-                        <td>@if($news->image2 != null)<img src="{{asset('uploads/').'/'.$news->image2}}" width="100">@endif</td>
+                        <td><img src="{{asset('uploads/').'/'.$news->image2}}" width="100"></td>
                     </tr>
+                    @endif
                     <tr>
                         <td><b>Meta Title</b></td>
                         <td>{{ $news->metaTitle }}</td>

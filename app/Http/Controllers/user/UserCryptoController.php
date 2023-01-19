@@ -58,7 +58,7 @@ class UserCryptoController extends Controller
             //      $dm->where('newsType->featurednew->start_date','<=', $currentDate);
             //      $dm->where('newsType->featurednew->end_date','>=', $currentDate);
             // }
-        })->orderby('orderIndex','asc')->paginate(50);
+        })->orderby('orderIndex','asc')->paginate(12);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 

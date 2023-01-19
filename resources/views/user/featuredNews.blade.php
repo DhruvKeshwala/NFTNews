@@ -72,8 +72,6 @@
                       </div>
                     @endif
                   @endforeach
-              @else
-                  <p>No Data Found..</p>
               @endif
             </div>
             {{-- {{ $resultFeaturedNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }} --}}

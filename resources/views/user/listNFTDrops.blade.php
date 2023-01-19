@@ -15,8 +15,8 @@
     </section>
     <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="Top Banner Image"></a></div>
     <section class="ftco-section pt-0 pb-5 bg-info-gradient">
-        <form action="{{ route('user.filter_nftdrops') }}" id="nft_form" method="POST">
-            @csrf
+        <form action="{{ route('user.filter_nftdrops') }}" id="nft_form" method="GET">
+            {{-- @csrf --}}
             <div class="container">
 
                 <div class="row my-2">
@@ -52,8 +52,8 @@
                             {{-- <option value="all" {{ @$filterValue == 'all' || @$filterValue == '' || @$filterValue == null ? 'selected' : '' }}>
                                 All</option> --}}
                             @foreach ($categories as $category)
-                                <option value="{{ @$category->id }}"
-                                    {{ @$filterValue == @$category->id ? 'selected' : '' }}>{{ @$category->name }}</option>
+                                <option value="{{ base64_encode(@$category->id) }}"
+                                    {{ base64_encode(@$filterValue) == base64_encode(@$category->id) ? 'selected' : '' }}>{{ @$category->name }}</option>
                             @endforeach
                             {{-- <option value="avalanche">Avalanche</option> --}}
                         </select>

@@ -33,7 +33,7 @@ class UserVideosController extends Controller
     }
     public function videoSearch(Request $request)
     {
-        
+        $request->filternftcategoryValue = base64_decode($request->filternftcategoryValue);
         $categories = Category::all();
         $videos  = Video_management::where(function($dm) {
         $request = app()->make('request');

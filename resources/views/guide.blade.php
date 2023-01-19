@@ -20,7 +20,6 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_guide') }}" method="get">
-                @csrf
                 <td class="pr-0">
                     <select name="filterCategoryId" data-placeholder="Select Category">
                         <option value="">--Select Category--</option>

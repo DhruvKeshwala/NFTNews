@@ -20,7 +20,6 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_pressRelease') }}" method="get">
-                @csrf
                 <td class="pr-0"><input type="text" name="filterPressTitle" size="45" placeholder="Title" value="<?php 
                 if (!empty($_GET['filterPressTitle'])) {
                     $q = $_GET['filterPressTitle'];
@@ -87,7 +86,7 @@ a:hover {
                         {{ rtrim( $selection_types, ', ') }}
                     </td> --}}
                     <td>{{ $pressReleaseDetails->created_at->format('d-m-Y') }}</td>
-                    <td class="text-center">{{$pressReleaseDetails->orderIndex}}</td>
+                    <td class="text-center">@if(@$pressReleaseDetails->orderIndex != null || @$pressReleaseDetails->orderIndex == ''){{@$pressReleaseDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')
                             <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

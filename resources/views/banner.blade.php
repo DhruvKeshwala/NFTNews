@@ -20,7 +20,6 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_banner') }}" method="get" id="bannerSearchForm">
-                @csrf
                 <td class="pr-0">
                 <select name="filterSize" data-placeholder="Select Banner Size">
                         <option value="">Banner Size</option>

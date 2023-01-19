@@ -47,7 +47,7 @@
             </tr>
              <tr>
                 <td><label>Order Index</label></td>
-                <td><input type="number" value="{{ @$crypto->orderIndex != null || @$crypto->orderIndex != 0  ? @$crypto->orderIndex : '' }}" name="orderIndex" placeholder="Order Index Number">
+                <td><input type="number" value="{{ @$crypto->orderIndex != null || @$crypto->orderIndex != 0  ? @$crypto->orderIndex : 0 }}" name="orderIndex" placeholder="Order Index Number">
                     <div id="orderIndexError"></div>
                 </td>
             </tr>

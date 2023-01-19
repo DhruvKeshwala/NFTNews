@@ -122,6 +122,14 @@ class DropManagementController extends Controller
         if (!empty($request->start_date) && !empty($request->end_date)) {
             $dropManagementdetails['nftType']  = 'Featured';
         }
+
+        if($request->dropManagementId != 0 || $request->dropManagementId != null)
+        {
+            if($request->start_date == null || $request->end_date == null)
+            {
+                $dropManagementdetails['nftType'] = null;
+            }
+        }
         
         $dropManagement = DropManagementService::createDropManagement($dropManagementdetails,$request->dropManagementId);
         return json_encode(['success'=>1,'message'=>'Drop Management has been Saved Successfully']);

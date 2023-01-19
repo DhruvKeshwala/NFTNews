@@ -26,12 +26,13 @@ class UserNFTDropsController extends Controller
     public function listNFTDrop()
     {
         $categories = Category::all();
-        $allDropManagement  = DropManagement::orderby('orderIndex','asc')->paginate(10);
+        $allDropManagement  = DropManagement::orderby('orderIndex','asc')->paginate(9);
         $banners = Banner::where('location', 'nftdropfull')->first();
         return view('user.listNFTDrops', compact('allDropManagement','categories','banners'));
     }
     public function filterNFTDrop(Request $request)
     {
+        $request->filternftcategoryValue = base64_decode($request->filternftcategoryValue);
         $categories = Category::all();
         $allDropManagement  = DropManagement::where(function($dm) {
             $request = app()->make('request');
@@ -53,7 +54,7 @@ class UserNFTDropsController extends Controller
             if($request->filterValue == 'mostPopular') {
                 $dm->where('nftType', 'Featured');
             }
-        })->orderby('orderIndex','asc')->paginate(10);
+        })->orderby('orderIndex','asc')->paginate(9);
         $filterValue = $request->filternftcategoryValue;
         $nftsearch = $request->nft_search;
         $filterParam = $request->filterValue;
@@ -166,9 +167,11 @@ class UserNFTDropsController extends Controller
 
         // if (!empty($request->start_date) && !empty($request->end_date)) {
         //     $dropManagementdetails['nftType']  = 'Featured';
-        // }
+        // } 
+        
         if($request->captcha == $fourDigitRandom)
         {
+            $dropManagementdetails['nftType']  = null;
             $dropManagement = DropManagement::create($dropManagementdetails);
             return back()->with('success','NFT added successfully..');    
         } 

@@ -20,7 +20,7 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_crypto') }}" method="get">
-                @csrf
+                {{-- @csrf --}}
                 <td class="pr-0"><input type="text" name="filterNewsTitle" size="100" placeholder="Title" value="<?php 
                 if (!empty($_GET['filterNewsTitle'])) {
                     $q = $_GET['filterNewsTitle'];
@@ -56,7 +56,7 @@ a:hover {
                     <td>{{$loop->index + 1}}</td>
                     <td>@if($newsDetails->image != null)<img src="{{asset('uploads/').'/'.$newsDetails->image}}" width="100">@endif</td>
                     <td>{{$newsDetails->title}}</td>
-                    <td class="text-center">{{$newsDetails->orderIndex}}</td>
+                    <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == '') {{$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a title="Active" href="{{ route('crypto_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>

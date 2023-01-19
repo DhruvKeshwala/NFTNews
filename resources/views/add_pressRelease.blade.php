@@ -113,7 +113,7 @@
             @endforeach --}}
             <tr>
                 <td><label>Order Index</label></td>
-                <td><input type="number" value="{{ @$pressRelease->orderIndex }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
+                <td><input type="number" value="{{ @$pressRelease->orderIndex != null || @$pressRelease->orderIndex != 0  ? @$pressRelease->orderIndex : 0 }}" name="orderIndex" placeholder="Order Index Number"><div id="orderIndexError"></div></td>
             </tr>
             <tr>
                 <td><label>Meta Title</label></td>

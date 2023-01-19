@@ -129,7 +129,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('add_guide_category/{id?}', [GuideCategoryController::class, 'addCategory'])->name('add_guide_category');
         Route::post('save_guide_category', [GuideCategoryController::class, 'saveCategory'])->name('save_guide_category');
         Route::post('delete_guide_category', [GuideCategoryController::class, 'deleteCategory'])->name('delete_guide_category');
-        Route::post('filter_guide_category', [GuideCategoryController::class, 'filterCategory'])->name('filter_guide_category');
+        Route::get('filter_guide_category', [GuideCategoryController::class, 'filterCategory'])->name('filter_guide_category');
 
         //Manage Pages
         Route::get('managePages', [ManagePagesController::class, 'index'])->name('managePages');
@@ -153,6 +153,8 @@ Route::group(['prefix'=>'siteadmin'], function(){
         //Update Password
         Route::get('settings', [AuthController::class, 'updateSettings'])->name('settings');
         Route::post('update_settings', [AuthController::class, 'updateAdminSettings'])->name('update_settings'); 
+
+        Route::get('subscribersList', [ManagePagesController::class, 'subscribersList'])->name('subscribersList');
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
@@ -185,7 +187,7 @@ Route::get('mailData', [HomeController::class, 'mailData'])->name('user.mailData
 
 
 Route::get('subscribe', [HomeController::class, 'subscribe'])->name('user.subscribe');
-Route::get('sendMailForSubscribe', [HomeController::class, 'sendMailForSubscribe'])->name('sendMailForSubscribe');
+Route::post('sendMailForSubscribe', [HomeController::class, 'sendMailForSubscribe'])->name('sendMailForSubscribe');
 
 Route::get('featuredNews', [HomeController::class, 'featuredNews'])->name('user.featuredNews');
 Route::post('featuredNews', [HomeController::class, 'filterFeaturedNews'])->name('user.filterFeaturedNews');
@@ -194,13 +196,13 @@ Route::post('newsHomeSearch', [HomeController::class, 'newsHomeSearch'])->name('
 
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
-Route::get('newsSearch', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
+Route::get('news/newsSearch', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
 Route::get('newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
 
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
 
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
-Route::post('listNFTDrop', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
+Route::get('listNFTDrop/NFTDropSearch', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
 Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
 Route::get('submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
 Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.submitnftpost');
@@ -208,7 +210,7 @@ Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->na
 
 
 //Tag wise filter categories
-Route::get('userFilterCategoryNews/{id?}', [HomeController::class, 'userFilterCategoryNews'])->name('userFilterCategoryNews');
+Route::get('news/userFilterCategoryNews/{id?}', [HomeController::class, 'userFilterCategoryNews'])->name('userFilterCategoryNews');
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
 
 //Tag wise filter NFT Drops
@@ -218,23 +220,23 @@ Route::get('userFilterNFTDrops', [HomeController::class, 'userFilterNFTDrops'])-
 Route::get('userFilterVideos', [HomeController::class, 'userFilterVideos'])->name('userFilterVideos');
 
 Route::get('markets', [UserMarketsController::class, 'index'])->name('user.markets');
-Route::post('markets', [UserMarketsController::class, 'filterMarketNews'])->name('user.filter_marketsNews');
+Route::get('markets/marketSearch', [UserMarketsController::class, 'filterMarketNews'])->name('user.filter_marketsNews');
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
-Route::get('videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
-Route::get('videoSearch', [UserVideosController::class, 'videoSearch'])->name('user.videoSearch');
+Route::get('videos/videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+Route::get('videos/videoSearch', [UserVideosController::class, 'videoSearch'])->name('user.videoSearch');
 Route::post('videos', [UserVideosController::class, 'filterVideos'])->name('user.filter_videos');
 
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');
-Route::get('cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
-Route::post('cryptoJournals', [UserCryptoController::class, 'filterCrypto'])->name('user.filter_crypto');
+Route::get('cryptoJournals/cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
+Route::get('cryptoJournals/cryptoJournalSearch', [UserCryptoController::class, 'filterCrypto'])->name('user.filter_crypto');
 
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
 Route::get('guideList/{category}/{slug?}', [UserGuideController::class, 'guideList'])->name('user.guideList');
 
 
 Route::get('pressRelease', [UserPressController::class, 'index'])->name('user.pressRelease');
-Route::post('pressRelease', [UserPressController::class, 'filterPress'])->name('user.filterPress');
+Route::get('pressRelease/pressReleaseSearch', [UserPressController::class, 'filterPress'])->name('user.filterPress');
 
 // Route::post('send_mail', [UserPressController::class, 'sendMail'])->name('send_mail');
 

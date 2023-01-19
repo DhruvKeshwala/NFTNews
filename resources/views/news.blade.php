@@ -20,7 +20,7 @@ a:hover {
         <table class="webforms sttbl bg-light my-0 table-responsive-sm">
           <tbody><tr>
             <form action="{{ route('filter_news') }}" method="get">
-                @csrf
+                {{-- @csrf --}}
                 <td class="pr-0"><input type="text" name="filterNewsTitle" size="45" placeholder="Title" value="<?php 
                 if (!empty($_GET['filterNewsTitle'])) {
                     $q = $_GET['filterNewsTitle'];
@@ -89,15 +89,15 @@ a:hover {
                     @endforeach
                 <tr>
                     <td>{{@$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
+                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100"> @else <span>—</span> @endif</td>
                     <td>{{@$newsDetails->title}}</td>
                     <td>{{@$newsDetails->category}}</td>
-                    <td>{{@$newsDetails->author->name}}</td>
+                    <td>@if(@$newsDetails->author->name != null) {{@$newsDetails->author->name}} @else <span>—</span> @endif</td>
                     <td>
-                        {{ rtrim( $selection_types, ', ') }}
+                        @if(@$selection_types != null) {{ rtrim( @$selection_types, ', ') }} @else <span>—</span> @endif
                     </td>
                     <td>{{ $newsDetails->created_at->format('d-m-Y') }}</td>
-                    <td class="text-center">{{$newsDetails->orderIndex}}</td>
+                    <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == ''){{@$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a href="{{ route('news_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
