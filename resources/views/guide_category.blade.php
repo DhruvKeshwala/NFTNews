@@ -29,7 +29,9 @@
                                 placeholder="Meta Title" value="<?php
                                 if (!empty($metaTitle)) { echo $metaTitle; } ?>"></td>
                         <td><input type="submit" name="submit" value="Go"
-                                class="btn btn-dark py-1 px-2 text-white"></td>
+                                class="btn btn-dark py-1 px-2 text-white">
+                                <a href="{{ route('guide_category')}}"  class="btn btn-danger py-1 px-2 text-white">Reset</a>
+                            </td>
                     </form>
                 </tr>
             </tbody>

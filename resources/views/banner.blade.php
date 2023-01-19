@@ -60,7 +60,8 @@ a:hover {
                     </select>
                 </td>
                 <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white">
-                <a href="{{ route('banner')}}"  class="btn btn-dark py-1 px-2 text-white">Reset</a></td>
+                    <a href="{{ route('banner')}}"  class="btn btn-danger py-1 px-2 text-white">Reset</a>
+            </td>
             </form>
                 {{-- <td class="pr-0"><input type="number" size="" placeholder="Meta Description"></td>
            <td class="pr-0"><select>

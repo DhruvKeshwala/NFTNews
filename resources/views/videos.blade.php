@@ -37,7 +37,10 @@ a:hover {
                         @endforeach
                     </select></td>
                 
-                <td><input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white"></td>
+                <td>
+                    <input type="submit" name="submit" value="Go" class="btn btn-dark py-1 px-2 text-white">
+                    <a href="{{ route('videos')}}"  class="btn btn-danger py-1 px-2 text-white">Reset</a>
+                </td>
             </form>
           </tr>
          </tbody></table>
