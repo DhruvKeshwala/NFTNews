@@ -41,6 +41,13 @@
                 <td><input type="text" value="{{ @$pressRelease->title }}" name="title" placeholder="Title"><div id="titleError"></div></td>
             </tr>
             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$pressRelease->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Short Description</label></td>
                 <td><textarea rows="5" cols="30" name="shortDescription" id="shortDescription" placeholder="Short Description">{{@$pressRelease->shortDescription}}</textarea><div id="shortDescriptionError"></div></td>
             </tr>
@@ -59,6 +66,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 1 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$pressRelease->image1_alt }}" name="image1_alt" placeholder="Image 1 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 2</label></td>
                 <td>
                     <input type="file" name="article_1" id="article_1">
@@ -66,6 +79,12 @@
                     <div><img src="{{asset('uploads/').'/'.@$pressRelease->article_1}}" width = "100"></div>
                     @endif
                     <div id="article1Error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image 2 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$pressRelease->image2_alt }}" name="image2_alt" placeholder="Image 2 alt tag"></div>
                 </td>
             </tr>
             {{-- <tr>
@@ -138,6 +157,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$pressRelease->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="savePressRelease()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -183,6 +208,7 @@
         var categoryId              = $("select[name='categoryId[]']").val();
         // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
+        var slug = $("input[name=\"slug\"]").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
         var fullDescription = CKEDITOR.instances['fullDescription'].getData();
@@ -190,6 +216,10 @@
         var start_date              = $("input[name='start_date']").val();
         var end_date                = $("input[name='end_date']").val();
         var presstype = $("input[name='presstype[]']").map(function(){return $(this).val();}).get();
+        var image1_alt = $("input[name=\"image1_alt\"]").val();
+        var image2_alt = $("input[name=\"image2_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
 
         var fd = new FormData();
         if(pressReleaseId == ''){
@@ -220,12 +250,16 @@
         fd.append('orderIndex', orderIndex);
         // fd.append('authorId', authorId);
         fd.append('title', title);
+        fd.append('slug', slug);
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
         fd.append('pressReleaseId', pressReleaseId);
         fd.append('start_date', start_date);
         fd.append('end_date', end_date);
         fd.append('presstype', presstype);
+        fd.append('image1_alt', image1_alt);
+        fd.append('image2_alt', image2_alt);
+        fd.append('social_banner_alt', social_banner_alt);
         
         var files = $('#uploadSocialBanner')[0].files;
         if(files.length > 0)
@@ -267,6 +301,16 @@
             flag = 0;
             $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
         } 
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
+        }
         if (shortDescription == '') 
         {
             flag = 0;

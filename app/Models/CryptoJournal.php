@@ -22,5 +22,7 @@ class CryptoJournal extends Model
         'keywords',
         'uploadSocialBanner',
         'orderIndex',
+        'image_alt',
+        'social_banner_alt'
     ];
 }

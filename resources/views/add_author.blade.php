@@ -63,6 +63,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$data->image_alt }}" name="image_alt" placeholder="Image alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveAuthor()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -89,6 +95,7 @@
         var authorId = $("input[name='authorId']").val();
         var twitterLink      = $("input[name='twitterLink']").val();
         var linkedInLink      = $("input[name='linkedInLink']").val();
+        var image_alt = $("input[name='image_alt']").val();
         var fd = new FormData();
         if(authorId == ''){
             authorId = 0;
@@ -107,6 +114,7 @@
         fd.append('authorId', authorId);
         fd.append('twitterLink', twitterLink);
         fd.append('linkedInLink', linkedInLink);
+        fd.append('image_alt', image_alt);
         // if (name == '' || name == null) 
         // {
         //     flag = 0;

@@ -41,9 +41,10 @@ class GuideCategoryController extends Controller
             'name',
             'title',
             'description',
-            'keywords'
+            'keywords',
+            'slug'
         ]);
-        $categoryDetails['slug'] = Str::slug($request->name);
+        //$categoryDetails['slug'] = Str::slug($request->name);
         $country = GuideCategoryService::createCategory($categoryDetails,$request->categoryId);
         return json_encode(['success'=>1,'message'=>'Category Detail Saved Successfully']);
     }

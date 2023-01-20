@@ -59,6 +59,7 @@ class PressReleaseController extends Controller
         
         $pressReleasedetails = $request->only([
             'title',
+            'slug',
             'shortDescription',
             'fullDescription',
             'categoryId',
@@ -69,6 +70,9 @@ class PressReleaseController extends Controller
             'keywords',
             // 'authorId',
             'orderIndex',
+            'image1_alt',
+            'image2_alt',
+            'social_banner_alt'
         ]);
         if($request->file('image') != null)
         {
@@ -112,7 +116,7 @@ class PressReleaseController extends Controller
         // } 
         $pressReleasedetails['start_date'] = $request->start_date;
         $pressReleasedetails['end_date']   = $request->end_date;
-        $pressReleasedetails['slug']       = Str::slug($request->title); //Adds slug for news
+        //$pressReleasedetails['slug']       = Str::slug($request->title); //Adds slug for news
         // $pressReleasedetails['pressType'] = json_encode($pressTypeDate);
         $news = PressReleaseService::createPressRelease($pressReleasedetails,$request->pressReleaseId);
         return json_encode(['success'=>1,'message'=>'Press Release Detail Saved Successfully']);

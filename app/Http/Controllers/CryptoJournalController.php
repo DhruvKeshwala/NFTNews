@@ -56,12 +56,15 @@ class CryptoJournalController extends Controller
         
         $newsdetails = $request->only([
             'title',
+            'slug',
             'shortDescription',
             'fullDescription',
             'metaTitle',
             'description',
             'keywords',
             'orderIndex',
+            'image_alt',
+            'social_banner_alt'
         ]);
         if($request->file('image') != null)
         {
@@ -85,7 +88,7 @@ class CryptoJournalController extends Controller
             $newsdetails['uploadSocialBanner'] = $fileName;
         }
 
-        $newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
+        //$newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Crypto Journal Saved Successfully']);
     }

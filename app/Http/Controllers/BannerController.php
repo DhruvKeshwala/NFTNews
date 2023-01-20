@@ -61,6 +61,7 @@ class BannerController extends Controller
             'url',
             'image',
             'location',
+            'banner_image_alt'
         ]);
         if($request->file('image') != null)
         {
@@ -73,6 +74,7 @@ class BannerController extends Controller
         $data['size'] =  $request->size;
         $data['url'] = $request->url;
         $data['location'] = $request->location;
+        $data['banner_image_alt'] = $request->banner_image_alt;
         // $data['authorId'] = $request->authorId; 
         $result = BannerService::createUpdate($data,$request->bannerId);
         return json_encode(['success'=>1,'message'=>'Banner Saved Successfully']);

@@ -40,6 +40,13 @@
                 <td><label>Title</label></td>
                 <td><input type="text" value="{{ @$news->title }}" name="title" placeholder="Title"><div id="titleError"></div></td>
             </tr>
+             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$news->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
             <tr>
                 <td><label>Short Description</label></td>
                 <td><textarea rows="5" cols="30" name="shortDescription" id="shortDescription" placeholder="Short Description">{{@$news->shortDescription}}</textarea><div id="shortDescriptionError"></div></td>
@@ -59,6 +66,12 @@
                     <div id="image1Error"></div>
                 </td>
             </tr>
+             <tr>
+                <td><label>Image 1 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image1_alt }}" name="image1_alt" placeholder="Image 1 alt tag"></div>
+                </td>
+            </tr>
             <tr>
                 <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 300x200 pixels</small></td>
                 <td>
@@ -68,6 +81,12 @@
                     @endif
                     <div id="image2Error"></div>
 
+                </td>
+            </tr>
+             <tr>
+                <td><label>Image 2 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image2_alt }}" name="image2_alt" placeholder="Image 2 alt tag"></div>
                 </td>
             </tr>
             <tr>
@@ -122,6 +141,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveVideo()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -169,6 +194,7 @@
         var categoryId              = $("select[name='categoryId[]']").val();
         // var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
+        var slug                   = $("input[name='slug']").val();
         var code                    = $("textarea[name='code']").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
@@ -177,7 +203,10 @@
         var start_date              = $("input[name='start_date']").map(function(){return $(this).val();}).get();
         var end_date                = $("input[name='end_date']").map(function(){return $(this).val();}).get();
         var videoType               = "Featured Video";
-
+        var image1_alt = $("input[name=\"image1_alt\"]").val();
+        var image2_alt = $("input[name=\"image2_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
         var fd = new FormData();
         if(newsId == ''){
             newsId = 0;
@@ -214,6 +243,10 @@
         fd.append('description', description);
         fd.append('keywords', keywords);
         fd.append('orderIndex', orderIndex);
+        fd.append('slug', slug);
+        fd.append('image1_alt', image1_alt);
+        fd.append('image2_alt', image2_alt);
+        fd.append('social_banner_alt', social_banner_alt);
         
         // Append article 1 
         var files = $('#uploadSocialBanner')[0].files;
@@ -226,6 +259,16 @@
         {
             flag = 0;
             $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
+        }
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
         }
         if (metaTitle == '') 
         {

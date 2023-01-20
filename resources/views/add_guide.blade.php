@@ -28,6 +28,13 @@
                 <td><textarea rows="5" cols="30" name="question" id="question" placeholder="Question">{{ @$guide->question }}</textarea><div id="questionError"></div></td>
             </tr>
             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$guide->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Answer</label></td>
                 <td><textarea rows="5" cols="30" name="answer" id="answer" placeholder="Answer">{{ @$guide->answer }}</textarea><div id="answerError"></div></td>
             </tr>
@@ -65,9 +72,11 @@
         var category             = $("select[name='category']").val();
         var question        = $("#question").val();
         var answer        = $("#answer").val();
+        var slug        = $("input[name=\"slug\"]").val();
         var answerValidate = CKEDITOR.instances['answer'].getData().replace(/<[^>]*>/gi, '').length;
         var answer = CKEDITOR.instances['answer'].getData();
         var guideId = $("input[name='guideId']").val();
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
 
         var fd = new FormData();
         if(guideId == ''){
@@ -77,6 +86,7 @@
         fd.append('question', question);
         fd.append('answer', answer);
         fd.append('guideId', guideId);
+        fd.append('slug', slug);
         if (category == '' || category == null) 
         {
             flag = 0;
@@ -87,6 +97,16 @@
             flag = 0;
             $("#questionError").html('<span class="errorMessage" style="color:red;">Question Required</span>');
         } 
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
+        }
         if (answer == '') 
         {
             flag = 0;

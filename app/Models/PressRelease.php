@@ -27,6 +27,9 @@ class PressRelease extends Model
         'metaTitle',
         'description',
         'keywords',
+        'image1_alt',
+        'image2_alt',
+        'social_banner_alt'
     ];
     public function category()
     {

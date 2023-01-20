@@ -80,6 +80,7 @@ class AuthorController extends Controller
         $data['short_bio'] = $request->shortBio;
         $data['twitterLink'] = $request->twitterLink;
         $data['linkedInLink'] = $request->linkedInLink;
+        $data['image_alt'] = $request->image_alt;
 
         // $data['authorId'] = $request->authorId;
         $result = AuthorService::createUpdate($data,$request->authorId);

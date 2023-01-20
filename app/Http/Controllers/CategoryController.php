@@ -29,6 +29,7 @@ class CategoryController extends Controller
         //validation
         $request->validate([
             'name' => 'required',
+            'slug' => 'required',
             'categoryId' => 'required',
             'title' => 'required',
             'description' => 'required',
@@ -37,12 +38,15 @@ class CategoryController extends Controller
 
         $categoryDetails = $request->only([
             'name',
+            'slug',
             'title',
             'description',
             'keywords'
         ]);
 
-        $categoryDetails['slug'] = Str::slug($request->name);
+        // $categoryDetails['slug'] = Str::slug($request->slug);
+
+        dd($categoryDetails);die;
 
         $categories = Category::select('slug')->withTrashed()->get();
         if(count($categories))

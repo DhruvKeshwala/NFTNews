@@ -30,6 +30,13 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$dropManagement->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Token</label></td>
                 <td><input type="text" value="{{ @$dropManagement->token }}" name="token" placeholder="Token">
                     {{-- <div id="tokenError"></div> --}}
@@ -81,6 +88,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 1 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$dropManagement->image1_alt }}" name="image1_alt" placeholder="Image 1 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 1170x610 pixels</small></td>
                 <td>
                     <input type="file" name="image" id="image2">
@@ -90,12 +103,24 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 2 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$dropManagement->image2_alt }}" name="image2_alt" placeholder="Image 2 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 3 (Logo)</label><small class="text-muted">Choose Image 3 size of 200x200 pixels</small></td>
                 <td>
                     <input type="file" name="logo" id="logo">
                     @if(@$dropManagement->logo != '')
                     <div><img src="{{asset('uploads/').'/'.@$dropManagement->logo}}" width = "100"></div>
                     @endif
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image 3 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$dropManagement->image3_alt }}" name="image3_alt" placeholder="Image 3 alt tag"></div>
                 </td>
             </tr>
             <tr>
@@ -149,6 +174,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$dropManagement->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveDropManagement()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -183,6 +214,7 @@
         var orderIndex = $("input[name='orderIndex']").val();
         var categoryId       = $("select[name='categoryId[]']").val();
         var name             = $("input[name='name']").val();
+        var slug = $("input[name=\"slug\"]").val();
         var token            = $("input[name='token']").val();
         var blockChain       = $("input[name='blockChain']").val();
         var priceOfSale      = $("input[name='priceOfSale']").val();
@@ -194,6 +226,11 @@
         var start_date      = $("input[name='start_date']").val();
         var end_date      = $("input[name='end_date']").val();
         var dropManagementId = $("input[name='dropManagementId']").val();
+        var image1_alt = $("input[name=\"image1_alt\"]").val();
+        var image2_alt = $("input[name=\"image2_alt\"]").val();
+        var image3_alt = $("input[name=\"image3_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
         var fd = new FormData();
         if(dropManagementId == ''){
             dropManagementId = 0;
@@ -223,6 +260,7 @@
         fd.append('keywords', keywords);
         fd.append('orderIndex', orderIndex);
         fd.append('name', name);
+        fd.append('slug', slug);
         fd.append('token', token);
         fd.append('blockChain', blockChain);
         fd.append('priceOfSale', priceOfSale);
@@ -233,6 +271,10 @@
         fd.append('start_date', start_date);
         fd.append('end_date', end_date);
         fd.append('dropManagementId', dropManagementId);
+        fd.append('image1_alt', image1_alt);
+        fd.append('image2_alt', image2_alt);
+        fd.append('image3_alt', image3_alt);
+        fd.append('social_banner_alt', social_banner_alt);
 
          // Append article 1 
         var files = $('#uploadSocialBanner')[0].files;
@@ -269,6 +311,16 @@
         {
             flag = 0;
             $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
+        }
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
         }
         // if (token == '') 
         // {

@@ -74,6 +74,7 @@ class DropManagementController extends Controller
         
         $dropManagementdetails = $request->only([
             'name',
+            'slug',
             'token',
             'blockChain',
             'priceOfSale',
@@ -88,6 +89,10 @@ class DropManagementController extends Controller
             'description',
             'keywords',
             'orderIndex',
+            'image1_alt',
+            'image2_alt',
+            'image3_alt',
+            'social_banner_alt'
         ]);
 
         if($request->file('image') != null)
@@ -118,7 +123,7 @@ class DropManagementController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $dropManagementdetails['uploadSocialBanner'] = $fileName;
         }    
-        $dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
+        //$dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
         if (!empty($request->start_date) && !empty($request->end_date)) {
             $dropManagementdetails['nftType']  = 'Featured';
         }

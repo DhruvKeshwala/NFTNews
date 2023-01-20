@@ -41,6 +41,13 @@
                 <td><input type="text" value="{{ @$news->title }}" name="title" placeholder="Title"><div id="titleError"></div></td>
             </tr>
             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$news->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Short Description</label></td>
                 <td><textarea rows="5" cols="30" name="shortDescription" id="shortDescription" placeholder="Short Description">{{@$news->shortDescription}}</textarea><div id="shortDescriptionError"></div></td>
             </tr>
@@ -60,6 +67,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 1 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image1_alt }}" name="image1_alt" placeholder="Image 1 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 800x460 pixels</small></td>
                 <td>
                     <input type="file" name="article_1" id="article_1">
@@ -70,6 +83,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 2 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image2_alt }}" name="image2_alt" placeholder="Image 2 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 3</label><small class="text-muted">Choose Image 3 size of 300x400 pixels</small></td>
                 <td>
                     <input type="file" name="article_2" id="article_2">
@@ -77,6 +96,12 @@
                     <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100" alt="{{ @$news->title }}"></div>
                     @endif
                     <div id="article2Error"></div>
+                </td>
+            </tr>
+             <tr>
+                <td><label>Image 3 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image3_alt }}" name="image3_alt" placeholder="Image 3 alt tag"></div>
                 </td>
             </tr>
             <tr>
@@ -161,6 +186,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveNews()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -208,6 +239,7 @@
         var categoryId              = $("select[name='categoryId[]']").val();
         var authorId                = $("select[name='authorId']").val();
         var title                   = $("input[name='title']").val();
+        var slug = $("input[name=\"slug\"]").val();
         var videoURL                = $("input[name='videoURL']").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
@@ -216,10 +248,24 @@
         var start_date = $("input[name='start_date[]']").map(function(){return $(this).val();}).get();
         var end_date = $("input[name='end_date[]']").map(function(){return $(this).val();}).get();
         var newstype = $("input[name='newstype[]']").map(function(){return $(this).val();}).get();
-
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
+        var image1_alt = $("input[name=\"image1_alt\"]").val();
+        var image2_alt = $("input[name=\"image2_alt\"]").val();
+        var image3_alt = $("input[name=\"image3_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
         var fd = new FormData();
         if(newsId == ''){
             newsId = 0;
+        }
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
         }
         // Append data 
         var files = $('#image')[0].files;
@@ -247,6 +293,7 @@
         fd.append('orderIndex', orderIndex);
         fd.append('authorId', authorId);
         fd.append('title', title);
+        fd.append('slug', slug);
         fd.append('videoURL', videoURL);
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
@@ -254,6 +301,10 @@
         fd.append('start_date', start_date);
         fd.append('end_date', end_date);
         fd.append('newstype', newstype);
+        fd.append('image1_alt', image1_alt);
+        fd.append('image2_alt', image2_alt);
+        fd.append('image3_alt', image3_alt);
+        fd.append('social_banner_alt', social_banner_alt);
 
         // Append article 1 
         var files = $('#uploadSocialBanner')[0].files;

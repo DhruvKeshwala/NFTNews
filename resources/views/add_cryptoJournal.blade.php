@@ -16,6 +16,13 @@
                 <td><input type="text" value="{{ @$crypto->title }}" name="title" placeholder="Title"><div id="titleError"></div></td>
             </tr>
             <tr>
+                <td><label>Slug</label></td>
+                <td>
+                    <input type="text" value="{{@$crypto->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Short Description</label></td>
                 <td><textarea rows="5" cols="30" name="shortDescription" id="shortDescription" placeholder="Short Description">{{@$crypto->shortDescription}}</textarea><div id="shortDescriptionError"></div></td>
             </tr>
@@ -32,6 +39,12 @@
                     @endif
                     
                     <div id="imageError"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$crypto->image_alt }}" name="image_alt" placeholder="Image alt tag"></div>
                 </td>
             </tr>
             <tr>
@@ -75,6 +88,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$crypto->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveCrypto()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -110,10 +129,14 @@
         var keywords = $("#keywords").val();
         var orderIndex = $("input[name='orderIndex']").val();
         var title                   = $("input[name='title']").val();
+        var slug = $("input[name=\"slug\"]").val();
         var shortDescription        = $("#shortDescription").val();
         var fullDescriptionValidate = CKEDITOR.instances['fullDescription'].getData().replace(/<[^>]*>/gi, '').length;
         var fullDescription = CKEDITOR.instances['fullDescription'].getData();
         var newsId                  = $("input[name='newsId']").val();
+        var image_alt = $("input[name=\"image_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
 
         var fd = new FormData();
         if(newsId == ''){
@@ -138,6 +161,7 @@
         //     fd.append('article_2',files[0]);
         // }
         fd.append('title', title);
+        fd.append('slug', slug);
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
         fd.append('keywords', keywords);
@@ -145,6 +169,8 @@
         fd.append('shortDescription', shortDescription);
         fd.append('fullDescription', fullDescription);
         fd.append('newsId', newsId);
+        fd.append('image_alt', image_alt);
+        fd.append('social_banner_alt', social_banner_alt);
         // Append article 1 
         var files = $('#uploadSocialBanner')[0].files;
         if(files.length > 0)
@@ -156,6 +182,16 @@
             flag = 0;
             $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
         } 
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
+        }
         if (metaTitle == '') 
         {
             flag = 0;

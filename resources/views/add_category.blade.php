@@ -16,10 +16,13 @@
                 <td><label>Name</label></td>
                 <td><input type="text" value="{{@$category->name}}" name="name" placeholder="Name"><input type="hidden" name="categoryId" value="{{@$id}}"><div id="nameError"></div></td>
             </tr>
-            <!-- <tr>
+            <tr>
                 <td><label>Slug</label></td>
-                <td><input type="text" value="{{@$category->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div></td>
-            </tr> -->
+                <td>
+                    <input type="text" value="{{@$category->slug}}" name="slug" placeholder="Slug"><div id="slugError"></div>
+                    <small>Note* : Please do not enter special characters and space in slug</small>
+                </td>
+            </tr>
             <tr>
                 <td><label>Meta Title</label></td>
                 <td><input type="text" value="{{ @$category->title }}" name="title" placeholder="Meta Title"><div id="titleError"></div></td>
@@ -58,11 +61,12 @@
         $('.errorMessage').hide();
         var flag = 1;
         var name = $("input[name=\"name\"]").val();
-        //var slug = $("input[name=\"slug\"]").val();
+        var slug = $("input[name=\"slug\"]").val();
         var title = $("input[name=\"title\"]").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
-        var categoryId = $("input[name=\"categoryId\"]").val();        
+        var categoryId = $("input[name=\"categoryId\"]").val(); 
+        const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;       
         if(categoryId == '')
         {
             categoryId = 0;
@@ -72,11 +76,16 @@
             flag = 0;
             $("#nameError").html('<span class="errorMessage" style="color:red;">Name Required</span>');
         }        
-        // if (slug == '') 
-        // {
-        //     flag = 0;
-        //     $("#slugError").html('<span style="color:red;">Slug Required</span>');
-        // } 
+        if (slug == '') 
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Slug Required</span>');
+        } 
+        else if(!regexExp.test(slug))
+        {
+            flag = 0;
+            $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
+        }
         if (title == '') 
         {
             flag = 0;
@@ -107,6 +116,7 @@
                 type: "POST",
                 data: {
                     name: name,
+                    slug: slug,
                     categoryId: categoryId,
                     title: title,
                     description: description,

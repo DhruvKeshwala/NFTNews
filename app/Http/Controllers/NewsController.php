@@ -60,6 +60,7 @@ class NewsController extends Controller
         //validation
         $request->validate([
             'title'             => 'required',
+            'slug'             => 'required',
             'categoryId'        => 'required',
             // 'authorId'          => 'required',
             'shortDescription'  => 'required',
@@ -74,6 +75,7 @@ class NewsController extends Controller
         
         $newsdetails = $request->only([
             'title',
+            'slug',
             'shortDescription',
             'fullDescription',
             'videoURL',
@@ -83,6 +85,10 @@ class NewsController extends Controller
             'description',
             'keywords',
             'orderIndex',
+            'image1_alt',
+            'image2_alt',
+            'image3_alt',
+            'social_banner_alt'
         ]);
         if($request->file('image') != null)
         {
@@ -126,7 +132,7 @@ class NewsController extends Controller
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
         
-        $newsdetails['slug']     = Str::slug($request->title); //Adds slug for news
+        // $newsdetails['slug']     = Str::slug($request->title); //Adds slug for news
         
         $getSlugs = News::select('slug')->withTrashed()->get();
         if(count($getSlugs))

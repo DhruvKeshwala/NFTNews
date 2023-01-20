@@ -52,6 +52,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Banner Image alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$data->banner_image_alt }}" name="banner_image_alt" placeholder="Banner Image alt"></div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveBanner()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -75,6 +81,7 @@
         var location = $("select[name='location']").val();
         var url      = $("input[name='url']").val();
         var bannerId = $("input[name='bannerId']").val();
+        var banner_image_alt = $("input[name='banner_image_alt']").val();
 
         var image   = document.getElementById("image");
 
@@ -93,6 +100,7 @@
         fd.append('url', url);
         fd.append('bannerId', bannerId);
         fd.append('location', location);
+        fd.append('banner_image_alt',banner_image_alt);
 
         if(bannerId == 0)
         {
