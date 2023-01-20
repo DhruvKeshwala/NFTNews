@@ -55,7 +55,9 @@ class UserMarketsController extends Controller
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
         $filterValue = $request->filterValue;
-        return view('user.markets', compact('getAllNewses', 'categories', 'filtercategoryId', 'search', 'filterValue'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.markets', compact('getAllNewses', 'categories', 'filtercategoryId', 'search', 'filterValue','banners_small','banners_horizontal'));
 
     }
 
