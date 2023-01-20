@@ -40,7 +40,9 @@ class UserNewsController extends Controller
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
-        return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews','banners_small','banners_horizontal'));
     }
 
     public function filterNews(Request $request)
@@ -63,8 +65,9 @@ class UserNewsController extends Controller
         $categories     = Category::all();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
-
-        return view('user.news', compact('categories', 'allNews', 'getAllNewses', 'innerSideBanner', 'newsTopBanner'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.news', compact('categories', 'allNews', 'getAllNewses', 'innerSideBanner', 'newsTopBanner','banners_small','banners_horizontal'));
     }
 
     public function newsDetail($id)
@@ -90,6 +93,8 @@ class UserNewsController extends Controller
         $getAllNewses    = News::orderby('orderIndex','asc')->get();
         $banners         = Banner::where('size', '280 x 400 pixels')->first();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
-        return view('user.newsDetails',compact('innerSideBanner', 'newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.newsDetails',compact('innerSideBanner', 'newsDetail', 'resultFeaturedNews', 'getAllNewses', 'banners','banners_small','banners_horizontal'));
     }
 }

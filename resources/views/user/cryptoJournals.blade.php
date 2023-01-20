@@ -83,7 +83,13 @@
                             @else
                               src="{{URL::asset('images/default-crypto-list.png')}}"
                             @endif
-                            width="100%" class="img-fluid w-100 h-auto" alt="{{@$crypto->title}}">
+                            width="100%" class="img-fluid w-100 h-auto"
+                            @if($crypto->image_alt != null && $crypto->image_alt != '') 
+                             alt="{{@$crypto->image_alt}}"
+                            @else
+                            alt="{{@$crypto->title}}"
+                            @endif
+                            >
                             <figcaption>
                                 <p class="mt-n5 text-center"><a href="{{ route('user.crypto_detail', ['id' => @$crypto->slug]) }}" class="btn btn-primary border py-1 mt-n5">View More</a> <a href="#" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$crypto->id}}">Quick View</a></p>
                             </figcaption>

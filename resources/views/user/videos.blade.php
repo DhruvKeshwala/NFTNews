@@ -75,7 +75,12 @@
             @else
               src="{{URL::asset('images/default-video-list.png')}}"
             @endif 
-            width="100%" class="img-fluid w-100 h-auto" alt="{{@$video->title}}">
+            @if($video->image1_alt != null || $video->image1_alt != '') 
+              alt="{{@$video->image1_alt}}"
+            @else
+              alt="{{@$video->title}}"
+            @endif 
+            width="100%" class="img-fluid w-100 h-auto" >
            <figcaption>
             @if($video->videoType == 'Featured Video')
               <span class="badge_featured badge-light text-light">Featured</span>
