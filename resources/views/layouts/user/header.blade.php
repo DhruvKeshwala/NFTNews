@@ -56,6 +56,7 @@ $settings = \App\Models\Settings::first();
 
     <meta name="twitter:image" content="{{URL::asset('images/Twitter_Logo.png')}}" >
 
+    {!! $settings->googleAnalytics !!}
   </head>
   <body>
 

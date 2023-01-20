@@ -39,17 +39,6 @@ class HomeController extends Controller
     public function index()
     {
         $newses          = News::orderBy('id', 'DESC')->get();
-        // dd($newses[0]->newsType['homeheader']['start_date']);
-        
-        // foreach($newses as $newsData)
-        // {
-        //     $homeHeaderStartDate[] = json_decode($newsData->newsType);
-        //     dd($homeHeaderStartDate[0]->homeheader->start_date);
-        //     $homeHeaderEndDate[] = $newsData->newsType['homeheader']['end_date'];
-        // }
-        
-        // $getDateDate = News::whereJsonContains("newsType->homeheader->start_date", $homeHeaderStartDate)->get();
-        // dd($getDateDate);
         $currentDate = date('d-m-Y');
         $result = array();
         $resultHomeNews     = array();

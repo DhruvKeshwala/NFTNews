@@ -159,6 +159,7 @@ class AuthController extends Controller
             'linkedin' => 'required',
             'youtube' => 'required',
             'email' => 'required',
+            'googleAnalytics' => 'required',
         ]);
 
         $request->only([
@@ -168,6 +169,7 @@ class AuthController extends Controller
             'linkedin',
             'youtube',
             'email',
+            'googleAnalytics',
         ]);
 
         $data = [
@@ -176,7 +178,8 @@ class AuthController extends Controller
             'instagram' => $request->instagram,
             'linkedin' => $request->linkedin,
             'youtube' => $request->youtube,
-            'email' => $request->email
+            'email' => $request->email,
+            'googleAnalytics' => $request->googleAnalytics
         ];
 
         #Update settings
