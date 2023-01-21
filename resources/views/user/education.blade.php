@@ -21,7 +21,7 @@
       @if(@$educationTopBanner->location != null)
           <a href="{{@$educationTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$educationTopBanner->image) }}" width="100%"
-          height="auto" alt="Top Banner Image"></a>
+          height="auto" alt="{{@$educationTopBanner->banner_image_alt}}"></a>
       @endif
     </div>
 

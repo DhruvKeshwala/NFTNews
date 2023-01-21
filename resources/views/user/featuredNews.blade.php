@@ -105,7 +105,7 @@
                         @else
                             src="{{ URL::asset('images/default-market-news-featured.png') }}"
                         @endif
-                        width="100%" class="img-thumbnail" height="auto" alt="{{ @$news->title }}"/></a></div>
+                        width="100%" class="img-thumbnail" height="auto" alt="{{ @$news->image1_alt }}"/></a></div>
                         <div class="text">
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">

@@ -118,7 +118,7 @@
             @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
                   <a href="{{@$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$innerSideBanner->image) }}"
-                          width="100%" height="auto" alt="Side Banner Image"></a>
+                          width="100%" height="auto" alt="{{@$innerSideBanner->banner_image_alt}}"></a>
               </div>
             @endif
           	 {{-- <div class="sidebar-box">
@@ -204,7 +204,7 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="Banner" class="img-fluid"></a>
+                                            width="100%" alt="{{@$banners_small[$sb]['banner_image_alt']}}" class="img-fluid"></a>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
                                             width="100%" 
@@ -258,7 +258,7 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="Banner Full Width"></a>
+                                    height="auto" class="img-fluid rounded" alt="{{ @$banners_horizontal[$bz]['banner_image_alt'] }}"></a>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
                                     height="auto" class="img-fluid rounded" 

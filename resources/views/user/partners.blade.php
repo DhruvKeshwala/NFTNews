@@ -20,7 +20,7 @@
       @if(@$partnerTopBanner->location != null)
           <a href="{{@$partnerTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$partnerTopBanner->image) }}" width="100%"
-          height="auto" alt="Top Banner Image"></a>
+          height="auto"  alt="{{@$partnerTopBanner->banner_image_alt}}"></a>
       @endif
     </div>
  @if(@$page->selectTemplate == 'education')   

@@ -24,7 +24,7 @@
   @if(@$marketTopBanner->location != null)
       <a href="{{@$marketTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$marketTopBanner->image) }}" width="100%"
-      height="auto" alt="Top Market Banner"></a>
+      height="auto" alt="{{@$marketTopBanner->banner_image_alt}}"></a>
   @endif
 </div>
 <section class="ftco-section py-5 bg-info-gradient">
@@ -86,14 +86,14 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="Banner" class="img-fluid"></a>
+                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
                                             width="100%" 
                                             @if(@$banners_small[$sb]['banner_image_alt'] != '' && @$banners_small[$sb]['banner_image_alt'] != null)
                                             alt="{{@$banners_small[$sb]['banner_image_alt']}}"
                                             @else 
-                                            alt="Banner"
+                                            alt="{{@$banners_small[$sb]['banner_image_alt']}}"
                                             @endif
                                             class="img-fluid"></a>
                                     @endif
@@ -140,14 +140,14 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="Banner Full Width"></a>
+                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
                                     height="auto" class="img-fluid rounded" 
                                     @if(@$banners_horizontal[$bz]['banner_image_alt'] != '' && @$banners_horizontal[$sb]['banner_image_alt'] != null)
                                     alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"
                                     @else 
-                                    alt="Banner Full Width"
+                                    alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"
                                     @endif
                                     ></a>
                                     @endif

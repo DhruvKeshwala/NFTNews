@@ -23,7 +23,7 @@
     <div class="container news-banner mb-3">
           <a href="{{@$guideTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$guideTopBanner->image) }}" width="100%"
-          height="auto" alt="Top Banner Image"></a>
+          height="auto" alt="{{@$guideTopBanner->banner_image_alt}}"></a>
     </div>
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">

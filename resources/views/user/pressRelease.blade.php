@@ -17,7 +17,7 @@
       @if(@$pressTopBanner->location != null)
           <a href="{{@$pressTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$pressTopBanner->image) }}" width="100%"
-          height="auto" alt="Top Banner Image"></a>
+          height="auto" alt="{{@$pressTopBanner->banner_image_alt}}"></a>
       @endif
     </div>
 
@@ -127,7 +127,7 @@
             @if(@$pressSideBanner->location != null)
               <div class="sidebar-box">
                   <a href="{{$pressSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $pressSideBanner->image) }}"
-                          width="100%" height="auto" alt="Side Banner Image"></a>
+                          width="100%" height="auto" alt="{{@$pressSideBanner->banner_image_alt}}"></a>
               </div>
             @endif
           	 {{-- <div class="sidebar-box">
@@ -161,7 +161,7 @@
                         @else
                             src="{{ URL::asset('images/default-market-news-featured.png') }}"
                         @endif
-                        width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
+                        width="100%" class="img-thumbnail" height="auto" alt="{{@$news->image1_alt}}"/></a></div>
                         <div class="text">
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">

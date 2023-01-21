@@ -14,7 +14,7 @@
       </div>
     </section>
     @if(@$banners->image != null || @$banners->image != '')
-    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="Top Banner Image"></a></div>
+    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="{{@$banners->banner_image_alt}}"></a></div>
     @endif
 <div class="ftco-section bg-info-gradient pb-3 pt-5">
       <div class="container">

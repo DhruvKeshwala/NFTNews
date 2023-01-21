@@ -17,7 +17,7 @@
   @if(@$advertiseTopBanner->location != null)
       <a href="{{@$advertiseTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$advertiseTopBanner->image) }}" width="100%"
-      height="auto" alt="Banner Image"></a>
+      height="auto" alt="{{@$advertiseTopBanner->banner_image_alt}}"></a>
   @endif
 </div>
 
