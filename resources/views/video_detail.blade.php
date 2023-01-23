@@ -50,42 +50,60 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
-                    @if($news->image1 != null)
+                    @if(@$news->image1 != null)
                         <tr>
                             <td><b>Image 1</b></td>
-                            <td><img src="{{asset('uploads/').'/'.$news->image1}}" width="100"></td>
+                            <td><img src="{{asset('uploads/').'/'.@$news->image1}}" width="100" alt="{{@$news->image1_alt}}"></td>
                         </tr>
                     @endif
-                    @if($news->image2 != null)
+                    @if(@$news->image2 != null)
                     <tr>
                         <td><b>Image 2</b></td>
-                        <td><img src="{{asset('uploads/').'/'.$news->image2}}" width="100"></td>
+                        <td><img src="{{asset('uploads/').'/'.@$news->image2}}" width="100" alt="{{@$news->image2_alt}}"></td>
                     </tr>
                     @endif
+                    @if(@$news->uploadSocialBanner != null)
+                    <tr>
+                        <td><b>Social Banner</b></td>
+                        <td><img src="{{asset('uploads/').'/'. @$news->uploadSocialBanner}}" width="100" alt="{{@$news->social_banner_alt}}"></td>
+                    </tr>
+                    @endif
+                    @if(@$news->metaTitle != null)
                     <tr>
                         <td><b>Meta Title</b></td>
-                        <td>{{ $news->metaTitle }}</td>
+                        <td>{{ @$news->metaTitle }}</td>
                     </tr>
+                    @endif
+                    @if(@$news->description != null)
                     <tr>
                         <td><b>Meta Description</b></td>
-                        <td>{{ $news->description }}</td>
+                        <td>{{ @$news->description }}</td>
                     </tr>
+                    @endif
+                    @if(@$news->keywords != null)
                     <tr>
                         <td><b>Meta Keywords</b></td>
-                        <td>{{ $news->keywords }}</td>
+                        <td>{{ @$news->keywords }}</td>
                     </tr>
+                    @endif
+                    @if(@$news->shortDescription != null)
                     <tr>
                         <td><b>Short Description</b></td>
-                        <td>{{ $news->shortDescription }}</td>
+                        <td>{{ @$news->shortDescription }}</td>
                     </tr>
+                    @endif
+                    @if(@$news->fullDescription != null)
                     <tr>
                         <td><b>Full Description</b></td>
-                        <td>{!! $news->fullDescription !!}</td>
+                        <td>{!! @$news->fullDescription !!}</td>
                     </tr>
+                    @endif
+                    @if(@$news->videoType != null)
                     <tr>
                         <td><b>Video Type</b></td>
-                        <td>{{ $news->videoType }}</td>
+                        <td>{{ @$news->videoType }}</td>
                     </tr>
+                    @endif
                     @if(@$news->start_date != null && @$news->start_date != null)
                     <tr>
                         <td><b>Featured Video</b></td>

@@ -67,7 +67,7 @@ a:hover {
                 @foreach($videos as $newsDetails)
                 <tr>
                     <td>{{$loop->index + 1}}</td>
-                    <td>@if($newsDetails->image1 != null)<img src="{{asset('uploads/').'/'.$newsDetails->image1}}" width="100">@endif</td>
+                    <td>@if($newsDetails->image1 != null)<img src="{{asset('uploads/').'/'.$newsDetails->image1}}" width="100" alt="{{ @$newsDetails->image1_alt }}"> @else <span>—</span> @endif</td>
                     <td>{{$newsDetails->title}}</td>
                     <td>{{$newsDetails->category}}</td>
                     {{-- <td>{{$newsDetails->author->name}}</td> --}}

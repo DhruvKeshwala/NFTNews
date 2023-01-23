@@ -46,7 +46,7 @@ class CategoryController extends Controller
 
         // $categoryDetails['slug'] = Str::slug($request->slug);
 
-        dd($categoryDetails);die;
+        // dd($categoryDetails);die;
 
         $categories = Category::select('slug')->withTrashed()->get();
         if(count($categories))

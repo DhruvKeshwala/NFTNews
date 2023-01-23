@@ -40,6 +40,7 @@
                             <option value="Media Enquiries" {{ @$page->slug == 'media-enquiries' ? 'selected' : '' }}>Media Enquiries</option>
                             <option value="Careers" {{ @$page->slug == 'careers' ? 'selected' : '' }}>Careers</option>
                             <option value="About" {{ @$page->slug == 'about' ? 'selected' : '' }}>About</option>
+                            <option value="Advertise" {{ @$page->slug == 'advertise' ? 'selected' : '' }}>Advertise</option>
 
                         </select>
                         
@@ -86,6 +87,12 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 1 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$page->image1_alt }}" name="image1_alt" placeholder="Image 1 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Image 2</label></td>
                 <td>
                     <input type="file" name="image2" id="image2">
@@ -93,6 +100,12 @@
                         <div><img src="{{asset('uploads/').'/'.@$page->image2}}" width = "100"></div>
                     @endif
                     <div id="image2Error"></div>
+                </td>
+            </tr>
+             <tr>
+                <td><label>Image 2 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$page->image2_alt }}" name="image2_alt" placeholder="Image 2 alt tag"></div>
                 </td>
             </tr>
             <tr>
@@ -103,6 +116,12 @@
                     <div><img src="{{asset('uploads/').'/'.@$page->uploadSocialBanner}}" width = "100"></div>
                     @endif
                     <div id="uploadSocialBannerError"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Social Banner alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$page->social_banner_alt }}" name="social_banner_alt" placeholder="Social Banner alt"></div>
                 </td>
             </tr>
             <tr>
@@ -152,13 +171,15 @@
         {
            var name = $("input[name='name']").val(); 
         }
-        // var name = $("input[name='name']").val();
         var title = $("input[name='title']").val();
         var metaTitle = $("input[name='metaTitle']").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
         var contentsValidate = CKEDITOR.instances['contents'].getData().replace(/<[^>]*>/gi, '').length;
         var contents = CKEDITOR.instances['contents'].getData();
+        var image1_alt = $("input[name=\"image1_alt\"]").val();
+        var image2_alt = $("input[name=\"image2_alt\"]").val();
+        var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
 
         var fd = new FormData();
         
@@ -183,6 +204,9 @@
         fd.append('keywords', keywords);
         fd.append('contents', contents);
         fd.append('pageId', pageId);
+        fd.append('image1_alt', image1_alt);
+        fd.append('image2_alt', image2_alt);
+        fd.append('social_banner_alt', social_banner_alt);
 
         // Append article 1 
         var files = $('#uploadSocialBanner')[0].files;

@@ -69,25 +69,25 @@ a:hover {
                 @endif
                 @foreach($dropManagement as $dropManagementDetails)
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>@if($dropManagementDetails->name != null) {{$dropManagementDetails->name}} @else <span>—</span> @endif<span></td>
-                    <td class="text-center">@if($dropManagementDetails->category != null) {{$dropManagementDetails->category}} @else <span>—</span> @endif</td>
-                    <td>@if($dropManagementDetails->token != null) {{$dropManagementDetails->token}} @else <span>—</span> @endif</td>
-                    <td>@if($dropManagementDetails->blockChain != null) {{$dropManagementDetails->blockChain}} @else <span>—</span> @endif</td>
-                    <td>@if($dropManagementDetails->priceOfSale != null) {{$dropManagementDetails->priceOfSale}} @else <span>0</span> @endif</td>
-                    <td>{{date('d-m-Y', strtotime($dropManagementDetails->saleDate))}}</td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>@if(@$dropManagementDetails->name != null) {{@$dropManagementDetails->name}} @else <span>—</span> @endif<span></td>
+                    <td class="text-center">@if(@$dropManagementDetails->category != null) {{@$dropManagementDetails->category}} @else <span>—</span> @endif</td>
+                    <td>@if(@$dropManagementDetails->token != null) {{@$dropManagementDetails->token}} @else <span>—</span> @endif</td>
+                    <td>@if(@$dropManagementDetails->blockChain != null) {{@$dropManagementDetails->blockChain}} @else <span>—</span> @endif</td>
+                    <td>@if(@$dropManagementDetails->priceOfSale != null) {{@$dropManagementDetails->priceOfSale}} @else <span>0</span> @endif</td>
+                    <td>{{date('d-m-Y', strtotime(@$dropManagementDetails->saleDate))}}</td>
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
-                    <td>{{$dropManagementDetails->twitterLink}}</td>
-                    <td>{{$dropManagementDetails->websiteLink}}</td> -->
+                    <td>{{@$dropManagementDetails->twitterLink}}</td>
+                    <td>{{@$dropManagementDetails->websiteLink}}</td> -->
                     <td class="text-center">@if(@$dropManagementDetails->orderIndex != null || @$dropManagementDetails->orderIndex == ''){{@$dropManagementDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td>
-                        <a title="Edit" href="{{ route('add_dropManagement',$dropManagementDetails->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_dropManagement',@$dropManagementDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a href="javascript:;" onclick="deleteNews('{{$dropManagementDetails->id}}')" title="Delete" class="text-danger mr-2">
+                        <a href="javascript:;" onclick="deleteNews('{{@$dropManagementDetails->id}}')" title="Delete" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a> 
-                        <a href="{{ route('dropManagement_detail',$dropManagementDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                        <a href="{{ route('dropManagement_detail', @$dropManagementDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>
                         </a>
                     </td>

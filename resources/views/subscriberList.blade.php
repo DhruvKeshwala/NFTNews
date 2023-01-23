@@ -72,11 +72,11 @@ a:hover {
                 @foreach($data as $row)
                 <tr>
                     <td>{{@$loop->index + 1}}</td>
-                    <td>{{@$row->name}}</td>
+                    <td>@if($row->name != null || $row->name != '') {{@$row->name}} @else <span>—</span> @endif</td>
                     <td>{{@$row->email}}</td>
-                    <td>{{@$row->phone}}</td>
-                    <td>{{@$row->subject}}</td>
-                    <td>{{@$row->message}}</td>
+                    <td>@if(@$row->phone != null || @$row->phone != '') {{@$row->phone}} @else <span>—</span> @endif</td>
+                    <td>@if(@$row->subject != null || @$row->subject != '') {{@$row->subject}} @else <span>—</span> @endif</td>
+                    <td>@if(@$row->message != null || @$row->message != '') {{@$row->message}} @else <span>—</span> @endif</td>
                 </tr>
                 @endforeach
             </tbody>

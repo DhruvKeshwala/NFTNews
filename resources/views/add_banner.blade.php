@@ -47,7 +47,7 @@
                     <input type="file" name="image" id="image">
                     <div id="imageError"></div>
                     @if(@$data->image != '')
-                    <div><img src="{{asset('uploads/banner/').'/'.@$data->image}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/banner/').'/'.@$data->image}}" width = "100" alt="{{ @$data->banner_image_alt }}"></div>
                     @endif
                 </td>
             </tr>

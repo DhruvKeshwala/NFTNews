@@ -26,8 +26,7 @@ use App\Models\ManagePages;
 use App\Models\Subscribe;
 use App\Services\ManagePagesService;
 
-use View, DB;
-use Mail;
+use View, DB, Mail;
 
 class HomeController extends Controller
 {
@@ -143,6 +142,9 @@ class HomeController extends Controller
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
 
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+
         if($categoryId == 'All' || $categoryId == null || $categoryId == '')
         {
             $allNews    =  News::orderBy('orderIndex', 'asc')->paginate(10);
@@ -155,7 +157,7 @@ class HomeController extends Controller
             else
                 return redirect('userFilterCategory/All');
         }
-        return view('user.news', compact('newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
+        return view('user.news', compact('banners_small', 'banners_horizontal', 'newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
         
         // $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
         // $response = Response::make($contents, 200);
@@ -202,8 +204,13 @@ class HomeController extends Controller
 
     public function advertise()
     {
+        $page = ManagePages::where('slug', 'advertise')->first();
+        if(@$page == null)
+        {
+            $page = 'No Advertise Information Available..';
+        }
         $advertiseTopBanner = Banner::where('location', 'advertisefull')->first();
-        return view('user.advertise', compact('advertiseTopBanner'));
+        return view('user.advertise', compact('page','advertiseTopBanner'));
     }
 
     public function contact()
@@ -268,6 +275,14 @@ class HomeController extends Controller
 
         // //Create an instance; passing `true` enables exceptions
         // $mail = new PHPMailer(true);
+       if($request->subscriberId != null)
+       {
+            $subscribeDetails = $request->only([
+            'email',
+        ]);
+            Subscribe::create($subscribeDetails);
+            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+       }
 
         $name = $request->name;
         $email = $request->email;
@@ -484,9 +499,13 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
+
         $resultFeaturedNews2 = $resultFeaturedNews;
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
-        return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+
+        return view('user.featuredNews', compact('banners_small', 'banners_horizontal', 'getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
     }
 
     public function filterFeaturedNews(Request $request)
@@ -508,6 +527,10 @@ class HomeController extends Controller
         }
         
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+
         $title      = $request->filterNewsTitle;
         $newses    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('orderIndex','asc')->get();
         if($title == "" | $title == null)
@@ -533,7 +556,7 @@ class HomeController extends Controller
         // $allNews        = NewsService::getNews();
         // $categories     = Category::all();
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
-        return view('user.featuredNews', compact('getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
+        return view('user.featuredNews', compact('banners_horizontal', 'banners_small', 'getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
 
     }
 

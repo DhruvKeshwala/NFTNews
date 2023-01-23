@@ -88,28 +88,28 @@ a:hover {
             <tbody>
                 @if (count($data)<=0)
                 <tr>
-                    <td colspan="7" class="text-center"> No records found </td>
+                    <td colspan="5" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($data as $row)
                     @php
-                        $bannerlocation = config('constant.banner_location'); 
-                        $selection_types = '';
-                        $imgsrc = $row->image;
+                        @$bannerlocation = config('constant.banner_location'); 
+                        @$selection_types = '';
+                        @$imgsrc = $row->image;
                     @endphp
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'.$imgsrc}}" width="100">@endif</td>
-                    <td>{{$row->size}}</td>
-                    <td>{{$bannerlocation[$row->location]}}</td>
-                    <td class="text-center"><a href="{{$row->url}}" title="View URL" target="_blank">
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'. @$imgsrc}}" width="100" alt="{{ @$row->banner_image_alt }}"> @else <span>—</span> @endif</td>
+                    <td>{{@$row->size}}</td>
+                    <td>{{@$bannerlocation[$row->location]}}</td>
+                    <td class="text-center"><a href="{{@$row->url}}" title="View URL" target="_blank">
                         <span class="fa fa-play fa-lg"></span>
                     </a></td>
                     <td>
-                        <a title="Edit" href="{{ route('add_banner',$row->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_banner',@$row->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a title="Delete" href="javascript:;" onclick="deleteBanner('{{$row->id}}')" class="text-danger mr-2">
+                        <a title="Delete" href="javascript:;" onclick="deleteBanner('{{@$row->id}}')" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a>
                     </td>

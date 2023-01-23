@@ -149,98 +149,148 @@
     </div>
 </section>
 
-@php 
-    $i=1;
-    $ln=0;
-    $ln2=0;
-@endphp
-    <section class="ftco-section py-5">
-      <div class="container">
-        <div class="row d-flex">
-          @if(count(@$getAllNewses))
-          @foreach($getAllNewses as $news)
-          @if($i==5 || ($i-$ln)==5)
-            {{-- Ad Banner small --}}
-            <div class="col-md-4 d-flex ftco-animate rounded">
-              <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
-                <a href="#"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}" width="100%" alt="Middle List Ad Banner" class="img-fluid"></a>
-              </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-              <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
-                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
-                  @else
-                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
-                  @endif>
-                </a>
-                <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
-                  <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
 @php
-            $ln = $i;
+    $i = 1;
+    $ln = 0;
+    $ln2 = 0;
+    $sb = 0;
+    $bz = 0;
+    $sbcount = count($banners_small);
+    $bzcount = count($banners_horizontal);
 @endphp
-          @elseif($i==6 || ($i-$ln2)==5)
-            {{-- horizontal Ad --}}
-            <div class="col-md-12 d-flex mb-4 ftco-animate">
-              <img src="{{ URL::asset('user/images/banner-full-width.jpg')}}" width="100%" height="auto" alt="Banner Full Width Image" class="img-fluid rounded">
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-              <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
-                @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                  style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
-                @else
-                      style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
-                @endif>
-                </a>
-                <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
-                  <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            @php
-            $ln2 = $i;
-@endphp
-          @else
-            <div class="col-md-4 d-flex ftco-animate">
-              <div class="blog-entry rounded shadow align-self-stretch">
-                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="block-30 rounded" 
-                  @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                    style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
-                  @else
-                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
-                  @endif>
-                </a>
-                <div class="text px-4 mt-3">
-                  <h3 class="heading"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{$news->title}}</a></h3>
-                  <div class="mb-5">
-                    <div class="float-left"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">Admin</a></div>
-                    <div class="float-right"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light"><span class="fa fa-calendar"></span> 3 hours ago</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          @endif
-@php      $i++;   @endphp
-          @endforeach
-          @endif        
+<section class="ftco-section py-5">
+    <div class="container">
+        <div class="row d-flex">
+            @if (count(@$getAllNewses))
+                @foreach ($getAllNewses as $news)
+                    @if ($i == 5 || $i - $ln == 5)
+                        {{-- Ad Banner small --}}
+                        <div class="col-md-4 d-flex ftco-animate rounded">
+                            <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
+                                @if($sbcount == 0)
+                                <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
+                                        width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
+                                @else 
+                                <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
+                                        width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry rounded shadow align-self-stretch">
+                                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    class="block-30 rounded"
+                                    @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                    @else
+                                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                    @endif
+                                    >
+                                </a>
+                                <div class="text px-4 mt-3">
+                                    <h3 class="heading"><a
+                                            href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                    </h3>
+                                    <div class="mb-5">
+                                        <div class="float-left"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="meta-chat">Admin</a></div>
+                                        <div class="float-right"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @php
+                            $ln = $i;
+                            $sb++;
+                            if($sb>=$sbcount)
+                            {
+                                $sb = 0;
+                            }
+                        @endphp
+                    @elseif($i == 6 || $i - $ln2 == 5)
+                        {{-- horizontal Ad --}}
+                        <div class="col-md-12 d-flex mb-4 ftco-animate">
+                                @if($bzcount == 0)
+                                <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
+                                height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
+                                @else 
+                                <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
+                                height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
+                                @endif
+                        </div>
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry rounded shadow align-self-stretch">
+                                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    class="block-30 rounded"
+                                    @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                    @else
+                                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                    @endif
+                                    >
+                                </a>
+                                <div class="text px-4 mt-3">
+                                    <h3 class="heading"><a
+                                            href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                    </h3>
+                                    <div class="mb-5">
+                                        <div class="float-left"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="meta-chat">Admin</a></div>
+                                        <div class="float-right"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                            $ln2 = $i;
+                            $bz++;
+                            if($bz >= $bzcount)
+                            {
+                                $bz = 0;
+                            }
+                        @endphp
+                    @else
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry rounded shadow align-self-stretch">
+                                <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    class="block-30 rounded"
+                                    @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
+                                        style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                    @else
+                                        style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
+                                    @endif
+                                    >
+                                </a>
+                                <div class="text px-4 mt-3">
+                                    <h3 class="heading"><a
+                                            href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                    </h3>
+                                    <div class="mb-5">
+                                        <div class="float-left"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="meta-chat">Admin</a></div>
+                                        <div class="float-right"><a
+                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @php      $i++;   @endphp
+                @endforeach
+            @endif
         </div>
-        
-        <a href="{{route('user.news')}}" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
-        
-      </div>
-    </section>
+
+        <a href="{{ route('user.news') }}" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
+
+    </div>
+</section>
 @endsection

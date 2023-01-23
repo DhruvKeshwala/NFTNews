@@ -41,13 +41,14 @@ class UserPressController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        // dd($resultFeaturedNews);
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
         $pressTopBanner = Banner::where('location', 'pressrelfull')->first();
         $pressSideBanner = Banner::where('location', 'prssrelrect')->first();
-        return view('user.pressRelease', compact('pressSideBanner', 'pressTopBanner', 'pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews', 'banners'));
+        return view('user.pressRelease', compact('banners_small', 'banners_horizontal', 'pressSideBanner', 'pressTopBanner', 'pressReleases', 'pressRecommended', 'categories', 'getAllNewses', 'resultFeaturedNews', 'banners'));
     }
 
     public function pressDetail($id)
@@ -68,11 +69,12 @@ class UserPressController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
-        return view('user.pressDetails',compact('innerSideBanner', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
+        return view('user.pressDetails',compact('banners_small', 'banners_horizontal', 'innerSideBanner', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
     
     public function filterPress(Request $request)
@@ -111,7 +113,9 @@ class UserPressController extends Controller
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
-        return view('user.pressRelease', compact('banners', 'pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
+        $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
+        $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
+        return view('user.pressRelease', compact('banners_small', 'banners_horizontal', 'banners', 'pressReleases', 'pressRecommended', 'getAllNewses', 'search', 'filterValue', 'categories', 'filtercategoryId'));
     }
 
     // public function sendMail(Request $request)

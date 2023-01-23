@@ -17,33 +17,59 @@
   @if(@$advertiseTopBanner->location != null)
       <a href="{{@$advertiseTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$advertiseTopBanner->image) }}" width="100%"
-      height="auto" alt="{{@$advertiseTopBanner->banner_image_alt}}"></a>
+      height="auto" @if(@$advertiseTopBanner->banner_image_alt != null || @$advertiseTopBanner->banner_image_alt != '') alt="{{@$advertiseTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
   @endif
 </div>
 
+@if(@$page->selectTemplate == 'education')   
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-5"><img src="{{ URL::asset('images/middle-list-ads.jpg')}}" width="100%" height="auto" alt="Banner Image"></div>
+         	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" alt="{{@$page->image1_alt}}"></div>
             <div class="col-md-7">
-            	<h5 class="modal-title">THE MOST POPULAR</h5>
-		        <h3 class="modal-title mb-3">NFTs IN THE MARKET</h3>
+            	<h5 class="modal-title">{{@$page->title}}</h5>
+		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
                 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum viverra elit elit. Suspendisse scelerisque lacus eu quam tincidunt, in vestibulum enim condimentum. Aenean rutrum ante ut mollis ullamcorper. Cras gravida egestas consectetur. Sed quis laoreet risus. Morbi ante diam, cursus commodo est ac, placerat semper turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris vitae odio leo. Aliquam posuere, elit sed venenatis auctor, ipsum urna efficitur mauris, a fermentum mauris lacus et lectus. Suspendisse potenti. Aliquam elit purus, condimentum sed ultrices id, sodales sed justo.</p>
-                
-                <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam at velit at urna lacinia laoreet vel in odio. Praesent at risus ante. Donec tincidunt vestibulum lacus, ac consequat est malesuada sed. Proin tempor, eros pharetra varius ullamcorper, sapien felis blandit metus, nec finibus libero arcu vel libero. Aenean turpis est, sodales sit amet tortor ut, finibus tincidunt lorem. Integer accumsan aliquet sapien vitae blandit. Morbi pretium sapien ac lacus bibendum imperdiet. Suspendisse euismod porttitor ligula, quis ornare dui convallis ac.</p>
+                {!! @$page->contents !!}
                 
                 <!-- SUBSCRIBE FORM -->
 
-                <button type="submit" class="btn btn-primary mt-2 mb-5 bt-mdl">
+                <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
                    MAKE ENQUIRY
                    <i class="fa fa-paper-plane"></i>
-                </button>
+                </a>
+           </div>
+         </div>
+    	</div>
+    </section>
+@elseif(@$page->selectTemplate == 'basicpage-layout')
+<section class="ftco-section py-5 bg-info-gradient-3">
+    	<div class="container">
+    		<div class="row">
+         	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" alt="{{@$page->image2_alt}}"></div>
+            <div class="col-md-12">
+            	<h5 class="modal-title">{{@$page->title}}</h5>
+		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
                 
+                {!! @$page->contents !!}
+                
+                <!-- SUBSCRIBE FORM -->
+
+                <a href="{{route('user.contact')}}" target="_blank" class="btn btn-primary mt-2 mb-5 bt-mdl">
+                   MAKE ENQUIRY
+                   <i class="fa fa-paper-plane"></i>
+                </a>
                 
                 
            </div>
          </div>
     	</div>
     </section>
+@else
+    <section class="ftco-section py-5 bg-info-gradient-3">
+        <div class="container">
+            <div><h1>{{@$page}}</h1></div>
+        </div>
+    </section>
+@endif
 @endsection

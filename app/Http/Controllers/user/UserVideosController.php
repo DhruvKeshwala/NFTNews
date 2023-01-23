@@ -19,7 +19,7 @@ class UserVideosController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $videos   = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->paginate(10);
+        $videos   = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->paginate(12);
 
         $banners = Banner::where('location', 'videosfull')->first();
         return view('user.videos', compact('videos', 'categories','banners'));
@@ -55,7 +55,7 @@ class UserVideosController extends Controller
                 $dm->where('start_date','<=', $currentDate);
                 $dm->where('end_date','>=', $currentDate);
         }
-        })->orderby('orderIndex','asc')->paginate(5);
+        })->orderby('orderIndex','asc')->paginate(12);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 
@@ -87,7 +87,7 @@ class UserVideosController extends Controller
                  $dm->where('start_date','<=', $currentDate);
                  $dm->where('end_date','>=', $currentDate);
             }
-        })->orderby('orderIndex','asc')->paginate(5);
+        })->orderby('orderIndex','asc')->paginate(12);
         $filtercategoryId = $request->filternftcategoryValue;
         $search = $request->search;
         // return view('user.listNFTDrops', compact('allDropManagement','categories','filtercategoryId','nftsearch')); 

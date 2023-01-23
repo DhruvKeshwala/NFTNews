@@ -167,6 +167,7 @@ $settings = \App\Models\Settings::first();
                       <div class="form-group">
                         <input type="text" name="email" id="subscribeemail" class="form-control" placeholder="Email">
                         <div id="subscribeemailError"></div>
+                        <input type="hidden" name="subscriberId" value="5050">
                       </div>
                     </form>
                     <button type="submit" onclick="submitSubscribeForm()" class="btn btn-primary mb-2 bt-mdl">

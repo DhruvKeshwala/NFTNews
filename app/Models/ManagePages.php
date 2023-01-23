@@ -24,5 +24,8 @@ class ManagePages extends Model
         'selectTemplate',
         'slug',
         'uploadSocialBanner',
+        'image1_alt',
+        'image2_alt',
+        'social_banner_alt',
     ];
 }

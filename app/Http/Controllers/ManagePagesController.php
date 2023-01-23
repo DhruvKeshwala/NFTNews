@@ -48,6 +48,9 @@ class ManagePagesController extends Controller
             'keywords',
             'contents',
             'selectTemplate',
+            'image1_alt',
+            'image2_alt',
+            'social_banner_alt'
         ]);
 
         if($request->pageId != 0)

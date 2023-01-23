@@ -72,21 +72,21 @@ a:hover {
                 @endif
                 @foreach($data as $row)
                     @php 
-                        $selection_types = '';
-                        $imgsrc = $row->image;
+                        @$selection_types = '';
+                        @$imgsrc = $row->image;
                     @endphp
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
-                    <td>{{$row->name}}</td>
-                    <td>{{$row->email}}</td>
-                    <td>{{$row->mobile}}</td>
-                    <td>{{$row->short_bio}}</td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'. @$imgsrc}}" width="100" alt="{{ @$row->image_alt }}"> @else <span>—</span> @endif</td>
+                    <td>{{@$row->name}}</td>
+                    <td>{{@$row->email}}</td>
+                    <td>{{@$row->mobile}}</td>
+                    <td>{{@$row->short_bio}}</td>
                     <td>
-                        <a title="Edit" href="{{ route('add_author',$row->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_author',@$row->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a title="Delete" href="javascript:;" onclick="deleteAuthor('{{$row->id}}')" class="text-danger mr-2">
+                        <a title="Delete" href="javascript::void(0)" onclick="deleteAuthor('{{@$row->id}}')" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a>
                     </td>

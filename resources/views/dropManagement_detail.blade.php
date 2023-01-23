@@ -52,15 +52,15 @@
                 <table class="webforms sttbl mt-0">
                     <tr>
                         <td><b>Image 1</b></td>
-                        <td><img src="@if($dropManagement->image != null) {{asset('uploads/').'/'.$dropManagement->image}} @else {{asset('images/default-image-1.png')}} @endif" width="100"></td>
+                        <td><img alt="{{@$dropManagement->image1_alt}}" src="@if($dropManagement->image != null) {{asset('uploads/').'/'.$dropManagement->image}} @else {{asset('images/default-image-1.png')}} @endif" width="100"></td>
                     </tr>
                     <tr>
                         <td><b>Image 2</b></td>
-                        <td><img src="@if($dropManagement->image2 != null) {{asset('uploads/').'/'.$dropManagement->image2}} @else {{asset('images/default-image-2.png')}} @endif" width="100"></td>
+                        <td><img alt="{{@$dropManagement->image2_alt}}" src="@if($dropManagement->image2 != null) {{asset('uploads/').'/'.$dropManagement->image2}} @else {{asset('images/default-image-2.png')}} @endif" width="100"></td>
                     </tr>
                     <tr>
                         <td><b>NFT Logo</b></td>
-                        <td><img src="@if($dropManagement->logo != null) {{asset('uploads/').'/'.$dropManagement->logo}} @else {{asset('images/default-logo.png')}} @endif" width="100"></td>
+                        <td><img alt="{{@$dropManagement->image3_alt}}" src="@if($dropManagement->logo != null) {{asset('uploads/').'/'.$dropManagement->logo}} @else {{asset('images/default-logo.png')}} @endif" width="100"></td>
                     </tr>
                     @if($dropManagement->token != null) 
                     <tr>

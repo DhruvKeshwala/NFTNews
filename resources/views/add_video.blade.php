@@ -60,7 +60,7 @@
                 <td>
                     <input type="file" name="image1" id="image1">
                     @if(@$news->image1 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->image1}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->image1}}" width = "100" alt="{{ @$news->image1_alt }}"></div>
                     @endif
                     
                     <div id="image1Error"></div>
@@ -77,7 +77,7 @@
                 <td>
                     <input type="file" name="image2" id="image2">
                     @if(@$news->image2 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->image2}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->image2}}" width = "100" alt="{{ @$news->image2_alt }}"></div>
                     @endif
                     <div id="image2Error"></div>
 
@@ -135,7 +135,7 @@
                 <td>
                     <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
                     @if(@$news->uploadSocialBanner != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->uploadSocialBanner}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->uploadSocialBanner}}" width = "100" alt="{{ @$news->social_banner_alt }}"></div>
                     @endif
                     <div id="uploadSocialBannerError"></div>
                 </td>
@@ -173,8 +173,8 @@
     $("select[name=\"authorId\"]").select2({
     });
      CKEDITOR.replace( 'fullDescription', {
-                fullPage: false,						
-                allowedContent: false,
+                fullPage: true,						
+                allowedContent: true,
                 width: '98%',height: '200px',
                 filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Images',

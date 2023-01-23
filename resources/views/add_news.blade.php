@@ -60,7 +60,7 @@
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$news->image != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100" alt="{{ @$news->title }}"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->image}}" width = "100" alt="{{ @$news->image1_alt }}"></div>
                     @endif
                     <div id="imageError"></div>
                     
@@ -77,7 +77,7 @@
                 <td>
                     <input type="file" name="article_1" id="article_1">
                     @if(@$news->article_1 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100" alt="{{ @$news->title }}"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_1}}" width = "100" alt="{{ @$news->image2_alt }}"></div>
                     @endif
                     <div id="article1Error"></div>
                 </td>
@@ -93,7 +93,7 @@
                 <td>
                     <input type="file" name="article_2" id="article_2">
                     @if(@$news->article_2 != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100" alt="{{ @$news->title }}"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->article_2}}" width = "100" alt="{{ @$news->image3_alt }}"></div>
                     @endif
                     <div id="article2Error"></div>
                 </td>
@@ -180,7 +180,7 @@
                 <td>
                     <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
                     @if(@$news->uploadSocialBanner != '')
-                    <div><img src="{{asset('uploads/').'/'.@$news->uploadSocialBanner}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$news->uploadSocialBanner}}" width = "100" alt="{{ @$news->social_banner_alt }}"></div>
                     @endif
                     <div id="uploadSocialBannerError"></div>
                 </td>
@@ -218,8 +218,8 @@
     $("select[name=\"authorId\"]").select2({
     });
      CKEDITOR.replace( 'fullDescription', {
-                fullPage: false,						
-                allowedContent: false,
+                fullPage: true,						
+                allowedContent: true,
                 width: '98%',height: '200px',
                 filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Images',

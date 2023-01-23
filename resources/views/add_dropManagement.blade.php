@@ -83,7 +83,7 @@
                 <td>
                     <input type="file" name="image" id="image">
                     @if(@$dropManagement->image != '')
-                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image}}" width = "100" alt="{{ @$dropManagement->image1_alt }}"></div>
                     @endif
                 </td>
             </tr>
@@ -98,7 +98,7 @@
                 <td>
                     <input type="file" name="image" id="image2">
                     @if(@$dropManagement->image != '')
-                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image2}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->image2}}" width = "100" alt="{{ @$dropManagement->image2_alt }}"></div>
                     @endif
                 </td>
             </tr>
@@ -113,7 +113,7 @@
                 <td>
                     <input type="file" name="logo" id="logo">
                     @if(@$dropManagement->logo != '')
-                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->logo}}" width = "100"></div>
+                    <div><img src="{{asset('uploads/').'/'.@$dropManagement->logo}}" width = "100" alt="{{ @$dropManagement->image3_alt }}"></div>
                     @endif
                 </td>
             </tr>

@@ -13,7 +13,7 @@
         </div>
       </div>
     </section>
-    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" alt="{{@$banners->banner_image_alt}}"></a></div>
+    <div class="container news-banner mb-3"><a href="#" class="text-dark"><img src="{{ URL::asset('uploads/banner/' . @$banners->image)}}" width="100%" height="auto" @if($banners->image != null || $banners->image != '') alt="{{@$banners->banner_image_alt}}" @else alt="Top Banner Image" @endif></a></div>
     
     <section class="ftco-section py-5 bg-info-gradient">
        <div class="container">

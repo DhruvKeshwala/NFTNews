@@ -50,34 +50,34 @@
             </div>
             <div class="cuisinemenu p-3 m-3">
                 <table class="webforms sttbl mt-0">
-                    @if($pressRelease->image != null)
+                    @if(@$pressRelease->image != null)
                         <tr>
                             <td><b>Image 1</b></td>
-                            <td><img src="{{asset('uploads/').'/'.$pressRelease->image}}" width="100"></td>
+                            <td><img src="{{asset('uploads/').'/'.@$pressRelease->image}}" width="100" alt="{{@$pressRelease->image1_alt}}"></td>
                         </tr>
                     @endif
-                    @if($pressRelease->article_1 != null)
+                    @if(@$pressRelease->article_1 != null)
                         <tr>
                             <td><b>Image 2</b></td>
-                            <td><img src="{{asset('uploads/').'/'.$pressRelease->article_1}}" width="100"></td>
+                            <td><img src="{{asset('uploads/').'/'.@$pressRelease->article_1}}" width="100" alt="{{@$pressRelease->image2_alt}}"></td>
                         </tr>
                     @endif
-                    @if($pressRelease->title != null)
+                    @if(@$pressRelease->title != null)
                         <tr>
                             <td><b>Title</b></td>
-                            <td>{{ $pressRelease->title }}</td>
+                            <td>{{ @$pressRelease->title }}</td>
                         </tr>
                     @endif
-                    @if($pressRelease->shortDescription != null)
+                    @if(@$pressRelease->shortDescription != null)
                     <tr>
                         <td><b>Short Description</b></td>
-                        <td>{{ $pressRelease->shortDescription }}</td>
+                        <td>{{ @$pressRelease->shortDescription }}</td>
                     </tr>
                     @endif
-                    @if($pressRelease->fullDescription != null)
+                    @if(@$pressRelease->fullDescription != null)
                     <tr>
                         <td><b>Full Description</b></td>
-                        <td>{!! $pressRelease->fullDescription !!}</td>
+                        <td>{!! @$pressRelease->fullDescription !!}</td>
                     </tr>
                     @endif
                     @php

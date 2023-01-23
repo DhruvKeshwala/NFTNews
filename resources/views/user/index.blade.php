@@ -125,7 +125,7 @@
                                 @if(@$homeTopBanner->location != null)
                                     <a href="{{@$homeTopBanner->url}}" class="text-dark" target="_blank"><img
                                     src="{{ URL::asset('uploads/banner/' . @$homeTopBanner->image) }}" width="100%"
-                                    height="auto" alt="{{@$homeTopBanner->banner_image_alt}}"></a>
+                                    height="auto" @if(@$homeTopBanner->banner_image_alt != null || @$homeTopBanner->banner_image_alt != '') alt="{{@$homeTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
                                 @endif
                             </div>
                             <div class="allNews"></div>
@@ -543,8 +543,8 @@
                             <div class="col-md-4 d-flex ftco-animate rounded">
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
-                                    <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
+                                    <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
+                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
                                             width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
@@ -572,8 +572,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -591,8 +590,8 @@
                             {{-- horizontal Ad --}}
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
-                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
+                                    <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
+                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
                                     height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
@@ -619,8 +618,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -655,8 +653,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>

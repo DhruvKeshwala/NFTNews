@@ -20,11 +20,11 @@
 </section>
 
 <div class="container news-banner mb-3">
-  {{-- @if(@$newsTopBanner->location != null) --}}
+  @if(@$newsTopBanner->location != null || file_exists(@$newsTopBanner->image) == true)
       <a href="{{@$newsTopBanner->url}}" class="text-dark" target="_blank"><img
       src="{{ URL::asset('uploads/banner/' . @$newsTopBanner->image) }}" width="100%"
-      height="auto" alt="Top Banner Image"></a>
-  {{-- @endif --}}
+      height="auto" @if(@$newsTopBanner->banner_image_alt != null || @$newsTopBanner->banner_image_alt != '') alt="{{@$newsTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
+  @endif
 </div>
 
   
@@ -82,8 +82,6 @@
                       </div>
                       </div>
                   @endforeach
-              @else
-                  <p>No Data Found..</p>
               @endif
             {{ $allNews->appends(Request::except('page'))->links('vendor.pagination.userCustom') }} 
           </div>  
@@ -119,6 +117,11 @@
               <div class="sidebar-box">
                   <a href="{{@$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$innerSideBanner->image) }}"
                           width="100%" height="auto" alt="{{@$innerSideBanner->banner_image_alt}}"></a>
+              </div>
+             @else
+              <div class="sidebar-box">
+                  <span><img src="{{ URL::asset('images/default-crypto-list.png') }}"
+                          width="100%" height="auto" alt="Side Inner Banner Image"></span>
               </div>
             @endif
           	 {{-- <div class="sidebar-box">
@@ -184,7 +187,7 @@
       </div>
       
 
-      @php
+       @php
         $i = 1;
         $ln = 0;
         $ln2 = 0;
@@ -193,27 +196,21 @@
         $sbcount = count($banners_small);
         $bzcount = count($banners_horizontal);
     @endphp
-
-      <div class="container">
-        <div class="row d-flex">
-          @if(count(@$getAllNewses))
-          @foreach ($getAllNewses as $news)
+    <section class="ftco-section py-5">
+        <div class="container">
+            <div class="row d-flex">
+                @if (count(@$getAllNewses))
+                    @foreach ($getAllNewses as $news)
                         @if ($i == 5 || $i - $ln == 5)
                             {{-- Ad Banner small --}}
                             <div class="col-md-4 d-flex ftco-animate rounded">
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
-                                    <a href="{{ @$banners_small[$sb]['url'] }}"><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="{{@$banners_small[$sb]['banner_image_alt']}}" class="img-fluid"></a>
+                                    <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
+                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
-                                            width="100%" 
-                                            @if(@$banners_small[$sb]['banner_image_alt'] != '' && @$banners_small[$sb]['banner_image_alt'] != null)
-                                            alt="{{@$banners_small[$sb]['banner_image_alt']}}"
-                                            @else 
-                                            alt="Banner"
-                                            @endif
-                                            class="img-fluid"></a>
+                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
                                     @endif
                                 </div>
                             </div>
@@ -238,8 +235,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -257,17 +253,11 @@
                             {{-- horizontal Ad --}}
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
-                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{ @$banners_horizontal[$bz]['banner_image_alt'] }}"></a>
+                                    <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
+                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
-                                    height="auto" class="img-fluid rounded" 
-                                    @if(@$banners_horizontal[$bz]['banner_image_alt'] != '' && @$banners_horizontal[$sb]['banner_image_alt'] != null)
-                                    alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"
-                                    @else 
-                                    alt="Banner Full Width"
-                                    @endif
-                                    ></a>
+                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
                                     @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
@@ -291,8 +281,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -327,8 +316,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> 3 hours
-                                                    ago</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -336,8 +324,11 @@
                         @endif
                         @php      $i++;   @endphp
                     @endforeach
-          @endif        
-        </div>    
+                @endif
+            </div>
+
+            <a href="{{ route('user.news') }}" class="btn d-block btn-outline-light py-2 mt-4">Load More Articles</a>
+
         </div>
     </section>
 @endsection

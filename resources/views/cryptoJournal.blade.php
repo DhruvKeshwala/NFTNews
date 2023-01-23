@@ -46,15 +46,15 @@ a:hover {
                 </tr>
             </thead>
             <tbody>
-            @if (count($crypto)<=0)
+            @if (count(@$crypto)<=0)
                 <tr>
                     <td colspan="4" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($crypto as $newsDetails)
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>@if($newsDetails->image != null)<img src="{{asset('uploads/').'/'.$newsDetails->image}}" width="100">@endif</td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>@if(@$newsDetails->image != null)<img src="{{asset('uploads/').'/'.@$newsDetails->image}}" width="100" alt="{{ @$newsDetails->image1_alt }}"> @else <span>—</span> @endif</td>
                     <td>{{$newsDetails->title}}</td>
                     <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == '') {{$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">

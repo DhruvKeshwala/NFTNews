@@ -58,50 +58,50 @@ a:hover {
                 </tr>
             </thead>
             <tbody>
-                @if (count($pressRelease)<=0)
+                @if (count(@$pressRelease)<=0)
                 <tr>
                     <td colspan="7" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($pressRelease as $pressReleaseDetails)
                     @php 
-                        $selection_types = '';
-                        $imgsrc = $pressReleaseDetails -> image;
-                        $dateArray = json_decode(@$pressReleaseDetails->pressType,true);
+                        @$selection_types = '';
+                        @$imgsrc = $pressReleaseDetails -> image;
+                        @$dateArray = json_decode(@$pressReleaseDetails->pressType,true);
                     @endphp
                     @foreach(config('constant.press_type') as $key=>$presstype)
                         @if (!empty($dateArray[$key]['start_date']) && !empty($dateArray[$key]['end_date']))
                             @php
-                                $selection_types .= $presstype.', ';
+                                @$selection_types .= $presstype.', ';
                             @endphp                            
                         @endif                        
                     @endforeach
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100">@endif</td>
-                    <td>{{$pressReleaseDetails->title}}</td>
-                    <td>{{$pressReleaseDetails->category}}</td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'. @$imgsrc}}" width="100" alt="{{ @$pressReleaseDetails->image1_alt }}"> @else <span>—</span> @endif</td>
+                    <td>{{@$pressReleaseDetails->title}}</td>
+                    <td>{{@$pressReleaseDetails->category}}</td>
                     {{-- <td>{{$pressReleaseDetails->author->name}}</td> --}}
                     {{-- <td>
                         {{ rtrim( $selection_types, ', ') }}
                     </td> --}}
-                    <td>{{ $pressReleaseDetails->created_at->format('d-m-Y') }}</td>
+                    <td>{{ @$pressReleaseDetails->created_at->format('d-m-Y') }}</td>
                     <td class="text-center">@if(@$pressReleaseDetails->orderIndex != null || @$pressReleaseDetails->orderIndex == ''){{@$pressReleaseDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($pressReleaseDetails->fld_status=='Active')
-                            <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
+                            <a href="{{ route('press_updateStatus',@$pressReleaseDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
                         @else
-                            <a href="{{ route('press_updateStatus',$pressReleaseDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
+                            <a href="{{ route('press_updateStatus',@$pressReleaseDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
                         @endif
                     </td>
                     <td>
-                        <a title="Edit" href="{{ route('add_pressRelease',$pressReleaseDetails->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_pressRelease',@$pressReleaseDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
-                        <a href="javascript:;" onclick="deletePressRelease('{{$pressReleaseDetails->id}}')" title="Delete" class="text-danger mr-2">
+                        <a href="javascript::void(0)" onclick="deletePressRelease('{{@$pressReleaseDetails->id}}')" title="Delete" class="text-danger mr-2">
                             <span class="fa fa-trash-o fa-lg"></span>
                         </a> 
-                        <a href="{{ route('pressRelease_detail',$pressReleaseDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
+                        <a href="{{ route('pressRelease_detail',@$pressReleaseDetails->id)}}" title="View Info." class="text-success fancybox fancybox.iframe" id="fancybox-manual-b" >
                             <span class="fa fa-eye fa-lg"></span>
                         </a>
                     </td>
