@@ -127,9 +127,6 @@
                                             <span class="text-dark"><strong>Blockchain</strong> <span
                                                     class="text-black-50">|</span>
                                                 {{ @$dropManagement->blockChain }}</span><br>
-                                            {{-- <span class="text-dark"><strong>Supply</strong> <span
-                                                    class="text-black-50">|</span>
-                                                {{ @$dropManagement->priceOfSale }}</span><br> --}}
                                             <span class="text-dark"><strong>Price</strong> <span
                                                     class="text-black-50">|</span>{{ @$dropManagement->priceOfSale }}</span>
                                         </div>

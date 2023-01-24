@@ -34,7 +34,7 @@
               @else
                 src="{{ URL::asset('images/default-press-release-detail.png')}}"
               @endif
-              width="100%" alt="{{@$pressDetail->title}}" height="auto" class="img"></span>
+              width="100%" @if($pressDetail->image1_alt != null || $pressDetail->image1_alt != '') alt="{{@$pressDetail->image1_alt}}" @else alt="{{@$pressDetail->title}}" @endif height="auto" class="img"></span>
               </div>
             <div class="row">
                 <div class="col-md-6"><span class="text-light">INDUSTRY TALK</span> <span class="ml-4 text-light"><span class="fa fa-calendar"></span> {{ $pressDetail ? $pressDetail->created_at->diffForHumans() : '-' }}</span></div>
@@ -83,7 +83,7 @@
             @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
                   <a href="{{$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $innerSideBanner->image) }}"
-                          width="100%" height="auto" alt="Side Banner Image"></a>
+                          width="100%" height="auto" @if($innerSideBanner->banner_image_alt != null || $innerSideBanner->banner_image_alt != '') alt="{{$innerSideBanner->banner_image_alt}}" @else alt="Side Banner Image" @endif></a>
               </div>
             @endif
 
@@ -131,7 +131,7 @@
                         @else
                             src="{{ URL::asset('images/default-market-news-featured.png') }}"
                         @endif 
-                        width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
+                        width="100%" class="img-thumbnail" height="auto" @if($news->image1_alt != null || $news->image1_alt != '') alt="{{@$news->image1_alt}}" @else alt="{{@$news->title}}" @endif/></a></div>
                     <div class="text">
                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                         <div class="meta d-md-flex mb-2">

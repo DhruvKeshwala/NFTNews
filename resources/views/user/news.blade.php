@@ -116,12 +116,12 @@
             @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
                   <a href="{{@$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$innerSideBanner->image) }}"
-                          width="100%" height="auto" alt="{{@$innerSideBanner->banner_image_alt}}"></a>
+                          width="100%" height="auto" @if($innerSideBanner->banner_image_alt != null || $innerSideBanner->banner_image_alt != '') alt="{{@$innerSideBanner->banner_image_alt}}" @else alt="News Side Banner Image" @endif></a>
               </div>
              @else
               <div class="sidebar-box">
                   <span><img src="{{ URL::asset('images/default-crypto-list.png') }}"
-                          width="100%" height="auto" alt="Side Inner Banner Image"></span>
+                          width="100%" height="auto" alt="News Side Banner Image"></span>
               </div>
             @endif
           	 {{-- <div class="sidebar-box">
@@ -207,10 +207,10 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></span>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></a>
                                     @endif
                                 </div>
                             </div>
@@ -254,10 +254,10 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></span>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></a>
                                     @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">

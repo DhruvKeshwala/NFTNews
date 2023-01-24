@@ -48,7 +48,7 @@ a:hover {
             <tbody>
             @if (count(@$crypto)<=0)
                 <tr>
-                    <td colspan="4" class="text-center"> No records found </td>
+                    <td colspan="6" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($crypto as $newsDetails)

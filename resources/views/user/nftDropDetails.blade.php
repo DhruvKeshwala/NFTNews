@@ -36,7 +36,7 @@
               <div class="news-wrap p-0 align-items-center">
                
                <div class="w-100 pb-2">
-                <a href="#" class="text-dark"><img src="@if($nftDropDetail->image2 != null || file_exists($nftDropDetail->image) == true) {{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }} @else {{ URL::asset('images/default-image-2.png') }} @endif" width="100%" alt="{{@$nftDropDetail->name}}" height="auto" class="img"></a>
+                <a href="#" class="text-dark"><img src="@if($nftDropDetail->image2 != null || file_exists($nftDropDetail->image2) == true) {{ URL::asset('uploads/' . @$nftDropDetail->image2 ) }} @else {{ URL::asset('images/default-image-2.png') }} @endif" width="100%" @if($nftDropDetail->image2_alt != null || $nftDropDetail->image2_alt != '') {{@$nftDropDetail->image2_alt}} @else alt="{{@$nftDropDetail->name}}" @endif height="auto" class="img"></a>
                </div>
                <div class="row">
                   <div class="col-md-6"><span class="btn-sm btn-light border d-inline-block">NFT DROPS</span> <span class="btn-sm btn-light border d-inline-block">ETHEREUM</span></div>

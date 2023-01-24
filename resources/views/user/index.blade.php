@@ -16,7 +16,7 @@
                                     <li>@if(@$data->image != null || @$data->image != '' || file_exists($data->image) == true)
                                             <img src="{{ URL::asset('uploads/' . $data->image) }}" alt="{{ $data->image1_alt }}"/>
                                         @else
-                                            <img src="{{ URL::asset('images/default-large-image-slider.png') }}" alt="{{ $data->image1_alt }}"/>
+                                            <img src="{{ URL::asset('images/default-large-image-slider.png') }}" @if($data->image1_alt != null || $data->image1_alt != '') alt="{{ $data->image1_alt }}" @else alt="{{ $data->title }}" @endif/>
                                         @endif
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
@@ -54,9 +54,9 @@
                                         {{-- @dd($featured_news[$random_keys[0]]->article_1); --}}
                                         @if(@$featured_news[$random_keys[0]]->article_1 != null || @$featured_news[$random_keys[0]]->article_1 != '' || file_exists(@$featured_news[$random_keys[0]]->article_1) == true)
                                             <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[0]]->article_1) }}"
-                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}">
+                                            width="100%" height="auto" @if($featured_news[$random_keys[0]]->image2_alt != null || $featured_news[$random_keys[0]]->image2_alt != '') alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}" @else alt="{{@$featured_news[$random_keys[0]]->title}}" @endif>
                                         @else
-                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}"/>   
+                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" @if($featured_news[$random_keys[0]]->image2_alt != null || $featured_news[$random_keys[0]]->image2_alt != '') alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}" @else alt="{{@$featured_news[$random_keys[0]]->title}}" @endif/>   
                                         @endif
                                     </a>
                                 </div>
@@ -78,9 +78,11 @@
                                         class="image-link">
                                         @if(@$featured_news[$random_keys[1]]->article_1 != null || @$featured_news[$random_keys[1]]->article_1 != '' || file_exists(@$featured_news[$random_keys[1]]->article_1) == true)
                                             <img src="{{ URL::asset('uploads/' . @$featured_news[$random_keys[1]]->article_1) }}"
-                                            width="100%" height="auto" alt="{{ @$featured_news[$random_keys[1]]->image2_alt }}">
+                                            width="100%" height="auto" @if(@$featured_news[$random_keys[1]]->image2_alt != null || @$featured_news[$random_keys[1]]->image2_alt != '') alt="{{ @$featured_news[$random_keys[1]]->image2_alt }}" @else alt="{{@$featured_news[$random_keys[1]]->title}}" @endif>
+                                            
                                         @else
-                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}"/>   
+                                            <img src="{{ URL::asset('images/default-side-image.png') }}" width="100%" height="auto" 
+                                            @if($featured_news[$random_keys[0]]->image2_alt != null || $featured_news[$random_keys[0]]->image2_alt != '') alt="{{ @$featured_news[$random_keys[0]]->image2_alt }}" @else alt="{{@$featured_news[$random_keys[0]]->title}}" @endif/>   
                                         @endif    
                                     </a>
                                 </div>
@@ -170,7 +172,7 @@
                         <div class="sidebar-box">
                             <a href="{{@$homeSideBanner->url}}" target="_blank">
                                 <img src="{{ URL::asset('uploads/banner/' . @$homeSideBanner->image) }}"
-                                    width="100%" height="auto" alt="{{@$homeSideBanner->banner_image_alt}}">
+                                    width="100%" height="auto" @if(@$homeSideBanner->banner_image_alt != null || @$homeSideBanner->banner_image_alt != '') alt="{{@$homeSideBanner->banner_image_alt}}" @else alt="Home Side Banner Image" @endif>
                             </a>
                         </div>
                     @endif
@@ -265,7 +267,7 @@
                                             src="{{ URL::asset('images/default-video-featured-first.png') }}"
                                         @endif 
                                         height="300"
-                                    width="100%" class="img-video" alt="{{ @$videos[0]->social_banner_alt}}" />
+                                    width="100%" class="img-video" @if($videos[0]->social_banner_alt != null || $videos[0]->social_banner_alt != '') alt="{{ @$videos[0]->social_banner_alt}}" @else alt="{{@$videos[0]->title}}" @endif/>
                               </a>
                             </div>
                         </div> <!-- col-md-6 end -->
@@ -298,7 +300,7 @@
                                                         src="{{ URL::asset('images/default-video-list-image.png') }}"
                                                     @endif
                                                     width="100%"
-                                                    height="auto" alt="{{ @$video->image1_alt}}"></a>
+                                                    height="auto" @if($video->image1_alt != null || $video->image1_alt != '') alt="{{ @$video->image1_alt}}" @else alt="{{@$video->title}}" @endif></a>
                                             
                                                 <p class="text-center" style="margin-bottom: 10px !important;"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
                                             </figcaption>       
@@ -350,7 +352,7 @@
                     @else
                         src="{{URL::asset('images/default-crypto-journal-first.png')}}"
                     @endif
-                    class="img" width="100%" height="337" alt="{{ @$cryptoJournals->social_banner_alt}}">                        
+                    class="img" width="100%" height="337" @if($cryptoJournals->social_banner_alt != null || $cryptoJournals->social_banner_alt != '') alt="{{ @$cryptoJournals->social_banner_alt}}" @else alt="{{ @$cryptoJournals->title }}" @endif>                        
                 </div>
                 @endif
             </div>
@@ -378,7 +380,7 @@
                                     @else
                                         src="{{ URL::asset('images/default-featured-drop-news.png') }}"
                                     @endif
-                                    alt="{{@$data->image2_alt}}" class="text-white"/>
+                                    @if($data->image2_alt != null || $data->image2_alt != '') alt="{{@$data->image2_alt}}" @else alt="{{@$data->title}}" @endif class="text-white"/>
                                     
                                         <figcaption>
                                         <div>
@@ -502,7 +504,7 @@
                                                 src="{{ URL::asset('images/default-market-news-featured.png') }}"
                                             @endif
                                             width="100%"
-                                                class="img-thumbnail" height="auto" alt="{{@$news->image1_alt}}" /></a></div>
+                                                class="img-thumbnail" height="auto" @if($news->image1_alt != null || $news->image1_alt != '') alt="{{@$news->image1_alt}}" @else alt="{{@$news->title}}" @endif/></a></div>
                                     <div class="text">
                                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                                 class="text-dark">{{ @$news->title }}</a></h4>
@@ -544,10 +546,10 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></span>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></a>
                                     @endif
                                 </div>
                             </div>
@@ -591,10 +593,10 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></span>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></a>
                                     @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">

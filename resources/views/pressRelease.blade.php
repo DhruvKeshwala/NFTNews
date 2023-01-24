@@ -60,7 +60,7 @@ a:hover {
             <tbody>
                 @if (count(@$pressRelease)<=0)
                 <tr>
-                    <td colspan="7" class="text-center"> No records found </td>
+                    <td colspan="8" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($pressRelease as $pressReleaseDetails)

@@ -15,5 +15,6 @@ class Banner extends Model
         'image',
         'url',
         'location',
+        'banner_image_alt',
     ];
 }

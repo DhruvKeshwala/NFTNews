@@ -71,7 +71,7 @@ a:hover {
             <tbody>
                 @if (count($news)<=0)
                 <tr>
-                    <td colspan="9" class="text-center"> No records found </td>
+                    <td colspan="10" class="text-center"> No records found </td>
                 </tr> 
                 @endif
                 @foreach($news as $newsDetails)
@@ -89,7 +89,7 @@ a:hover {
                     @endforeach
                 <tr>
                     <td>{{@$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100" alt="{{ @$newsDetails->image1_alt }}"> @else <span>—</span> @endif</td>
+                    <td>@if($imgsrc != null || $imgsrc != '')<img src="{{asset('uploads/').'/'.$imgsrc}}" width="100" alt="{{ @$newsDetails->image1_alt }}"> @else <span>—</span> @endif</td>
                     <td>{{@$newsDetails->title}}</td>
                     <td>{{@$newsDetails->category}}</td>
                     <td>@if(@$newsDetails->author->name != null) {{@$newsDetails->author->name}} @else <span>—</span> @endif</td>

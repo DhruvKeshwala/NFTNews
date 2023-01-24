@@ -34,7 +34,7 @@
               @else
                 src="{{ URL::asset('images/default-large-image-detail-page.png')}}"
               @endif
-              width="100%" alt="{{@$newsDetail->title}}" height="auto" class="img"></span>
+              width="100%" @if($newsDetail->image1_alt == null || $newsDetail->image1_alt == '') alt="{{@$newsDetail->image1_alt}}" @else alt="{{@$newsDetail->title}}" @endif height="auto" class="img"></span>
             </div>
             <div class="row">
                 <div class="col-md-6"><span  class="text-light">INDUSTRY TALK</span> <span class="ml-4 text-light"><span class="fa fa-calendar"></span> {{ $newsDetail ? $newsDetail->created_at->diffForHumans() : '-' }}</span></div>
@@ -62,14 +62,26 @@
                       <div class="row">
                           <div class="col-md-4">
                               <div class="imgAbt">
-                                  <img width="220" height="220" src="{{ URL::asset('uploads/' . @$newsDetail->author->image)}}" alt="News Author Image" />
+                                @if($newsDetail->author->image != null || $newsDetail->author->image != '')
+                                    <img width="220" height="220" src="{{ URL::asset('uploads/' . @$newsDetail->author->image)}}" alt="{{@$newsDetail->author->name}}" />
+                                @else
+                                    <img width="220" height="220" src="{{ URL::asset('images/author.png')}}" alt="Default Author Image" />
+                                @endif
                               </div>
                           </div>
                           <div class="col-md-8">
+                            @if($newsDetail->author->name != null || $newsDetail->author->name != '')
                               <h4><strong>Name</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->name}}</h4>
+                            @endif
+                            @if($newsDetail->author->short_bio != null || $newsDetail->author->short_bio != '')
                               <h4><strong>Short Bio</strong>&nbsp;&nbsp;&nbsp;{{@$newsDetail->author->short_bio}}</h4>
+                            @endif
+                            @if($newsDetail->author->twitterLink != null || $newsDetail->author->twitterLink != '')
                               <h4><strong>Social Media Link</strong>&nbsp;&nbsp;&nbsp;<a target="_blank" href="{{@$newsDetail->author->twitterLink}}" class="a2a_button_twitter"></a>
-                          <a target="_blank" href="{{@$newsDetail->author->linkedInLink}}"><i class="fa fa-globe"></i></a></h4>
+                            @endif
+                            @if($newsDetail->author->linkedInLink != null || $newsDetail->author->linkedInLink != '')
+                                <a target="_blank" href="{{@$newsDetail->author->linkedInLink}}"><i class="fa fa-globe"></i></a></h4>
+                            @endif
                           </div>
                       </div>
                   </div>
@@ -102,7 +114,7 @@
             @if(@$innerSideBanner->location != null)
               <div class="sidebar-box">
                   <a href="{{$innerSideBanner->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . @$innerSideBanner->image) }}"
-                          width="100%" height="auto" alt="{{@$innerSideBanner->banner_image_alt}}"></a>
+                          width="100%" height="auto" @if($innerSideBanner->banner_image_alt != null || $innerSideBanner->banner_image_alt != '') alt="{{@$innerSideBanner->banner_image_alt}}" @else  alt="Side Inner Banner Image" @endif></a>
               </div>
             @else
               <div class="sidebar-box">
@@ -154,7 +166,7 @@
                       @else
                           src="{{ URL::asset('images/default-market-news-featured.png') }}"
                       @endif 
-                      width="100%" class="img-thumbnail" height="auto" alt="{{@$news->title}}"/></a></div>
+                      width="100%" class="img-thumbnail" height="auto" @if($news->image1_alt != null || $news->image1_alt != '') alt="{{@$news->image1_alt}}" @else alt="{{@$news->title}}" @endif/></a></div>
                     <div class="text">
                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                         <div class="meta d-md-flex mb-2">
@@ -192,10 +204,10 @@
                                 <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
                                     @if($sbcount == 0)
                                     <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></span>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></span>
                                     @else 
                                     <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
-                                            width="100%" alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" class="img-fluid"></a>
+                                            width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></a>
                                     @endif
                                 </div>
                             </div>
@@ -239,10 +251,10 @@
                             <div class="col-md-12 d-flex mb-4 ftco-animate">
                                     @if($bzcount == 0)
                                     <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></span>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></span>
                                     @else 
                                     <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
-                                    height="auto" class="img-fluid rounded" alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}"></a>
+                                    height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></a>
                                     @endif
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">

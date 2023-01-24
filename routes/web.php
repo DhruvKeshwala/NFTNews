@@ -197,15 +197,15 @@ Route::post('newsHomeSearch', [HomeController::class, 'newsHomeSearch'])->name('
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::get('news/newsSearch', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
-Route::get('newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
+Route::get('news/newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
 
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
 
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
 Route::get('listNFTDrop/NFTDropSearch', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
-Route::get('nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
-Route::get('submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
-Route::post('submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.submitnftpost');
+Route::get('listNFTDrop/nftDropDetail/{id}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
+Route::get('listNFTDrop/submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
+Route::post('listNFTDrop/submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.submitnftpost');
 
 
 

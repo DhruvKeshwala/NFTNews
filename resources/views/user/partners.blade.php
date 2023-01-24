@@ -20,14 +20,14 @@
       @if(@$partnerTopBanner->location != null)
           <a href="{{@$partnerTopBanner->url}}" class="text-dark" target="_blank"><img
           src="{{ URL::asset('uploads/banner/' . @$partnerTopBanner->image) }}" width="100%"
-          height="auto"  alt="{{@$partnerTopBanner->banner_image_alt}}"></a>
+          height="auto"  @if($partnerTopBanner->banner_image_alt != null || $partnerTopBanner->banner_image_alt != '') alt="{{@$partnerTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
       @endif
     </div>
  @if(@$page->selectTemplate == 'education')   
     <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" alt="{{@$page->image1_alt}}"></div>
+         	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" @if($page->image1_alt != null || $page->image1_alt != '') alt="{{@$page->image1_alt}}" @else {{@$page->title}} @endif></div>
             <div class="col-md-7">
             	<h5 class="modal-title">{{@$page->title}}</h5>
 		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
@@ -48,7 +48,7 @@
 <section class="ftco-section py-5 bg-info-gradient-3">
     	<div class="container">
     		<div class="row">
-         	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" alt="{{@$page->image2_alt}}"></div>
+         	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" @if($page->image2_alt != null || $page->image2_alt != '') alt="{{@$page->image2_alt}}" @else {{@$page->title}} @endif></div>
             <div class="col-md-12">
             	<h5 class="modal-title">{{@$page->title}}</h5>
 		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>

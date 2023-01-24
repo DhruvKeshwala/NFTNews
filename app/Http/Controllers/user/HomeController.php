@@ -262,104 +262,7 @@ class HomeController extends Controller
         }
         
     }
-    public function subscribe()
-    {
-        $fourRandomDigit = mt_rand(1000,9999);
-        return view('user.subscribe', compact('fourRandomDigit'));
-    }
-
-    public function sendMailForSubscribe(Request $request)
-    {
-        // //Load Composer's autoloader
-        // require base_path("vendor/autoload.php");
-
-        // //Create an instance; passing `true` enables exceptions
-        // $mail = new PHPMailer(true);
-       if($request->subscriberId != null)
-       {
-            $subscribeDetails = $request->only([
-            'email',
-        ]);
-            Subscribe::create($subscribeDetails);
-            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
-       }
-
-        $name = $request->name;
-        $email = $request->email;
-        $phone = $request->phone;
-        $subject = $request->subject;
-        $message = $request->message;
-        $captcha = $request->captcha;
-        $fourDigitRandom = $request->fourDigitRandom;
-
-        $validatedData = $request->validate([
-            'name'  => 'required',
-            'email' => 'required|email',
-            //'email' => 'required|email|unique:users'
-        ], [
-            'name.required'  => 'Name is required',
-            'email.required' => 'Email is required',
-        ]);
-
-        $subscribeDetails = $request->only([
-            'name',
-            'email',
-            'phone',
-            'subject',
-            'message',
-        ]);
-
-        if($request->captcha == $fourDigitRandom)
-        {
-
-            // //try {
-            //     //Server settings
-            //     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-            //     $mail->isSMTP();                                            //Send using SMTP
-                
-            //     $mail->SMTPDebug  = 2;
-            //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            //     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            //     $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
-            //     $mail->Port       = 587;                           //SMTP password
-            //     $mail->SMTPKeepAlive = true;
-            //     $mail->Mailer = "tls";
-            //     $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
-            //     $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
-            //     $mail->SMTPOptions = array(
-            //     'ssl' => array(
-            //     'verify_peer' => false,
-            //     'verify_peer_name' => false,
-            //     'allow_self_signed' => true
-            //     )
-            // );
-                
-                // //Recipients
-                // $mail->setFrom($email, 'User requested for subscribe our newslatter');
-                // $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
-
-
-            //     //Content
-            //     //$mail->isHTML(true);                                  //Set email format to HTML
-            //     //$mail->Subject = 'New Mail from Admin';
-            //     $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
-            //     //$mail->IsHTML(true);
-            // // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-            //     $mail->send();
-            //     //echo 'Message has been sent';
-            //     //} 
-            //     //catch (Exception $e) {
-            //     //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            //     //}
-                Subscribe::create($subscribeDetails);
-                return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
-        }
-        else
-        {
-            return redirect()->back()->with('error', 'Invalid Captcha.');
-        }
-        
-    }
+    
     public function education()
     {
         $page = ManagePages::where('slug', 'education')->first();
@@ -412,7 +315,7 @@ class HomeController extends Controller
         {
             $page = 'No Terms And Conditions Information available..';
         }
-        return view('user.privacyPolicy', compact('page','banners'));
+        return view('user.termsAndConditions', compact('page','banners'));
     }
 
     public function gdpr()
@@ -615,8 +518,132 @@ class HomeController extends Controller
         'allow_self_signed' => true
         ));
 
-         return response()->json($mail);
+        return $mail;
     }
 
-    
+    public function subscribe()
+    {
+        $fourRandomDigit = mt_rand(1000,9999);
+        return view('user.subscribe', compact('fourRandomDigit'));
+    }
+
+    public function sendMailForSubscribe(Request $request)
+    {
+        $mail = $this->mailData();
+
+        // //Load Composer's autoloader
+        // require base_path("vendor/autoload.php");
+
+        // //Create an instance; passing `true` enables exceptions
+        // $mail = new PHPMailer(true);
+       if($request->subscriberId != null)
+       {
+            $subscribeDetails = $request->only([
+            'email',
+        ]);
+
+        //Mail Information
+        //Recipients
+        $mail->setFrom('desaipratik1462@gmail.com', 'Mail From Admin');
+        $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
+        
+
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'New Mail from User to Admin';
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            //Recipients
+        $mail->setFrom('nftnews@infinitedryer.com', 'Mail From Admin');
+        $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+
+
+        //Content
+        //$mail->isHTML(true);                                  //Set email format to HTML
+        //$mail->Subject = 'New Mail from Admin';
+        $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+        //$mail->IsHTML(true);
+    // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->send();
+        Subscribe::create($subscribeDetails);
+        return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+       }
+
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $subject = $request->subject;
+        $message = $request->message;
+        $captcha = $request->captcha;
+        $fourDigitRandom = $request->fourDigitRandom;
+
+        $validatedData = $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            //'email' => 'required|email|unique:users'
+        ], [
+            'name.required'  => 'Name is required',
+            'email.required' => 'Email is required',
+        ]);
+
+        $subscribeDetails = $request->only([
+            'name',
+            'email',
+            'phone',
+            'subject',
+            'message',
+        ]);
+
+        if($request->captcha == $fourDigitRandom)
+        {
+
+            // //try {
+            //     //Server settings
+            //     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            //     $mail->isSMTP();                                            //Send using SMTP
+                
+            //     $mail->SMTPDebug  = 2;
+            //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            //     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            //     $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
+            //     $mail->Port       = 587;                           //SMTP password
+            //     $mail->SMTPKeepAlive = true;
+            //     $mail->Mailer = "tls";
+            //     $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
+            //     $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
+            //     $mail->SMTPOptions = array(
+            //     'ssl' => array(
+            //     'verify_peer' => false,
+            //     'verify_peer_name' => false,
+            //     'allow_self_signed' => true
+            //     )
+            // );
+                
+                // //Recipients
+                // $mail->setFrom($email, 'User requested for subscribe our newslatter');
+                // $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
+
+
+            //     //Content
+            //     //$mail->isHTML(true);                                  //Set email format to HTML
+            //     //$mail->Subject = 'New Mail from Admin';
+            //     $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+            //     //$mail->IsHTML(true);
+            // // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            //     $mail->send();
+            //     //echo 'Message has been sent';
+            //     //} 
+            //     //catch (Exception $e) {
+            //     //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            //     //}
+                Subscribe::create($subscribeDetails);
+                return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Invalid Captcha.');
+        }
+        
+    } 
 }
