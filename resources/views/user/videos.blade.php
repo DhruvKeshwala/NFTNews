@@ -82,7 +82,10 @@
             @endif 
             width="100%" class="img-fluid w-100 h-auto" >
            <figcaption>
-            @if($video->videoType == 'Featured Video')
+@php
+            $currentDate = date("Y-m-d")
+@endphp
+            @if($video->start_date != null || $video->start_date != '')
               <span class="badge_featured badge-light text-light">Featured</span>
             @endif
             <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
