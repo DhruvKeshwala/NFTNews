@@ -53,10 +53,10 @@
             </div>
             <div class="text mt-3">
             
-                <h4><span class="text-dark">{{ @$newsDetail->title }}</span></h4>
+                <h1><span class="text-dark">{{ @$newsDetail->title }}</span></h1>
                 <div class="text-justify">{!! @$newsDetail->fullDescription !!}</div>
                 <br>       
-                <h1>About Author</h1>
+                <h4>About Author</h4>
                 @if(@$newsDetail->authorId != null || @$newsDetail->authorId != '')
                     <div class="container">
                       <div class="row">

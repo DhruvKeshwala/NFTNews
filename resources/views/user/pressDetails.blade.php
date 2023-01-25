@@ -53,7 +53,7 @@
             </div>
             <div class="text mt-3">
             
-                <h4><span class="text-dark">{{ @$pressDetail->title }}</span></h4>
+                <h1><span class="text-dark">{{ @$pressDetail->title }}</span></h1>
                 <div class="text-justify">{!! @$pressDetail->fullDescription !!}</div>
             </div>
             </div>

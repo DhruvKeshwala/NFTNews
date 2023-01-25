@@ -259,7 +259,6 @@
 
                         <div class="col-md-6">
                             <div class="play">
-                                <span class="badge_featured badge-light text-light" >Featured</span>
                               <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
                                 <img    @if($videos[0]->uploadSocialBanner || file_exists(@$videos[0]->uploadSocialBanner) == true) 
                                             src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}"
@@ -292,7 +291,6 @@
                                     
                                         <figure class="effect-lily video-section item play">
                                             <figcaption>
-                                            <span class="badge_featured badge-light text-light">Featured</span>
                                             <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img
                                                     @if($video->image1 != null || $video->image1 != '' || file_exists(@$video->image1) == true)
                                                         src="{{ URL::asset('uploads/' . @$video->image1) }}"
