@@ -24,6 +24,7 @@ use Carbon\Carbon;
 
 use App\Models\ManagePages;
 use App\Models\Subscribe;
+use App\Models\Contact;
 use App\Services\ManagePagesService;
 
 use View, DB, Mail;
@@ -221,40 +222,67 @@ class HomeController extends Controller
     }
     public function sendMailForContact(Request $request)
     {
-
-        $name = $request->name;
-        $email = $request->email;
-        $phone = $request->phone;
-        $organization = $request->org;
-        $location = $request->loc;
-        $nmeproj = $request->nmeproj;
-        $enquire_nature = $request->enquire_nature;
-        $message = $request->message;
-        $captcha = $request->captcha;
-        $fourDigitRandom = $request->fourDigitRandom;
-
-        $validatedData = $request->validate([
-            'name'  => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'enquire_nature' => 'required',
-            'message'   => 'required',
-            //'email' => 'required|email|unique:users'
-        ], [
-            'name.required'  => 'Name is required',
-            'email.required' => 'Email is required',
-            'phone.required' => 'Phone is required',
-            'enquire_nature.required' => 'Enquiry Information is required',
-            'message.required' => 'Message is required',
+        $contactDetails = $request->only([
+            'name',
+            'email',
+            'phone',
+            'org',
+            'loc',
+            'nmeproj',
+            'enquire_nature',
+            'message',
+            'captcha',
+            'fourDigitRandom',
         ]);
 
-        if($request->captcha == $fourDigitRandom)
+        // $name = $request->name;
+        // $email = $request->email;
+        // $phone = $request->phone;
+        // $organization = $request->org;
+        // $location = $request->loc;
+        // $nmeproj = $request->nmeproj;
+        // $enquire_nature = $request->enquire_nature;
+        // $message = $request->message;
+        // $captcha = $request->captcha;
+        // $fourDigitRandom = $request->fourDigitRandom;
+
+        $validatedData = $request->validate([
+            'name'           => 'required',
+            'email'          => 'required|email',
+            'phone'          => 'required',
+            'enquire_nature' => 'required',
+            'message'        => 'required',
+            'captcha'        => 'required',
+            //'email' => 'required|email|unique:users'
+        ], [
+            'name.required'             => 'Name is required',
+            'email.required'            => 'Email is required',
+            'phone.required'            => 'Phone is required',
+            'enquire_nature.required'   => 'Enquiry Information is required',
+            'message.required'          => 'Message is required',
+            'captcha.required'          => 'Captcha is required',
+        ]);
+
+        if($request->captcha == $request->fourDigitRandom)
         {
-            Mail::send('mailForContact', ['email' => $email], function ($message) use ($email){
-                $message->to('info@infinitedryer.com', 'NFT News | Admin')->subject('NFT News Mail For Contact Request.');
-                $message->from($email,'NFT News');
-            });
-            return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+            $mail = $this->mailData();
+
+           //Mail Information
+            //Recipients
+            $mail->setFrom($request->email, 'Contact Information Mail From' . $request->name);
+            $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
+            
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = "Contact Request Mail From User" . $request->email;
+            $mail->Body    = "Hello, " . '<b>' . $request->message . '</b>';
+            // $mail->AltBody = 'Hello, This is Contact request mail from ' . $request->email;
+        
+            // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+            $mail->send();
+
+            Contact::create($contactDetails);
+            return redirect()->back()->with('success', 'Contact Information Submitted Successfully also Mail Has Been Sent Successfully To Our Admin We will Reach You Soon.');
         }
         else
         {
@@ -529,13 +557,8 @@ class HomeController extends Controller
 
     public function sendMailForSubscribe(Request $request)
     {
-        $mail = $this->mailData();
+       $mail = $this->mailData();
 
-        // //Load Composer's autoloader
-        // require base_path("vendor/autoload.php");
-
-        // //Create an instance; passing `true` enables exceptions
-        // $mail = new PHPMailer(true);
        if($request->subscriberId != null)
        {
             $subscribeDetails = $request->only([
@@ -544,30 +567,24 @@ class HomeController extends Controller
 
         //Mail Information
         //Recipients
-        $mail->setFrom('desaipratik1462@gmail.com', 'Mail From Admin');
-        $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
+        $mail->setFrom($request->email, 'Subscription Request Mail From User');
+        $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
         
-
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'New Mail from User to Admin';
-        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            //Recipients
-        $mail->setFrom('nftnews@infinitedryer.com', 'Mail From Admin');
-        $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
-
-
-        //Content
-        //$mail->isHTML(true);                                  //Set email format to HTML
-        //$mail->Subject = 'New Mail from Admin';
-        $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
-        //$mail->IsHTML(true);
-    // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->Subject = 'Subscription Request Mail From User';
+        $mail->Body    = 'Hello, This is subscription request mail from the ' . $request->email . '.';
+        $mail->AltBody = 'Hello, This is subscription request mail from the User.';
+    
+        //Recipients
+        $mail->setFrom($request->email, 'Subscription Mail From Admin');
+        $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
+        
+        // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
         $mail->send();
+        
         Subscribe::create($subscribeDetails);
-        return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+        return redirect()->back()->with('success', 'Subscription Information Submitted Successfully also Mail Has Been Sent Successfully To Our Admin We will Reach You Soon.');
        }
 
         $name = $request->name;
@@ -581,10 +598,12 @@ class HomeController extends Controller
         $validatedData = $request->validate([
             'name'  => 'required',
             'email' => 'required|email',
+            'captcha' => 'required',
             //'email' => 'required|email|unique:users'
         ], [
-            'name.required'  => 'Name is required',
-            'email.required' => 'Email is required',
+            'name.required'     => 'Name is required',
+            'email.required'    => 'Email is required',
+            'captcha.required'  => 'Captcha is required',
         ]);
 
         $subscribeDetails = $request->only([
@@ -597,53 +616,29 @@ class HomeController extends Controller
 
         if($request->captcha == $fourDigitRandom)
         {
+            //Mail Information
+            //Recipients
+            $mail->setFrom($email, 'Subscription Request Mail From' . $name);
+            $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
+            
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = "Subscription Request Mail From User" . $subject;
+            $mail->Body    = 'Hello, This is subscription request mail from the ' . '<b>' . $name . '</b>' . '. You can directly contact the user for further details through contact information of user ' . $phone . '.  <br>-Regards';
+        
+            //Recipients
+            $mail->setFrom($email, 'Subscription Mail From Admin');
+            $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
+            
+            // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+            $mail->send();
 
-            // //try {
-            //     //Server settings
-            //     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-            //     $mail->isSMTP();                                            //Send using SMTP
-                
-            //     $mail->SMTPDebug  = 2;
-            //     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            //     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            //     $mail->Host       = 'tls://smtp.gmail.com';                     //Set the SMTP server to send through
-            //     $mail->Port       = 587;                           //SMTP password
-            //     $mail->SMTPKeepAlive = true;
-            //     $mail->Mailer = "tls";
-            //     $mail->Username   = 'nftnews@infinitedryer.com';                     //SMTP username
-            //     $mail->Password   = 'np;0H3Y;!Iqj';                               //SMTP password
-            //     $mail->SMTPOptions = array(
-            //     'ssl' => array(
-            //     'verify_peer' => false,
-            //     'verify_peer_name' => false,
-            //     'allow_self_signed' => true
-            //     )
-            // );
-                
-                // //Recipients
-                // $mail->setFrom($email, 'User requested for subscribe our newslatter');
-                // $mail->addAddress('desaipratik1462@gmail.com', 'User');     //Add a recipient
-
-
-            //     //Content
-            //     //$mail->isHTML(true);                                  //Set email format to HTML
-            //     //$mail->Subject = 'New Mail from Admin';
-            //     $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
-            //     //$mail->IsHTML(true);
-            // // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-            //     $mail->send();
-            //     //echo 'Message has been sent';
-            //     //} 
-            //     //catch (Exception $e) {
-            //     //    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            //     //}
-                Subscribe::create($subscribeDetails);
-                return redirect()->back()->with('success', 'Email Has Been Sent Successfully');
+            Subscribe::create($subscribeDetails);
+            return redirect()->back()->with('success', 'Subscription Information Submitted Successfully also Mail Has Been Sent Successfully To Our Admin We will Reach You Soon.');
         }
         else
         {
             return redirect()->back()->with('error', 'Invalid Captcha.');
         }
-        
-    } 
+    }  
 }

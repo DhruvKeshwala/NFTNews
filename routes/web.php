@@ -155,6 +155,8 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('update_settings', [AuthController::class, 'updateAdminSettings'])->name('update_settings'); 
 
         Route::get('subscribersList', [ManagePagesController::class, 'subscribersList'])->name('subscribersList');
+        Route::get('contactList', [ManagePagesController::class, 'contactList'])->name('contactList');
+
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });

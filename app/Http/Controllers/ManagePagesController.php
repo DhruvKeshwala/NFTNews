@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ManagePages;
 use App\Models\Subscribe;
+use App\Models\Contact;
 use App\Services\ManagePagesService;
 
 class ManagePagesController extends Controller
@@ -103,5 +104,11 @@ class ManagePagesController extends Controller
     {
         $data = Subscribe::paginate(10);
         return view('subscriberList', compact('data'));
+    }
+
+    public function contactList()
+    {
+        $data = Contact::paginate(10);
+        return view('contactList', compact('data'));
     }
 }

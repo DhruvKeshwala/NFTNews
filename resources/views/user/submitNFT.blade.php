@@ -107,7 +107,7 @@
                     
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea name="shortDescription" class="form-control border py-3" id="shortDescription" cols="30" rows="4" placeholder="Short Discription">{{old('shortDescription')}}</textarea>
+                            <textarea name="shortDescription" class="form-control border py-3" id="shortDescription" cols="30" rows="4" placeholder="Short Description">{{old('shortDescription')}}</textarea>
                             @if ($errors->has('shortDescription'))
                                 <span class="text-danger">{{ $errors->first('shortDescription') }}</span>
                             @endif

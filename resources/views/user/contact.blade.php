@@ -112,7 +112,10 @@
                           <div class="row">
                             <div class="col-md-5">
                               <input type="text" class="form-control border border-light pl-3" name="captcha"
-                                id="captcha" placeholder="security code" required>
+                                id="captcha" placeholder="security code">
+                                @if ($errors->has('captcha'))
+                                  <span class="text-danger">{{ $errors->first('captcha') }}</span>
+                                @endif
                             </div>
                             <div class="col-md-2 pl-0">
                               <span class="form-control text-center"

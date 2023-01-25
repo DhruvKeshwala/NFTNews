@@ -107,7 +107,11 @@
 													<div class="form-group">
                                                        <div class="row">
                                                         <div class="col-md-5">
-														 <input type="text" class="form-control border border-light pl-3" name="captcha" id="captcha" placeholder="security code" required></div>
+														 <input type="text" class="form-control border border-light pl-3" name="captcha" id="captcha" placeholder="security code">
+														 @if ($errors->has('captcha'))
+														<span class="text-danger">{{ $errors->first('captcha') }}</span>
+														@endif
+														</div>
                                                         <div class="col-md-2 pl-0">
 								                           	<span class="form-control text-center" style="background:rgba(0,0,0,.1)!important; color: rgba(0,0,0,.5)!important; padding-top: 16px;">{{@$fourRandomDigit}}</span>
 															<input type="hidden" name="fourDigitRandom" value="{{@$fourRandomDigit}}">
