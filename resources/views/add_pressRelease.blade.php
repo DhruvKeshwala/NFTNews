@@ -187,8 +187,8 @@
         multiple:true,
     });
      CKEDITOR.replace( 'fullDescription', {
-                fullPage: false,						
-                allowedContent: false,
+                fullPage: true,						
+                allowedContent: true,
                 width: '98%',height: '200px',
                 filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Images',

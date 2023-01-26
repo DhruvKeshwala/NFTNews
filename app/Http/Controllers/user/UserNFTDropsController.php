@@ -41,7 +41,8 @@ class UserNFTDropsController extends Controller
                 $dm->where('categoryId', '>', 0);
             }
             else if($request->filternftcategoryValue > 0) {
-                $dm->where('categoryId', '=', $request->filternftcategoryValue);
+                // $dm->where('categoryId', '=', $request->filternftcategoryValue);
+                $dm->where('categoryId', 'LIKE', '%'.$request->filternftcategoryValue.'%');
             }
             if($request->nft_search != null && $request->nft_search != '') {
                 $dm->where('name', 'like', '%'.$request->nft_search.'%');
@@ -198,9 +199,7 @@ class UserNFTDropsController extends Controller
             </head>
             <body>
 
-            <h2>Table With Invisible Borders</h2>
-
-            <p>Style the table with white borders and a background color of the cells to make the impression of invisible borders.</p>
+            <h2>Submit NFT Information of User</h2>
 
             <table style="width:100%">
             <tr>
@@ -282,7 +281,7 @@ class UserNFTDropsController extends Controller
 
             </body>
             </html>
-            ';
+            <br><br> <b>-Regards</b>';
             
             $mail->send();
         

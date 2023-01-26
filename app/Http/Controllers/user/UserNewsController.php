@@ -34,7 +34,6 @@ class UserNewsController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        // dd($resultFeaturedNews);
         $allNews        = News::orderby('orderIndex','asc')->paginate(10);
         $categories     = Category::all();
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
@@ -47,7 +46,6 @@ class UserNewsController extends Controller
 
     public function filterNews(Request $request)
     {
-        // dd($request->all());
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
         $title      = $request->filterNewsTitle;
         $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
@@ -90,7 +88,7 @@ class UserNewsController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        $getAllNewses    = News::orderby('orderIndex','asc')->get();
+        $getAllNewses    = News::where('slug', '!=', $newsDetail->slug)->orderby('orderIndex','asc')->get();
         $banners         = Banner::where('size', '280 x 400 pixels')->first();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();

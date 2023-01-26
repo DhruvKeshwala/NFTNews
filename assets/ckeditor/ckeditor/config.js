@@ -3,35 +3,35 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-CKEDITOR.editorConfig = function( config ) {
+CKEDITOR.editorConfig = function (config) {
 	config.fullPage = true;
-	 config.allowedContent = true;			 
-	  config.extraPlugins = 'justify,colorbutton,font';
-	
-	  
+	config.allowedContent = true;
+	config.extraPlugins = 'justify,colorbutton,font';
+
+
 	// config.forcePasteAsPlainText = true;
-	  
-   
-    //config.removeFormatAttributes = '';
+
+
+	//config.removeFormatAttributes = '';
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
-	
+
 	config.toolbarGroups = [
-			{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
-		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'document', groups: ['mode', 'document', 'doctools'] },
+		{ name: 'clipboard', groups: ['clipboard', 'undo'] },
+		{ name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
 		{ name: 'links' },
 		{ name: 'insert' },
-		{ name: 'forms' },		
+		{ name: 'forms' },
 		{ name: 'tools' },
-	
+
 		{ name: 'others' },
 		'/',
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', ] },		
+		{ name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+		{ name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi',] },
 		{ name: 'colors' },
 		{ name: 'styles' },
 		{ name: 'about' }
@@ -46,4 +46,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+	config.extraPlugins = 'videoembed';
 };

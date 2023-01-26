@@ -107,8 +107,8 @@ a:hover {
                 <tr>
                     <td>{{@$loop->index + 1}}</td>
                     <td>{{@$newsDetails->guideCategory->name}}</td>
-                    <td>{!!substr(@$newsDetails->question, 0, 50)!!}.. </td>
-                    <td>{!!substr(@$newsDetails->answer, 0, 50)!!}.. </td>
+                    <td title="{{@$newsDetails->question}}">{!!substr(@$newsDetails->question, 0, 50)!!}.. </td>
+                    <td title="{{@$newsDetails->answer}}">{!!substr(@$newsDetails->answer, 0, 50)!!}.. </td>
                     <td>
                         <a title="Edit" href="{{ route('add_guide',@$newsDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

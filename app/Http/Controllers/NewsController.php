@@ -26,12 +26,20 @@ class NewsController extends Controller
     }
 
     public function filterNews(Request $request)
-    {
-        $title      = $request->filterNewsTitle;
-        $categoryId = $request->filterCategoryId;
-        $authorId   = $request->filterAuthorId;
-        
-        $news       = News::where('title', 'LIKE', '%'.$title.'%')->where('categoryId', 'LIKE', '%'.$categoryId.'%')->where('authorId', 'LIKE', '%'.$authorId.'%')->orderby('id','desc')->paginate(10);
+    { 
+       $news  = News::where(function($dm) {
+            $request = app()->make('request');
+            if($request->filterNewsTitle != null || $request->filterNewsTitle == '') {
+                $dm->where('title', 'LIKE', '%'.$request->filterNewsTitle.'%');
+            }
+            if($request->filterCategoryId != null && $request->filterCategoryId != '') {
+                $dm->where('categoryId', 'LIKE', '%'.$request->filterCategoryId.'%');
+            }
+            if($request->filterAuthorId != null || $request->filterAuthorId != '') {
+                $dm->where('authorId', 'LIKE', '%'.$request->filterAuthorId.'%');
+            }
+        })->orderby('id','desc')->paginate(10);
+
         foreach($news as $key=>$value)
         {
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();

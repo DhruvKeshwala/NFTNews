@@ -80,8 +80,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     CKEDITOR.replace('googleAnalytics', {
-        fullPage: false,
-        allowedContent: false,
+        fullPage: true,						
+        allowedContent: true,
         width: '98%',
         height: '200px',
         filebrowserBrowseUrl: 'ckeditor/ckfinder/ckfinder.html',

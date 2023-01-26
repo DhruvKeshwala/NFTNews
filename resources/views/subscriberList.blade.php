@@ -76,7 +76,7 @@ a:hover {
                     <td>{{@$row->email}}</td>
                     <td>@if(@$row->phone != null || @$row->phone != '') {{@$row->phone}} @else <span>—</span> @endif</td>
                     <td>@if(@$row->subject != null || @$row->subject != '') {{@$row->subject}} @else <span>—</span> @endif</td>
-                    <td>@if(@$row->message != null || @$row->message != '') {{@$row->message}} @else <span>—</span> @endif</td>
+                    <td title="{{@$row->message}}">@if(@$row->message != null || @$row->message != '') {{ substr(@$row->message, 0, 30) }}.. @else <span>—</span> @endif</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -235,17 +235,6 @@ class HomeController extends Controller
             'fourDigitRandom',
         ]);
 
-        // $name = $request->name;
-        // $email = $request->email;
-        // $phone = $request->phone;
-        // $organization = $request->org;
-        // $location = $request->loc;
-        // $nmeproj = $request->nmeproj;
-        // $enquire_nature = $request->enquire_nature;
-        // $message = $request->message;
-        // $captcha = $request->captcha;
-        // $fourDigitRandom = $request->fourDigitRandom;
-
         $validatedData = $request->validate([
             'name'           => 'required',
             'email'          => 'required|email',
@@ -270,15 +259,59 @@ class HomeController extends Controller
            //Mail Information
             //Recipients
             $mail->setFrom($request->email, 'Contact Information Mail From' . $request->name);
-            $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
+            $mail->addAddress('nftnews@infinitedryer.com', 'NFTNews');     //Add a recipient
             
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = "Contact Request Mail From User" . $request->email;
-            $mail->Body    = "Hello, " . '<b>' . $request->message . '</b>';
-            // $mail->AltBody = 'Hello, This is Contact request mail from ' . $request->email;
-        
-            // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
+            $mail->Body    = 'Hello, This is mail from user for the contact to our admin here is give below the information of the user:<br>
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+            table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+            }
+            th, td {
+            background-color: #96D4D4;
+            }
+            </style>
+            </head>
+            <body>
+
+            <h2>User Contact Information</h2>
+
+            <table style="width:100%">
+            <tr>
+                <th>Name</th>
+                <th>Value</th> 
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>'. $request->name . '</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>'. $request->email . '</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>'. $request->phone . '</td>
+            </tr>
+            <tr>
+                <td>Enquiry Nature</td>
+                <td>'. $request->enquire_nature . '</td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>'. $request->message . '</td>
+            </tr>
+            </table>
+            </body>
+            </html>
+            <br><br> <b>-Regards</b>';
+            
             $mail->send();
 
             Contact::create($contactDetails);
@@ -288,7 +321,6 @@ class HomeController extends Controller
         {
             return redirect()->back()->with('error', 'Invalid Captcha.');
         }
-        
     }
     
     public function education()
@@ -557,35 +589,28 @@ class HomeController extends Controller
 
     public function sendMailForSubscribe(Request $request)
     {
-       $mail = $this->mailData();
+            $mail = $this->mailData();
 
-       if($request->subscriberId != null)
-       {
-            $subscribeDetails = $request->only([
-            'email',
-        ]);
+            if($request->subscriberId != null)
+            {
+                    $subscribeDetails = $request->only([
+                    'email',
+                ]);
 
-        //Mail Information
-        //Recipients
-        $mail->setFrom($request->email, 'Subscription Request Mail From User');
-        $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
-        
-        //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Subscription Request Mail From User';
-        $mail->Body    = 'Hello, This is subscription request mail from the ' . $request->email . '.';
-        $mail->AltBody = 'Hello, This is subscription request mail from the User.';
-    
-        //Recipients
-        $mail->setFrom($request->email, 'Subscription Mail From Admin');
-        $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
-        
-        // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
-        $mail->send();
-        
-        Subscribe::create($subscribeDetails);
-        return redirect()->back()->with('success', 'Subscription Information Submitted Successfully also Mail Has Been Sent Successfully To Our Admin We will Reach You Soon.');
-       }
+                //Mail Information
+                //Recipients
+                $mail->setFrom($request->email, 'Subscription Request Mail From User');
+                $mail->addAddress('nftnews@infinitedryer.com', 'Admin');     //Add a recipient
+                
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Subscription Request Mail From User';
+                $mail->Body    = 'Hello, This is subscription request mail from the <b>' . $request->email . '</b>. Please contact them for further process. <br><br> -Regards.';
+                $mail->send();
+                
+                Subscribe::create($subscribeDetails);
+                return redirect()->back()->with('success', 'Subscription Information Submitted Successfully also Mail Has Been Sent Successfully To Our Admin We will Reach You Soon.');
+            }
 
         $name = $request->name;
         $email = $request->email;
@@ -624,13 +649,54 @@ class HomeController extends Controller
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = "Subscription Request Mail From User" . $subject;
-            $mail->Body    = 'Hello, This is subscription request mail from the ' . '<b>' . $name . '</b>' . '. You can directly contact the user for further details through contact information of user ' . $phone . '.  <br>-Regards';
+            $mail->Body    = 'Hello, This is subscription request mail from the ' . '<b>' . $name . '</b>' . '. You can directly contact the user for further details through contact information given here:<br>
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+            table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+            }
+            th, td {
+            background-color: #96D4D4;
+            }
+            </style>
+            </head>
+            <body>
+
+            <h2>User Information</h2>
+
+            <table style="width:100%">
+            <tr>
+                <th>Name</th>
+                <th>Value</th> 
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>'. $request->name . '</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>'. $request->email . '</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>'. $request->phone . '</td>
+            </tr>
+            <tr>
+                <td>Subject</td>
+                <td>'. $request->subject . '</td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>'. $request->message . '</td>
+            </tr>
+            </table>
+            </body>
+            </html>
+            <br><br> <b>-Regards</b>';
         
-            //Recipients
-            $mail->setFrom($email, 'Subscription Mail From Admin');
-            $mail->addAddress('nftnews@infinitedryer.com', 'User');     //Add a recipient
-            
-            // $mail->Body    = html_entity_decode('This is the HTML message body <b>in bold!</b>');
             $mail->send();
 
             Subscribe::create($subscribeDetails);

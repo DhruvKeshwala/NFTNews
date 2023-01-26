@@ -65,11 +65,11 @@ a:hover {
                 @endphp
                 @foreach($category as $categoryDetails)
                 <tr>
-                    <td>{{$loop->index + 1}}</td>
-                    <td>{{$categoryDetails->name}}</td>
-                    <td>{{$categoryDetails->title}}</td>
-                    <td>{{$categoryDetails->description}}</td>
-                    <td>{{$categoryDetails->keywords}}</td>
+                    <td>{{@$loop->index + 1}}</td>
+                    <td>{{@$categoryDetails->name}}</td>
+                    <td title="{{@$categoryDetails->title}}">{{substr(@$categoryDetails->title, 0, 50)}}..</td>
+                    <td title="{{@$categoryDetails->description}}">{{substr(@$categoryDetails->description, 0, 50)}}..</td>
+                    <td title="{{@$categoryDetails->keywords}}">{{substr(@$categoryDetails->keywords, 0, 50)}}..</td>
                     <td>
                         <a title="Edit" href="{{ route('add_category',$categoryDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

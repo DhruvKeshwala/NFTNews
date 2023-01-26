@@ -82,7 +82,7 @@ a:hover {
                     <td>@if(@$row->loc != null || @$row->loc != '') {{@$row->loc}} @else <span>—</span> @endif</td>
                     <td>@if(@$row->nmeproj != null || @$row->nmeproj != '') {{@$row->nmeproj}} @else <span>—</span> @endif</td>
                     <td>@if(@$row->enquire_nature != null || @$row->enquire_nature != '') {{@$row->enquire_nature}} @else <span>—</span> @endif</td>
-                    <td>@if(@$row->message != null || @$row->message != '') {{@$row->message}} @else <span>—</span> @endif</td>
+                    <td title="{{@$row->message}}">@if(@$row->message != null || @$row->message != '') {{ substr(@$row->message, 0, 30) }}.. @else <span>—</span> @endif</td>
                 </tr>
                 @endforeach
             </tbody>

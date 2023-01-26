@@ -41,7 +41,8 @@ class UserVideosController extends Controller
             $dm->where('categoryId', '>', 0);
         }
         else if($request->filternftcategoryValue > 0) {
-            $dm->where('categoryId', '=', $request->filternftcategoryValue);
+            // $dm->where('categoryId', '=', $request->filternftcategoryValue);
+            $dm->where('categoryId', 'LIKE', '%'.$request->filternftcategoryValue.'%');
         }
         if($request->search != null && $request->search != '') {
             $dm->where('title', 'like', '%'.$request->search.'%');
