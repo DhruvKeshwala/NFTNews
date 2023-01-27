@@ -79,18 +79,19 @@
 @include('layouts.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
-    CKEDITOR.replace('googleAnalytics', {
-        fullPage: true,						
-        allowedContent: true,
-        width: '98%',
-        height: '200px',
-        filebrowserBrowseUrl: 'ckeditor/ckfinder/ckfinder.html',
-        filebrowserImageBrowseUrl: 'ckeditor/ckfinder/ckfinder.html?type=Images',
-        filebrowserFlashBrowseUrl: 'ckeditor/ckfinder/ckfinder.html?type=Flash',
-        filebrowserUploadUrl: 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserImageUploadUrl: 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-        filebrowserFlashUploadUrl: 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-    });
+    // CKEDITOR.replace('googleAnalytics', {
+    //     fullPage: true,						
+    //     allowedContent: true,
+    //     width: '98%',height: '400px',
+    //     // filebrowserBrowseUrl :  'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html',
+    //     // filebrowserImageBrowseUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html?type=Images',
+    //     // filebrowserFlashBrowseUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html?type=Flash',
+    //     //filebrowserUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    //     filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+    //     filebrowserUploadMethod: 'form',
+    //     // filebrowserImageUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    //     // filebrowserFlashUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+    // });
 
     function updateSettings() {
         $('.errorMessage').hide();
@@ -101,9 +102,9 @@
         var linkedin = $("input[name='linkedin']").val();
         var youtube = $("input[name='youtube']").val();
         var email = $("input[name='email']").val();
-        var googleAnalyticsValidate = CKEDITOR.instances['googleAnalytics'].getData().replace(/<[^>]*>/gi, '').length;
-        var googleAnalytics = CKEDITOR.instances['googleAnalytics'].getData();
-
+        // var googleAnalyticsValidate = CKEDITOR.instances['googleAnalytics'].getData().replace(/<[^>]*>/gi, '').length;
+        // var googleAnalytics = CKEDITOR.instances['googleAnalytics'].getData();
+        var googleAnalytics = $("#googleAnalytics").val();
         var fd = new FormData();
 
         fd.append('facebook', facebook);

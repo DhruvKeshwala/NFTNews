@@ -48,7 +48,8 @@ class DropManagement extends Model
         'image1_alt',
         'image2_alt',
         'image3_alt',
-        'social_banner_alt'
+        'social_banner_alt',
+        'userType',
     ];
     public function category()
     {

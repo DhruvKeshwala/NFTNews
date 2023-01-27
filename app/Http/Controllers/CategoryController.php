@@ -44,22 +44,22 @@ class CategoryController extends Controller
             'keywords'
         ]);
 
-        // $categoryDetails['slug'] = Str::slug($request->slug);
+        $categoryDetails['slug'] = Str::slug($request->slug);
 
         // dd($categoryDetails);die;
 
-        $categories = Category::select('slug')->withTrashed()->get();
-        if(count($categories))
-        {
-            $lastId     = Category::select('id')->withTrashed()->latest()->first();
-            foreach($categories as $value)
-            {
-                if($value->slug == $categoryDetails['slug'])
-                {
-                    $categoryDetails['slug'] = Str::slug($request->name . '-' . base64_encode($lastId->id));
-                }
-            }
-        }
+        // $categories = Category::select('slug')->withTrashed()->get();
+        // if(count($categories))
+        // {
+        //     $lastId     = Category::select('id')->withTrashed()->latest()->first();
+        //     foreach($categories as $value)
+        //     {
+        //         if($value->slug == $categoryDetails['slug'])
+        //         {
+        //             $categoryDetails['slug'] = Str::slug($request->name . '-' . base64_encode($lastId->id));
+        //         }
+        //     }
+        // }
         CategoryService::createCategory($categoryDetails,$request->categoryId);
         return json_encode(['success'=>1,'message'=>'Category Detail Saved Successfully']);
     }

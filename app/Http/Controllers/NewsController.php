@@ -96,6 +96,7 @@ class NewsController extends Controller
             'image1_alt',
             'image2_alt',
             'image3_alt',
+            'image4_alt',
             'social_banner_alt'
         ]);
         if($request->file('image') != null)
@@ -126,6 +127,13 @@ class NewsController extends Controller
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['uploadSocialBanner'] = $fileName;
         }
+        if($request->file('image4') != null)
+        {
+            $file      = $request->file('image4');
+            $fileName = rand(11111,99999).time().'.'.$file->extension();       
+            $name = $file->move(base_path('uploads'), $fileName);
+            $newsdetails['image4'] = $fileName;
+        }
         $newsTypeDate = array();
         $start_date = explode(',',$request->start_date);
         $end_date = explode(',',$request->end_date);
@@ -140,20 +148,20 @@ class NewsController extends Controller
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
         
-        // $newsdetails['slug']     = Str::slug($request->title); //Adds slug for news
+        $newsdetails['slug']     = Str::slug($request->slug); //Adds slug for news
         
-        $getSlugs = News::select('slug')->withTrashed()->get();
-        if(count($getSlugs))
-        {
-            $lastId     = News::select('id')->withTrashed()->latest()->first();
-            foreach($getSlugs as $value)
-            {
-                if($value->slug == $newsdetails['slug'])
-                {
-                    $newsdetails['slug'] = Str::slug($request->title . '-' . base64_encode($lastId->id));
-                }
-            }
-        }
+        // $getSlugs = News::select('slug')->withTrashed()->get();
+        // if(count($getSlugs))
+        // {
+        //     $lastId     = News::select('id')->withTrashed()->latest()->first();
+        //     foreach($getSlugs as $value)
+        //     {
+        //         if($value->slug == $newsdetails['slug'])
+        //         {
+        //             $newsdetails['slug'] = Str::slug($request->title . '-' . base64_encode($lastId->id));
+        //         }
+        //     }
+        // }
         NewsService::createNews($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'News Detail Saved Successfully']);
     }

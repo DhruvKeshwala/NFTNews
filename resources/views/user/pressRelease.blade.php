@@ -208,8 +208,8 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
                                         @else
                                             style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
                                         @endif
@@ -254,8 +254,8 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
                                         @else
                                             style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
                                         @endif
@@ -289,8 +289,8 @@
                                 <div class="blog-entry rounded shadow align-self-stretch">
                                     <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                         class="block-30 rounded"
-                                        @if(@$news->image != null || @$news->image != '' || file_exists($news->image) == true)
-                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                                        @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
+                                            style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
                                         @else
                                             style="background-image: url({{ URL::asset('images/default-news-with-banner-section.png') }});"
                                         @endif

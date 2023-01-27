@@ -81,7 +81,7 @@ a:hover {
                     <td>{{@$dropManagementDetails->websiteLink}}</td> -->
                     <td class="text-center">@if(@$dropManagementDetails->orderIndex != null || @$dropManagementDetails->orderIndex == ''){{@$dropManagementDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td>
-                        <a title="Edit" href="{{ route('add_dropManagement',@$dropManagementDetails->id)}}" class="text-success mr-2">
+                        <a title="Edit" href="{{ route('add_dropManagement',['id' => @$dropManagementDetails->id, 'type' => @$dropManagementDetails->userType])}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>
                         </a> 
                         <a href="javascript:;" onclick="deleteNews('{{@$dropManagementDetails->id}}')" title="Delete" class="text-danger mr-2">

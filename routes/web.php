@@ -84,7 +84,9 @@ Route::group(['prefix'=>'siteadmin'], function(){
 
         // Drop Management
         Route::get('dropManagement', [DropManagementController::class, 'index'])->name('dropManagement');
-        Route::get('add_dropManagement/{id?}', [DropManagementController::class, 'addDropManagement'])->name('add_dropManagement');
+        Route::get('add_dropManagement/{id?}/{type?}', [DropManagementController::class, 'addDropManagement'])->name('add_dropManagement');
+        Route::post('save_userDropManagement', [DropManagementController::class, 'saveUserDropManagement'])->name('save_userDropManagement');
+
         Route::post('save_dropManagement', [DropManagementController::class, 'saveDropManagement'])->name('save_dropManagement');
         Route::get('dropManagement_detail/{id}', [DropManagementController::class, 'dropManagementDetail'])->name('dropManagement_detail');
         Route::post('delete_dropManagement', [DropManagementController::class, 'deleteDropManagement'])->name('delete_dropManagement');
@@ -156,6 +158,9 @@ Route::group(['prefix'=>'siteadmin'], function(){
 
         Route::get('subscribersList', [ManagePagesController::class, 'subscribersList'])->name('subscribersList');
         Route::get('contactList', [ManagePagesController::class, 'contactList'])->name('contactList');
+
+        // ckeditor image upload method
+        Route::post('ckeditor/image_upload', [ManagePagesController::class, 'upload'])->name('upload');
 
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');

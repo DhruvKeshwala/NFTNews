@@ -37,6 +37,7 @@ class UserNewsController extends Controller
         $allNews        = News::orderby('orderIndex','asc')->paginate(10);
         $categories     = Category::all();
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
+        
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();

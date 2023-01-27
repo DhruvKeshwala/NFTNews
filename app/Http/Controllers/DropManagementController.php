@@ -43,34 +43,89 @@ class DropManagementController extends Controller
         return view('dropManagement', compact('categories','dropManagement'));
     }
 
-    public function addDropManagement($id=null)
+    public function addDropManagement($id=null, $type=null)
     {
-        $categories = Category::all();
-        $dropManagement = DropManagementService::getDropManagementById($id);
-        return view('add_dropManagement',compact('dropManagement','id','categories'));
+        if($type=='User')
+        {
+            $dropManagement = DropManagementService::getDropManagementById($id);
+            return view('edit_userDropManagement',compact('dropManagement','id'));
+        }
+        else
+        {
+            $categories = Category::all();
+            $dropManagement = DropManagementService::getDropManagementById($id);
+            return view('add_dropManagement',compact('dropManagement','id','categories'));
+        }
     }
 
+    public function saveUserDropManagement(Request $request)
+    {
+        $dropManagementdetails = $request->only([
+            'name',
+            'email',
+            'location',
+            'phone',
+            'skype',
+            'projectName',
+            'twitterLink',
+            'discordLink',
+            'shortDescription',
+            'websiteLink',
+            'collectionName',
+            //'nftStatus',
+            //'collectionItem',
+            'blockChain',
+            'contractAddress',
+            'token',
+            'metaData',
+            'saleDate',
+            'saleEndDate',
+            'priceOfSale'
+        ]);
+
+        $dropManagementdetails['userType'] = 'User';
+        $dropManagement = DropManagementService::createDropManagement($dropManagementdetails,$request->dropManagementId);
+        return json_encode(['success'=>1,'message'=>'Drop Management has been Saved Successfully']);
+
+    }
     public function saveDropManagement(Request $request)
     {
         // $previousId =  DropManagement::select('id')->latest()->get()->first();
         // $lastId     = $previousId->id;
 
         //validation
-        $request->validate([
-            'name'       => 'required',
-            // 'categoryId' => 'required',
-            // 'token'      => 'required',
-            // 'blockChain' => 'required',
-            // 'priceOfSale'=> 'required',
-            'saleDate'   => 'required',
-            'discordLink'=> 'required',
-            'twitterLink'=> 'required',
-            'websiteLink'=> 'required',
-            'metaTitle'  => 'required',
-            'description'=> 'required',
-            'keywords'   => 'required',
-            'orderIndex' => 'required',
-        ]);
+        // $request->validate([
+        //         'name' => 'required',
+        //         'email' => 'required|email',
+        //         'location' => 'required',
+        //         'phone'    => 'required|integer|digits_between:2,12',
+        //         'skype'     => 'required',
+        //         'projectName' => 'required',
+        //         'twitterLink'   => 'required|url',
+        //         'discordLink'   => 'required|url',
+        //         'shortDescription'  => 'required',
+        //         'websiteLink'   => 'required|url',
+        //         'collectionName'    => 'required',
+        //         'collectionItem'    => 'required|integer',
+        //         //'contractAddress'   => 'required',
+        //         'saleDate'          => 'required',
+        //         'saleTime'          => 'required',
+        //         'saleEndDate'       => 'required',
+        //         'captcha'           => 'required',
+        //         // 'metaData'      => 'required',
+        //         //'priceOfSale'   => 'required',
+        //         //'password' => 'required|min:5',
+        //         //'email' => 'required|email|unique:users'
+        //     ], [
+        //         'name.required' => 'Name is required',
+        //         'email.required' => 'Email is required',
+        //         'phone.integer' => 'The phone must be in digits',
+        //         'saleDate.required' => 'The sale start date field is required.',
+        //         'collectionItem.integer' => 'The Collection item only allow number',
+        //         //'password.required' => 'Password is required'
+        //     ]);
+
+
         
         $dropManagementdetails = $request->only([
             'name',
@@ -136,6 +191,7 @@ class DropManagementController extends Controller
             }
         }
         
+        $dropManagementdetails['userType'] = 'Admin';
         $dropManagement = DropManagementService::createDropManagement($dropManagementdetails,$request->dropManagementId);
         return json_encode(['success'=>1,'message'=>'Drop Management has been Saved Successfully']);
     }

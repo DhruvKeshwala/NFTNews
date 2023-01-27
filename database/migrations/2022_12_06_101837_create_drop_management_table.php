@@ -46,6 +46,7 @@ return new class extends Migration
             $table->longText('slug')->nullable();
             $table->longText('uploadSocialBanner')->nullable();
             $table->integer('orderIndex')->nullable();
+            $table->string('userType')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

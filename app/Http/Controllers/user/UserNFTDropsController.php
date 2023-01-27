@@ -172,121 +172,122 @@ class UserNFTDropsController extends Controller
         
         if($request->captcha == $fourDigitRandom)
         {
-            // $result = (new OtherController)->exampleFunction();
-            $mail = (new HomeController)->mailData();
+            // // $result = (new OtherController)->exampleFunction();
+            // $mail = (new HomeController)->mailData();
 
-            //Mail Information
-            //Recipients
-            $mail->setFrom('nftnews@infinitedryer.com', 'NFTNews');
-            $mail->addAddress($request->email, 'Your NFT Information Mail From ');     //Add a recipient
+            // //Mail Information
+            // //Recipients
+            // $mail->setFrom('nftnews@infinitedryer.com', 'NFTNews');
+            // $mail->addAddress($request->email, 'Your NFT Information Mail From ');     //Add a recipient
             
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Here is given below the information you added in your NFT Responses.';
-            $mail->Body    = '
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <style>
-            table, th, td {
-            border: 1px solid white;
-            border-collapse: collapse;
-            }
-            th, td {
-            background-color: #96D4D4;
-            }
-            </style>
-            </head>
-            <body>
+            // //Content
+            // $mail->isHTML(true);                                  //Set email format to HTML
+            // $mail->Subject = 'Here is given below the information you added in your NFT Responses.';
+            // $mail->Body    = '
+            // <!DOCTYPE html>
+            // <html>
+            // <head>
+            // <style>
+            // table, th, td {
+            // border: 1px solid white;
+            // border-collapse: collapse;
+            // }
+            // th, td {
+            // background-color: #96D4D4;
+            // }
+            // </style>
+            // </head>
+            // <body>
 
-            <h2>Submit NFT Information of User</h2>
+            // <h2>Submit NFT Information of User</h2>
 
-            <table style="width:100%">
-            <tr>
-                <th>Name</th>
-                <th>Value</th> 
-            </tr>
-            <tr>
-                <td>Full Name</td>
-                <td>'. $request->name . '</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>'. $request->email . '</td>
-            </tr>
-            <tr>
-                <td>Location</td>
-                <td>'. $request->location . '</td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td>'. $request->phone . '</td>
-            </tr>
-            <tr>
-                <td>Skype</td>
-                <td>'. $request->skype . '</td>
-            </tr>
-            <tr>
-                <td>Project Name</td>
-                <td>'. $request->projectName . '</td>
-            </tr>
-            <tr>
-                <td>Short Description</td>
-                <td>'. $request->shortDescription . '</td>
-            </tr>
-            <tr>
-                <td>Collection Name</td>
-                <td>'. $request->collectionName . '</td>
-            </tr>
-            <tr>
-                <td>Contact Address</td>
-                <td>'. $request->contractAddress . '</td>
-            </tr>
-            <tr>
-                <td>Meta Data</td>
-                <td>'. $request->metaData . '</td>
-            </tr>
-            <tr>
-                <td>Start Sale Date</td>
-                <td>'. $request->saleDate . '</td>
-            </tr>
-            <tr>
-                <td>End Sale Date</td>
-                <td>'. $request->saleEndDate . '</td>
-            </tr>
-            <tr>
-                <td>Sale Time</td>
-                <td>'. $request->saleTime . '</td>
-            </tr>
-            <tr>
-                <td>Price</td>
-                <td>'. $request->priceOfSale . '</td>
-            </tr>
-            <tr>
-                <td>Discord Link</td>
-                <td>'. $request->discordLink . '</td>
-            </tr>
-            <tr>
-                <td>Twitter Link</td>
-                <td>'. $request->twitterLink . '</td>
-            </tr>
-            <tr>
-                <td>Website Link</td>
-                <td>'. $request->websiteLink . '</td>
-            </tr>
-            </table>
+            // <table style="width:100%">
+            // <tr>
+            //     <th>Name</th>
+            //     <th>Value</th> 
+            // </tr>
+            // <tr>
+            //     <td>Full Name</td>
+            //     <td>'. $request->name . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Email</td>
+            //     <td>'. $request->email . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Location</td>
+            //     <td>'. $request->location . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Phone</td>
+            //     <td>'. $request->phone . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Skype</td>
+            //     <td>'. $request->skype . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Project Name</td>
+            //     <td>'. $request->projectName . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Short Description</td>
+            //     <td>'. $request->shortDescription . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Collection Name</td>
+            //     <td>'. $request->collectionName . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Contact Address</td>
+            //     <td>'. $request->contractAddress . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Meta Data</td>
+            //     <td>'. $request->metaData . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Start Sale Date</td>
+            //     <td>'. $request->saleDate . '</td>
+            // </tr>
+            // <tr>
+            //     <td>End Sale Date</td>
+            //     <td>'. $request->saleEndDate . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Sale Time</td>
+            //     <td>'. $request->saleTime . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Price</td>
+            //     <td>'. $request->priceOfSale . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Discord Link</td>
+            //     <td>'. $request->discordLink . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Twitter Link</td>
+            //     <td>'. $request->twitterLink . '</td>
+            // </tr>
+            // <tr>
+            //     <td>Website Link</td>
+            //     <td>'. $request->websiteLink . '</td>
+            // </tr>
+            // </table>
 
-            </body>
-            </html>
+            // </body>
+            // </html>
 
-            </body>
-            </html>
-            <br><br> <b>-Regards</b>';
+            // </body>
+            // </html>
+            // <br><br> <b>-Regards</b>';
             
-            $mail->send();
+            // $mail->send();
         
 
             $dropManagementdetails['nftType']  = null;
+            $dropManagementdetails['userType'] = 'User';
             $dropManagement = DropManagement::create($dropManagementdetails);
             return back()->with('success','NFT information added successfully also a copy of your responses will be emailed to the address you provided..');    
         } 

@@ -30,7 +30,9 @@ class News extends Model
         'image1_alt',
         'image2_alt',
         'image3_alt',
-        'social_banner_alt'
+        'social_banner_alt',
+        'image4',
+        'image4_alt',
     ];
     public function category()
     {

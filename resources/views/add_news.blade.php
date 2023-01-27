@@ -105,6 +105,22 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Image 4</label><small class="text-muted">Choose Image 4 size of 370x300 pixels</small></td>
+                <td>
+                    <input type="file" name="image4" id="image4">
+                    @if(@$news->image4 != '')
+                    <div><img src="{{asset('uploads/').'/'.@$news->image4}}" width = "100" alt="{{ @$news->image4_alt }}"></div>
+                    @endif
+                    <div id="image4Error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image 4 alt</label></td>
+                <td>
+                   <input type="text" value="{{ @$news->image4_alt }}" name="image4_alt" placeholder="Image 4 alt tag"></div>
+                </td>
+            </tr>
+            <tr>
                 <td><label>Video URL</label></td>
                 <td><input type="text" value="{{ @$news->videoURL }}" name="videoURL" placeholder="Video URL">
                     {{-- <div id="videoURLError"></div> --}}
@@ -220,13 +236,15 @@
      CKEDITOR.replace( 'fullDescription', {
                 fullPage: true,						
                 allowedContent: true,
-                width: '98%',height: '200px',
-                filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                width: '98%',height: '400px',
+                // filebrowserBrowseUrl :  'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html',
+                // filebrowserImageBrowseUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html?type=Images',
+                // filebrowserFlashBrowseUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                //filebrowserUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form',
+                // filebrowserImageUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                // filebrowserFlashUploadUrl : 'http://localhost/NFTNews/assets/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
             } );
     function saveNews() 
     {
@@ -253,6 +271,8 @@
         var image2_alt = $("input[name=\"image2_alt\"]").val();
         var image3_alt = $("input[name=\"image3_alt\"]").val();
         var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        var image4_alt = $("input[name=\"image4_alt\"]").val();
+
         var fd = new FormData();
         if(newsId == ''){
             newsId = 0;
@@ -285,6 +305,12 @@
         {
             fd.append('article_2',files[0]);
         }
+        // Append Image4
+        var files = $('#image4')[0].files;
+        if(files.length > 0)
+        {
+            fd.append('image4',files[0]);
+        }
         
         fd.append('categoryId', categoryId);
         fd.append('metaTitle', metaTitle);
@@ -304,6 +330,7 @@
         fd.append('image1_alt', image1_alt);
         fd.append('image2_alt', image2_alt);
         fd.append('image3_alt', image3_alt);
+        fd.append('image4_alt', image4_alt);
         fd.append('social_banner_alt', social_banner_alt);
 
         // Append article 1 
