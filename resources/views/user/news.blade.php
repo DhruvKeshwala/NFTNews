@@ -67,8 +67,8 @@
                   @foreach($allNews as $news)
                       <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
                       <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" 
-                        @if($news->image != null || $news->image != '' || file_exists($news->image) == true)
-                          style="background-image: url({{ URL::asset('uploads/' . @$news->image) }});"
+                        @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
+                          style="background-image: url({{ URL::asset('uploads/' . @$news->article_1) }});"
                         @else
                           style="background-image: url({{ URL::asset('images/default-listing-news.png') }});" 
                         @endif></div></a>
