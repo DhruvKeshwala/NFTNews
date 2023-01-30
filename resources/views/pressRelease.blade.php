@@ -115,6 +115,8 @@ a:hover {
 </div>
 @include('layouts.footer')
 <script>
+     $("select[name=\"filterCategoryId\"]").select2({
+    });
     function deletePressRelease(id) {
         swal({
             title: "Warning!",

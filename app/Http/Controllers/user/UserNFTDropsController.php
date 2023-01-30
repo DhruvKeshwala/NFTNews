@@ -79,6 +79,7 @@ class UserNFTDropsController extends Controller
 
     public function save_submitNFT(Request $request)
     {
+        
         $fourDigitRandom = $request->fourDigitRandom;
         
         $validatedData = $request->validate([
@@ -285,7 +286,6 @@ class UserNFTDropsController extends Controller
             
             // $mail->send();
         
-
             $dropManagementdetails['nftType']  = null;
             $dropManagementdetails['userType'] = 'User';
             $dropManagement = DropManagement::create($dropManagementdetails);

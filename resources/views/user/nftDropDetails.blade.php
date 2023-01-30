@@ -20,11 +20,11 @@
     
     <div class="ftco-section py-5 bg-info-gradient">
       <div class="container text-center">
-    	<h1>{{@$nftDropDetail->description}}</h1>
+    	<h1>{{@$nftDropDetail->name}}</h1>
         <h3>{{@$nftDropDetail->created_at->format('F d, Y')}}</h3>
         <h4><strong>Company</strong> <span class="divider">|</span> {{@$nftDropDetail->blockChain}}</h4>
         <h4><strong>Price</strong> <span class="divider">|</span> {{@$nftDropDetail->priceOfSale}}</h4>
-        {{-- <h4><strong>Supply</strong> <span class="divider">|</span> 5000</h4> --}}
+        {{-- <h4><strong>Supply</strong> <span class="divider">|</span> {{@$nftDropDetail->collectionItem}}</h4> --}}
 
       </div>
     </div>
@@ -54,7 +54,7 @@
                   </div>
                </div>
                <div class="text mt-3">
-                {!! @$nftDropDetail->description !!}
+                {!! @$nftDropDetail->shortDescription !!}
                 {{-- <p>{Blockchain Bandicoot™ is a collection of 5,000 unique NFTs living on the Ethereum blockchain. Bandicoot Guardians are the protectors of the Blockchain World, Burokuchen. An evil mastermind named Korruption has infected the Blockchain, Korrupting Bandicoots all across their world.</p>
                  <p>On Kobe’s first day of Guardian training, he gets attacked by a Korrupted Bandicoot and to his surprise, he’s saved by two Blockchain Developers from the real world, Devon and Kari.</p>
                  <p>When the three are bombarded by a hoard of Korrupted Bandicoots, Devon thinks quickly and copies Kobe’s code to create several Bandicoots to protect them… That was the day 5000 Blockchain Bandicoots were born.}</p>
@@ -67,7 +67,7 @@
                 
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="m-0 p-0">Addes {{@$nftDropDetail->created_at->format('F d, Y')}}</p>
+                        <p class="m-0 p-0">Added {{@$nftDropDetail->created_at->format('F d, Y')}}</p>
                     </div>
                     <div class="col-md-6 text-right">
                         <a href="{{@$nftDropDetail->twitterLink}}" class="btn-sm bg-light"><i class="fa fa-twitter text-light"></i></a>

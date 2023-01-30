@@ -130,7 +130,7 @@ a:hover {
 </div>
 @include('layouts.footer')
 <script>
-    $("select[name=\"category\"]").select2({
+    $("select[name=\"filterCategoryId\"]").select2({
     });
    
     function deleteGuide(id) {

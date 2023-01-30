@@ -62,6 +62,7 @@ class DropManagementController extends Controller
     {
         $dropManagementdetails = $request->only([
             'name',
+            'slug',
             'email',
             'location',
             'phone',
@@ -72,15 +73,17 @@ class DropManagementController extends Controller
             'shortDescription',
             'websiteLink',
             'collectionName',
-            //'nftStatus',
-            //'collectionItem',
+            'nftStatus',
+            'collectionItem',
             'blockChain',
             'contractAddress',
             'token',
             'metaData',
             'saleDate',
             'saleEndDate',
-            'priceOfSale'
+            'saleTime',
+            'priceOfSale',
+            'orderIndex',
         ]);
 
         $dropManagementdetails['userType'] = 'User';

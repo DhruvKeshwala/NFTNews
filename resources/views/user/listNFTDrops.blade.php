@@ -146,7 +146,9 @@
                         </div>
                     @endforeach
                 @endif
+                
             </div>
+            {{ @$allDropManagement->appends(Request::except('page'))->links('vendor.pagination.userCustom') }}
         </div>
     </section>
 @endsection
