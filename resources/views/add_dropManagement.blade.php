@@ -57,24 +57,26 @@
             <tr>
                 <td><label>Sale Date</label></td>
                 <td><input type="text" class="datepicker" value="{{ @$dropManagement->saleDate }}" name="saleDate" placeholder="Sale Date">
-                    <div id="saleDateError"></div>
+                    {{-- <div id="saleDateError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Discord Link</label></td>
-                <td><input type="text" value="{{ @$dropManagement->discordLink }}" name="discordLink" placeholder="Discord Link"><div id="discordLinkError"></div><div id="discordLinkURLPatternError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->discordLink }}" name="discordLink" placeholder="Discord Link">
+                    {{-- <div id="discordLinkError"></div> --}}
+                    <div id="discordLinkURLPatternError"></div></td>
             </tr>
             <tr>
                 <td><label>Twitter Link</label></td>
                 <td><input type="text" value="{{ @$dropManagement->twitterLink }}" name="twitterLink" placeholder="Twitter Link">
-                    <div id="twitterLinkError"></div>
+                    {{-- <div id="twitterLinkError"></div> --}}
                     <div id="twitterLinkURLPatternError"></div>
                 </td>
             </tr>
             <tr>
                 <td><label>Website Link</label></td>
                 <td><input type="text" value="{{ @$dropManagement->websiteLink }}" name="websiteLink" placeholder="Website Link">
-                    <div id="websiteLinkError"></div>
+                    {{-- <div id="websiteLinkError"></div> --}}
                     <div id="websiteLinkURLPatternError"></div>
                 </td>
             </tr>
@@ -153,15 +155,15 @@
             </tr>
             <tr>
                 <td><label>Meta Title</label></td>
-                <td><input type="text" value="{{ @$dropManagement->metaTitle }}" name="metaTitle" placeholder="Meta Title"><div id="metaTitleError"></div></td>
+                <td><input type="text" value="{{ @$dropManagement->metaTitle }}" name="metaTitle" placeholder="Meta Title"></td>
             </tr>
             <tr>
                 <td><label>Meta Description</label></td>
-                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$dropManagement->description}}</textarea><div id="descriptionError"></div></td>
+                <td><textarea rows="5" cols="30" name="description" id="description" placeholder="Meta Description">{{@$dropManagement->description}}</textarea></td>
             </tr>
             <tr>
                 <td><label>Meta Keywords</label></td>
-                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$dropManagement->keywords }}</textarea><div id="keywordsError"></div></td>
+                <td><textarea rows="5" cols="30" name="keywords" id="keywords" placeholder="Meta Keywords">{{ @$dropManagement->keywords }}</textarea></td>
             </tr>
             <tr>
                 <td><label>Upload Social Banner</label></td>
@@ -287,21 +289,21 @@
         //     flag = 0;
         //     $("#categoryIdError").html('<span class="errorMessage" style="color:red;">Category Required</span>');
         // } 
-        if (metaTitle == '') 
-        {
-            flag = 0;
-            $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
-        }
-        if (description == '') 
-        {
-            flag = 0;
-            $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
-        }
-        if (keywords == '') 
-        {
-            flag = 0;
-            $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
-        } 
+        // if (metaTitle == '') 
+        // {
+        //     flag = 0;
+        //     $("#metaTitleError").html('<span class="errorMessage" style="color:red;">Meta Title Required</span>');
+        // }
+        // if (description == '') 
+        // {
+        //     flag = 0;
+        //     $("#descriptionError").html('<span class="errorMessage" style="color:red;">Description Required</span>');
+        // }
+        // if (keywords == '') 
+        // {
+        //     flag = 0;
+        //     $("#keywordsError").html('<span class="errorMessage" style="color:red;">Keywords Required</span>');
+        // } 
         if (orderIndex == '') 
         {
             flag = 0;
@@ -337,11 +339,11 @@
         //     flag = 0;
         //     $("#priceOfSaleError").html('<span class="errorMessage" style="color:red;">Price Of Sale Required</span>');
         // }
-        if (saleDate == '') 
-        {
-            flag = 0;
-            $("#saleDateError").html('<span class="errorMessage" style="color:red;">Sale Date Required</span>');
-        }
+        // if (saleDate == '') 
+        // {
+        //     flag = 0;
+        //     $("#saleDateError").html('<span class="errorMessage" style="color:red;">Sale Date Required</span>');
+        // }
 
         //function for URL validation
         function isValidHttpUrl(string) {
@@ -354,11 +356,11 @@
             return url.protocol === "http:" || url.protocol === "https:";
         }
 
-        if (discordLink == '') 
-        {
-            flag = 0;
-            $("#discordLinkError").html('<span class="errorMessage" style="color:red;">Discord Link Required</span>');
-        }
+        // if (discordLink == '') 
+        // {
+        //     flag = 0;
+        //     $("#discordLinkError").html('<span class="errorMessage" style="color:red;">Discord Link Required</span>');
+        // }
         // URL validation
         if(discordLink != '' && isValidHttpUrl(discordLink) == false)
         {
@@ -366,11 +368,11 @@
             $("#discordLinkURLPatternError").html('<span class="errorMessage" style="color:red;">Discord Link is Invalid</span>');
         }
 
-        if (twitterLink == '') 
-        {
-            flag = 0;
-            $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
-        }
+        // if (twitterLink == '') 
+        // {
+        //     flag = 0;
+        //     $("#twitterLinkError").html('<span class="errorMessage" style="color:red;">Twitter Link Required</span>');
+        // }
         // URL validation
         if(twitterLink != '' && isValidHttpUrl(twitterLink) == false)
         {
@@ -390,11 +392,11 @@
             $("#end_dateError").html('<span class="errorMessage" style="color:red;">End Date Required</span>');
         }*/
 
-        if (websiteLink == '') 
-        {
-            flag = 0;
-            $("#websiteLinkError").html('<span class="errorMessage" style="color:red;">Website Link Required</span>');
-        }
+        // if (websiteLink == '') 
+        // {
+        //     flag = 0;
+        //     $("#websiteLinkError").html('<span class="errorMessage" style="color:red;">Website Link Required</span>');
+        // }
         // URL validation
         if(websiteLink != '' && isValidHttpUrl(websiteLink) == false)
         {

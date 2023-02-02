@@ -84,9 +84,9 @@
                         @if(@$dropManagement->saleDate != null && @$dropManagement->saleEndDate != null)
                         <td><b>Sale Date:</b></td>
                         <td><b>Starts From : </b>{{date('d-m-Y', strtotime($dropManagement->saleDate))}} <b>To :</b>{{date('d-m-Y', strtotime($dropManagement->saleEndDate))}} </td>
-                        @else
+                        @elseif(@$dropManagement->saleDate != null)
                         <td><b>Sale Date:</b></td>
-                        <td>{{ @$dropManagement->saleDate }}</td>
+                        <td>{{date('d-m-Y', strtotime($dropManagement->saleDate))}}</td>
                         @endif
                     </tr>
                     @if($dropManagement->phone != null)

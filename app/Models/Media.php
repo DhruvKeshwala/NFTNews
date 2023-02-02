@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Contact extends Model
+class Media extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name','email','phone','org', 'loc', 'nmeproj', 'enquire_nature','message'];
+    protected $fillable = ['title', 'image_alt', 'description','image'];
 }

@@ -91,6 +91,7 @@
                   <li class="{{ Request::segment(2) == 'pressRelease' || Request::segment(2) == 'add_pressRelease' || Request::segment(2) == 'filter_pressRelease' ? 'active' : '' }}"><span class="material-icons">handshake</span><a class="fill-a" href="{{route('pressRelease')}}">Press Release</a></li>
                   <li class="{{ Request::segment(2) == 'guide_category' || Request::segment(2) == 'add_guide_category' || Request::segment(2) == 'filter_guide_category' ? 'active' : '' }}"><span class="material-icons">category</span><a class="fill-a" href="{{route('guide_category')}}">Guide Category</a></li>
                   <li class="{{ Request::segment(2) == 'guide' || Request::segment(2) == 'add_guide' || Request::segment(2) == 'filter_guide' ? 'active' : '' }}"><span class="material-icons">quiz</span><a class="fill-a" href="{{route('guide')}}">Guide</a></li>
+                  <li class="{{ Request::segment(2) == 'media' || Request::segment(2) == 'add_media' || Request::segment(2) == 'filter_media' ? 'active' : '' }}"><span class="material-icons">camera</span><a class="fill-a" href="{{route('media')}}">Media</a></li>
   
                   <li class="{{ Route::is('managePages') ? 'active' : '' }}"><span class="material-icons">assignment</span><a class="fill-a" href="{{route('managePages')}}">Manage Pages</a></li>
                   <li class="{{ Request::segment(2) == 'subscribersList' ? 'active' : '' }}"><span class="material-icons">add</span><a class="fill-a" href="{{ route('subscribersList') }}">Subscribers</a></li>

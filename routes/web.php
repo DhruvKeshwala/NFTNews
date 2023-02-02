@@ -18,6 +18,8 @@ use App\Http\Controllers\CryptoJournalController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\ManagePagesController;
 use App\Http\Controllers\GuideCategoryController;
+use App\Http\Controllers\MediaController;
+
 
 //User controllers
 use App\Http\Controllers\user\HomeController;
@@ -46,6 +48,9 @@ Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.pos
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
 
+Route::get('/filepopup', function(){
+    return view('demofilepopup');
+});
 
 Route::group(['prefix'=>'siteadmin'], function(){
     Route::middleware(['auth'])->group(function () {
@@ -133,6 +138,14 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('delete_guide_category', [GuideCategoryController::class, 'deleteCategory'])->name('delete_guide_category');
         Route::get('filter_guide_category', [GuideCategoryController::class, 'filterCategory'])->name('filter_guide_category');
 
+        // Media
+        Route::get('media', [MediaController::class, 'index'])->name('media');
+        Route::get('add_media/{id?}', [MediaController::class, 'create'])->name('add_media');
+        Route::post('save_media', [MediaController::class, 'store'])->name('save_media');
+        // Route::post('delete_media', [MediaController::class, 'destroy'])->name('delete_media');
+        // Route::get('/filter_media', [MediaController::class, 'filtermedia'])->name('filter_media');
+        Route::get('media_detail/{id}', [MediaController::class, 'mediaDetail'])->name('media_detail');
+
         //Manage Pages
         Route::get('managePages', [ManagePagesController::class, 'index'])->name('managePages');
         Route::get('add_page/{id?}', [ManagePagesController::class, 'addPage'])->name('add_page');
@@ -166,6 +179,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
+
 
 //User side
 Route::get('/', [HomeController::class, 'index'])->name('user.home');

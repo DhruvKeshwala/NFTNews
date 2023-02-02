@@ -75,7 +75,7 @@ a:hover {
                     <td>@if(@$dropManagementDetails->token != null) {{@$dropManagementDetails->token}} @else <span>—</span> @endif</td>
                     <td>@if(@$dropManagementDetails->blockChain != null) {{@$dropManagementDetails->blockChain}} @else <span>—</span> @endif</td>
                     <td>@if(@$dropManagementDetails->priceOfSale != null) {{@$dropManagementDetails->priceOfSale}} @else <span>0</span> @endif</td>
-                    <td>{{date('d-m-Y', strtotime(@$dropManagementDetails->saleDate))}}</td>
+                    <td>@if(@$dropManagementDetails->saleDate != null || @$dropManagementDetails->saleDate != ''){{date('d-m-Y', strtotime(@$dropManagementDetails->saleDate))}} @else <span>—</span> @endif</td>
                     <!-- <td>{{$dropManagementDetails->discordLink}}</td>
                     <td>{{@$dropManagementDetails->twitterLink}}</td>
                     <td>{{@$dropManagementDetails->websiteLink}}</td> -->
