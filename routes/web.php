@@ -177,6 +177,10 @@ Route::group(['prefix'=>'siteadmin'], function(){
 
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::post('saveFile', [MediaController::class, 'saveFile'])->name('saveFile');
+
+        Route::get('/getMediaFiles', [MediaController::class, 'getMediaFiles'])->name('getMediaFiles');
     });
 });
 

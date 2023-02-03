@@ -1,11 +1,14 @@
 @include('layouts.header')
-
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-extended.css')}}">
-    <script src="{{ URL::asset('assets/js/vendors.min.js')}}"></script>
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
-            <h3>@if(@$id == null) Add @else Edit @endif Media</h3>
+            <h3>
+                @if (@$id == null)
+                    Add
+                @else
+                    Edit
+                @endif Media
+            </h3>
         </div>
         <div class="col-md-5 text-right">
             &nbsp;
@@ -17,30 +20,59 @@
                 <td><label>Title</label></td>
                 <td>
                     <input type="text" value="{{ @$data->title }}" name="title" placeholder="Title">
-                    <input type="hidden" name="mediaId" value="{{@$id}}">
+                    <input type="hidden" name="mediaId" value="{{ @$id }}">
                     <div id="titleError"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Type</label></td>
+                <td>
+                    <select name="type" data-placeholder="Select Type">
+                        <option value="">Select Type</option>
+                        <option value="news" {{ @$data->type == 'news' ? 'selected' : '' }}>News</option>
+                        <option value="video" {{ @$data->type == 'video' ? 'selected' : '' }}>Video</option>
+                        <option value="crypto" {{ @$data->type == 'crypto' ? 'selected' : '' }}>Crypto Journal</option>
+                        <option value="author" {{ @$data->type == 'author' ? 'selected' : '' }}>Author</option>
+                        <option value="banner" {{ @$data->type == 'banner' ? 'selected' : '' }}>Banner</option>
+                        <option value="nftDrops" {{ @$data->type == 'nftDrops' ? 'selected' : '' }}>NFT Drops</option>
+                        <option value="pressRelease" {{ @$data->type == 'pressRelease' ? 'selected' : '' }}>Press
+                            Release</option>
+                        <option value="pages" {{ @$data->type == 'pages' ? 'selected' : '' }}>Manage Pages</option>
+                    </select>
+                    {{-- <div id="typeError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Alternative Text</label></td>
                 <td>
-                    <input type="text" value="{{ @$data->image_alt }}" name="image_alt" placeholder="Alternate Text">
+                    <input type="text" value="{{ @$data->image_alt }}" name="image_alt"
+                        placeholder="Alternate Text">
                     {{-- <div id="image_altError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Description</label></td>
                 <td>
-                    <textarea rows="5" cols="30" name="description" id="description" placeholder="Description">{{@$data->description}}</textarea>
+                    <textarea rows="5" cols="30" name="description" id="description" placeholder="Description">{{ @$data->description }}</textarea>
                     {{-- <div id="descriptionError"></div> --}}
+                </td>
+            </tr>
+            <tr>
+                <td><label>Image Dimensions</label></td>
+                <td>
+                    <input type="text" value="{{ @$data->dimensions }}" name="dimensions"
+                        placeholder="Image Dimensions">
+                    <small>Note* : Please Enter Image Dimensions like this (Ex. 600 x 600)</small>
+                    {{-- <div id="dimensionsError"></div> --}}
                 </td>
             </tr>
             <tr>
                 <td><label>Image</label></td>
                 <td>
                     <input type="file" name="image" id="image">
-                    @if(@$data->image != '')
-                    <div><img src="{{asset('uploads/').'/'.@$data->image}}" width = "100" alt="{{@$data->image_alt}}"></div>
+                    @if (@$data->image != '')
+                        <div><img src="{{ asset('uploads/media') . '/' . @$data->image }}" width="100"
+                                alt="{{ @$data->image_alt }}"></div>
                     @endif
                     {{-- <div id="imageError"></div> --}}
                 </td>
@@ -80,7 +112,8 @@
             <tr>
                 <td></td>
                 <td>
-                    <a href="javascript:;" onclick="saveMedia()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
+                    <a href="javascript:;" onclick="saveMedia()" id="saveBtn"
+                        class="btn btn-success light-font">SAVE</a>
                     <a href="{{ route('media') }}" class="btn btn-danger">Cancel</a>
                 </td>
             </tr>
@@ -91,8 +124,8 @@
 
 
 {{-- Modal for File Upload Popup --}}
- <div class="modal fade media-modal " id="media-model" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade media-modal " id="media-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,8 +142,8 @@
                         <div class="form-group row">
                             <label class="col-xl-2 col-lg-2 col-form-label"> File Upload</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input " id="file" name="file" multiple=""
-                                    required="">
+                                <input type="file" class="custom-file-input " id="file" name="file"
+                                    multiple="" required="">
                                 <label class="custom-file-label LabeliconFile" id="fileLabel" for="file">Choose File
                                 </label>
                             </div>
@@ -174,143 +207,142 @@
 
 
 <script>
+    $(document).ready(function() {
+
+        var count = 0;
 
 
 
+        $(document).on("click", ".selectFile", function() {
+            console.log($(this).val());
+            $(".selectFile").removeAttr('style');
+            $(this).css("border", "5px solid");
+            $('#selectFileName').val($(this).data('file'));
+            $('#menu3').show();
+            var base = $(document).find('.base').val();
+            var name = "https://resources.thenftmarkets.co.uk/" + "uploads/media/thumbnails/" + $(this)
+                .data('file');
+            var name2 = "https://resources.thenftmarkets.co.uk/" + "uploads/media/" + $(this).data(
+                'file');
+            $('#imageurl').val(name);
 
+            document.getElementById('selectedimage').src = $(this).attr('src');
+            $('#title').html("<strong>Title: </strong>" + $(this).data('title'));
+            $('#fileName').html("<strong>File Name: </strong> " + $(this).data('file'));
+            $('#type').html("<strong>Type : </strong>" + $(this).data('type'));
+            $('#dimensions').html("<strong>Dimensions : </strong>" + $(this).data('dimensions'));
+            $('#thumbnailsDimensions').html("<strong>Thumbnails Dimensions: </strong>" + $(this).data(
+                'thumbnails'));
+            $('#category').html("<strong>Category : </strong>" + $(this).data('category'));
+            $('#url').html("<strong>URL: </strong>" + name2);
+            $('#thumbnailsurl').html("<strong>Thumbnails URL: </strong>" + name);
+            $('#deletebtn').html(
+                "<a class='delete-from-uploads btn btn-danger mr-2 mb-2 float-right' data-id=" + $(
+                    this).data('id') + " href='javascript:void(0);' >Delete</a>");
 
-
-        $(document).ready(function () {
-
-            var count = 0;
-            
-
-
-            $(document).on("click", ".selectFile", function () {
-                console.log($(this).val());
-                $(".selectFile").removeAttr('style');
-                $(this).css("border", "5px solid");
-                $('#selectFileName').val($(this).data('file'));
-                $('#menu3').show();
-                var base = $(document).find('.base').val();
-                var name = "https://resources.thenftmarkets.co.uk/" + "uploads/media/thumbnails/" + $(this).data('file');
-                var name2 = "https://resources.thenftmarkets.co.uk/" + "uploads/media/" + $(this).data('file');
-                $('#imageurl').val(name);
-
-                document.getElementById('selectedimage').src = $(this).attr('src');
-                $('#title').html("<strong>Title: </strong>" + $(this).data('title'));
-                $('#fileName').html("<strong>File Name: </strong> " + $(this).data('file'));
-                $('#type').html("<strong>Type : </strong>" + $(this).data('type'));
-                $('#dimensions').html("<strong>Dimensions : </strong>" + $(this).data('dimensions'));
-                $('#thumbnailsDimensions').html("<strong>Thumbnails Dimensions: </strong>" + $(this).data('thumbnails'));
-                $('#category').html("<strong>Category : </strong>" + $(this).data('category'));
-                $('#url').html("<strong>URL: </strong>" + name2);
-                $('#thumbnailsurl').html("<strong>Thumbnails URL: </strong>" + name);
-                $('#deletebtn').html("<a class='delete-from-uploads btn btn-danger mr-2 mb-2 float-right' data-id=" + $(this).data('id') + " href='javascript:void(0);' >Delete</a>");
-
-
-
-
-            });
-
-
-
-            $(document).on("click", ".mediaModel", function () {
-                $("#targetControl").val($(this).data('control'));
-            });
-
-            $(document).on("click", ".closeFileModel", function () {
-
-
-                $("#" + $("#targetControl").val()).val($("#selectFileName").val());
-            });
-
-            $('#fileSearchModel').ajaxForm({
-                beforeSend: function () {
-
-                },
-                uploadProgress: function (event, position, total, percentComplete) {
-
-                },
-                success: function (data) {
-                    //                    alert(data);
-                    console.log(data);
-                    $('.allMediaContent').html(data);
-
-                }
-            });
-
-
-
-
-
-
-            $(document).on("click", ".delete-from-uploads", function () {
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
-                    confirmButtonClass: 'btn btn-primary',
-                    cancelButtonClass: 'btn btn-danger ml-1',
-                    buttonsStyling: false,
-                }).then(function (result) {
-                    if (result.value) {
-                        deletefromUploads($('.delete-from-uploads').data('id'));
-                        //                  window.top.location.href = 'https://resources.thenftmarkets.co.uk/admin/media/deleteUploads'+'/'+$('.delete-from-uploads').data('id')
-                    }
-                })
-            });
 
 
 
         });
-    </script>
+
+
+
+        $(document).on("click", ".mediaModel", function() {
+            $("#targetControl").val($(this).data('control'));
+        });
+
+        $(document).on("click", ".closeFileModel", function() {
+
+
+            $("#" + $("#targetControl").val()).val($("#selectFileName").val());
+        });
+
+        $('#fileSearchModel').ajaxForm({
+            beforeSend: function() {
+
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+
+            },
+            success: function(data) {
+                //                    alert(data);
+                console.log(data);
+                $('.allMediaContent').html(data);
+
+            }
+        });
+
+
+
+
+
+
+        $(document).on("click", ".delete-from-uploads", function() {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                confirmButtonClass: 'btn btn-primary',
+                cancelButtonClass: 'btn btn-danger ml-1',
+                buttonsStyling: false,
+            }).then(function(result) {
+                if (result.value) {
+                    deletefromUploads($('.delete-from-uploads').data('id'));
+                    //                  window.top.location.href = 'https://resources.thenftmarkets.co.uk/admin/media/deleteUploads'+'/'+$('.delete-from-uploads').data('id')
+                }
+            })
+        });
+
+
+
+    });
+</script>
 
 <!-- Footer -->
 @include('layouts.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
-    function saveMedia() 
-    {
+    function saveMedia() {
         $('.errorMessage').hide();
         var flag = 1;
         var title = $("input[name='title']").val();
+        var type = $("select[name='type']").val();
         var image_alt = $("input[name='image_alt']").val();
         var description = $("#description").val()
+        var dimensions = $("input[name='dimensions']").val();
         var mediaId = $("input[name='mediaId']").val();
-        
+
         var fd = new FormData();
-        if(mediaId == ''){
+        if (mediaId == '') {
             mediaId = 0;
         }
         // Append data 
         var files = $('#image')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('image',files[0]);
+        if (files.length > 0) {
+            fd.append('image', files[0]);
         }
-        
+
         fd.append('title', title);
+        fd.append('type', type);
         fd.append('image_alt', image_alt);
         fd.append('description', description);
+        fd.append('dimensions', dimensions);
         fd.append('mediaId', mediaId);
-        
-        if (title == '' || title == null) 
-        {
+
+        if (title == '' || title == null) {
             flag = 0;
             $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
         }
 
-        
-        if(flag == 1) 
-        {
-            var saveBtn                 = document.getElementById("saveBtn");
-            saveBtn.innerHTML           = "Wait..";
+
+        if (flag == 1) {
+            var saveBtn = document.getElementById("saveBtn");
+            saveBtn.innerHTML = "Wait..";
             $('#saveBtn').addClass('disabled');
             $.ajaxSetup({
                 headers: {
@@ -320,7 +352,7 @@
             $.ajax({
                 url: "{{ route('save_media') }}",
                 type: "POST",
-                data:fd,
+                data: fd,
                 cache: false,
                 processData: false,
                 contentType: false,
@@ -328,7 +360,7 @@
                     var data = JSON.parse(result);
                     if (data.success) {
                         //enable the button
-                        saveBtn.innerHTML           = "SAVE";
+                        saveBtn.innerHTML = "SAVE";
                         $('#saveBtn').removeClass('disabled');
                         swal({
                             title: "Success!",
@@ -337,7 +369,7 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('siteadmin/media') }}"
+                                window.location.href = "{{ URL::to('siteadmin/media') }}"
                             }
                         })
                     }
@@ -346,5 +378,4 @@
             });
         }
     }
-
 </script>

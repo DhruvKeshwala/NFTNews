@@ -34,6 +34,9 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/select2.min.css') }}" />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/alert2@7.12.15/dist/sweetalert2.min.css'>
 
+  <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-extended.css')}}">
+  <script src="{{ URL::asset('assets/js/vendors.min.js')}}"></script>
+
   <style>
     .fill-a
     {

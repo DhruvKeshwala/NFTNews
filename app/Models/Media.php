@@ -10,5 +10,5 @@ class Media extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['title', 'image_alt', 'description','image'];
+    protected $fillable = ['title', 'image_alt', 'description', 'type', 'image', 'dimensions'];
 }

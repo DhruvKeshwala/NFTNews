@@ -44,6 +44,8 @@ class MediaController extends Controller
             'title',
             'image_alt',
             'description',
+            'type',
+            'dimensions',
         ]);
         
         if($request->file('image') != null)
@@ -60,7 +62,7 @@ class MediaController extends Controller
                 $file      = $request->file('image');
                 $getFileName = $request->file('image')->getClientOriginalName();
                 $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads'), $fileName); 
+                $name = $file->move(base_path('uploads/media'), $fileName); 
                 $data['image'] = $fileName;
             }
             else
@@ -68,13 +70,15 @@ class MediaController extends Controller
                 $file      = $request->file('image');
                 $getFileName = $request->file('image')->getClientOriginalName();
                 $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads'), $fileName); 
+                $name = $file->move(base_path('uploads/media'), $fileName); 
                 $data['image'] = $fileName;
             }
         }
 
         $data['title'] =  $request->title;
+        $data['type'] =  $request->type;
         $data['description'] = $request->description;
+        $data['dimensions'] = $request->dimensions;
         $data['image_alt'] = $request->image_alt;
 
         $result = MediaService::createUpdate($data,$request->mediaId);
@@ -85,5 +89,34 @@ class MediaController extends Controller
     {
         $media        = MediaService::getMediaById($id);
         return view('mediaDetails',compact('media'));
+    }
+
+    public function saveFile(Request $request)
+    {
+        if($request->file('file') != null)
+        {
+            $lastId = DB::table('media')->select('id')->latest('id')->first();
+            if(empty($lastId))
+            {
+                $file      = $request->file('file');
+                $getFileName = $request->file('file')->getClientOriginalName();
+                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();   
+                $name = $file->move(base_path('uploads/media'), $fileName); 
+            }
+            else
+            {
+                $file      = $request->file('file');
+                $getFileName = $request->file('file')->getClientOriginalName();
+                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();   
+                $name = $file->move(base_path('uploads/media'), $fileName); 
+            }   
+            return redirect()->back();  
+        }
+    }
+
+    public function getMediaFiles()
+    {
+        $media = MediaService::get();
+        return view('mediaImages', compact('media'));
     }
 }

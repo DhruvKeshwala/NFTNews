@@ -18,7 +18,9 @@ return new class extends Migration
             $table->longText('title')->nullable();
             $table->longText('image_alt')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('type')->nullable();
             $table->longText('image')->nullable();
+            $table->longText('dimensions')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
