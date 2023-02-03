@@ -72,7 +72,7 @@
                     <div id="fullDescriptionError"></div>
                 </td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 1140x760 pixels</small></td>
                 <td>
                     <input type="file" name="image" id="image">
@@ -83,7 +83,7 @@
                     <div id="imageError"></div>
 
                 </td>
-            </tr> past type
+            </tr> past type --}}
 
 
             <tr>
@@ -94,8 +94,8 @@
                             <div class="col-sm-12">
                                 <div class="row form-group">
                                     <div class="col-lg-6 col-xl-6">
-                                        <input value="" placeholder="Upload Image" id="image" name="image"
-                                            type="text" class="form-control " readonly="">
+                                        <input value="" placeholder="Upload Image" id="image" class="getImage"
+                                            name="image" type="text" class="form-control " readonly="">
                                         <br clear="all" />
 
                                         Best Image Size(1140 x 760 pixels)
@@ -406,6 +406,9 @@
     function saveNews() {
         $('.errorMessage').hide();
         var flag = 1;
+
+        var image = $("input[name=\"image\"]").val();
+
         var metaTitle = $("input[name=\"metaTitle\"]").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
@@ -447,10 +450,10 @@
             $("#slugError").html('<span style="color:red;">Remove special character & space from slug</span>');
         }
         // Append data 
-        var files = $('#image')[0].files;
-        if (files.length > 0) {
-            fd.append('image', files[0]);
-        }
+        // var files = $('#image')[0].files;
+        // if (files.length > 0) {
+        //     fd.append('image', files[0]);
+        // }
         // Append article 1 
         var files = $('#article_1')[0].files;
         if (files.length > 0) {
@@ -466,6 +469,8 @@
         if (files.length > 0) {
             fd.append('image4', files[0]);
         }
+
+        fd.append('image', image);
 
         fd.append('categoryId', categoryId);
         fd.append('metaTitle', metaTitle);
@@ -601,7 +606,7 @@
 <script>
     $(".closeFileModel").click(function() {
         var imgName = $('#fileName').html();
-
+        $(".getImage").val(imgName);
     });
     $(document).ready(function() {
 

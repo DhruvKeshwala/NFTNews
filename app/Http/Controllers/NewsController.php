@@ -64,7 +64,7 @@ class NewsController extends Controller
     }
     public function saveNews(Request $request)
     {
-        
+        // dd($request->all());
         //validation
         $request->validate([
             'title'             => 'required',
