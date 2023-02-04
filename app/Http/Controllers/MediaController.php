@@ -25,10 +25,10 @@ class MediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id=null)
+    public function create($id = null)
     {
         $data = MediaService::getMediaById($id);
-        return view('add_media',compact('data','id'));
+        return view('add_media', compact('data', 'id'));
     }
 
     /**
@@ -47,71 +47,64 @@ class MediaController extends Controller
             'type',
             'dimensions',
         ]);
-        
-        if($request->file('image') != null)
-        {
+
+        if ($request->file('image') != null) {
             $lastId = DB::table('media')->select('id')->latest('id')->first();
 
             // Get file name without extension
             // $file = $request->file('image')->getClientOriginalName();
             // $fileName = pathinfo($file,PATHINFO_FILENAME);
             // dd($fileName);
-            
-            if(empty($lastId))
-            {
-                $file      = $request->file('image');
+
+            if (empty($lastId)) {
+                $file = $request->file('image');
                 $getFileName = $request->file('image')->getClientOriginalName();
-                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads/media'), $fileName); 
+                $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();
+                $name = $file->move(base_path('uploads/'), $fileName);
                 $data['image'] = $fileName;
-            }
-            else
-            {
-                $file      = $request->file('image');
+            } else {
+                $file = $request->file('image');
                 $getFileName = $request->file('image')->getClientOriginalName();
-                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads/media'), $fileName); 
+                $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();
+                $name = $file->move(base_path('uploads/'), $fileName);
                 $data['image'] = $fileName;
             }
         }
 
-        $data['title'] =  $request->title;
-        $data['type'] =  $request->type;
+        $data['title'] = $request->title;
+        $data['type'] = $request->type;
         $data['description'] = $request->description;
         $data['dimensions'] = $request->dimensions;
         $data['image_alt'] = $request->image_alt;
 
-        $result = MediaService::createUpdate($data,$request->mediaId);
-        return json_encode(['success'=>1,'message'=>'Media Saved Successfully']);
+        $result = MediaService::createUpdate($data, $request->mediaId);
+        return json_encode(['success' => 1, 'message' => 'Media Saved Successfully']);
     }
 
     public function mediaDetail($id)
     {
-        $media        = MediaService::getMediaById($id);
-        return view('mediaDetails',compact('media'));
+        $media = MediaService::getMediaById($id);
+        return view('mediaDetails', compact('media'));
     }
 
     public function saveFile(Request $request)
     {
-        if($request->file('file') != null)
-        {
-            $lastId = DB::table('media')->select('id')->latest('id')->first();
-            if(empty($lastId))
-            {
-                $file      = $request->file('file');
-                $getFileName = $request->file('file')->getClientOriginalName();
-                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads/media'), $fileName); 
+        if ($request->TotalFiles > 0) {
+            for ($x = 0; $x < $request->TotalFiles; $x++) {
+                if ($request->hasFile('files' . $x)) {
+                    $file = $request->file('files' . $x);
+                    $getFileName = $request->file('files' . $x)->getClientOriginalName();
+                    $lastId = DB::table('media')->select('id')->latest('id')->first();
+                    if (empty($lastId)) {
+                        $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();
+                    } else {
+                        $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();
+                    }
+                    $name = $file->move(base_path('uploads/'), $fileName);
+                }
             }
-            else
-            {
-                $file      = $request->file('file');
-                $getFileName = $request->file('file')->getClientOriginalName();
-                $fileName  = pathinfo($getFileName,PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();   
-                $name = $file->move(base_path('uploads/media'), $fileName); 
-            }   
-            return redirect()->back();  
         }
+        echo json_encode(['success' => true, 'message' => 'Image uploaded successfully..!']);
     }
 
     public function getMediaFiles()

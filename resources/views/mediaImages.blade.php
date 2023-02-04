@@ -8,7 +8,7 @@
                             data-thumbnails="206 x 172" data-description="No description" data-filename="7811674906944"
                             data-type="jpg" data-dimensions="{{ @$value->dimensions }}"
                             data-title="{{ @$value->title }}" data-id="{{ @$value->id }}"
-                            data-file="{{ @$value->image }}" src="{{ asset('uploads/media') . '/' . @$value->image }}"
+                            data-file="{{ @$value->image }}" src="{{ asset('uploads') . '/' . @$value->image }}"
                             alt="{{ $value->image_alt }}" width="150px" height="150px">
                     </div>
                 @endforeach

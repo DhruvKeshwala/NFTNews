@@ -93,19 +93,20 @@ class NewsController extends Controller
             'description',
             'keywords',
             'orderIndex',
+            'image',
             'image1_alt',
             'image2_alt',
             'image3_alt',
             'image4_alt',
             'social_banner_alt'
         ]);
-        if($request->file('image') != null)
-        {
-            $file      = $request->file('image');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['image'] = $fileName;
-        }
+        // if($request->file('image') != null)
+        // {
+        //     $file      = $request->file('image');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['image'] = $fileName;
+        // }
         if($request->file('article_1') != null)
         {
             $file      = $request->file('article_1');

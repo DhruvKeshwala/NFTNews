@@ -28,7 +28,7 @@
                     <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
 
                         @if ($imgsrc != null || $imgsrc != '')
-                            <img src="{{ asset('uploads/media') . '/' . $imgsrc }}" height="250px"; width="100%"
+                            <img src="{{ asset('uploads') . '/' . $imgsrc }}" height="250px"; width="100%"
                                 class="card-img" alt="{{ @$value->image_alt }}">
                         @else
                             <span>Media Image</span>

@@ -1,4 +1,6 @@
 @include('layouts.header')
+<link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-extended.css')}}">
+<script src="{{ URL::asset('assets/js/vendors.min.js')}}"></script>
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
@@ -87,28 +89,28 @@
 
 
             <tr>
-                <td>Image 1</td>
+                <td>Image 1  <br><small class="text-muted">Choose Image 1 size of 1140x760 pixels</small></td>
                 <td>
                     <div id="image">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="row form-group">
                                     <div class="col-lg-6 col-xl-6">
-                                        <input value="" placeholder="Upload Image" id="image" class="getImage"
+                                        <input value="{{ @$news->image }}" placeholder="Upload Image" id="image" class="getImage"
                                             name="image" type="text" class="form-control " readonly="">
                                         <br clear="all" />
-
-                                        Best Image Size(1140 x 760 pixels)
+                                        @if (@$news->image != '')
+                                            <div><img src="{{ asset('uploads/') . '/' . @$news->image }}" width="100"
+                                                    alt="{{ @$news->image1_alt }}"></div>
+                                        @endif
+                                    </div>
+                                    <div class="col-lg-1 col-xl-1">
+                                        <button type="button" class="btn btn-warning" onclick="loadImages()" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
                                     </div>
                                     <div class="col-lg-2 col-xl-2">
-                                        <button type="button" class="btn btn-warning btn-label-brand btn-md mediaModel"
-                                            data-toggle="modal" data-target="#media-model"
-                                            data-control="image">Browse</button>
-                                    </div>
-                                    <div class="col-lg-1 col-xl-1 ">
                                         <p data-id="image"
-                                            class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light float-right remove-image">
-                                            Remove</p>
+                                        class="btn btn-danger remove-image">
+                                        Remove</p>
                                     </div>
                                 </div>
                             </div>
@@ -289,91 +291,6 @@
 <div class="clearfix"></div>
 </div>
 </div>
-
-
-{{-- Modal --}}
-{{-- Modal for File Upload Popup --}}
-<div class="modal fade media-modal " id="media-model" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Media Gallery</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="kt-form" id="fileUploadForm" action="{{ route('saveFile') }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="media_action" id="media_action" value="" />
-                    <div class="col-xl-12">
-                        <div class="form-group row">
-                            <label class="col-xl-2 col-lg-2 col-form-label"> File Upload</label>
-                            <div class="custom-file">
-                                <input type="file" id="file" name="file" multiple="" required="">
-
-                            </div>
-
-
-                            <div class="kt-form__actions" style="margin-top:20px;">
-                                <input type="submit" value="Upload"
-                                    class="btn btn-danger btn-md btn-wide kt-font-bold kt-font-transform-u uploade-image">
-                            </div>
-
-                        </div>
-                    </div>
-
-                </form>
-                <form id="fileSearchModel" action="https://resources.thenftmarkets.co.uk/admin/media/get">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="text" name="search" class="form-control search-product" id="iconLeft5"
-                                placeholder="Search here">
-                            <div id="test">
-                                <input type='hidden' value='grid-view' name='activeClass'>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <select name="category" class="form-control">
-                                <option value="" disabled selected>Choose option</option>
-                                <option value="page">Page</option>
-                                <option value="widgets">Widgets</option>
-                                <option value="about">About</option>
-
-                            </select>
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="submit" class="search btn btn-primary mr-1 mb-1 waves-effect waves-light"
-                                value="search" />
-                        </div>
-                    </div>
-                </form>
-
-                {{-- <div class="progress" style="margin-bottom:15px">
-                    <div class="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                        style="width: 0%">
-                        0%
-                    </div>
-                </div> --}}
-
-
-                <div class="allMediaContent"
-                    style="width:100%;max-height: 300px;overflow-y: auto;    overflow-x: hidden;" id="mediadata">
-
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <input type="text" class="form-control" id="selectFileName" value="" readonly />
-                <input type="hidden" id="targetControl" value="" />
-                <button type="button" class="btn btn-primary closeFileModel" data-dismiss="modal">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 <!-- Footer -->
 @include('layouts.footer')
@@ -602,35 +519,5 @@
             });
         }
     }
-</script>
-<script>
-    $(".closeFileModel").click(function() {
-        var imgName = $('#fileName').html();
-        $(".getImage").val(imgName);
-    });
-    $(document).ready(function() {
-
-        $(document).on('click', '.mediaModel', function(event) {
-            $.ajax({
-                url: "{{ url('siteadmin/getMediaFiles') }}",
-                cache: false,
-                success: function(response) {
-                    $(document).find('#mediadata').html('');
-                    $(document).find('#mediadata').append(response);
-                }
-            });
-        });
-
-        $("#removeImage").click(function() {
-            $("#image").val(" ");
-
-        });
-
-        // $("#removeImage2").click(function () {
-        //     $("#bannerImage").val(" ");
-
-        // });
-
-    });
 </script>
 <?php /**PATH /opt/lampp/htdocs/admin/resources/views/add_category.blade.php ENDPATH**/ ?>
