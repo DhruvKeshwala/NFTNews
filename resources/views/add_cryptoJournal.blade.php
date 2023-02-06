@@ -33,12 +33,29 @@
             <tr>
                 <td><label>Image</label><small class="text-muted">Choose Image size of 270x380 pixels</small></td>
                 <td>
-                    <input type="file" name="image" id="image">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$crypto->image }}" placeholder="Upload Image" id="image" 
+                                name="image" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$crypto->image != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$crypto->image }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('image')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('image')" data-id="image" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                        <div id="imageError"></div>
+                    </div>
+                    {{-- <input type="file" name="image" id="image">
                     @if(@$crypto->image != '')
                     <div><img src="{{ URL::asset('uploads/').'/'.@$crypto->image}}" width = "100"></div>
                     @endif
                     
-                    <div id="imageError"></div>
+                    <div id="imageError"></div> --}}
                 </td>
             </tr>
             <tr>
@@ -50,12 +67,29 @@
             <tr>
                 <td><label>PDF</label></td>
                 <td>
-                    <input type="file" name="pdf" id="pdf">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$crypto->pdf }}" placeholder="Upload Image" id="pdf" 
+                                name="pdf" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$crypto->pdf != '')
+                                <div><a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank">Download</a></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('pdf')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('pdf')" data-id="pdf" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                        <div id="pdfError"></div>
+                    </div>
+                    {{-- <input type="file" name="pdf" id="pdf">
                     @if(@$crypto->pdf != '')
                     <div><a href="{{ URL::asset('uploads/') . '/' . @$crypto->pdf }}" target="_blank">Download</a></div>
                     @endif
                     
-                    <div id="pdfError"></div>
+                    <div id="pdfError"></div> --}}
                 </td>
             </tr>
              <tr>
@@ -80,11 +114,27 @@
             <tr>
                 <td><label>Upload Social Banner</label><small class="text-muted">Choose Image size of 530x330 pixels</small><br><small class="text-muted">Home Page | Cryptonaire Weekly | Latest Edition Live Image</small></td>
                 <td>
-                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$crypto->uploadSocialBanner }}" placeholder="Upload Image" id="uploadSocialBanner" 
+                                name="uploadSocialBanner" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$crypto->uploadSocialBanner != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$crypto->uploadSocialBanner }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('uploadSocialBanner')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('uploadSocialBanner')" data-id="uploadSocialBanner" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
                     @if(@$crypto->uploadSocialBanner != '')
                     <div><img src="{{asset('uploads/').'/'.@$crypto->uploadSocialBanner}}" width = "100"></div>
                     @endif
-                    <div id="uploadSocialBannerError"></div>
+                    <div id="uploadSocialBannerError"></div> --}}
                 </td>
             </tr>
             <tr>
@@ -138,6 +188,9 @@
         var newsId                  = $("input[name='newsId']").val();
         var image_alt = $("input[name=\"image_alt\"]").val();
         var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        var image = $("input[name=\"image\"]").val();
+        var pdf = $("input[name=\"pdf\"]").val();
+        var uploadSocialBanner = $("input[name=\"uploadSocialBanner\"]").val();
         const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
 
         var fd = new FormData();
@@ -145,17 +198,17 @@
             newsId = 0;
         }
         // Append image1 
-        var files = $('#image')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('image',files[0]);
-        }
+        // var files = $('#image')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('image',files[0]);
+        // }
         // Append article 1 
-        var files = $('#pdf')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('pdf',files[0]);
-        }
+        // var files = $('#pdf')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('pdf',files[0]);
+        // }
         // // Append article 1
         // var files = $('#article_2')[0].files;
         // if(files.length > 0)
@@ -173,12 +226,15 @@
         fd.append('newsId', newsId);
         fd.append('image_alt', image_alt);
         fd.append('social_banner_alt', social_banner_alt);
+        fd.append('image', image);
+        fd.append('pdf', pdf);
+        fd.append('uploadSocialBanner', uploadSocialBanner);
         // Append article 1 
-        var files = $('#uploadSocialBanner')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('uploadSocialBanner',files[0]);
-        }
+        // var files = $('#uploadSocialBanner')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('uploadSocialBanner',files[0]);
+        // }
         if (title == '') 
         {
             flag = 0;

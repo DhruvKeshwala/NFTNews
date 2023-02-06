@@ -16,7 +16,7 @@
 <div class="news-banner mb-3 container">
   @if(@$advertiseTopBanner->location != null)
       <a href="{{@$advertiseTopBanner->url}}" class="text-dark" target="_blank"><img
-      src="{{ URL::asset('uploads/banner/' . @$advertiseTopBanner->image) }}" width="100%"
+      src="{{ URL::asset('uploads/' . @$advertiseTopBanner->image) }}" width="100%"
       height="auto" @if(@$advertiseTopBanner->banner_image_alt != null || @$advertiseTopBanner->banner_image_alt != '') alt="{{@$advertiseTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
   @endif
 </div>

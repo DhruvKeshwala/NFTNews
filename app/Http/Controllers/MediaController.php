@@ -50,33 +50,26 @@ class MediaController extends Controller
 
         if ($request->file('image') != null) {
             $lastId = DB::table('media')->select('id')->latest('id')->first();
-
-            // Get file name without extension
-            // $file = $request->file('image')->getClientOriginalName();
-            // $fileName = pathinfo($file,PATHINFO_FILENAME);
-            // dd($fileName);
-
+            $file = $request->file('image');
+            $image_info = getimagesize($request->file('image'));
+            $getFileName = $request->file('image')->getClientOriginalName();
             if (empty($lastId)) {
-                $file = $request->file('image');
-                $getFileName = $request->file('image')->getClientOriginalName();
                 $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();
-                $name = $file->move(base_path('uploads/'), $fileName);
-                $data['image'] = $fileName;
             } else {
-                $file = $request->file('image');
-                $getFileName = $request->file('image')->getClientOriginalName();
                 $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();
-                $name = $file->move(base_path('uploads/'), $fileName);
-                $data['image'] = $fileName;
             }
+            $name = $file->move(base_path('uploads/'), $fileName);
+            $data['image'] = $fileName;
         }
-
+        
         $data['title'] = $request->title;
         $data['type'] = $request->type;
         $data['description'] = $request->description;
-        $data['dimensions'] = $request->dimensions;
+        $data['dimensions'] = '';
+        if (!empty($image_info)) {
+            $data['dimensions'] = $image_info[0] .' x '.$image_info[1];
+        }
         $data['image_alt'] = $request->image_alt;
-
         $result = MediaService::createUpdate($data, $request->mediaId);
         return json_encode(['success' => 1, 'message' => 'Media Saved Successfully']);
     }
@@ -91,6 +84,7 @@ class MediaController extends Controller
     {
         if ($request->TotalFiles > 0) {
             for ($x = 0; $x < $request->TotalFiles; $x++) {
+                $image_info = getimagesize($request->file('files' . $x));
                 if ($request->hasFile('files' . $x)) {
                     $file = $request->file('files' . $x);
                     $getFileName = $request->file('files' . $x)->getClientOriginalName();
@@ -102,6 +96,13 @@ class MediaController extends Controller
                     }
                     $name = $file->move(base_path('uploads/'), $fileName);
                 }
+                $data['title'] = $fileName;
+                $data['type'] = '';
+                $data['description'] = $fileName;
+                $data['dimensions'] = $image_info[0] .' x '.$image_info[1];
+                $data['image_alt'] = $fileName;
+                $data['image'] = $fileName;
+                MediaService::createUpdate($data, $request->mediaId);
             }
         }
         echo json_encode(['success' => true, 'message' => 'Image uploaded successfully..!']);
@@ -111,5 +112,22 @@ class MediaController extends Controller
     {
         $media = MediaService::get();
         return view('mediaImages', compact('media'));
+    }
+
+    public function filterMedia(Request $request)
+    {
+        $param = [
+            "search_key" => $request->search_key,
+            "category" => $request->category
+        ];
+        $media = MediaService::getFilterMedia($param);
+        $html = view('mediaImages', compact('media'))->render();
+        echo json_encode(['success' => true, 'message' => 'Image uploaded successfully..!', 'html_view'=> $html]);
+    }
+
+    public function deleteMedia(Request $request)
+    {
+        MediaService::deleteMedia($request->id);
+        return json_encode(['success'=>1,'message'=>'Media has been deleted successfully']);
     }
 }

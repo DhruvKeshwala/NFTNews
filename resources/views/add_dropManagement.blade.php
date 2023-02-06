@@ -83,10 +83,26 @@
             <tr>
                 <td><label>Image 1</label><small class="text-muted">Choose Image 1 size of 370x300 pixels</small></td>
                 <td>
-                    <input type="file" name="image" id="image">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$dropManagement->image }}" placeholder="Upload Image" id="image" 
+                                name="image" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$dropManagement->image != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$dropManagement->image }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('image')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('image')" data-id="image" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="image" id="image">
                     @if(@$dropManagement->image != '')
                     <div><img src="{{asset('uploads/').'/'.@$dropManagement->image}}" width = "100" alt="{{ @$dropManagement->image1_alt }}"></div>
-                    @endif
+                    @endif --}}
                 </td>
             </tr>
             <tr>
@@ -98,10 +114,26 @@
             <tr>
                 <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 1170x610 pixels</small></td>
                 <td>
-                    <input type="file" name="image" id="image2">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$dropManagement->image2 }}" placeholder="Upload Image" id="image2" 
+                                name="image2" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$dropManagement->image2 != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$dropManagement->image2 }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('image2')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('image2')" data-id="image2" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="image" id="image2">
                     @if(@$dropManagement->image != '')
                     <div><img src="{{asset('uploads/').'/'.@$dropManagement->image2}}" width = "100" alt="{{ @$dropManagement->image2_alt }}"></div>
-                    @endif
+                    @endif --}}
                 </td>
             </tr>
             <tr>
@@ -113,10 +145,26 @@
             <tr>
                 <td><label>Image 3 (Logo)</label><small class="text-muted">Choose Image 3 size of 200x200 pixels</small></td>
                 <td>
-                    <input type="file" name="logo" id="logo">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$dropManagement->logo }}" placeholder="Upload Image" id="logo" 
+                                name="logo" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$dropManagement->logo != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$dropManagement->logo }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('logo')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('logo')" data-id="logo" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="logo" id="logo">
                     @if(@$dropManagement->logo != '')
                     <div><img src="{{asset('uploads/').'/'.@$dropManagement->logo}}" width = "100" alt="{{ @$dropManagement->image3_alt }}"></div>
-                    @endif
+                    @endif --}}
                 </td>
             </tr>
             <tr>
@@ -168,11 +216,27 @@
             <tr>
                 <td><label>Upload Social Banner</label></td>
                 <td>
-                    <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$dropManagement->uploadSocialBanner }}" placeholder="Upload Image" id="uploadSocialBanner" 
+                                name="uploadSocialBanner" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$dropManagement->uploadSocialBanner != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$dropManagement->uploadSocialBanner }}" width="100"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('uploadSocialBanner')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('uploadSocialBanner')" data-id="uploadSocialBanner" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
                     @if(@$dropManagement->uploadSocialBanner != '')
                     <div><img src="{{asset('uploads/').'/'.@$dropManagement->uploadSocialBanner}}" width = "100"></div>
                     @endif
-                    <div id="uploadSocialBannerError"></div>
+                    <div id="uploadSocialBannerError"></div> --}}
                 </td>
             </tr>
             <tr>
@@ -232,13 +296,17 @@
         var image2_alt = $("input[name=\"image2_alt\"]").val();
         var image3_alt = $("input[name=\"image3_alt\"]").val();
         var social_banner_alt = $("input[name=\"social_banner_alt\"]").val();
+        var image = $("input[name=\"image\"]").val();
+        var image2 = $("input[name=\"image2\"]").val();
+        var logo = $("input[name=\"logo\"]").val();
+        var uploadSocialBanner = $("input[name=\"uploadSocialBanner\"]").val();
         const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
         var fd = new FormData();
         if(dropManagementId == ''){
             dropManagementId = 0;
         }
         // Append image 
-        var files = $('#image')[0].files;
+        /*var files = $('#image')[0].files;
         if(files.length > 0)
         {
             fd.append('image',files[0]);
@@ -254,7 +322,7 @@
         if(files.length > 0)
         {
             fd.append('logo',files[0]);
-        }
+        }*/
 
         fd.append('categoryId', categoryId);
         fd.append('metaTitle', metaTitle);
@@ -277,13 +345,17 @@
         fd.append('image2_alt', image2_alt);
         fd.append('image3_alt', image3_alt);
         fd.append('social_banner_alt', social_banner_alt);
+        fd.append('image', image);
+        fd.append('image2', image2);
+        fd.append('logo', logo);
+        fd.append('uploadSocialBanner', uploadSocialBanner);
 
          // Append article 1 
-        var files = $('#uploadSocialBanner')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('uploadSocialBanner',files[0]);
-        }
+        // var files = $('#uploadSocialBanner')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('uploadSocialBanner',files[0]);
+        // }
         // if (categoryId == '' || categoryId == null) 
         // {
         //     flag = 0;

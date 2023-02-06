@@ -72,9 +72,12 @@ class PressReleaseController extends Controller
             'orderIndex',
             'image1_alt',
             'image2_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'image',
+            'article_1',
+            'uploadSocialBanner',
         ]);
-        if($request->file('image') != null)
+        /*if($request->file('image') != null)
         {
             $file      = $request->file('image');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
@@ -94,7 +97,7 @@ class PressReleaseController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $pressReleasedetails['uploadSocialBanner'] = $fileName;
-        }
+        }*/
         // if($request->file('article_2') != null)
         // {
         //     $file      = $request->file('article_2');

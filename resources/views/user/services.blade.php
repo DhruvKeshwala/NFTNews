@@ -20,7 +20,7 @@
 {{-- <div class="container news-banner mb-3">
   @if(@$serviceTopBanner->location != null)
       <a href="{{@$serviceTopBanner->url}}" class="text-dark" target="_blank"><img
-      src="{{ URL::asset('uploads/banner/' . @$serviceTopBanner->image) }}" width="100%"
+      src="{{ URL::asset('uploads/' . @$serviceTopBanner->image) }}" width="100%"
       height="auto" alt=""></a>
   @endif
 </div> --}}

@@ -8,7 +8,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{-- <form class="kt-form" id="fileUploadForm" enctype="multipart/form-data"> --}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -22,31 +21,33 @@
                             </div>
                         </div>
                     </div>
-                {{-- </form> --}}
                 <hr>
-                <form id="fileSearchModel" action="https://resources.thenftmarkets.co.uk/admin/media/get">
                     <div class="row">
                         <div class="col-sm-5">
-                            <input type="text" name="search" class="form-control search-product" id="iconLeft5"
+                            <input type="text" name="search_key" class="form-control search-product search_key" id="iconLeft5"
                                 placeholder="Search here">
-                            <div id="test">
-                                <input type='hidden' value='grid-view' name='activeClass'>
-                            </div>
                         </div>
-                        <div class="col-sm-5">
+                        {{-- <div class="col-sm-5">
                             <select name="category" class="form-control">
                                 <option value="" disabled selected>Choose option</option>
-                                <option value="page">Page</option>
-                                <option value="widgets">Widgets</option>
-                                <option value="about">About</option>
+                                <option value="news" {{ @$data->type == 'news' ? 'selected' : '' }}>News</option>
+                                <option value="video" {{ @$data->type == 'video' ? 'selected' : '' }}>Video</option>
+                                <option value="crypto" {{ @$data->type == 'crypto' ? 'selected' : '' }}>Crypto Journal</option>
+                                <option value="author" {{ @$data->type == 'author' ? 'selected' : '' }}>Author</option>
+                                <option value="banner" {{ @$data->type == 'banner' ? 'selected' : '' }}>Banner</option>
+                                <option value="nftDrops" {{ @$data->type == 'nftDrops' ? 'selected' : '' }}>NFT Drops</option>
+                                <option value="pressRelease" {{ @$data->type == 'pressRelease' ? 'selected' : '' }}>Press
+                                    Release</option>
+                                <option value="pages" {{ @$data->type == 'pages' ? 'selected' : '' }}>Manage Pages</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-sm-2">
-                            <input type="submit" class="search btn btn-primary mr-1 mb-1 waves-effect waves-light"
-                                value="search" />
+                            <input type="submit" onclick="searchImages()" class="search btn btn-primary mr-1 mb-1 waves-effect waves-light"
+                                value="Search" />
+                            <input type="submit" onclick="loadImages()" class="search btn btn-danger mr-1 mb-1 waves-effect waves-light"
+                                value="Reset" />
                         </div>
                     </div>
-                </form>
                 <hr>
                 <div class="allMediaContent mediadata"
                     style="width:100%;max-height: 300px;overflow-y: auto;overflow-x: hidden;" id="mediadata">
@@ -73,9 +74,11 @@
 <script type="text/javascript" src="{{ URL::asset('assets/ckeditor/ckfinder/ckfinder.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/select2.min.js') }}"></script>
 <script>
+    let input_elem_id = '';
     $(".closeFileModel").click(function() {
-        var imgName = $('#fileName').html();
-        $(".getImage").val(imgName);
+        // alert(input_elem_id);
+        var imgName = $('#selectFileName').val();
+        $("#"+input_elem_id).val(imgName);
     });
     function saveImage() {
         var image   = document.getElementById("upload_image");
@@ -108,31 +111,62 @@
                         buttons: 'OK'
                     }).then(function(isConfirm) {
                         loadImages();
-                        // if (isConfirm) {
-                        //     window.location.href =  "{{ URL::to('siteadmin/banner') }}"
-                        // }
                     })
                 }
             },
             error: function(xhr, status, error) {}
         });
     }
-        function loadImages() {
-            $.ajax({
-                url: "{{ url('siteadmin/getMediaFiles') }}",
-                cache: false,
-                success: function(response) {
-                    alert('sdadsd');
-                    $(document).find('.mediadata').html('');
-                    $(document).find('.mediadata').append(response);
+    function searchImages() {
+        $(document).find('.mediadata').html('');
+        var fd = new FormData();
+        var search_key      = $("input[name='search_key']").val();
+        var category      = $("select[name='category']").val();
+        fd.append('search_key', search_key);
+        fd.append('category', category);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ url('siteadmin/filterMedia') }}",
+            type: "POST",
+            data:fd,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+                var data = JSON.parse(result);
+                if (data.success) {
+                    // swal({
+                    //     title: "Success!",
+                    //     text: data.message + " :)",
+                    //     icon: "success",
+                    //     buttons: 'OK'
+                    // }).then(function(isConfirm) {   
+                        $(document).find('.mediadata').append(data.html_view);
+                    // })
                 }
-            });
-        }
-
-    $("#removeImage").click(function() {
-        $("#image").val(" ");
-
-    });
+            },
+            error: function(xhr, status, error) {}
+        });
+    }
+    function loadImages(input_id) {
+        input_elem_id = input_id;
+        $('.search_key').val('');
+        $.ajax({
+            url: "{{ url('siteadmin/getMediaFiles') }}",
+            cache: false,
+            success: function(response) {
+                $(document).find('.mediadata').html('');
+                $(document).find('.mediadata').append(response);
+            }
+        });
+    }
+    function removeImage(input_id) {
+        $("#"+input_id).val('');
+    }
 </script>
 </body>
 

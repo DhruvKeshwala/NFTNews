@@ -51,7 +51,7 @@
            {{-- <div class="col-md-3 pl-md-0">
             @if($banners->size == "280 x 400 pixels")
               <div class="sidebar-box">
-                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/banner/' . $banners->image) }}"
+                  <a href="{{$banners->url}}" target="_blank"><img src="{{ URL::asset('uploads/' . $banners->image) }}"
                           width="100%" height="auto" alt=""></a>
               </div>
             @endif --}}

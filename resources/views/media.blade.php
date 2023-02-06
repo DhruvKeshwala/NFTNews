@@ -23,22 +23,25 @@
             @foreach ($media as $value)
                 @php
                     $imgsrc = $value->image;
+                    $extension = explode(".", $imgsrc);
+                    // echo $extension[1];die;
                 @endphp
-                <div class="col-md-3 d-flex ftco-animate rounded">
+                <div class="col-md-3 d-flex ftco-animate rounded mb-3">
                     <div class="blog-entry rounded shadow pb-0 w-100 align-self-stretch">
 
-                        @if ($imgsrc != null || $imgsrc != '')
+                        @if ($extension[1] != "pdf" && $extension[1] != "PDF" && $imgsrc != null && $imgsrc != '')
                             <img src="{{ asset('uploads') . '/' . $imgsrc }}" height="250px"; width="100%"
-                                class="card-img" alt="{{ @$value->image_alt }}">
-                        @else
-                            <span>Media Image</span>
+                                class="card-img">
+                        @elseif($extension[1] == 'pdf' || $extension[1] == 'PDF')
+                            <img src="{{ asset('uploads/pdf-img.png') }}" height="250px"; width="100%"
+                                class="card-img">
                         @endif
-                        <h5>{{ @$value->image }}</h5>
+                        <h5 style="height: 48px;overflow: hidden;">{{ @$value->image }}</h5>
                         <br>
-                        <div class="btn-group">
+                        <div class="btn-group d-flex justify-content-sm-between">
                             {{-- <a href="{{ route('media_detail',$value->id)}}" title="View Info." class="fa fa-eye fa-lg text-dark fancybox fancybox.iframe" id="fancybox-manual-b">View</a> --}}
-                            <a href="{{ route('add_media', $value->id) }}"
-                                class="fa fa-edit fa-lg btn btn-primary text-white pull-right">Edit</a>
+                            <a href="{{ route('add_media', $value->id) }}" class="fa fa-edit fa-lg btn btn-primary text-white pull-right">Edit</a>
+                            <a href="javascript:;" onclick="deleteMedia('{{$value->id}}')" class="fa fa-trash fa-lg btn btn-danger text-white pull-right">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -48,8 +51,8 @@
     <br>
 </div>
 @include('layouts.footer')
-{{-- <script>
-    function deleteAuthor(id) {
+<script>
+    function deleteMedia(id) {
         swal({
             title: "Warning!",
             text: "Are you sure? You want to delete it",
@@ -63,7 +66,7 @@
                     }
                 });
                 $.ajax({
-                    url: "{{ url('siteadmin/delete_author') }}",
+                    url: "{{ url('siteadmin/delete_media') }}",
                     type: "POST",
                     data: {
                         id: id
@@ -88,4 +91,4 @@
             }
         });
     }
-</script> --}}
+</script>

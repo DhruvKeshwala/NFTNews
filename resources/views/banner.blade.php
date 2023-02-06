@@ -99,7 +99,7 @@ a:hover {
                     @endphp
                 <tr>
                     <td>{{@$loop->index + 1}}</td>
-                    <td>@if($imgsrc != null)<img src="{{asset('uploads/banner/').'/'. @$imgsrc}}" width="100" alt="{{ @$row->banner_image_alt }}"> @else <span>—</span> @endif</td>
+                    <td>@if($imgsrc != null)<img src="{{asset('uploads').'/'. @$imgsrc}}" width="100" alt="{{ @$row->banner_image_alt }}"> @else <span>—</span> @endif</td>
                     <td>{{@$row->size}}</td>
                     <td>{{@$bannerlocation[$row->location]}}</td>
                     <td class="text-center"><a href="{{@$row->url}}" title="View URL" target="_blank">

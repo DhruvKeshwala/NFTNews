@@ -61,20 +61,22 @@ class BannerController extends Controller
             'url',
             'image',
             'location',
-            'banner_image_alt'
+            'banner_image_alt',
+            'image'
         ]);
-        if($request->file('image') != null)
-        {
-            $file      = $request->file('image');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads/banner/'), $fileName);
-            $data['image'] = $fileName;
-        }
+        // if($request->file('image') != null)
+        // {
+        //     $file      = $request->file('image');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads/banner/'), $fileName);
+        //     $data['image'] = $fileName;
+        // }
 
         $data['size'] =  $request->size;
         $data['url'] = $request->url;
         $data['location'] = $request->location;
         $data['banner_image_alt'] = $request->banner_image_alt;
+        $data['image'] = $request->image;
         // $data['authorId'] = $request->authorId; 
         $result = BannerService::createUpdate($data,$request->bannerId);
         return json_encode(['success'=>1,'message'=>'Banner Saved Successfully']);

@@ -1,6 +1,4 @@
 @include('layouts.header')
-<link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-extended.css')}}">
-<script src="{{ URL::asset('assets/js/vendors.min.js')}}"></script>
 <div class="main my-0">
     <div class="row mt-3 mx-0">
         <div class="col-md-6">
@@ -96,7 +94,7 @@
                             <div class="col-sm-12">
                                 <div class="row form-group">
                                     <div class="col-lg-6 col-xl-6">
-                                        <input value="{{ @$news->image }}" placeholder="Upload Image" id="image" class="getImage"
+                                        <input value="{{ @$news->image }}" placeholder="Upload Image" id="news_img_1" class="getImage"
                                             name="image" type="text" class="form-control " readonly="">
                                         <br clear="all" />
                                         @if (@$news->image != '')
@@ -104,13 +102,11 @@
                                                     alt="{{ @$news->image1_alt }}"></div>
                                         @endif
                                     </div>
-                                    <div class="col-lg-1 col-xl-1">
-                                        <button type="button" class="btn btn-warning" onclick="loadImages()" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                                    <div class="col-lg-1 col-xl-1 mr-2">
+                                        <button type="button" class="btn btn-warning" onclick="loadImages('news_img_1')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
                                     </div>
                                     <div class="col-lg-2 col-xl-2">
-                                        <p data-id="image"
-                                        class="btn btn-danger remove-image">
-                                        Remove</p>
+                                        <a href="javascript:;" onclick="removeImage('news_img_1')" data-id="news_img_1" class="btn btn-danger remove-image">Remove</a>
                                     </div>
                                 </div>
                             </div>
@@ -118,10 +114,6 @@
                     </div>
                 </td>
             </tr>
-
-
-
-
             <tr>
                 <td><label>Image 1 alt</label></td>
                 <td>
@@ -133,12 +125,25 @@
     <tr>
         <td><label>Image 2</label><small class="text-muted">Choose Image 2 size of 800x460 pixels</small></td>
         <td>
-            <input type="file" name="article_1" id="article_1">
-            @if (@$news->article_1 != '')
-                <div><img src="{{ asset('uploads/') . '/' . @$news->article_1 }}" width="100"
-                        alt="{{ @$news->image2_alt }}"></div>
-            @endif
+            {{-- <input type="file" name="article_1" id="article_1"> --}}
+            <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <input value="{{ @$news->article_1 }}" placeholder="Upload Image" id="article_1" 
+                    name="article_1" type="text" class="form-control " readonly="">
+                <br clear="all" />
+                @if (@$news->article_1 != '')
+                    <div><img src="{{ asset('uploads/') . '/' . @$news->article_1 }}" width="100"
+                            alt="{{ @$news->image2_alt }}"></div>
+                @endif
+            </div>
+            <div class="col-lg-1 col-xl-1 mr-2">
+                <button type="button" class="btn btn-warning" onclick="loadImages('article_1')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+            </div>
+            <div class="col-lg-2 col-xl-2">
+                <a href="javascript:;" onclick="removeImage('article_1')" data-id="article_1" class="btn btn-danger remove-image">Remove</a>
+            </div>
             <div id="article1Error"></div>
+        </div>
         </td>
     </tr>
     <tr>
@@ -151,12 +156,29 @@
 <tr>
     <td><label>Image 3</label><small class="text-muted">Choose Image 3 size of 300x400 pixels</small></td>
     <td>
-        <input type="file" name="article_2" id="article_2">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <input value="{{ @$news->article_2 }}" placeholder="Upload Image" id="article_2" 
+                    name="article_2" type="text" class="form-control " readonly="">
+                <br clear="all" />
+                @if (@$news->article_2 != '')
+                    <div><img src="{{ asset('uploads/') . '/' . @$news->article_2 }}" width="100"
+                            alt="{{ @$news->image2_alt }}"></div>
+                @endif
+            </div>
+            <div class="col-lg-1 col-xl-1 mr-2">
+                <button type="button" class="btn btn-warning" onclick="loadImages('article_2')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+            </div>
+            <div class="col-lg-2 col-xl-2">
+                <a href="javascript:;" onclick="removeImage('article_2')" data-id="article_2" class="btn btn-danger remove-image">Remove</a>
+            </div>
+        </div>
+        {{-- <input type="file" name="article_2" id="article_2">
         @if (@$news->article_2 != '')
             <div><img src="{{ asset('uploads/') . '/' . @$news->article_2 }}" width="100"
                     alt="{{ @$news->image3_alt }}">
             </div>
-        @endif
+        @endif --}}
         <div id="article2Error"></div>
     </td>
 </tr>
@@ -169,12 +191,29 @@
 <tr>
     <td><label>Image 4</label><small class="text-muted">Choose Image 4 size of 370x300 pixels</small></td>
     <td>
-        <input type="file" name="image4" id="image4">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <input value="{{ @$news->image4 }}" placeholder="Upload Image" id="image4" 
+                    name="image4" type="text" class="form-control " readonly="">
+                <br clear="all" />
+                @if (@$news->image4 != '')
+                    <div><img src="{{ asset('uploads/') . '/' . @$news->image4 }}" width="100"
+                            alt="{{ @$news->image2_alt }}"></div>
+                @endif
+            </div>
+            <div class="col-lg-1 col-xl-1 mr-2">
+                <button type="button" class="btn btn-warning" onclick="loadImages('image4')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+            </div>
+            <div class="col-lg-2 col-xl-2">
+                <a href="javascript:;" onclick="removeImage('image4')" data-id="image4" class="btn btn-danger remove-image">Remove</a>
+            </div>
+        </div>
+        {{-- <input type="file" name="image4" id="image4">
         @if (@$news->image4 != '')
             <div><img src="{{ asset('uploads/') . '/' . @$news->image4 }}" width="100"
                     alt="{{ @$news->image4_alt }}">
             </div>
-        @endif
+        @endif --}}
         <div id="image4Error"></div>
     </td>
 </tr>
@@ -265,11 +304,28 @@
 <tr>
     <td><label>Upload Social Banner</label></td>
     <td>
-        <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <input value="{{ @$news->uploadSocialBanner }}" placeholder="Upload Image" id="uploadSocialBanner" 
+                    name="uploadSocialBanner" type="text" class="form-control " readonly="">
+                <br clear="all" />
+                @if (@$news->uploadSocialBanner != '')
+                    <div><img src="{{ asset('uploads/') . '/' . @$news->uploadSocialBanner }}" width="100"
+                            alt="{{ @$news->image2_alt }}"></div>
+                @endif
+            </div>
+            <div class="col-lg-1 col-xl-1 mr-2">
+                <button type="button" class="btn btn-warning" onclick="loadImages('uploadSocialBanner')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+            </div>
+            <div class="col-lg-2 col-xl-2">
+                <a href="javascript:;" onclick="removeImage('uploadSocialBanner')" data-id="uploadSocialBanner" class="btn btn-danger remove-image">Remove</a>
+            </div>
+        </div>
+        {{-- <input type="file" name="uploadSocialBanner" id="uploadSocialBanner">
         @if (@$news->uploadSocialBanner != '')
             <div><img src="{{ asset('uploads/') . '/' . @$news->uploadSocialBanner }}" width="100"
                     alt="{{ @$news->social_banner_alt }}"></div>
-        @endif
+        @endif --}}
         <div id="uploadSocialBannerError"></div>
     </td>
 </tr>
@@ -325,6 +381,10 @@
         var flag = 1;
 
         var image = $("input[name=\"image\"]").val();
+        var article_1 = $("input[name=\"article_1\"]").val();
+        var article_2 = $("input[name=\"article_2\"]").val();
+        var image4 = $("input[name=\"image4\"]").val();
+        var uploadSocialBanner = $("input[name=\"uploadSocialBanner\"]").val();
 
         var metaTitle = $("input[name=\"metaTitle\"]").val();
         var description = $("#description").val();
@@ -372,22 +432,25 @@
         //     fd.append('image', files[0]);
         // }
         // Append article 1 
-        var files = $('#article_1')[0].files;
-        if (files.length > 0) {
-            fd.append('article_1', files[0]);
-        }
+        // var files = $('#article_1')[0].files;
+        // if (files.length > 0) {
+        //     fd.append('article_1', files[0]);
+        // }
         // Append article 1
-        var files = $('#article_2')[0].files;
-        if (files.length > 0) {
-            fd.append('article_2', files[0]);
-        }
+        // var files = $('#article_2')[0].files;
+        // if (files.length > 0) {
+        //     fd.append('article_2', files[0]);
+        // }
         // Append Image4
-        var files = $('#image4')[0].files;
-        if (files.length > 0) {
-            fd.append('image4', files[0]);
-        }
+        // var files = $('#image4')[0].files;
+        // if (files.length > 0) {
+        //     fd.append('image4', files[0]);
+        // }
 
         fd.append('image', image);
+        fd.append('article_1', article_1);
+        fd.append('article_2', article_2);
+        fd.append('image4', image4);
 
         fd.append('categoryId', categoryId);
         fd.append('metaTitle', metaTitle);
@@ -409,12 +472,13 @@
         fd.append('image3_alt', image3_alt);
         fd.append('image4_alt', image4_alt);
         fd.append('social_banner_alt', social_banner_alt);
+        fd.append('uploadSocialBanner', uploadSocialBanner);
 
         // Append article 1 
-        var files = $('#uploadSocialBanner')[0].files;
-        if (files.length > 0) {
-            fd.append('uploadSocialBanner', files[0]);
-        }
+        // var files = $('#uploadSocialBanner')[0].files;
+        // if (files.length > 0) {
+        //     fd.append('uploadSocialBanner', files[0]);
+        // }
 
         if (categoryId == '' || categoryId == null) {
             flag = 0;

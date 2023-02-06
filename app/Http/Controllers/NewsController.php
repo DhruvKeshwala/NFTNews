@@ -94,6 +94,10 @@ class NewsController extends Controller
             'keywords',
             'orderIndex',
             'image',
+            'article_1',
+            'article_2',
+            'image4',
+            'uploadSocialBanner',
             'image1_alt',
             'image2_alt',
             'image3_alt',
@@ -107,34 +111,34 @@ class NewsController extends Controller
         //     $name = $file->move(base_path('uploads'), $fileName);
         //     $newsdetails['image'] = $fileName;
         // }
-        if($request->file('article_1') != null)
-        {
-            $file      = $request->file('article_1');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['article_1'] = $fileName;
-        }
-        if($request->file('article_2') != null)
-        {
-            $file      = $request->file('article_2');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['article_2'] = $fileName;
-        }
-        if($request->file('uploadSocialBanner') != null)
-        {
-            $file      = $request->file('uploadSocialBanner');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['uploadSocialBanner'] = $fileName;
-        }
-        if($request->file('image4') != null)
-        {
-            $file      = $request->file('image4');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['image4'] = $fileName;
-        }
+        // if($request->file('article_1') != null)
+        // {
+        //     $file      = $request->file('article_1');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['article_1'] = $fileName;
+        // }
+        // if($request->file('article_2') != null)
+        // {
+        //     $file      = $request->file('article_2');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['article_2'] = $fileName;
+        // }
+        // if($request->file('uploadSocialBanner') != null)
+        // {
+        //     $file      = $request->file('uploadSocialBanner');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['uploadSocialBanner'] = $fileName;
+        // }
+        // if($request->file('image4') != null)
+        // {
+        //     $file      = $request->file('image4');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['image4'] = $fileName;
+        // }
         $newsTypeDate = array();
         $start_date = explode(',',$request->start_date);
         $end_date = explode(',',$request->end_date);

@@ -20,7 +20,7 @@
     <div class="container news-banner mb-3">
       @if(@$educationTopBanner->location != null)
           <a href="{{@$educationTopBanner->url}}" class="text-dark" target="_blank"><img
-          src="{{ URL::asset('uploads/banner/' . @$educationTopBanner->image) }}" width="100%"
+          src="{{ URL::asset('uploads/' . @$educationTopBanner->image) }}" width="100%"
           height="auto" @if($educationTopBanner->banner_image_alt != null || $educationTopBanner->banner_image_alt != '') alt="{{@$educationTopBanner->banner_image_alt}}" @else  alt="Top Banner Image" @endif ></a>
       @endif
     </div>

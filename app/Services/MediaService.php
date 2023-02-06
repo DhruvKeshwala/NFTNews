@@ -6,7 +6,7 @@ class MediaService
     // Get all records
     public static function get()
     {
-        return Media::orderby('id','desc')->paginate(10);
+        return Media::orderby('id','desc')->get();
     }
     // delete record
     public static function delete($mediaId) 
@@ -30,6 +30,17 @@ class MediaService
         {
             return Media::whereId($mediaId)->update($mediaDetails);
         }
+    }
+    // Get filter records
+    public static function getFilterMedia($param)
+    {
+        return Media::where('title','LIKE','%'.$param['search_key'].'%')->get();
+    }
+
+    public static function deleteMedia($id) 
+    {
+        $media = Media::find($id);
+        $media->delete();
     }
 }
 ?>

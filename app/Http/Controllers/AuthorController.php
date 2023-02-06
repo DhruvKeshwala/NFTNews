@@ -65,14 +65,15 @@ class AuthorController extends Controller
             'shortBio',
             'twitterLink',
             'linkedInLink',
+            'image',
         ]);
-        if($request->file('image') != null)
-        {
-            $file      = $request->file('image');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $data['image'] = $fileName;
-        }
+        // if($request->file('image') != null)
+        // {
+        //     $file      = $request->file('image');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $data['image'] = $fileName;
+        // }
 
         $data['name'] =  $request->name;
         $data['email'] = $request->email;
@@ -81,6 +82,7 @@ class AuthorController extends Controller
         $data['twitterLink'] = $request->twitterLink;
         $data['linkedInLink'] = $request->linkedInLink;
         $data['image_alt'] = $request->image_alt;
+        $data['image'] = $request->image;
 
         // $data['authorId'] = $request->authorId;
         $result = AuthorService::createUpdate($data,$request->authorId);

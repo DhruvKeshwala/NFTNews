@@ -24,7 +24,7 @@
                     <div id="titleError"></div>
                 </td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td><label>Type</label></td>
                 <td>
                     <select name="type" data-placeholder="Select Type">
@@ -39,41 +39,49 @@
                             Release</option>
                         <option value="pages" {{ @$data->type == 'pages' ? 'selected' : '' }}>Manage Pages</option>
                     </select>
-                    {{-- <div id="typeError"></div> --}}
                 </td>
-            </tr>
-            <tr>
+            </tr> --}}
+            {{-- <tr>
                 <td><label>Alternative Text</label></td>
                 <td>
                     <input type="text" value="{{ @$data->image_alt }}" name="image_alt"
                         placeholder="Alternate Text">
-                    {{-- <div id="image_altError"></div> --}}
+                    <div id="image_altError"></div>
                 </td>
-            </tr>
-            <tr>
+            </tr> --}}
+            {{-- <tr>
                 <td><label>Description</label></td>
                 <td>
                     <textarea rows="5" cols="30" name="description" id="description" placeholder="Description">{{ @$data->description }}</textarea>
-                    {{-- <div id="descriptionError"></div> --}}
+                    <div id="descriptionError"></div>
                 </td>
-            </tr>
-            <tr>
+            </tr> --}}
+            {{-- <tr>
                 <td><label>Image Dimensions</label></td>
                 <td>
                     <input type="text" value="{{ @$data->dimensions }}" name="dimensions"
                         placeholder="Image Dimensions">
                     <small>Note* : Please Enter Image Dimensions like this (Ex. 600 x 600)</small>
-                    {{-- <div id="dimensionsError"></div> --}}
                 </td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td><label>Image</label></td>
                 <td>
                     <input type="file" name="image" id="image">
-                    @if (@$data->image != '')
+                    @php
+                        $imgsrc = @$data->image;
+                        $extension = explode(".", @$imgsrc);
+                        // echo $extension[1];die;
+                    @endphp
+                    @if (@$extension[1] != "pdf" && @$extension[1] != "PDF" && $imgsrc != null && $imgsrc != '')
+                        <img src="{{ asset('uploads') . '/' . $imgsrc }}" height="250px" width="auto">
+                    @elseif(@$extension[1] == 'pdf' || @$extension[1] == 'PDF')
+                        <img src="{{ asset('uploads/pdf-img.png') }}" height="250px" width="auto">
+                    @endif
+                    {{-- @if (@$data->image != '')
                         <div><img src="{{ asset('uploads') . '/' . @$data->image }}" width="100"
                                 alt="{{ @$data->image_alt }}"></div>
-                    @endif
+                    @endif --}}
                     {{-- <div id="imageError"></div> --}}
                 </td>
             </tr>

@@ -44,11 +44,28 @@
             <tr>
                 <td><label>Banner Image</label></td>
                 <td>
-                    <input type="file" name="image" id="image">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$data->image }}" placeholder="Upload Image" id="image" 
+                                name="image" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$data->image != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$data->image }}" width="100"
+                                        alt="{{ @$data->image2_alt }}"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('image')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('image')" data-id="image" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="image" id="image">
                     <div id="imageError"></div>
                     @if(@$data->image != '')
                     <div><img src="{{asset('uploads/banner/').'/'.@$data->image}}" width = "100" alt="{{ @$data->banner_image_alt }}"></div>
-                    @endif
+                    @endif --}}
                 </td>
             </tr>
             <tr>
@@ -82,33 +99,35 @@
         var url      = $("input[name='url']").val();
         var bannerId = $("input[name='bannerId']").val();
         var banner_image_alt = $("input[name='banner_image_alt']").val();
+        var image = $("input[name='image']").val();
 
-        var image   = document.getElementById("image");
+        // var image   = document.getElementById("image");
 
         var fd = new FormData();
         if(bannerId == ''){
             bannerId = 0;
         }
         // Append data 
-        var files = $('#image')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('image',files[0]);
-        }
+        // var files = $('#image')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('image',files[0]);
+        // }
         
         fd.append('size', size);
         fd.append('url', url);
         fd.append('bannerId', bannerId);
         fd.append('location', location);
         fd.append('banner_image_alt',banner_image_alt);
+        fd.append('image',image);
 
         if(bannerId == 0)
         {
-            if(image.files.length == 0)
-            {
-                flag = 0;
-                $('#imageError').html('<span class="errorMessage" style="color:red;">Image is Required</span>');
-            }
+            // if(image.files.length == 0)
+            // {
+            //     flag = 0;
+            //     $('#imageError').html('<span class="errorMessage" style="color:red;">Image is Required</span>');
+            // }
         }
         if (size == '' || size == null) 
         {

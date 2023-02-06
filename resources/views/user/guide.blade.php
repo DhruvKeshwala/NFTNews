@@ -22,7 +22,7 @@
 
     <div class="container news-banner mb-3">
           <a href="{{@$guideTopBanner->url}}" class="text-dark" target="_blank"><img
-          src="{{ URL::asset('uploads/banner/' . @$guideTopBanner->image) }}" width="100%"
+          src="{{ URL::asset('uploads/' . @$guideTopBanner->image) }}" width="100%"
           height="auto" @if($guideTopBanner->banner_image_alt != null || $guideTopBanner->banner_image_alt != '') alt="{{@$guideTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
     </div>
     <section class="ftco-section py-5 bg-info-gradient-3">

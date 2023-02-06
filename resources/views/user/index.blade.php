@@ -32,7 +32,7 @@
                 </section>
             </div> <!-- col-md-8 end -->
 
-            @if ($featured_news)
+            @if (count($featured_news)>0)
                 @php
                     $random_keys = array_rand($featured_news, 2);
                     //dd($random_keys);
@@ -126,7 +126,7 @@
                             <div class="news-banner mb-3">
                                 @if(@$homeTopBanner->location != null)
                                     <a href="{{@$homeTopBanner->url}}" class="text-dark" target="_blank"><img
-                                    src="{{ URL::asset('uploads/banner/' . @$homeTopBanner->image) }}" width="100%"
+                                    src="{{ URL::asset('uploads/' . @$homeTopBanner->image) }}" width="100%"
                                     height="auto" @if(@$homeTopBanner->banner_image_alt != null || @$homeTopBanner->banner_image_alt != '') alt="{{@$homeTopBanner->banner_image_alt}}" @else alt="Top Banner Image" @endif></a>
                                 @endif
                             </div>
@@ -171,7 +171,7 @@
                     @if(@$homeSideBanner->location)
                         <div class="sidebar-box">
                             <a href="{{@$homeSideBanner->url}}" target="_blank">
-                                <img src="{{ URL::asset('uploads/banner/' . @$homeSideBanner->image) }}"
+                                <img src="{{ URL::asset('uploads/' . @$homeSideBanner->image) }}"
                                     width="100%" height="auto" @if(@$homeSideBanner->banner_image_alt != null || @$homeSideBanner->banner_image_alt != '') alt="{{@$homeSideBanner->banner_image_alt}}" @else alt="Home Side Banner Image" @endif>
                             </a>
                         </div>
@@ -546,7 +546,7 @@
                                     <span><img src="{{ URL::asset('user/images/middle-list-ads.jpg') }}"
                                             width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></span>
                                     @else 
-                                    <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/banner/'.@$banners_small[$sb]['image']) }}"
+                                    <a href="{{@$banners_small[$sb]['url']}}"><img src="{{ URL::asset('uploads/'.@$banners_small[$sb]['image']) }}"
                                             width="100%" @if($banners_small[$sb]['banner_image_alt'] != null || $banners_small[$sb]['banner_image_alt'] != '') alt="{{ @$banners_small[$sb]['banner_image_alt'] }}" @else alt="Middle Ad Banner" @endif class="img-fluid"></a>
                                     @endif
                                 </div>
@@ -593,7 +593,7 @@
                                     <span><img src="{{ URL::asset('user/images/banner-full-width.jpg') }}" width="100%"
                                     height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></span>
                                     @else 
-                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/banner/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
+                                    <a href="{{ @$banners_horizontal[$bz]['url'] }}"><img src="{{ URL::asset('uploads/'.@$banners_horizontal[$bz]['image']) }}" width="100%"
                                     height="auto" class="img-fluid rounded" @if($banners_horizontal[$bz]['banner_image_alt'] != null || $banners_horizontal[$bz]['banner_image_alt'] != '') alt="{{@$banners_horizontal[$bz]['banner_image_alt']}}" @else alt="Horizontal Banner Image" @endif></a>
                                     @endif
                             </div>

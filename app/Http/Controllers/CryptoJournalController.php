@@ -64,29 +64,32 @@ class CryptoJournalController extends Controller
             'keywords',
             'orderIndex',
             'image_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'image',
+            'pdf',
+            'uploadSocialBanner'
         ]);
-        if($request->file('image') != null)
-        {
-            $file      = $request->file('image');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['image'] = $fileName;
-        }
-        if($request->file('pdf') != null)
-        {
-            $file      = $request->file('pdf');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['pdf'] = $fileName;
-        }
-        if($request->file('uploadSocialBanner') != null)
-        {
-            $file      = $request->file('uploadSocialBanner');
-            $fileName = rand(11111,99999).time().'.'.$file->extension();       
-            $name = $file->move(base_path('uploads'), $fileName);
-            $newsdetails['uploadSocialBanner'] = $fileName;
-        }
+        // if($request->file('image') != null)
+        // {
+        //     $file      = $request->file('image');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['image'] = $fileName;
+        // }
+        // if($request->file('pdf') != null)
+        // {
+        //     $file      = $request->file('pdf');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['pdf'] = $fileName;
+        // }
+        // if($request->file('uploadSocialBanner') != null)
+        // {
+        //     $file      = $request->file('uploadSocialBanner');
+        //     $fileName = rand(11111,99999).time().'.'.$file->extension();       
+        //     $name = $file->move(base_path('uploads'), $fileName);
+        //     $newsdetails['uploadSocialBanner'] = $fileName;
+        // }
 
         //$newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);

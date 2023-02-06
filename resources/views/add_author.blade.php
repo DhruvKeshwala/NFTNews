@@ -55,10 +55,27 @@
             <tr>
                 <td><label>Image</label></td>
                 <td>
-                    <input type="file" name="image" id="image">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6">
+                            <input value="{{ @$data->image }}" placeholder="Upload Image" id="image" 
+                                name="image" type="text" class="form-control " readonly="">
+                            <br clear="all" />
+                            @if (@$data->image != '')
+                                <div><img src="{{ asset('uploads/') . '/' . @$data->image }}" width="100"
+                                        alt="{{ @$data->image2_alt }}"></div>
+                            @endif
+                        </div>
+                        <div class="col-lg-1 col-xl-1 mr-2">
+                            <button type="button" class="btn btn-warning" onclick="loadImages('image')" data-toggle="modal" data-target="#media-model" data-control="image">Browse</button>
+                        </div>
+                        <div class="col-lg-2 col-xl-2">
+                            <a href="javascript:;" onclick="removeImage('image')" data-id="image" class="btn btn-danger remove-image">Remove</a>
+                        </div>
+                    </div>
+                    {{-- <input type="file" name="image" id="image">
                     @if(@$data->image != '')
                     <div><img src="{{asset('uploads/').'/'.@$data->image}}" width = "100" alt="{{@$data->image_alt}}"></div>
-                    @endif
+                    @endif --}}
                     {{-- <div id="imageError"></div> --}}
                 </td>
             </tr>
@@ -96,16 +113,17 @@
         var twitterLink      = $("input[name='twitterLink']").val();
         var linkedInLink      = $("input[name='linkedInLink']").val();
         var image_alt = $("input[name='image_alt']").val();
+        var image = $("input[name='image']").val();
         var fd = new FormData();
         if(authorId == ''){
             authorId = 0;
         }
         // Append data 
-        var files = $('#image')[0].files;
-        if(files.length > 0)
-        {
-            fd.append('image',files[0]);
-        }
+        // var files = $('#image')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('image',files[0]);
+        // }
         
         fd.append('name', name);
         fd.append('email', email);
@@ -115,6 +133,7 @@
         fd.append('twitterLink', twitterLink);
         fd.append('linkedInLink', linkedInLink);
         fd.append('image_alt', image_alt);
+        fd.append('image', image);
         // if (name == '' || name == null) 
         // {
         //     flag = 0;

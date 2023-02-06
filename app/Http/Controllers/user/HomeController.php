@@ -45,7 +45,7 @@ class HomeController extends Controller
         $resultFeaturedDrop = array();
         $resultFeaturedNews = array();
 
-        $featured_news = array();
+        // $featured_news = array();
         $i = 0;
         foreach($newses as $key => $news)
         {
@@ -57,14 +57,14 @@ class HomeController extends Controller
                 $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
             }
 
-            if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) 
-            {
-                $featured_news[$i] = $news;
-                $featured_news[$i]->is_homenews = $result[$key]->is_homeheader = 1;
-                $featured_news[$i]->homeheader_start_date = $result[$key]->homeheader_start_date = $newsType->homeheader->start_date;
-                $featured_news[$i]->homeheader_end_date = $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
-                $i++;
-            }
+            // if ($newsType->homenews && $newsType->homenews->start_date <= $currentDate && $newsType->homenews->end_date >= $currentDate) 
+            // {
+            //     $featured_news[$i] = $news;
+            //     $featured_news[$i]->is_homenews = $result[$key]->is_homeheader = 1;
+            //     $featured_news[$i]->homeheader_start_date = $result[$key]->homeheader_start_date = $newsType->homeheader->start_date;
+            //     $featured_news[$i]->homeheader_end_date = $result[$key]->homeheader_end_date = $newsType->homeheader->end_date;
+            //     $i++;
+            // }
             $resultFeaturedDrop[$key] = $news;
             $resultFeaturedDrop[$key]->news_type = $newsType = json_decode($news->newsType);
             if ($newsType->featureddrop && $newsType->featureddrop->start_date <= $currentDate && $newsType->featureddrop->end_date >= $currentDate) {
@@ -82,6 +82,15 @@ class HomeController extends Controller
             }
         }
 
+        $featured_news = array();
+        foreach ($newses as $key => $value) {
+            $news_type = json_decode($value->newsType);
+            if ($news_type->featurednew && $news_type->featurednew->start_date!='' && $news_type->featurednew->start_date!='') {
+                $featured_news[$key] = $value; 
+                $featured_news[$key]->is_homenews = 1; 
+            }
+        }
+        
         $cryptoJournals      = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
         $pages               = ManagePages::all();
         $allNews             = News::take(10)->orderBy('orderIndex', 'asc')->get();

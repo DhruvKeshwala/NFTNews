@@ -150,10 +150,14 @@ class DropManagementController extends Controller
             'image1_alt',
             'image2_alt',
             'image3_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'image',
+            'image2',
+            'logo',
+            'uploadSocialBanner'
         ]);
 
-        if($request->file('image') != null)
+        /*if($request->file('image') != null)
         {
             $file      = $request->file('image');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
@@ -180,7 +184,7 @@ class DropManagementController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $dropManagementdetails['uploadSocialBanner'] = $fileName;
-        }    
+        }*/    
         //$dropManagementdetails['slug']     = Str::slug($request->name); //Adds slug for news
         if (!empty($request->start_date) && !empty($request->end_date)) {
             $dropManagementdetails['nftType']  = 'Featured';

@@ -95,9 +95,12 @@ class VideoManagementController extends Controller
             'slug',
             'image1_alt',
             'image2_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'image1',
+            'image2',
+            'uploadSocialBanner'
         ]);
-        if($request->file('image1') != null)
+        /*if($request->file('image1') != null)
         {
             $file      = $request->file('image1');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
@@ -117,7 +120,7 @@ class VideoManagementController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $newsdetails['uploadSocialBanner'] = $fileName;
-        }
+        }*/
         // $newsTypeDate = array();
         // $start_date = explode(',',$request->start_date);
         // $end_date = explode(',',$request->end_date);
