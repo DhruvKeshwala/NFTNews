@@ -54,9 +54,9 @@ class MediaController extends Controller
             $image_info = getimagesize($request->file('image'));
             $getFileName = $request->file('image')->getClientOriginalName();
             if (empty($lastId)) {
-                $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();
+                $fileName = $this->rm_special_char(pathinfo($getFileName, PATHINFO_FILENAME).rand(11,99).time(). '.' . $file->extension());
             } else {
-                $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();
+                $fileName = $this->rm_special_char(pathinfo($getFileName, PATHINFO_FILENAME).rand(11,99).time(). '.' . $file->extension());
             }
             $name = $file->move(base_path('uploads/'), $fileName);
             $data['image'] = $fileName;
@@ -90,9 +90,9 @@ class MediaController extends Controller
                     $getFileName = $request->file('files' . $x)->getClientOriginalName();
                     $lastId = DB::table('media')->select('id')->latest('id')->first();
                     if (empty($lastId)) {
-                        $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . '1' . '.' . $file->extension();
+                        $fileName = $this->rm_special_char(pathinfo($getFileName, PATHINFO_FILENAME).rand(11,99).time(). '.' . $file->extension());
                     } else {
-                        $fileName = pathinfo($getFileName, PATHINFO_FILENAME) . '_' . $lastId->id + 1 . '.' . $file->extension();
+                        $fileName = $this->rm_special_char(pathinfo($getFileName, PATHINFO_FILENAME).rand(11,99).time(). '.' . $file->extension());
                     }
                     $name = $file->move(base_path('uploads/'), $fileName);
                 }
@@ -129,5 +129,8 @@ class MediaController extends Controller
     {
         MediaService::deleteMedia($request->id);
         return json_encode(['success'=>1,'message'=>'Media has been deleted successfully']);
+    }
+    public function rm_special_char($str) {
+        return str_replace( array("#", "'", ";", " ", "!", "_", ""), '', $str);
     }
 }
