@@ -25,7 +25,7 @@
 			<div class="col-md-12">
              
              <h1 class="mb-4 text-center">{{@$cryptoDetail->title}}</h1>
-             
+             @if(!empty($cryptoDetail->pdf))
              <div id="book1-trigger" class="text-center">
              	<img style="cursor:pointer" 
               @if($cryptoDetail->image!= null || $cryptoDetail->image != '' || file_exists($cryptoDetail->image) == true) 
@@ -35,12 +35,25 @@
               @endif
               width="auto" height="500" alt="{{@$cryptoDetail->title}}">
              </div>
+             @else
+             <div class="text-center">
+             	<img 
+              @if($cryptoDetail->image!= null || $cryptoDetail->image != '' || file_exists($cryptoDetail->image) == true) 
+                src="{{ URL::asset('uploads/' . @$cryptoDetail->image) }}"
+              @else
+                src="{{ URL::asset('images/default-crypto-details.png') }}"
+              @endif
+              width="auto" height="500" alt="{{@$cryptoDetail->title}}">
+             </div>
+             @endif
              <div style="display: none">
 	         	<div id="book1"></div>
              </div>
              
              <div class="text-center mt-4">
+              @if(!empty($cryptoDetail->pdf))
              	<a href="{{URL::asset('uploads/' . @$cryptoDetail->pdf) }}" target="_blank" class="btn btn-outline-light-gradient bg-white border">DOWNLOAD PDF HERE</a>
+              @endif
              </div>
             
              <div class="text-left my-4 text-justify">
