@@ -99,7 +99,10 @@ class MediaController extends Controller
                 $data['title'] = $fileName;
                 $data['type'] = '';
                 $data['description'] = $fileName;
-                $data['dimensions'] = $image_info[0] .' x '.$image_info[1];
+                if (!empty($image_info)) {
+                    $data['dimensions'] = $image_info[0] .' x '.$image_info[1];
+                }
+                // $data['dimensions'] = $image_info[0] .' x '.$image_info[1];
                 $data['image_alt'] = $fileName;
                 $data['image'] = $fileName;
                 MediaService::createUpdate($data, $request->mediaId);
