@@ -102,7 +102,8 @@ class NewsController extends Controller
             'image2_alt',
             'image3_alt',
             'image4_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'publish_date'
         ]);
         // if($request->file('image') != null)
         // {
@@ -152,6 +153,7 @@ class NewsController extends Controller
             }
         }
         $newsdetails['newsType'] = json_encode($newsTypeDate);
+        $newsdetails['publish_date'] = !empty($request->publish_date) ? date('Y-m-d', strtotime($request->publish_date)).' '.date('H:i:s') : date('Y-m-d H:i:s');
         
         $newsdetails['slug']     = Str::slug($request->slug); //Adds slug for news
         

@@ -37,7 +37,7 @@
               width="100%" @if($newsDetail->image1_alt == null || $newsDetail->image1_alt == '') alt="{{@$newsDetail->image1_alt}}" @else alt="{{@$newsDetail->title}}" @endif height="auto" class="img"></span>
             </div>
             <div class="row">
-                <div class="col-md-6"><span  class="text-light">INDUSTRY TALK</span> <span class="ml-4 text-light"><span class="fa fa-calendar"></span> {{ $newsDetail ? $newsDetail->created_at->diffForHumans() : '-' }}</span></div>
+                <div class="col-md-6"><span  class="text-light">INDUSTRY TALK</span> <span class="ml-4 text-light"><span class="fa fa-calendar"></span> &nbsp;{{ \Carbon\Carbon::parse($newsDetail->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</span></div>
                 <div class="col-md-6 text-right">
                 <!-- AddToAny BEGIN -->
                 <div class="a2a_kit a2a_kit_size_32 float-right a2a_default_style" data-a2a-icon-color="lightgray">
@@ -171,7 +171,7 @@
                         <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                         <div class="meta d-md-flex mb-2">
                         <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
-                        <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                        <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a>
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -313,7 +313,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>

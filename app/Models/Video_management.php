@@ -32,6 +32,7 @@ class Video_management extends Model
         'image1_alt',
         'image2_alt',
         'social_banner_alt',
+        'publish_date'
     ];
     public function category()
     {

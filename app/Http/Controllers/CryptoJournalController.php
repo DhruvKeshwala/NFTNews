@@ -67,7 +67,8 @@ class CryptoJournalController extends Controller
             'social_banner_alt',
             'image',
             'pdf',
-            'uploadSocialBanner'
+            'uploadSocialBanner',
+            'publish_date'
         ]);
         // if($request->file('image') != null)
         // {
@@ -92,6 +93,7 @@ class CryptoJournalController extends Controller
         // }
 
         //$newsdetails['slug']       = Str::slug($request->title); //Adds slug for crypto
+        $newsdetails['publish_date'] = !empty($request->publish_date) ? date('Y-m-d', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
         $news = CryptoJournalService::createCrypto($newsdetails,$request->newsId);
         return json_encode(['success'=>1,'message'=>'Crypto Journal Saved Successfully']);
     }

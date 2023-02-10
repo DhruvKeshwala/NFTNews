@@ -74,7 +74,7 @@ a:hover {
                     {{-- <td>
                         {{ $newsDetails->start_date }}
                     </td> --}}
-                    <td>{{ $newsDetails->created_at->format('d-m-Y') }}</td>
+                    <td>{{ @$newsDetails->publish_date ? date('d-m-Y', strtotime(@$newsDetails->publish_date)) : '' }}</td>
                     <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == '') {{$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')

@@ -28,7 +28,8 @@ iframe {
                                             <span class="nwscpt">NEWS</span>
                                             <a
                                                 href="{{ route('user.news_detail', ['id' => $data->slug]) }}">{{ $data->title }}</a><br><span
-                                                class="thrs">{{ $data->created_at->diffForHumans() }}</span>
+                                                class="thrs">
+                                                {{ \Carbon\Carbon::parse($data->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                         </p>
                                     </li>
                                 @endif
@@ -52,7 +53,8 @@ iframe {
                                     <a
                                         href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}">{{ @$featured_news[$random_keys[0]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
-                                        {{ @$featured_news[$random_keys[0]]->created_at->diffForHumans() }}</span>
+                                        {{ \Carbon\Carbon::parse(@$featured_news[$random_keys[0]]->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                    </span>
                                 </p>
                                 <div class="media">
                                     <a href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}"
@@ -76,7 +78,8 @@ iframe {
                                     <a
                                         href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}">{{ @$featured_news[$random_keys[1]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
-                                        {{ @$featured_news[$random_keys[1]]->created_at->diffForHumans() }}</span>
+                                        {{ \Carbon\Carbon::parse(@$featured_news[$random_keys[0]]->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                    </span>
                                 </p>
 
                                 <div class="media">
@@ -158,7 +161,8 @@ iframe {
                                                             class="meta-chat">INDUSTRY TALK</a></div>
                                                     <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span
                                                                 class="fa fa-clock"></span>
-                                                            {{ @$news->created_at->diffForHumans() }}</a></div>
+                                                                {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                                        </a></div>
                                                 </div>
                                                 <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                                         class="text-dark">{{ @$news->title }}</a></h4>
@@ -349,14 +353,14 @@ iframe {
                     <a href="{{ route('user.crypto_detail', ['id' => @$cryptoJournals->slug]) }}"
                         class="btn btn-outline-light-gradient bg-white py-1">Read More</a>
                 </div>
-                <div class="col-md-6 p-4">
+                <div class="col-md-6 p-4 text-center">
                     <img 
                     @if($cryptoJournals->image != null || $cryptoJournals->image!= ''  ||  file_exists(@$cryptoJournals->image) == true)
                         src="{{URL::asset('uploads/' . @$cryptoJournals->image)}}"
                     @else
                         src="{{URL::asset('images/default-crypto-journal-first.png')}}"
                     @endif
-                    class="img" width="100%" height="337" @if($cryptoJournals->image_alt != null || $cryptoJournals->image_alt != '') alt="{{ @$cryptoJournals->image_alt}}" @else alt="{{ @$cryptoJournals->title }}" @endif>                        
+                    class="img" style="width:auto;" @if($cryptoJournals->image_alt != null || $cryptoJournals->image_alt != '') alt="{{ @$cryptoJournals->image_alt}}" @else alt="{{ @$cryptoJournals->title }}" @endif>                        
                 </div>
                 @endif
             </div>
@@ -388,8 +392,9 @@ iframe {
                                     
                                         <figcaption>
                                         <div>
-                                            <h2><small
-                                                    class="mb-2 d-block">{{ @$data->created_at->diffForHumans() }}</small>{{ substr(@$data->title, 0, 30) }}..
+                                            <h2><small class="mb-2 d-block">
+                                                {{ \Carbon\Carbon::parse($data->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                                </small>{{ substr(@$data->title, 0, 30) }}..
                                             </h2>
                                             <p>{{ substr(@$data->shortDescription, 0, 30) }}..</p>
                                         </div>
@@ -517,7 +522,8 @@ iframe {
                                                 class="meta-chat text-dark">INDUSTRY TALK</a>
                                             <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
                                                 class="text-light ml-2"><span class="fa fa-calendar"></span>
-                                                {{ @$news->created_at->diffForHumans() }}</a>
+                                                {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -578,7 +584,9 @@ iframe {
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> 
+                                                    {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                                </a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -624,7 +632,9 @@ iframe {
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> 
+                                                    {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                                </a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -659,7 +669,9 @@ iframe {
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span>
+                                                    {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
+                                                    </a></div>
                                         </div>
                                     </div>
                                 </div>

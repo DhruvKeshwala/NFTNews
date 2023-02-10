@@ -75,7 +75,7 @@
                       <div class="text pl-md-3">
                           <div class="meta mb-2">
                           <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">INDUSTRY TALK</a></div>
-                          <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span class="fa fa-clock"></span>{{ @$news->created_at->diffForHumans() }}</a></div>
+                          <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span class="fa fa-clock"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                           </div>
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <p>{{@$news->shortDescription}}</p>
@@ -175,7 +175,7 @@
                           <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
                             <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
-                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a>
                           </div>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +281,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -316,7 +316,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>

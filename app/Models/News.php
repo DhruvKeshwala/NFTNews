@@ -33,6 +33,7 @@ class News extends Model
         'social_banner_alt',
         'image4',
         'image4_alt',
+        'publish_date'
     ];
     public function category()
     {

@@ -62,7 +62,7 @@ a:hover {
                     <th width="15%">Category</th>
                     <th width="13%">Author</th>
                     <th width="10%">Listed In</th>
-                    <th width="15%">Posted On</th>
+                    <th width="15%">Publish Date</th>
                     <th width="5%">Order Index</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
@@ -96,7 +96,7 @@ a:hover {
                     <td>
                         @if(@$selection_types != null) {{ rtrim( @$selection_types, ', ') }} @else <span>—</span> @endif
                     </td>
-                    <td>{{ $newsDetails->created_at->format('d-m-Y') }}</td>
+                    <td>{{ @$newsDetails->publish_date ? date('d-m-Y', strtotime(@$newsDetails->publish_date)) : '' }}</td>
                     <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == ''){{@$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')

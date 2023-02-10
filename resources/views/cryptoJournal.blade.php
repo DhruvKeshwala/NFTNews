@@ -41,6 +41,7 @@ a:hover {
                     <th width="10%">Image</th>
                     <th width="68%">Title</th>
                     <th width="5%">Order Index</th>
+                    <th width="5%">Publish Date</th>
                     <th width="5%">Status</th>
                     <th width="10%">Action</th>
                 </tr>
@@ -57,13 +58,14 @@ a:hover {
                     <td>@if(@$newsDetails->image != null)<img src="{{asset('uploads/').'/'.@$newsDetails->image}}" width="100" alt="{{ @$newsDetails->image1_alt }}"> @else <span>—</span> @endif</td>
                     <td>{{$newsDetails->title}}</td>
                     <td class="text-center">@if(@$newsDetails->orderIndex != null || @$newsDetails->orderIndex == '') {{$newsDetails->orderIndex}} @else <span>0</span> @endif</td>
+                    <td>{{ @$newsDetails->publish_date ? date('d-m-Y', strtotime(@$newsDetails->publish_date)) : '' }}</td>
                     <td align="center">
                         @if ($newsDetails->fld_status=='Active')
                             <a title="Active" href="{{ route('crypto_updateStatus',$newsDetails->id)}}" class="text-success"><span class="fa fa-check"></span></a>
                         @else
                             <a title="Draft" href="{{ route('crypto_updateStatus',$newsDetails->id)}}" class="text-danger"><span class="fa fa-times"></span></a>
                         @endif
-                    </td>
+                    </td>                    
                     <td>
                         <a title="Edit" href="{{ route('add_crypto',$newsDetails->id)}}" class="text-success mr-2">
                             <span class="fa fa-edit fa-lg"></span>

@@ -98,7 +98,8 @@ class VideoManagementController extends Controller
             'social_banner_alt',
             'image1',
             'image2',
-            'uploadSocialBanner'
+            'uploadSocialBanner',
+            'publish_date'
         ]);
         /*if($request->file('image1') != null)
         {
@@ -151,6 +152,7 @@ class VideoManagementController extends Controller
                 $newsdetails['videoType']  = $request->videoType;
             }
         }
+        $newsdetails['publish_date'] = !empty($request->publish_date) ? date('Y-m-d', strtotime($request->publish_date)) : date('Y-m-d H:i:s');
 
         // if($request->start_date!= null || $request->start_date != '' || $request->end_date != null || $request->end_date != '')
         //     $newsdetails['videoType']  = $request->videoType;

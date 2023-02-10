@@ -144,6 +144,13 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Publish Date</label></td>
+                <td>
+                    <input type="text" value="{{ date('Y-m-d', strtotime(@$crypto->publish_date)) }}" name="publish_date" class="publish_date" placeholder="Publish Date">
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" onclick="saveCrypto()" id="saveBtn" class="btn btn-success light-font">SAVE</a>
@@ -159,6 +166,10 @@
 @include('layouts.footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
+    $(".publish_date").datepicker({
+        dateFormat: "dd-mm-yy",
+        duration: "fast",
+    });
      CKEDITOR.replace( 'fullDescription', {
                 fullPage: true,						
                 allowedContent: true,
@@ -191,6 +202,7 @@
         var image = $("input[name=\"image\"]").val();
         var pdf = $("input[name=\"pdf\"]").val();
         var uploadSocialBanner = $("input[name=\"uploadSocialBanner\"]").val();
+        var publish_date = $("input[name=\"publish_date\"]").val();
         const regexExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;
 
         var fd = new FormData();
@@ -229,6 +241,7 @@
         fd.append('image', image);
         fd.append('pdf', pdf);
         fd.append('uploadSocialBanner', uploadSocialBanner);
+        fd.append('publish_date', publish_date);
         // Append article 1 
         // var files = $('#uploadSocialBanner')[0].files;
         // if(files.length > 0)
