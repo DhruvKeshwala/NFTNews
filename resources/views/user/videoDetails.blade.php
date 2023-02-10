@@ -21,7 +21,7 @@
     <div class="ftco-section pt-5 pb-2 bg-info-gradient">
       <div class="container col-md-7 mx-auto text-center">
       	<div class="row mb-5">
-          <div class="col-md-6 text-left">{{@$videoDetail->created_at->format('F d, Y')}}</div>
+          <div class="col-md-6 text-left"> {{ \Carbon\Carbon::parse(@$videoDetail->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</div>
           <div class="col-md-6 text-right">
             <!-- AddToAny BEGIN -->
             <div class="a2a_kit a2a_kit_size_32 float-right a2a_default_style" data-a2a-icon-color="lightgray">

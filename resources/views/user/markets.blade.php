@@ -114,7 +114,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse(@$news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse(@$news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
                                                     href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                    class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
+                                                    class="text-light"><span class="fa fa-calendar"></span> {{ \Carbon\Carbon::parse(@$news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }} </a></div>
                                         </div>
                                     </div>
                                 </div>
