@@ -27,7 +27,7 @@ class UserNFTDropsController extends Controller
     public function listNFTDrop()
     {
         $categories = Category::all();
-        $allDropManagement  = DropManagement::orderby('orderIndex','asc')->paginate(9);
+        $allDropManagement  = DropManagement::orderby('created_at','asc')->paginate(9);
         $banners = Banner::where('location', 'nftdropfull')->first();
         return view('user.listNFTDrops', compact('allDropManagement','categories','banners'));
     }

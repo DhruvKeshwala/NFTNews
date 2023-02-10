@@ -23,7 +23,7 @@
          	<div class="col-md-5"><img src="{{ URL::asset('uploads/' . @$page->image1)}}" width="100%" height="auto" @if($page->image1_alt != null || $page->image1_alt != '') alt="{{@$page->image1_alt}}" @else alt="{{@$page->title}}" @endif></div>
             <div class="col-md-7">
             	<h5 class="modal-title">{{@$page->title}}</h5>
-		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
+		        <h3 class="modal-title mb-3">{{@$page->title2}}</h3>
                 
                 {!! @$page->contents !!}
                 
@@ -44,7 +44,7 @@
          	<div class="col-md-12 mb-4"><img src="{{ URL::asset('uploads/' . @$page->image2)}}" width="100%" height="auto" @if($page->image2_alt != null || $page->image2_alt != '') alt="{{@$page->image2_alt}}" @else alt="{{@$page->title}}" @endif></div>
             <div class="col-md-12">
             	<h5 class="modal-title">{{@$page->title}}</h5>
-		        <h3 class="modal-title mb-3">{{@$page->metaTitle}}</h3>
+		        <h3 class="modal-title mb-3">{{@$page->title2}}</h3>
                 
                 {!! @$page->contents !!}
                 

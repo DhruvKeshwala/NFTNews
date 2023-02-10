@@ -251,7 +251,7 @@ iframe {
                         </div>
                     </div>
                 </div>
-
+                {{-- @dd(@$videos[0]) --}}
                 <div class="container">
                     <div class="row video-frame mb-4">
                         <div class="col-md-6 px-0 ftco-animate">
@@ -351,12 +351,12 @@ iframe {
                 </div>
                 <div class="col-md-6 p-4">
                     <img 
-                    @if($cryptoJournals->uploadSocialBanner != null || $cryptoJournals->uploadSocialBanner!= ''  ||  file_exists(@$cryptoJournals->uploadSocialBanner) == true)
-                        src="{{URL::asset('uploads/' . @$cryptoJournals->uploadSocialBanner)}}"
+                    @if($cryptoJournals->image != null || $cryptoJournals->image!= ''  ||  file_exists(@$cryptoJournals->image) == true)
+                        src="{{URL::asset('uploads/' . @$cryptoJournals->image)}}"
                     @else
                         src="{{URL::asset('images/default-crypto-journal-first.png')}}"
                     @endif
-                    class="img" width="100%" height="337" @if($cryptoJournals->social_banner_alt != null || $cryptoJournals->social_banner_alt != '') alt="{{ @$cryptoJournals->social_banner_alt}}" @else alt="{{ @$cryptoJournals->title }}" @endif>                        
+                    class="img" width="100%" height="337" @if($cryptoJournals->image_alt != null || $cryptoJournals->image_alt != '') alt="{{ @$cryptoJournals->image_alt}}" @else alt="{{ @$cryptoJournals->title }}" @endif>                        
                 </div>
                 @endif
             </div>

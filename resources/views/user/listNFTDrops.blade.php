@@ -121,7 +121,10 @@
                                         </div>
                                         <div class="col-md-5 ml-auto text-right">
                                             <small class="btn-light py-1 px-2 rounded"><i class="fa fa-calendar"></i>
-                                                {{ @$dropManagement->created_at->format('M d, Y') }}</small>
+                                                {{ date('M d, Y', strtotime(@$dropManagement->saleDate)) }}</small>
+                                                {{-- {{ @$dropManagement->created_at->format('M d, Y') }} --}}
+                                                {{-- {{ date('M d, Y', strtotime(@$dropManagement->saleDate)) }} --}}
+                                                {{-- {{date('d-m-Y', strtotime(@$dropManagementDetails->saleDate))}} --}}
                                         </div>
                                         <div class="col-md-6 pr-0 text-left">
                                             <span class="text-dark"><strong>Blockchain</strong> <span

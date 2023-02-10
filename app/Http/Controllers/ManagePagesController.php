@@ -34,6 +34,7 @@ class ManagePagesController extends Controller
         $request->validate([
             'name'              => 'required',
             'title'             => 'required',
+            'title2'            => 'required',
             'metaTitle'         => 'required',
             'description'       => 'required',
             'keywords'          => 'required',
@@ -44,6 +45,7 @@ class ManagePagesController extends Controller
         $pagedetails = $request->only([
             'name',
             'title',
+            'title2',
             'metaTitle',
             'description',
             'keywords',

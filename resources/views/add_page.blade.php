@@ -51,10 +51,17 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Title</label></td>
+                <td><label>Title 1</label></td>
                 <td>
                     <input type="text" value="{{@$page->title}}" name="title" placeholder="Title">
                     <div id="titleError"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Title 2</label></td>
+                <td>
+                    <input type="text" value="{{@$page->title2}}" name="title2" placeholder="Title 2">
+                    <div id="title2Error"></div>
                 </td>
             </tr>
             <tr>
@@ -174,6 +181,7 @@
            var name = $("input[name='name']").val(); 
         }
         var title = $("input[name='title']").val();
+        var title2 = $("input[name='title2']").val();
         var metaTitle = $("input[name='metaTitle']").val();
         var description = $("#description").val();
         var keywords = $("#keywords").val();
@@ -201,6 +209,7 @@
         fd.append('name', name);
         
         fd.append('title', title);
+        fd.append('title2', title2);
         fd.append('metaTitle', metaTitle);
         fd.append('description', description);
         fd.append('keywords', keywords);
@@ -231,6 +240,11 @@
         {
             flag = 0;
             $("#titleError").html('<span class="errorMessage" style="color:red;">Title Required</span>');
+        }
+        if (title2 == '' || title2 == null) 
+        {
+            flag = 0;
+            $("#title2Error").html('<span class="errorMessage" style="color:red;">Title 2 Required</span>');
         }
         if (metaTitle == '' || metaTitle == null) 
         {

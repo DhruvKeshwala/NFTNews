@@ -17,6 +17,7 @@ class ManagePages extends Model
         'image2',
         'name',
         'title',
+        'title2',
         'metaTitle',
         'description',
         'keywords',
