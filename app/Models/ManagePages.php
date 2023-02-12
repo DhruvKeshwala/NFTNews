@@ -28,5 +28,8 @@ class ManagePages extends Model
         'image1_alt',
         'image2_alt',
         'social_banner_alt',
+        'image1',
+        'image2',
+        'uploadSocialBanner'
     ];
 }

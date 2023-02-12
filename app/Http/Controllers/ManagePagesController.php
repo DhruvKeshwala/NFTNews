@@ -53,7 +53,10 @@ class ManagePagesController extends Controller
             'selectTemplate',
             'image1_alt',
             'image2_alt',
-            'social_banner_alt'
+            'social_banner_alt',
+            'image1',
+            'image2',
+            'uploadSocialBanner'
         ]);
 
         if($request->pageId != 0)
@@ -61,7 +64,7 @@ class ManagePagesController extends Controller
             $request->except('name');
         }
 
-        if($request->file('image1') != null)
+        /*if($request->file('image1') != null)
         {
             $file      = $request->file('image1');
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
@@ -81,7 +84,7 @@ class ManagePagesController extends Controller
             $fileName = rand(11111,99999).time().'.'.$file->extension();       
             $name = $file->move(base_path('uploads'), $fileName);
             $pagedetails['uploadSocialBanner'] = $fileName;
-        }
+        }*/
         if($request->pageId == 0)
         {
             $pagedetails['slug']     = Str::slug($request->name); //Adds slug for news

@@ -26,17 +26,19 @@ class UserGuideController extends Controller
     public function guideList($category=null, $slug=null)
     {
         $guideDetail = [];
-        $guides = Guide::where('category', $category)->get();
+        $guidesCategory = GuideCategory::where('slug', $category)->first();
+        $category_id = $guidesCategory->id;
+        $guides = Guide::where('category', $category_id)->get();
         if (empty($slug)) {
             $slug = @$guides[0]->slug;
             if (!$slug) {
                 return view('user.guide');
             }
-            $guideDetail = Guide::where(['category'=> $category,'slug'=> $guides[0]->slug])->first();            
+            $guideDetail = Guide::where(['category'=> $category_id,'slug'=> $guides[0]->slug])->first();            
             return redirect()->route('user.guideList', ['category' => $category, 'slug'=> $guides[0]->slug ]);
         } else {
-            $guideDetail = Guide::where(['category'=> $category,'slug'=> $slug])->first();
+            $guideDetail = Guide::where(['category'=> $category_id,'slug'=> $slug])->first();
         }
-        return view('user.guideDetails', compact('guides', 'guideDetail', 'slug'));
+        return view('user.guideDetails', compact('guides', 'guideDetail', 'slug','category'));
     }    
 }

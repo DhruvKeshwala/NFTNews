@@ -6,7 +6,7 @@
 <style>
 iframe {
   width: 98%;
-  height: 600px;
+  height: 100%;
 }
 </style>
 <section class="hero-wrap hero-wrap-2">
@@ -117,9 +117,9 @@ iframe {
     <!-- Quick View -->
     @foreach($videos as $video)
     <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="top:5%; max-width: 100%;" role="document">  
+        <div class="modal-dialog" style="max-width: 100%;margin: 1% 0 0 1%;" role="document">  
           <!-- Modal content-->     
-          <div class="modal-content" style="height: 800px;">
+          <div class="modal-content" style="height: 725px;">
             <div class="modal-header">
               <h3>{{ @$video->title }}</h3>
               {{-- <h6 class="modal-title"><i class="fa fa-calendar"></i>{{@$video->created_at->format('F d, Y')}}</h6> --}}

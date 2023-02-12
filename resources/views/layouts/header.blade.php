@@ -36,7 +36,7 @@
   @php
     $route = Route::current()->getName();
   @endphp
-  @if ($route =='add_news' || $route =='add_video' || $route =='add_crypto' || $route =='add_author' || $route =='add_banner' || $route=='add_dropManagement' || $route=='add_pressRelease')
+  @if ($route =='add_news' || $route =='add_video' || $route =='add_crypto' || $route =='add_author' || $route =='add_banner' || $route=='add_dropManagement' || $route=='add_pressRelease' || $route=='add_page')
     <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-extended.css')}}">
     <script src="{{ URL::asset('assets/js/vendors.min.js')}}"></script>
   @endif

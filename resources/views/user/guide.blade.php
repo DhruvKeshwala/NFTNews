@@ -45,7 +45,7 @@
                           <span class="flaticon-crm"></span>
                         </div>
                         <div class="text px-4 mt-3">
-                          <h4 class="heading"><a href="{{ route('user.guideList', ['category' => @$guidesCategoryDetail->id]) }}" class="text-light">{{@$guidesCategoryDetail->name}}</a></h4>
+                          <h4 class="heading"><a href="{{ route('user.guideList', ['category' => @$guidesCategoryDetail->slug]) }}" class="text-light">{{@$guidesCategoryDetail->name}}</a></h4>
                         </div>
                       </div>
                     </div>

@@ -6,7 +6,22 @@
 <style>
 iframe {
   width: 98%;
-  height: 600px;
+  height: 100%;
+}
+.play.first-video::before {
+    margin: -28px 0 0 -24px !important;
+}
+.play.first-video::after {
+    margin: -12px 0 0 -6px !important;
+}
+.block-21 .text .heading {
+    overflow: hidden !important;
+    height: 75px !important;
+}
+p.flex-caption a:hover {
+    color: #000;
+    text-decoration: underline;
+    box-shadow: inset 1000px 100px 0 0 #fff;
 }
 </style>
     <section class="ftco-section px-0 p-0">
@@ -26,7 +41,7 @@ iframe {
                                         @endif
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
-                                            <a
+                                            <a class="strong-hover-shake"
                                                 href="{{ route('user.news_detail', ['id' => $data->slug]) }}">{{ $data->title }}</a><br><span
                                                 class="thrs">
                                                 {{ \Carbon\Carbon::parse($data->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
@@ -111,10 +126,10 @@ iframe {
                 <div class="col-md-9 px-md-0 px-0">
                     <div class="container pr-md-3">
                         <div class="row mb-3 ftco-animate">
-                            <div class="col-md-3 heading-section">
+                            <div class="col-md-2 heading-section">
                                 <h2 class="mb-0">LATEST NEWS</h2>
                             </div>
-                            <div class="col-md-9 text-right">
+                            <div class="col-md-10 text-right">
                                 <div class="tag-widget post-tag-container">
                                     <div class="tagcloud"><a href="javascript:void(0)" class="tagLink"
                                             onclick="filterCategory(0)">ALL</a>
@@ -444,9 +459,9 @@ iframe {
                         <tr>
                             <th>&nbsp;</th>
                             <th>Name</th>
-                            <th>Token</th>
+                            <th>Volume</th>
                             <th>Blockchain</th>
-                            <th>Price of Sale</th>
+                            <th>Price</th>
                             <th>Sale Date</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -457,7 +472,7 @@ iframe {
                                 <td><img src="@if (@$dropManagement->logo != null || @$dropManagement->logo != '' || file_exists(@$dropManagement->logo) == true) {{ URL::asset('uploads/' . @$dropManagement->logo) }} @else {{ URL::asset('images/default-logo.png') }} @endif"
                                         class="rounded-pill" width="34" height="34" alt="{{@$dropManagement->name}}" /></td>
                                 <td>{{ @$dropManagement->name }}</td>
-                                <td>{{ @$dropManagement->token }}</td>
+                                <td>{{ @$dropManagement->collectionItem }}</td>
                                 <td><strong>{{ @$dropManagement->blockChain }}</strong></td>
                                 <td>{{ @$dropManagement->priceOfSale }}</td>
                                 <td>{{ @$dropManagement->saleDate }}</td>
@@ -774,9 +789,9 @@ iframe {
 <!-- Quick View -->
     @foreach($videos as $video)
     <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="top:5%; max-width: 100%;" role="document">  
+        <div class="modal-dialog" style="max-width: 100%;margin: 1% 0 0 1%;" role="document">  
           <!-- Modal content-->     
-          <div class="modal-content" style="height: 800px;">
+          <div class="modal-content" style="height: 725px;">
             <div class="modal-header">
                 <h3>{{ @$video->title }}</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>

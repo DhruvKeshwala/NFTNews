@@ -33,7 +33,20 @@ class DropManagementController extends Controller
         $price     = $request->filterPriceOfSale;
         $blockChain = $request->filterBlockChain;
 
-        $dropManagement         = DropManagement::where('name', 'LIKE', '%'.$name.'%')->where('blockChain', 'LIKE', '%'.$blockChain.'%')->where('priceOfSale', 'LIKE', '%'.$price.'%')->orderby('id','desc')->paginate(10);
+        $dropManagement  = DropManagement::where(function($dm) {
+            $request = app()->make('request');
+            if($request->filterDropName != null || $request->filterDropName == '') {
+                $dm->where('name', 'LIKE', '%'.$request->filterDropName.'%');
+            }
+            if($request->filterPriceOfSale != null && $request->filterPriceOfSale != '') {
+                $dm->where('priceOfSale', 'LIKE', '%'.$request->filterPriceOfSale.'%');
+            }
+            if($request->filterBlockChain != null || $request->filterBlockChain != '') {
+                $dm->where('blockChain', 'LIKE', '%'.$request->filterBlockChain.'%');
+            }
+        })->orderby('id','desc')->paginate(10);
+
+        // $dropManagement         = DropManagement::where('name', 'LIKE', '%'.$name.'%')->where('blockChain', 'LIKE', '%'.$blockChain.'%')->where('priceOfSale', 'LIKE', '%'.$price.'%')->orderby('id','desc')->paginate(10);
         foreach($dropManagement as $key=>$value)
         {
             $categories = Category::whereIn('id', explode(',',$value->categoryId))->pluck('name')->toArray();
