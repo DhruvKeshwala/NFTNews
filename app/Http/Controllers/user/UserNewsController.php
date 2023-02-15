@@ -35,9 +35,17 @@ class UserNewsController extends Controller
             }  
         }
         $allNews        = News::orderby('orderIndex','asc')->paginate(10);
+        foreach ($allNews as $key => $value) {
+            $allNews[$key]->category->name = strtolower($value->category->name);
+        }
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $categories     = Category::all();
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
-        
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $newsTopBanner = Banner::where('location', 'latnewsfull')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
@@ -48,9 +56,14 @@ class UserNewsController extends Controller
     public function filterNews(Request $request)
     {
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $title      = $request->filterNewsTitle;
         $allNews    = News::where('title', 'LIKE', '%'.$title.'%')->orderby('id','desc')->paginate(10);
-
+        foreach ($allNews as $key => $value) {
+            $allNews[$key]->category->name = strtolower($value->category->name);
+        }
         if($title == "" | $title == null)
         {
             $allNews    = News::orderby('orderIndex','asc')->paginate(10);
@@ -90,6 +103,12 @@ class UserNewsController extends Controller
             }  
         }
         $getAllNewses    = News::where('slug', '!=', $newsDetail->slug)->orderby('orderIndex','asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $banners         = Banner::where('size', '280 x 400 pixels')->first();
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();

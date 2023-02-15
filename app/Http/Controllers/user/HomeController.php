@@ -94,10 +94,19 @@ class HomeController extends Controller
         $cryptoJournals      = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
         $pages               = ManagePages::all();
         $allNews             = News::take(10)->orderBy('orderIndex', 'asc')->get();
+        foreach ($allNews as $key => $value) {
+            $allNews[$key]->category->name = strtolower($value->category->name);
+        }
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $categories          = Category::all();
         $pressReleases       = PressRelease::orderBy('orderIndex', 'asc')->get();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->get();
         $guides              = Guide::all();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
@@ -131,7 +140,6 @@ class HomeController extends Controller
     public function userFilterCategoryNews($category='', $categoryId='')
     {
         $newses = $news = $getAllNewses  = News::orderBy('orderIndex', 'asc')->get();
-
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
 
@@ -167,6 +175,13 @@ class HomeController extends Controller
             else
                 return redirect('userFilterCategory/All');
         }
+        foreach ($allNews as $key => $value) {
+            $allNews[$key]->category->name = strtolower($value->category->name);
+        }
+        
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         return view('user.news', compact('banners_small', 'banners_horizontal', 'newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews', 'news'));
         
         // $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
@@ -186,7 +201,9 @@ class HomeController extends Controller
         {
             $allNews    =  News::where('categoryId', $categoryId)->orderBy('orderIndex', 'asc')->paginate(10);
         }
-        
+        foreach ($allNews as $key => $value) {
+            $allNews[$key]->category->name = strtolower($value->category->name);
+        }
         $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
         $response = Response::make($contents, 200);
         $response->header('Content-Type', 'text/plain');
@@ -471,9 +488,14 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $resultFeaturedNews2 = $resultFeaturedNews;
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
 
@@ -497,9 +519,10 @@ class HomeController extends Controller
                 $resultFeaturedNews2[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
-
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
 
@@ -523,11 +546,16 @@ class HomeController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
-        
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
 
         // $allNews        = NewsService::getNews();
         // $categories     = Category::all();
         $getAllNewses   = News::orderby('orderIndex','asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         return view('user.featuredNews', compact('banners_horizontal', 'banners_small', 'getAllNewses', 'resultFeaturedNews', 'resultFeaturedNews2'));
 
     }

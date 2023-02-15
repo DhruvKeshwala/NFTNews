@@ -99,7 +99,7 @@
                 @if(@$categories)
                   @foreach($categories as $category)
                     {{-- <li><a class='pl-2 tagLink' onclick="filterCategory({{@$category->id}})" id="categoryId">{{@$category->name}}</a></li> --}}
-                    <li><a class='pl-2 tagLink' href="{{ route('userFilterCategoryNews', ['category'=> $category->name, 'id' => @$category->slug])}}" id="categoryId">{{@$category->name}}</a></li>
+                    <li><a class='pl-2 tagLink' href="{{ route('userFilterCategoryNews', ['category'=> strtolower($category->name), 'id' => @$category->slug])}}" id="categoryId">{{@$category->name}}</a></li>
                   @endforeach
                 @endif
               </div>

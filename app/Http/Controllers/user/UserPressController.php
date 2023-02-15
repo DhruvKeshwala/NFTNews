@@ -41,10 +41,17 @@ class UserPressController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
+        
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
         $pressTopBanner = Banner::where('location', 'pressrelfull')->first();
         $pressSideBanner = Banner::where('location', 'prssrelrect')->first();
@@ -69,10 +76,16 @@ class UserPressController extends Controller
                 $resultFeaturedNews[$key]->featurednew_end_date = $newsType->featurednew->end_date;                
             }  
         }
+        foreach ($newses as $key => $value) {
+            $newses[$key]->category->name = strtolower($value->category->name);
+        }
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $innerSideBanner = Banner::where('location', 'innerrec')->first();
         return view('user.pressDetails',compact('banners_small', 'banners_horizontal', 'innerSideBanner', 'pressDetail', 'categories', 'getAllNewses', 'resultFeaturedNews'));
     }
@@ -113,6 +126,9 @@ class UserPressController extends Controller
         $filterValue = $request->filterValue;
         $categories     = Category::all();
         $getAllNewses   = News::orderBy('orderIndex', 'asc')->get();
+        foreach ($getAllNewses as $key => $value) {
+            $getAllNewses[$key]->category->name = strtolower($value->category->name);
+        }
         $banners        = Banner::where('size', '280 x 400 pixels')->first();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();

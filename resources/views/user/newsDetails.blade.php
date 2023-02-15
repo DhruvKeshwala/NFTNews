@@ -11,7 +11,7 @@
     <div class="container">
     <div class="row no-gutters slider-text align-items-end">
         <div class="col-md-9 ftco-animate">
-        <p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>News Detail</span></p>
+        <p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>{{ $newsDetail->category->name }}<i class="fa fa-angle-right"></i></span><span>News Detail</span></p>
         </div>
     </div>
     </div>
