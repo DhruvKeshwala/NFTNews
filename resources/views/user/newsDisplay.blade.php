@@ -3,7 +3,7 @@
   @if(count($allNews))
     @foreach($allNews as $news)
       <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-          <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark"><div class="img" 
+          <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}" class="text-dark"><div class="img" 
             @if($news->image != null || $news->image != '')
               style="background-image: url({{ URL::asset('uploads/' . @$news->image)}});"
             @else
@@ -12,10 +12,10 @@
             ></div></a>
           <div class="text pl-md-3">
             <div class="meta mb-2">
-                <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat">INDUSTRY TALK</a></div>
-                <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span class="fa fa-clock"></span> {{ @$news->created_at->diffForHumans() }}</a></div>
+                <div><a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}" class="meta-chat">{{ @$news->category->name }}</a></div>
+                <div><a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"><span class="fa fa-clock"></span> {{ @$news->created_at->diffForHumans() }}</a></div>
               </div>
-              <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+              <h4><a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
               <p>{{ @$news->shortDescription }}</p>
           </div>
       </div>

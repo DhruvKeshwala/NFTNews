@@ -128,9 +128,9 @@ class HomeController extends Controller
         return $response;
     }
 
-    public function userFilterCategoryNews($categoryId='')
+    public function userFilterCategoryNews($category='', $categoryId='')
     {
-        $newses  = $getAllNewses  = News::orderBy('orderIndex', 'asc')->get();
+        $newses = $news = $getAllNewses  = News::orderBy('orderIndex', 'asc')->get();
 
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
@@ -167,7 +167,7 @@ class HomeController extends Controller
             else
                 return redirect('userFilterCategory/All');
         }
-        return view('user.news', compact('banners_small', 'banners_horizontal', 'newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews'));
+        return view('user.news', compact('banners_small', 'banners_horizontal', 'newsTopBanner', 'innerSideBanner','getAllNewses', 'allNews', 'categories', 'resultFeaturedNews', 'news'));
         
         // $contents = View::make('user.newsDisplay')->with('allNews', $allNews);
         // $response = Response::make($contents, 200);

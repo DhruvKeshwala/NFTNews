@@ -155,7 +155,7 @@
                 @foreach($resultFeaturedNews as $news)
                   @if($news->is_featurednew == 1)
                     <div class="item text-center">
-                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img 
+                      <div class="align-items-center justify-content-center"><a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"><img 
                         @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
                             src="{{ URL::asset('uploads/' . @$news->article_1) }}"
                         @else
@@ -163,10 +163,10 @@
                         @endif
                         width="100%" class="img-thumbnail" height="auto" @if($news->image1_alt != null || $news->image1_alt != '') alt="{{@$news->image1_alt}}" @else alt="{{@$news->title}}" @endif/></a></div>
                         <div class="text">
-                          <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
+                          <h4><a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}" class="text-dark">{{ @$news->title }}</a></h4>
                           <div class="meta d-md-flex mb-2">
-                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
-                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
+                            <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}" class="meta-chat text-dark">INDUSTRY TALK</a>
+                            <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}" class="text-light ml-2"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans() }}</a>
                           </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -217,14 +217,14 @@
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span> {{@$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -263,14 +263,14 @@
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>
@@ -287,7 +287,7 @@
                         @else
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -298,14 +298,14 @@
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span> {{ @$news->created_at->diffForHumans()}}</a></div>
                                         </div>
                                     </div>

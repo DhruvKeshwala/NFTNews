@@ -74,7 +74,7 @@ class UserNewsController extends Controller
         $newses          = News::orderBy('orderIndex', 'asc')->get();
 
         $newsDetail = NewsService::getNewsBySlug($id);
-        
+
         $currentDate = date('d-m-Y');
         $resultFeaturedNews = array();
 

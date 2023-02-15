@@ -236,7 +236,7 @@ Route::post('listNFTDrop/submit-nft', [UserNFTDropsController::class, 'save_subm
 
 
 //Tag wise filter categories
-Route::get('news/userFilterCategoryNews/{id?}', [HomeController::class, 'userFilterCategoryNews'])->name('userFilterCategoryNews');
+Route::get('news/userFilterCategoryNews/{category?}/{id?}', [HomeController::class, 'userFilterCategoryNews'])->name('userFilterCategoryNews');
 Route::get('userFilterCategory', [HomeController::class, 'userFilterCategory'])->name('userFilterCategory');
 
 //Tag wise filter NFT Drops

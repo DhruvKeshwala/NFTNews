@@ -42,7 +42,7 @@ p.flex-caption a:hover {
                                         <p class="flex-caption">
                                             <span class="nwscpt">NEWS</span>
                                             <a class="strong-hover-shake"
-                                                href="{{ route('user.news_detail', ['id' => $data->slug]) }}">{{ $data->title }}</a><br><span
+                                                href="{{ route('user.news_detail', ['category'=> $data->category->name,'id' => $data->slug]) }}">{{ $data->title }}</a><br><span
                                                 class="thrs">
                                                 {{ \Carbon\Carbon::parse($data->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                         </p>
@@ -66,7 +66,7 @@ p.flex-caption a:hover {
                                 <p class="flex-caption-small w-auto">
                                     <span class="nwscpt">NEWS</span>
                                     <a
-                                        href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[0]]->slug]) }}">{{ @$featured_news[$random_keys[0]]->title }}</a><br><span
+                                        href="{{ route('user.news_detail', ['category'=>@$featured_news[$random_keys[0]]->category->name,'id' => @$featured_news[$random_keys[0]]->slug]) }}">{{ @$featured_news[$random_keys[0]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
                                         {{ \Carbon\Carbon::parse(@$featured_news[$random_keys[0]]->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                     </span>
@@ -91,7 +91,7 @@ p.flex-caption a:hover {
                                 <p class="flex-caption-small w-auto">
                                     <span class="nwscpt">NEWS</span>
                                     <a
-                                        href="{{ route('user.news_detail', ['id' => @$featured_news[$random_keys[1]]->slug]) }}">{{ @$featured_news[$random_keys[1]]->title }}</a><br><span
+                                        href="{{ route('user.news_detail', ['category'=>@$featured_news[$random_keys[1]]->category->name,'id' => @$featured_news[$random_keys[1]]->slug]) }}">{{ @$featured_news[$random_keys[1]]->title }}</a><br><span
                                         class="thrs"><i class="fa fa-calendar"></i>
                                         {{ \Carbon\Carbon::parse(@$featured_news[$random_keys[0]]->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                     </span>
@@ -159,7 +159,7 @@ p.flex-caption a:hover {
                                 @if (!empty(@$allNews))
                                     @foreach ($allNews as $news)
                                         <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                                            <a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
+                                            <a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                 class="text-dark">
                                                 <div class="img"
                                                     @if($news->article_1 != null || $news->article_1 != '' || file_exists(@$news->article_1) == true)
@@ -172,14 +172,14 @@ p.flex-caption a:hover {
                                             </a>
                                             <div class="text pl-md-3">
                                                 <div class="meta mb-2">
-                                                    <div><a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
+                                                    <div><a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                             class="meta-chat">{{ $news->category->name }}</a></div>
-                                                    <div><a href="{{ route('user.news_detail', ['category'=> $news->category->name, 'id' => @$news->slug]) }}"><span
+                                                    <div><a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"><span
                                                                 class="fa fa-clock"></span>
                                                                 {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                                         </a></div>
                                                 </div>
-                                                <h4><a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
+                                                <h4><a href="{{ route('user.news_detail', ['category'=> @$news->category->name,'id' => @$news->slug]) }}"
                                                         class="text-dark">{{ @$news->title }}</a></h4>
                                                 <p>{{ @$news->shortDescription }}</p>
                                             </div>
@@ -413,7 +413,7 @@ p.flex-caption a:hover {
                                             </h2>
                                             <p>{{ substr(@$data->shortDescription, 0, 30) }}..</p>
                                         </div>
-                                        <a href="{{ route('user.news_detail', ['id' => @$data->slug]) }}">View more</a>
+                                        <a href="{{ route('user.news_detail', ['category'=> $data->category->name, 'id' => @$data->slug]) }}">View more</a>
                                     </figcaption>
                                 </figure>
                             </div>
@@ -521,7 +521,7 @@ p.flex-caption a:hover {
                             @if ($news->is_featurednew == 1)
                                 <div class="item text-center">
                                     <div class="align-items-center justify-content-center"><a
-                                            href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><img
+                                            href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"><img
                                             @if($news->article_1 != null || $news->article_1 != '' || file_exists($news->article_1) == true)
                                                 src="{{ URL::asset('uploads/' . @$news->article_1) }}"
                                             @else
@@ -530,12 +530,12 @@ p.flex-caption a:hover {
                                             width="100%"
                                                 class="img-thumbnail" height="auto" @if($news->image1_alt != null || $news->image1_alt != '') alt="{{@$news->image1_alt}}" @else alt="{{@$news->title}}" @endif/></a></div>
                                     <div class="text">
-                                        <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                        <h4><a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                 class="text-dark">{{ @$news->title }}</a></h4>
                                         <div class="meta d-md-flex mb-2">
-                                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                class="meta-chat text-dark">INDUSTRY TALK</a>
-                                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                            <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
+                                                class="meta-chat text-dark">{{ @$news->category->name }}</a>
+                                            <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                 class="text-light ml-2"><span class="fa fa-calendar"></span>
                                                 {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                             </a>
@@ -580,7 +580,7 @@ p.flex-caption a:hover {
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -591,14 +591,14 @@ p.flex-caption a:hover {
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span> 
                                                     {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                                 </a></div>
@@ -628,7 +628,7 @@ p.flex-caption a:hover {
                             </div>
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -639,14 +639,14 @@ p.flex-caption a:hover {
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span> 
                                                     {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                                 </a></div>
@@ -665,7 +665,7 @@ p.flex-caption a:hover {
                         @else
                             <div class="col-md-4 d-flex ftco-animate">
                                 <div class="blog-entry rounded shadow align-self-stretch">
-                                    <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                    <a href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                         class="block-30 rounded"
                                         @if(@$news->image4 != null || @$news->image4 != '' || file_exists($news->image4) == true)
                                             style="background-image: url({{ URL::asset('uploads/' . @$news->image4) }});"
@@ -676,14 +676,14 @@ p.flex-caption a:hover {
                                     </a>
                                     <div class="text px-4 mt-3">
                                         <h3 class="heading"><a
-                                                href="{{ route('user.news_detail', ['id' => @$news->slug]) }}">{{ $news->title }}</a>
+                                                href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}">{{ $news->title }}</a>
                                         </h3>
                                         <div class="mb-5">
                                             <div class="float-left"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="meta-chat">Admin</a></div>
                                             <div class="float-right"><a
-                                                    href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                    href="{{ route('user.news_detail', ['category'=> @$news->category->name, 'id' => @$news->slug]) }}"
                                                     class="text-light"><span class="fa fa-calendar"></span>
                                                     {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                                     </a></div>
