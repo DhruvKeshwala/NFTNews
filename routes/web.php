@@ -223,7 +223,7 @@ Route::post('newsHomeSearch', [HomeController::class, 'newsHomeSearch'])->name('
 
 Route::get('news', [UserNewsController::class, 'index'])->name('user.news');
 Route::get('news/newsSearch', [UserNewsController::class, 'filterNews'])->name('user.filter_news');
-Route::get('news/newsDetail/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
+Route::get('news/{category?}/{id}', [UserNewsController::class, 'newsDetail'])->name('user.news_detail');
 
 Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'])->name('user.press_detail');
 

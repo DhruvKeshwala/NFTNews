@@ -69,7 +69,7 @@ class UserNewsController extends Controller
         return view('user.news', compact('categories', 'allNews', 'getAllNewses', 'innerSideBanner', 'newsTopBanner','banners_small','banners_horizontal'));
     }
 
-    public function newsDetail($id)
+    public function newsDetail($category, $id)
     {
         $newses          = News::orderBy('orderIndex', 'asc')->get();
 

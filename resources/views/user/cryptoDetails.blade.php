@@ -33,7 +33,7 @@
               @else
                 src="{{ URL::asset('images/default-crypto-details.png') }}"
               @endif
-              width="auto" height="500" alt="{{@$cryptoDetail->title}}">
+              width="auto" height="500" alt="{{@$cryptoDetail->title}}" data-toggle="tooltip" data-placement="top" title="Click To view PDF">
              </div>
              @else
              <div class="text-center">

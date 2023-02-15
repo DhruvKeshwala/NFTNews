@@ -159,7 +159,7 @@ p.flex-caption a:hover {
                                 @if (!empty(@$allNews))
                                     @foreach ($allNews as $news)
                                         <div class="story-wrap p-0 blog-entry d-md-flex align-items-center">
-                                            <a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                            <a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
                                                 class="text-dark">
                                                 <div class="img"
                                                     @if($news->article_1 != null || $news->article_1 != '' || file_exists(@$news->article_1) == true)
@@ -172,14 +172,14 @@ p.flex-caption a:hover {
                                             </a>
                                             <div class="text pl-md-3">
                                                 <div class="meta mb-2">
-                                                    <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
-                                                            class="meta-chat">INDUSTRY TALK</a></div>
-                                                    <div><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"><span
+                                                    <div><a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
+                                                            class="meta-chat">{{ $news->category->name }}</a></div>
+                                                    <div><a href="{{ route('user.news_detail', ['category'=> $news->category->name, 'id' => @$news->slug]) }}"><span
                                                                 class="fa fa-clock"></span>
                                                                 {{ \Carbon\Carbon::parse($news->publish_date)->diffForHumans(\Carbon\Carbon::now()) }}
                                                         </a></div>
                                                 </div>
-                                                <h4><a href="{{ route('user.news_detail', ['id' => @$news->slug]) }}"
+                                                <h4><a href="{{ route('user.news_detail', ['category'=> $news->category->name,'id' => @$news->slug]) }}"
                                                         class="text-dark">{{ @$news->title }}</a></h4>
                                                 <p>{{ @$news->shortDescription }}</p>
                                             </div>
@@ -283,7 +283,7 @@ p.flex-caption a:hover {
                         </div>
 
                         <div class="col-md-6">
-                            <div class="play">
+                            <div class="play first-video">
                               <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
                                 <img    @if($videos[0]->uploadSocialBanner || file_exists(@$videos[0]->uploadSocialBanner) == true) 
                                             src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}"
@@ -789,9 +789,9 @@ p.flex-caption a:hover {
 <!-- Quick View -->
     @foreach($videos as $video)
     <div class="modal fade" id="myModal-{{@$video->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 100%;margin: 1% 0 0 1%;" role="document">  
+        <div class="modal-dialog" style="max-width: 80%;margin: 0 auto;" role="document">  
           <!-- Modal content-->     
-          <div class="modal-content" style="height: 725px;">
+          <div class="modal-content" style="height: 625px;">
             <div class="modal-header">
                 <h3>{{ @$video->title }}</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
