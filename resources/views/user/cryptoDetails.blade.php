@@ -26,15 +26,20 @@
              
              <h1 class="mb-4 text-center">{{@$cryptoDetail->title}}</h1>
              @if(!empty($cryptoDetail->pdf))
+             <figure class="effect-lily mb-5">
              <div id="book1-trigger" class="text-center">
-             	<img style="cursor:pointer" 
+             	<img class="w-auto" style="cursor:pointer" 
               @if($cryptoDetail->image!= null || $cryptoDetail->image != '' || file_exists($cryptoDetail->image) == true) 
                 src="{{ URL::asset('uploads/' . @$cryptoDetail->image) }}"
               @else
                 src="{{ URL::asset('images/default-crypto-details.png') }}"
               @endif
               width="auto" height="500" alt="{{@$cryptoDetail->title}}" data-toggle="tooltip" data-placement="top" title="Click To view PDF">
+				<figcaption>
+					<p class="mt-n5 text-center"><a class="btn btn-primary border py-1 mt-n5">Click To View PDF</a></p>
+				</figcaption>
              </div>
+             </figure>
              @else
              <div class="text-center">
              	<img 

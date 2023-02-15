@@ -1,5 +1,68 @@
 @php
 $settings = \App\Models\Settings::first();
+$meta_information = \App\Models\ManagePages::get();
+$metaTitle = "";
+$metaDescription = "";
+$metaKeywords = "";
+
+foreach ($meta_information as $key => $value) {
+  if (($value['name']=='Latest News' && Request::segment(1) == 'news'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Markets News' && Request::segment(1) == 'markets'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Featured' && Request::segment(1) == 'featuredNews'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='NFT Drops' && Request::segment(1) == 'listNFTDrop'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Videos' && Request::segment(1) == 'videos'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Help' && Request::segment(1) == 'guide'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Press Releases' && Request::segment(1) == 'pressRelease'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  }
+
+  if (($value['name']=='Weekly Journal' && Request::segment(1) == 'cryptoJournals'))
+  {
+    $metaTitle       = $value['metaTitle'];
+    $metaDescription = $value['description'];
+    $metaKeywords    = $value['keywords'];
+  } 
+  
+}
 @endphp
 
 <!DOCTYPE html>
@@ -22,19 +85,34 @@ $settings = \App\Models\Settings::first();
     
     <link rel="stylesheet" href="{{ URL::asset('assets/user/css/flexslider.css')}}" type="text/css" media="screen" />
     
-    <meta name="description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}">
+     @if((Request::segment(1) == 'news' && Request::segment(2) == '') || (Request::segment(1) == 'markets' && Request::segment(2) == '') || (Request::segment(1) == 'featuredNews' && Request::segment(2) == '') || (Request::segment(1) == 'listNFTDrop' && Request::segment(2) == '') || (Request::segment(1) == 'videos' && Request::segment(2) == '') || (Request::segment(1) == 'guide' && Request::segment(2) == '') || (Request::segment(1) == 'pressRelease' && Request::segment(2) == '') || (Request::segment(1) == 'cryptoJournals' && Request::segment(2) == ''))
+      <meta name="description" content="{{ @$metaDescription }}">
+    @else    
+    <meta name="description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ?  @$pressDetail->description : 'Meta Description')))))  }}">
+    @endif
 
-    <meta name="keywords" content="{{(@$newsDetail->keywords != null) ? @$newsDetail->keywords : ((@$page->keywords != null) ? @$page->keywords : ((@$nftDropDetail != null) ? @$nftDropDetail->keywords : ((@$videoDetail->keywords != null) ? @$videoDetail->keywords : ((@$cryptoDetail->keywords != null) ? @$cryptoDetail->keywords : ((@$pressDetail->keywords != null) ? @$pressDetail->keywords : 'Meta Keywords')))))  }}">
+    @if((Request::segment(1) == 'news' && Request::segment(2) == '') || (Request::segment(1) == 'markets' && Request::segment(2) == '') || (Request::segment(1) == 'featuredNews' && Request::segment(2) == '') || (Request::segment(1) == 'listNFTDrop' && Request::segment(2) == '') || (Request::segment(1) == 'videos' && Request::segment(2) == '') || (Request::segment(1) == 'guide' && Request::segment(2) == '') || (Request::segment(1) == 'pressRelease' && Request::segment(2) == '') || (Request::segment(1) == 'cryptoJournals' && Request::segment(2) == ''))
+      <meta name="keywords" content="{{ @$metaKeywords }}">
+    @else
+      <meta name="keywords" content="{{(@$newsDetail->keywords != null) ? @$newsDetail->keywords : ((@$page->keywords != null) ? @$page->keywords : ((@$nftDropDetail != null) ? @$nftDropDetail->keywords : ((@$videoDetail->keywords != null) ? @$videoDetail->keywords : ((@$cryptoDetail->keywords != null) ? @$cryptoDetail->keywords : ((@$pressDetail->keywords != null) ? @$pressDetail->keywords : 'Meta Keywords')))))  }}">
+    @endif
 
     <meta property="og:type" content="website" >
 
     <meta property="og:locale" content="en_in" >
 
     <meta property="og:url" content="{{URL::current()}}" >
+    @if((Request::segment(1) == 'news' && Request::segment(2) == '') || (Request::segment(1) == 'markets' && Request::segment(2) == '') || (Request::segment(1) == 'featuredNews' && Request::segment(2) == '') || (Request::segment(1) == 'listNFTDrop' && Request::segment(2) == '') || (Request::segment(1) == 'videos' && Request::segment(2) == '') || (Request::segment(1) == 'guide' && Request::segment(2) == '') || (Request::segment(1) == 'pressRelease' && Request::segment(2) == '') || (Request::segment(1) == 'cryptoJournals' && Request::segment(2) == ''))
+      <meta property="og:title" content="{{ @$metaTitle }}">
+    @else
+      <meta property="og:title" content="{{(@$newsDetail->metaTitle != null) ? @$newsDetail->metaTitle : ((@$page->metaTitle != null) ? @$page->metaTitle : ((@$nftDropDetail != null) ? @$nftDropDetail->metaTitle : ((@$videoDetail->metaTitle != null) ? @$videoDetail->metaTitle : ((@$cryptoDetail->metaTitle != null) ? @$cryptoDetail->metaTitle : ((@$pressDetail->metaTitle != null) ? @$pressDetail->metaTitle : 'Meta Title')))))  }}" >
+    @endif
 
-    <meta property="og:title" content="{{(@$newsDetail->metaTitle != null) ? @$newsDetail->metaTitle : ((@$page->metaTitle != null) ? @$page->metaTitle : ((@$nftDropDetail != null) ? @$nftDropDetail->metaTitle : ((@$videoDetail->metaTitle != null) ? @$videoDetail->metaTitle : ((@$cryptoDetail->metaTitle != null) ? @$cryptoDetail->metaTitle : ((@$pressDetail->metaTitle != null) ? @$pressDetail->metaTitle : 'Meta Title')))))  }}" >
-
-    <meta property="og:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
+    @if((Request::segment(1) == 'news' && Request::segment(2) == '') || (Request::segment(1) == 'markets' && Request::segment(2) == '') || (Request::segment(1) == 'featuredNews' && Request::segment(2) == '') || (Request::segment(1) == 'listNFTDrop' && Request::segment(2) == '') || (Request::segment(1) == 'videos' && Request::segment(2) == '') || (Request::segment(1) == 'guide' && Request::segment(2) == '') || (Request::segment(1) == 'pressRelease' && Request::segment(2) == '') || (Request::segment(1) == 'cryptoJournals' && Request::segment(2) == ''))
+      <meta property="og:description" content="{{ @$metaDescription }}">
+    @else
+      <meta property="og:description" content="{{(@$newsDetail->description != null) ? @$newsDetail->description : ((@$page->description != null) ? @$page->description : ((@$nftDropDetail != null) ? @$nftDropDetail->description : ((@$videoDetail->description != null) ? @$videoDetail->description : ((@$cryptoDetail->description != null) ? @$cryptoDetail->description : ((@$pressDetail->description != null) ? @$pressDetail->description : 'Meta Description')))))  }}" >
+    @endif
 
     <meta property="og:image" content="{{URL::asset('images/logo.png')}}" >
 
