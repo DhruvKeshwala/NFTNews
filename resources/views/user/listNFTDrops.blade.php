@@ -103,12 +103,12 @@
                                 @if ($dropManagement->start_date && $dropManagement->end_date)
                                     <span class="badge_featured badge-light text-light">Featured</span>
                                 @endif
-                                <a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}" class="block-30 rounded"
+                                <a href="{{ route('user.nftDrop_detail', ['category' => @$dropManagement->category->slug,'id' => @$dropManagement->slug]) }}" class="block-30 rounded"
                                     style="background-image: url(@if($dropManagement->image != null || file_exists($dropManagement->image) == true) {{ URL::asset('uploads/' . @$dropManagement->image) }} @else {{ URL::asset('images/default-image-1.png') }} @endif);">
                                 </a>
                                 <div class="text px-4 mt-3 text-center">
 
-                                    <h3 class="heading pt-3"><a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}">{{ @$dropManagement->name }}</a>
+                                    <h3 class="heading pt-3"><a href="{{ route('user.nftDrop_detail', ['category' => @$dropManagement->category->slug,'id' => @$dropManagement->slug]) }}">{{ @$dropManagement->name }}</a>
                                     </h3>
                                     <div class="row pb-4">
                                         <div class="col-md-6 pb-3 text-left">
@@ -137,7 +137,7 @@
                                         <div class="col-md-6 pt-1 text-right">
                                             <a href="#" class="btn btn-outline-light-gradient border py-1 mb-2 w-100"
                                                 style="font-size: 12px;">Add to Calendar</a>
-                                            <a href="{{ route('user.nftDrop_detail', ['id' => @$dropManagement->slug]) }}"
+                                            <a href="{{ route('user.nftDrop_detail', ['category' => @$dropManagement->category->slug,'id' => @$dropManagement->slug]) }}"
                                                 class="btn btn-outline-light-gradient border w-100 py-1 mb-2"
                                                 style="font-size: 12px;">View Project</a>
                                         </div>

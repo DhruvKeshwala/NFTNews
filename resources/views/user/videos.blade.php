@@ -94,7 +94,8 @@ iframe {
             @if($video->start_date != null || $video->start_date != '')
               <span class="badge_featured badge-light text-light">Featured</span>
             @endif
-            <p class="text-center"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
+            <p class="text-center"><a href="{{ route('user.video_detail', ['category'=> $video->category->slug, 'id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a>
+              <a href="{{ route('user.video_detail', ['category'=> $video->category->slug,'id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
            </figcaption>          
           <div class="mt-md-n4">
           	<span class="text-light d-block mt-2" title="{{@$video->title}}">{{substr(@$video->title, 0, 30)}}..</span>

@@ -279,12 +279,12 @@ p.flex-caption a:hover {
                           </a>
                           <h3 class="mt-md-5">{{substr(@$videos[0]->title, 0, 50) }}</h3>
                           <p class="text-dark">{{ substr(@$videos[0]->shortDescription, 0, 40) }}</p>
-                          <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}" class="btn btn-outline-light-gradient border py-1">Read More</a>
+                          <a href="{{ route('user.video_detail', ['category'=> $videos[0]->category->slug,'id' => @$videos[0]->slug]) }}" class="btn btn-outline-light-gradient border py-1">Read More</a>
                         </div>
 
                         <div class="col-md-6">
                             <div class="play first-video">
-                              <a href="{{ route('user.video_detail', ['id' => @$videos[0]->slug]) }}">
+                              <a href="{{ route('user.video_detail', ['category'=> $videos[0]->category->slug,'id' => @$videos[0]->slug]) }}">
                                 <img    @if($videos[0]->uploadSocialBanner || file_exists(@$videos[0]->uploadSocialBanner) == true) 
                                             src="{{ URL::asset('uploads/' . @$videos[0]->uploadSocialBanner) }}"
                                         @else
@@ -316,7 +316,7 @@ p.flex-caption a:hover {
                                     
                                         <figure class="effect-lily video-section item play">
                                             <figcaption>
-                                            <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}"><img
+                                            <a href="{{ route('user.video_detail', ['category'=> $video->category->slug,'id' => @$video->slug]) }}"><img
                                                     @if($video->image1 != null || $video->image1 != '' || file_exists(@$video->image1) == true)
                                                         src="{{ URL::asset('uploads/' . @$video->image1) }}"
                                                     @else
@@ -325,7 +325,7 @@ p.flex-caption a:hover {
                                                     width="100%"
                                                     height="auto" @if($video->image1_alt != null || $video->image1_alt != '') alt="{{ @$video->image1_alt}}" @else alt="{{@$video->title}}" @endif></a>
                                             
-                                                <p class="text-center" style="margin-bottom: 10px !important;"><a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
+                                                <p class="text-center" style="margin-bottom: 10px !important;"><a href="{{ route('user.video_detail', ['category'=> $video->category->slug,'id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5 js-anchor-link" data-toggle="modal" data-target="#myModal-{{@$video->id}}">Watch Now</a> <a href="{{ route('user.video_detail', ['category'=> $video->category->slug,'id' => @$video->slug]) }}" class="btn btn-primary border py-1 mt-n5">View Details</a></p>
                                             </figcaption>       
                                             <span class="text-light d-block"
                                                 title="{{ @$video->title }}">{{ substr(@$video->title, 0, 30) }}..</span>

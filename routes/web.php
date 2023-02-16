@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 use Illuminate\Support\Facades\Route;
-  
+
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
@@ -41,21 +41,21 @@ use App\Http\Controllers\user\UserGuideController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-  
+
 Route::get('siteadmin', [AuthController::class, 'index'])->name('login');
 Route::get('siteadmin/login', [AuthController::class, 'index'])->name('login');
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
-Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
+Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
 
-Route::get('/filepopup', function(){
+Route::get('/filepopup', function () {
     return view('demofilepopup');
 });
 
-Route::group(['prefix'=>'siteadmin'], function(){
+Route::group(['prefix' => 'siteadmin'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('news', [NewsController::class, 'index'])->name('news');
-        Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard'); 
+        Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
         // Category
         Route::get('category', [CategoryController::class, 'index'])->name('category');
@@ -105,7 +105,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('delete_pressRelease', [PressReleaseController::class, 'deletePressRelease'])->name('delete_pressRelease');
         Route::get('/filter_pressRelease', [PressReleaseController::class, 'filterPressRelease'])->name('filter_pressRelease');
         Route::get('pressUpdateStatus/{id}', [PressReleaseController::class, 'pressUpdateStatus'])->name('press_updateStatus');
-        
+
         // video management
         Route::get('videos', [VideoManagementController::class, 'index'])->name('videos');
         Route::get('add_video/{id?}', [VideoManagementController::class, 'addVideo'])->name('add_video');
@@ -130,7 +130,7 @@ Route::group(['prefix'=>'siteadmin'], function(){
         Route::post('delete_guide', [GuideController::class, 'deleteGuide'])->name('delete_guide');
         Route::get('guide_detail/{id}', [GuideController::class, 'guideDetail'])->name('guide_detail');
         Route::get('/filter_guide', [GuideController::class, 'filterGuide'])->name('filter_guide');
-        
+
         //Guide Category
         Route::get('guide_category', [GuideCategoryController::class, 'index'])->name('guide_category');
         Route::get('add_guide_category/{id?}', [GuideCategoryController::class, 'addCategory'])->name('add_guide_category');
@@ -163,11 +163,11 @@ Route::group(['prefix'=>'siteadmin'], function(){
 
         //Change Password
         Route::get('changePassword', [AuthController::class, 'changePassword'])->name('changePassword');
-        Route::post('save_changePassword', [AuthController::class, 'save_changePassword'])->name('save_changePassword'); 
+        Route::post('save_changePassword', [AuthController::class, 'save_changePassword'])->name('save_changePassword');
 
         //Update Password
         Route::get('settings', [AuthController::class, 'updateSettings'])->name('settings');
-        Route::post('update_settings', [AuthController::class, 'updateAdminSettings'])->name('update_settings'); 
+        Route::post('update_settings', [AuthController::class, 'updateAdminSettings'])->name('update_settings');
 
         Route::get('subscribersList', [ManagePagesController::class, 'subscribersList'])->name('subscribersList');
         Route::get('contactList', [ManagePagesController::class, 'contactList'])->name('contactList');
@@ -229,7 +229,7 @@ Route::get('pressReleaseDetail/{id}', [UserPressController::class, 'pressDetail'
 
 Route::get('listNFTDrop', [UserNFTDropsController::class, 'listNFTDrop'])->name('user.list_nftDrops');
 Route::get('listNFTDrop/NFTDropSearch', [UserNFTDropsController::class, 'filterNFTDrop'])->name('user.filter_nftdrops');
-Route::get('listNFTDrop/nftDropDetail/{id?}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
+Route::get('listNFTDrop/{category?}/{id?}', [UserNFTDropsController::class, 'nftDropDetail'])->name('user.nftDrop_detail');
 Route::get('listNFTDrop/submit-nft', [UserNFTDropsController::class, 'submitNFT'])->name('user.submitnft');
 Route::post('listNFTDrop/submit-nft', [UserNFTDropsController::class, 'save_submitNFT'])->name('user.submitnftpost');
 
@@ -249,12 +249,12 @@ Route::get('markets', [UserMarketsController::class, 'index'])->name('user.marke
 Route::get('markets/marketSearch', [UserMarketsController::class, 'filterMarketNews'])->name('user.filter_marketsNews');
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
-Route::get('videos/videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+Route::get('videos/{category?}/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
 Route::get('videos/videoSearch', [UserVideosController::class, 'videoSearch'])->name('user.videoSearch');
 Route::post('videos', [UserVideosController::class, 'filterVideos'])->name('user.filter_videos');
 
 Route::get('cryptoJournals', [UserCryptoController::class, 'index'])->name('user.cryptoJournals');
-Route::get('cryptoJournals/cryptoDetail/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
+Route::get('cryptoJournals/{id}', [UserCryptoController::class, 'cryptoDetail'])->name('user.crypto_detail');
 Route::get('cryptoJournals/cryptoJournalSearch', [UserCryptoController::class, 'filterCrypto'])->name('user.filter_crypto');
 
 Route::get('guide', [UserGuideController::class, 'index'])->name('user.guide');
