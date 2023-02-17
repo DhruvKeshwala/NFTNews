@@ -27,92 +27,91 @@ class UserNFTDropsController extends Controller
     public function listNFTDrop()
     {
         $categories = Category::all();
-        $allDropManagement  = DropManagement::orderby('created_at','asc')->paginate(9);
+        $allDropManagement  = DropManagement::orderby('created_at', 'asc')->paginate(9);
         $banners = Banner::where('location', 'nftdropfull')->first();
-        return view('user.listNFTDrops', compact('allDropManagement','categories','banners'));
+        return view('user.listNFTDrops', compact('allDropManagement', 'categories', 'banners'));
     }
     public function filterNFTDrop(Request $request)
     {
         $request->filternftcategoryValue = base64_decode($request->filternftcategoryValue);
         $categories = Category::all();
-        $allDropManagement  = DropManagement::where(function($dm) {
+        $allDropManagement  = DropManagement::where(function ($dm) {
             $request = app()->make('request');
-            if($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
+            if ($request->filternftcategoryValue == 'all' || $request->filterValue == 'all') {
                 $dm->where('categoryId', '>', 0);
-            }
-            else if($request->filternftcategoryValue > 0) {
+            } else if ($request->filternftcategoryValue > 0) {
                 // $dm->where('categoryId', '=', $request->filternftcategoryValue);
-                $dm->where('categoryId', 'LIKE', '%'.$request->filternftcategoryValue.'%');
+                $dm->where('categoryId', 'LIKE', '%' . $request->filternftcategoryValue . '%');
             }
-            if($request->nft_search != null && $request->nft_search != '') {
-                $dm->where('name', 'like', '%'.$request->nft_search.'%');
+            if ($request->nft_search != null && $request->nft_search != '') {
+                $dm->where('name', 'like', '%' . $request->nft_search . '%');
             }
-            if($request->filterValue == 'upcoming') {
-                $dm->where('saleDate', '>' ,Carbon::now()->format('Y-m-d'));
+            if ($request->filterValue == 'upcoming') {
+                $dm->where('saleDate', '>', Carbon::now()->format('Y-m-d'));
             }
-            if($request->filterValue == 'past') {
-                $dm->where('saleDate', '<' ,Carbon::now()->format('Y-m-d'));
+            if ($request->filterValue == 'past') {
+                $dm->where('saleDate', '<', Carbon::now()->format('Y-m-d'));
             }
-            if($request->filterValue == 'mostPopular') {
+            if ($request->filterValue == 'mostPopular') {
                 $dm->where('nftType', 'Featured');
             }
-        })->orderby('orderIndex','asc')->paginate(9);
+        })->orderby('orderIndex', 'asc')->paginate(9);
         $filterValue = $request->filternftcategoryValue;
         $nftsearch = $request->nft_search;
         $filterParam = $request->filterValue;
         $banners = Banner::where('location', 'nftdropfull')->first();
-        return view('user.listNFTDrops', compact('filterParam', 'allDropManagement','categories','filterValue','nftsearch','banners'));
+        return view('user.listNFTDrops', compact('filterParam', 'allDropManagement', 'categories', 'filterValue', 'nftsearch', 'banners'));
     }
-    
-    public function nftDropDetail($id)
+
+    public function nftDropDetail($category, $id)
     {
-        $featuredDropManagement  = DropManagement::where('nftType', 'Featured')->orderby('orderIndex','asc')->get();
+        $featuredDropManagement  = DropManagement::where('nftType', 'Featured')->orderby('orderIndex', 'asc')->get();
         $nftDropDetail      = DropManagementService::getNFTDropBySlug($id);
-        return view('user.nftDropDetails',compact('nftDropDetail', 'featuredDropManagement'));
+        return view('user.nftDropDetails', compact('nftDropDetail', 'featuredDropManagement'));
     }
 
     public function submitNFT()
     {
-        $fourRandomDigit = mt_rand(1000,9999);
+        $fourRandomDigit = mt_rand(1000, 9999);
         return view('user.submitNFT', compact('fourRandomDigit'));
     }
 
     public function save_submitNFT(Request $request)
     {
-        
+
         $fourDigitRandom = $request->fourDigitRandom;
-        
+
         $validatedData = $request->validate([
-                'name' => 'required',
-                'email' => 'required|email',
-                'location' => 'required',
-                'phone'    => 'required|integer|digits_between:2,12',
-                'skype'     => 'required',
-                'projectName' => 'required',
-                'twitterLink'   => 'required|url',
-                'discordLink'   => 'required|url',
-                'shortDescription'  => 'required',
-                'websiteLink'   => 'required|url',
-                'collectionName'    => 'required',
-                'collectionItem'    => 'required|integer',
-                //'contractAddress'   => 'required',
-                'saleDate'          => 'required',
-                'saleTime'          => 'required',
-                'saleEndDate'       => 'required',
-                'captcha'           => 'required',
-                // 'metaData'      => 'required',
-                //'priceOfSale'   => 'required',
-                //'password' => 'required|min:5',
-                //'email' => 'required|email|unique:users'
-            ], [
-                'name.required' => 'Name is required',
-                'email.required' => 'Email is required',
-                'phone.integer' => 'The phone must be in digits',
-                'saleDate.required' => 'The sale start date field is required.',
-                'collectionItem.integer' => 'The Collection item only allow number',
-                //'password.required' => 'Password is required'
-            ]);
-        
+            'name' => 'required',
+            'email' => 'required|email',
+            'location' => 'required',
+            'phone'    => 'required|integer|digits_between:2,12',
+            'skype'     => 'required',
+            'projectName' => 'required',
+            'twitterLink'   => 'required|url',
+            'discordLink'   => 'required|url',
+            'shortDescription'  => 'required',
+            'websiteLink'   => 'required|url',
+            'collectionName'    => 'required',
+            'collectionItem'    => 'required|integer',
+            //'contractAddress'   => 'required',
+            'saleDate'          => 'required',
+            'saleTime'          => 'required',
+            'saleEndDate'       => 'required',
+            'captcha'           => 'required',
+            // 'metaData'      => 'required',
+            //'priceOfSale'   => 'required',
+            //'password' => 'required|min:5',
+            //'email' => 'required|email|unique:users'
+        ], [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'phone.integer' => 'The phone must be in digits',
+            'saleDate.required' => 'The sale start date field is required.',
+            'collectionItem.integer' => 'The Collection item only allow number',
+            //'password.required' => 'Password is required'
+        ]);
+
         $dropManagementdetails = $request->only([
             'name',
             'email',
@@ -135,12 +134,12 @@ class UserNFTDropsController extends Controller
             'discordLink',
             'twitterLink',
             'websiteLink',
-            
+
         ]);
-        
-        
-        
-        
+
+
+
+
         // if($request->file('image') != null)
         // {
         //     $file      = $request->file('image');
@@ -170,9 +169,8 @@ class UserNFTDropsController extends Controller
         // if (!empty($request->start_date) && !empty($request->end_date)) {
         //     $dropManagementdetails['nftType']  = 'Featured';
         // } 
-        
-        if($request->captcha == $fourDigitRandom)
-        {
+
+        if ($request->captcha == $fourDigitRandom) {
             // // $result = (new OtherController)->exampleFunction();
             // $mail = (new HomeController)->mailData();
 
@@ -180,7 +178,7 @@ class UserNFTDropsController extends Controller
             // //Recipients
             // $mail->setFrom('nftnews@infinitedryer.com', 'NFTNews');
             // $mail->addAddress($request->email, 'Your NFT Information Mail From ');     //Add a recipient
-            
+
             // //Content
             // $mail->isHTML(true);                                  //Set email format to HTML
             // $mail->Subject = 'Here is given below the information you added in your NFT Responses.';
@@ -283,17 +281,15 @@ class UserNFTDropsController extends Controller
             // </body>
             // </html>
             // <br><br> <b>-Regards</b>';
-            
+
             // $mail->send();
-        
+
             $dropManagementdetails['nftType']  = null;
             $dropManagementdetails['userType'] = 'User';
             $dropManagement = DropManagement::create($dropManagementdetails);
-            return back()->with('success','NFT information added successfully also a copy of your responses will be emailed to the address you provided..');    
-        } 
-        else
-        {
-            return back()->with('error','Invalid Captcha..');
+            return back()->with('success', 'NFT information added successfully also a copy of your responses will be emailed to the address you provided..');
+        } else {
+            return back()->with('error', 'Invalid Captcha..');
         }
     }
 }

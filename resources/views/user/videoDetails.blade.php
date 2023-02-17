@@ -11,7 +11,10 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end">
           <div class="col-md-9 ftco-animate">
-          	<p class="breadcrumbs mb-0"><span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span><span>Videos</span></p>
+          	<p class="breadcrumbs mb-0">
+              <span><a href="{{route('user.home')}}">Home</a><i class="fa fa-angle-right"></i></span>
+              <span>{{ @$videoDetail->category->name }}<i class="fa fa-angle-right"></i></span>
+              <span>{{ @$videoDetail->title }}</span></p>
           </div>
           
         </div>
