@@ -249,7 +249,7 @@ Route::get('markets', [UserMarketsController::class, 'index'])->name('user.marke
 Route::get('markets/marketSearch', [UserMarketsController::class, 'filterMarketNews'])->name('user.filter_marketsNews');
 
 Route::get('videos', [UserVideosController::class, 'index'])->name('user.videos');
-Route::get('videos/videoDetail/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
+Route::get('videos/{category?}/{id}', [UserVideosController::class, 'videoDetail'])->name('user.video_detail');
 Route::get('videos/videoSearch', [UserVideosController::class, 'videoSearch'])->name('user.videoSearch');
 Route::post('videos', [UserVideosController::class, 'filterVideos'])->name('user.filter_videos');
 

@@ -38,7 +38,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $newses          = News::orderBy('id', 'DESC')->get();
+        $newses          = News::select('categoryId','newsType', 'image', 'image1_alt', 'title', 'slug', 'publish_date', 'article_1', 'image2_alt', 'shortDescription', 'article_2', 'image4')->orderBy('id', 'DESC')->get();
+        // $newses          = News::orderBy('id', 'DESC')->get();
         $currentDate = date('d-m-Y');
         $result = array();
         $resultHomeNews     = array();
@@ -91,24 +92,24 @@ class HomeController extends Controller
             }
         }
         
-        $cryptoJournals      = CryptoJournal::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
-        $pages               = ManagePages::all();
-        $allNews             = News::take(10)->orderBy('orderIndex', 'asc')->get();
+        $cryptoJournals      = CryptoJournal::select('title', 'shortDescription', 'slug', 'image', 'image_alt')->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('fld_status', 'Active')->orderby('id','desc')->first();
+        // $pages               = ManagePages::all();
+        $allNews             = News::select('categoryId','newsType', 'image', 'image1_alt', 'title', 'slug', 'publish_date', 'article_1', 'image2_alt', 'shortDescription', 'article_2', 'image4')->take(10)->orderBy('orderIndex', 'asc')->get();
         foreach ($allNews as $key => $value) {
             $allNews[$key]->category->name = strtolower($value->category->name);
         }
         foreach ($newses as $key => $value) {
             $newses[$key]->category->name = strtolower($value->category->name);
         }
-        $categories          = Category::all();
-        $pressReleases       = PressRelease::orderBy('orderIndex', 'asc')->get();
+        $categories          = Category::select('id', 'name')->get();
+        $pressReleases       = PressRelease::select('title', 'image', 'slug')->orderBy('orderIndex', 'asc')->get();
         $allDropManagement   = DropManagementService::getLatestDropManagement();
         $getAllNewses        = News::orderBy('orderIndex', 'asc')->get();
         foreach ($getAllNewses as $key => $value) {
             $getAllNewses[$key]->category->name = strtolower($value->category->name);
         }
         $videos              = Video_management::where('fld_status', 'Active')->where('videoType', 'Featured Video')->orderby('orderIndex','asc')->get();
-        $guides              = Guide::all();
+        $guides              = Guide::select('category', 'categorySlug', 'slug', 'question')->get();
         $banners_small = Banner::where('location', 'hpmarnewsrect')->get()->toArray();
         $banners_horizontal = Banner::where('location', 'hpmarnewsfull')->get()->toArray();
         $settings = DB::table('settings')->where('id', 1)->first();
@@ -116,7 +117,7 @@ class HomeController extends Controller
         $homeTopBanner = Banner::where('location', 'hplatnewsfull')->first();
         $homeSideBanner = Banner::where('location', 'hplatnewsrect')->first();
 
-        return view('user.index', compact('homeSideBanner', 'homeTopBanner', 'cryptoJournals', 'settings', 'pages','videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides', 'banners_small','banners_horizontal'));
+        return view('user.index', compact('homeSideBanner', 'homeTopBanner', 'cryptoJournals', 'settings', 'videos', 'getAllNewses', 'result', 'featured_news', 'resultFeaturedDrop', 'resultFeaturedNews', 'allNews', 'categories', 'pressReleases', 'allDropManagement', 'guides', 'banners_small','banners_horizontal'));
     }
 
     public function userFilterVideos(Request $request)

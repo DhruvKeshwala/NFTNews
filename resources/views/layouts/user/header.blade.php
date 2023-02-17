@@ -149,12 +149,11 @@ foreach ($meta_information as $key => $value) {
                     </div>
                     <div class="d-flex justify-content-end">
                        <div class="search-container">
-                          <form action="{{route('user.filter_news')}}" method="post">
+                          <form action="{{route('user.filter_news')}}" method="get">
                             @csrf
-                            <input class="search expandright" id="searchright" type="search" name="homeSearch" placeholder="Search" value="<?php if (!empty($_POST['homeSearch'])) {
-                    $q = $_POST['homeSearch'];
-                    echo $q;
-                }?>">
+                            <input class="search expandright" id="searchright" type="search" name="homeSearch" placeholder="Search" value="<?php if (!empty($_GET['homeSearch'])) {
+                              echo $_GET['homeSearch'];
+                            }?>">
                             <label class="button searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
                           </form>
                        </div>

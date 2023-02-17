@@ -26,7 +26,7 @@ class UserVideosController extends Controller
     }
 
 
-    public function videoDetail($id)
+    public function videoDetail($category, $id)
     {
         $videoDetail = VideoService::getVideosBySlug($id);
         return view('user.videoDetails',compact('videoDetail'));
